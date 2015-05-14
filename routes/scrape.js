@@ -67,19 +67,20 @@ router.get('/', function (req, res) {
                 var filters;
                 var htmlBody = response.body;
                 console.log('-/-/-/-/-/-/-/-/-/-');
-                filters = htmlBody.match("<!-- snippet:start [\\d\\D]*?<!-- snippet:end -->", "gi");
-                filteredHTml.push(filters);
+                filters = htmlBody.match(/<!-- snippet:start [\d\D]*?snippet:end -->/gi);
+                console.log('filters--------------');
+                console.log(filters);
+                console.log('-----------------------');
+                filteredHTml = filteredHTml.concat(filters);
             }
         }
         var a = {
             snippets: filteredHTml
         };
         res.json(a);
-
+        snippetsJson = JSON.stringify(a);
         // json write fs
-        jf.writeFile(fileJson, snippetsJson, function (err) {
-            console.log(err);
-            snippetsJson = JSON.stringify(a);
+        jf.writeFile(fileJson, a, function (err) {
             snippetsViewForm();
         });
         /*if (!error) {

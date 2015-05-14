@@ -1,1 +1,7 @@
-undefined
+{
+  "snippets": [
+    "<!-- snippet:start -->\r\n<div class=\"test-class-2\">\r\n    This is test snippet 2\r\n    (yeah)\r\n</div>\r\n<!-- snippet:end -->",
+    "<!-- snippet:start -->\r\n<div class=\"test-class3-real\">\r\n    This is test snippetas\r\n</div>\r\n<!-- snippet:end -->",
+    "<!-- snippet:start -->\r\n<div class=\"test-class3\">\r\n    This is test snippetsdffsdf\r\n</div>\r\n<!-- snippet:end -->"
+  ]
+}
