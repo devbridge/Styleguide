@@ -1,106 +1,64 @@
 var express = require('express');
-var router = express.Router();
 var request = require('request');
 var jf = require('jsonfile');
-var walkPath = './snippets';
-var snippets = [];
-var snippetsJson;
-var fileJson = './snippets.json';
+var config = require('../config.json');
 
-router.get('/', function (req, res) {
-    var urls = ['http://localhost:8080/snippets/snippet1.html', 'http://localhost:8080/snippets/snippet2.html'];
+var router = express.Router();
 
-    var snippetsViewForm = function() {
-        return JSON.parse(snippetsJson);
-    };
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'scrape' });
+});
 
-    var __request = function(urls, callback) {
+router.get('/scrape', function(req, res, next) {
 
-        'use strict';
-
-        var results = {},
-            t = urls.length,
-            c = 0,
-            handler = function(error, response, body) {
-
-                var url = response.request.uri.href;
-
-                results[url] = {
-                    error: error,
-                    response: response,
-                    body: body
-                };
-
-                if (++c === urls.length) {
-                    callback(results);
-                }
-
-            };
-
+  var requestPages = function(urls, callback) {
+    var results = {},
+        t = urls.length,
+        c = 0,
+        handler = function(error, response, body) {
+          var url = response.request.uri.href;
+          results[url] = {
+            error: error,
+            response: response,
+            body: body
+          };
+          if (++c === urls.length) {
+            callback(results);
+          }
+        };
         while (t--) {
             request(urls[t], handler);
         }
+  };
+
+  requestPages(config.scrapeUrls, function(responses) {
+    var filteredHTml = [];
+    var url, response;
+    for (url in responses) {
+      // reference to the response object
+      response = responses[url];
+      // find errors
+      if (response.error) {
+        console.log("Error", url, response.error);
+        return;
+      }
+       // render body
+      if (response.body) {
+        var filters;
+        var htmlBody = response.body;
+        filters = htmlBody.match(/<!-- snippet:start [\d\D]*?snippet:end -->/gi);
+        filteredHTml = filteredHTml.concat(filters);
+      }
+    }
+    var result = {
+      snippets: filteredHTml
     };
+    res.json(result);
 
-/**
-* Handle multiple requests at once
-* @param urls [array]
-* @param callback [function]
-* @requires request module for node ( https://github.com/mikeal/request )
-*/
-    __request(urls, function(responses) {
-        var filteredHTml = [];
-        var url, response;
-        for (url in responses) {
-            // reference to the response object
-            response = responses[url];
+    jf.writeFileSync('./db/' + config.categories[0] + '.json', result);
+  });
 
-            // find errors
-            if (response.error) {
-                console.log("Error", url, response.error);
-                return;
-            }
-
-            // render body
-            if (response.body) {
-                console.log("Render", url, response.body);
-                var filters;
-                var htmlBody = response.body;
-                console.log('-/-/-/-/-/-/-/-/-/-');
-                filters = htmlBody.match(/<!-- snippet:start [\d\D]*?snippet:end -->/gi);
-                console.log('filters--------------');
-                console.log(filters);
-                console.log('-----------------------');
-                filteredHTml = filteredHTml.concat(filters);
-            }
-        }
-        var a = {
-            snippets: filteredHTml
-        };
-        res.json(a);
-        snippetsJson = JSON.stringify(a);
-        // json write fs
-        jf.writeFile(fileJson, a, function (err) {
-            snippetsViewForm();
-        });
-        /*if (!error) {
-            var filteredHTml = html;
-            console.log(filteredHTml);
-            var a = {
-                snippet: html
-            };
-            res.json(a);
-
-            // json write fs
-            jf.writeFile(fileJson, snippetsJson, function (err) {
-                console.log(err);
-                snippetsJson = JSON.stringify(a);
-                snippetsViewForm();
-            });
-        } else {
-            console.log(error);
-        }*/
-    });
-})
+});
 
 module.exports = router;

@@ -1,0 +1,23 @@
+{
+  "server": {
+    "dev": {
+      "path": "./app.js",
+      "nodeArgs": ["--debug"],
+      "env": { "NODE_ENV": "development", "PORT": "8080" }
+    }
+  },
+
+  "categories": [
+    "undefined",
+    "general"
+  ],
+
+  "scrapeUrls": [
+    "http://localhost:8080/snippets/snippet1.html",
+    "http://localhost:8080/snippets/snippet2.html"
+  ],
+
+  "legalUrls": [
+
+  ]
+}
