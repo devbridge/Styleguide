@@ -9,7 +9,8 @@
 
   "categories": [
     "undefined",
-    "general"
+    "general",
+    "sample"
   ],
 
   "scrapeUrls": [
@@ -17,7 +18,11 @@
     "http://localhost:8080/snippets/snippet2.html"
   ],
 
-  "legalUrls": [
+  "cssResources": [
+
+  ],
+
+  "adminDomains": [
 
   ]
 }
