@@ -4,13 +4,15 @@
       "path": "./app.js",
       "nodeArgs": ["--debug"],
       "env": { "NODE_ENV": "development", "PORT": "8080" }
-    }
+    },
+    "dataFolder": "./db/",
+    "dataExt": ".json"
   },
 
   "categories": [
     "undefined",
     "general",
-    "sample"
+    "samples"
   ],
 
   "scrapeUrls": [
