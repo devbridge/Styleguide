@@ -1,5 +1,20 @@
 [
-    "<!-- snippet:start -->\r\n<div class=\"test-class-2\">\r\n    This is test snippet 2\r\n    (yeah)\r\n</div>\r\n<!-- snippet:end -->",
-    "<!-- snippet:start -->\r\n<div class=\"test-class3-real\">\r\n    This is test snippetas\r\n</div>\r\n<!-- snippet:end -->",
-    "<!-- snippet:start -->\r\n<div class=\"test-class3\">\r\n    This is test snippetsdffsdf\r\n</div>\r\n<!-- snippet:end -->"
+  {
+    "id": 11,
+    "name": "",
+    "code": "<!-- snippet:start 11 -->\r\n<div class=\"test-class3-real\">\r\n    This is test snippetas\r\n</div>\r\n<!-- snippet:end -->",
+    "description": "",
+    "inlineCss": "",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 13,
+    "name": "",
+    "code": "<!-- snippet:start 13-->\r\n<div class=\"test-class3\">\r\n    This is test snippetsdffsdf\r\n</div>\r\n<!-- snippet:end -->",
+    "description": "",
+    "inlineCss": "",
+    "isEdited": true,
+    "isDeleted": false
+  }
 ]

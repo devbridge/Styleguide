@@ -5,12 +5,7 @@ var config = require('../config.json');
 
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'scrape' });
-});
-
-router.get('/scrape', function(req, res, next) {
 
   var requestPages = function(urls, callback) {
     var results = {},
@@ -32,9 +27,27 @@ router.get('/scrape', function(req, res, next) {
         }
   };
 
+  var findSnippet = function(snippetId) {
+    for (var i = 0, length = config.categories.length; i < length; i++) {
+      var dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
+      snippets = jf.readFileSync(dataPath);
+
+      var desireableSnippet = snippets.filter(function (obj) {
+        if (obj.id == snippetId) {
+          return obj
+        }
+      })[0];
+
+      if (desireableSnippet) {
+        return { snippet: desireableSnippet, category: i };
+      } 
+    }
+  }
+
   requestPages(config.scrapeUrls, function(responses) {
-    var filteredHTml = [];
-    var url, response;
+    var filteredHTml = [], results = [];
+    var snippetai = {}
+    var url, response, uniques = jf.readFileSync(config.server.dataFolder + 'uniques.json');
     for (url in responses) {
       // reference to the response object
       response = responses[url];
@@ -51,12 +64,65 @@ router.get('/scrape', function(req, res, next) {
         filteredHTml = filteredHTml.concat(filters);
       }
     }
-    var result = {
-      snippets: filteredHTml
-    };
-    res.json(result);
 
-    jf.writeFileSync('./db/' + config.categories[0] + '.json', result);
+    //build snippets
+    for (var i = 0, length = filteredHTml.length; i < length; i++) {
+      var snippetId = filteredHTml[i].match(/[\d]+/g);
+      var categoryId = filteredHTml[i].match(/(?=:).[\d]+/g);
+
+      if (!snippetId) {
+        res.status(500).send('Snippet ID is not defined! In: ' + filteredHTml[i]);
+        return;
+      }
+
+      snippetId = Number(snippetId[0]);
+
+      categoryId = categoryId ? Number(categoryId[0].slice(1)) : config.categories.indexOf('undefined');
+
+      var newSnippet = {
+        id: snippetId,
+        name: "",
+        code: filteredHTml[i],
+        description: "",
+        inlineCss: "",
+        isEdited: false,
+        isDeleted: false
+      }
+
+      snippetai[categoryId] = snippetai[categoryId] ? snippetai[categoryId].concat(newSnippet) : [newSnippet];
+      results.push(newSnippet);
+    }
+
+    for (category in snippetai) {
+
+      var current = jf.readFileSync(config.server.dataFolder + config.categories[category] + config.server.dataExt, {throws: false}) || [];
+
+      for (var i = 0, snipp = snippetai[category], length = snipp.length; i < length; i++) {
+        console.log('entered for', length, i);
+        if (uniques.indexOf(snipp[i].id) == -1) {
+          uniques.push(snipp[i].id);
+          current = current.concat(snipp[i]);
+        } else {
+          var snippAndCat = findSnippet(snipp[i].id);
+          if (!snippAndCat.snippet.isEdited) {
+            snippets = jf.readFileSync(config.server.dataFolder + config.categories[snippAndCat.category] + config.server.dataExt);
+
+            var index = snippets.indexOf(desireableSnippet);
+            snippets.splice(index, 1);
+
+            jf.writeFileSync(config.server.dataFolder + config.categories[snippAndCat.category] + config.server.dataExt, snippets);
+
+            current.push(snipp[i]);
+          }
+        }
+      }
+
+      jf.writeFileSync(config.server.dataFolder + config.categories[category] + config.server.dataExt, current);
+    }
+
+    jf.writeFileSync(config.server.dataFolder + 'uniques.json', uniques);
+
+    res.json(snippetai);
   });
 
 });
