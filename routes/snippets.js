@@ -3,20 +3,33 @@ var config = require('../config.json');
 var jf = require('jsonfile');
 var router = express.Router();
 
+
 router.get('/*.html', function (req, res) {
     res.sendFile('/snippets' + req.path, {'root': './'});
 });
+
 
 router.get('/', function (req, res) {
   var allSnippets = [];
   for (var i = 0, length = config.categories.length; i < length; i++) {
     var dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
     snippets = jf.readFileSync(dataPath);
+
+    snippets = snippets.map(function (obj) {
+      obj.category = i;
+      return obj;
+    });
+
+    snippets = snippets.filter(function (obj) {
+      return !obj.isDeleted;
+    });
+
     allSnippets = allSnippets.concat(snippets);
   }
 
   res.json(allSnippets);
 });
+
 
 router.get('/:id', function (req, res) {
   var uniques = jf.readFileSync(config.server.dataFolder + 'uniques.json');
@@ -38,11 +51,15 @@ router.get('/:id', function (req, res) {
       }
     })[0];
 
-    if (desireableSnippet) break;
+    if (desireableSnippet) {
+      desireableSnippet.category = i;
+      break;
+    } 
   }
 
   res.json(desireableSnippet);
 });
+
 
 router.post('/', function (req, res) {
   var dataPath = config.server.dataFolder + config.categories[req.body.category] + config.server.dataExt;
@@ -76,10 +93,13 @@ router.post('/', function (req, res) {
   res.json(newSnippet);
 });
 
-router.put('/:id', function(req, res) {
+
+router.put('/:id', function (req, res) {
   var uniques = jf.readFileSync(config.server.dataFolder + 'uniques.json');
   var id = Number(req.params.id);
-  var snippets, category;
+  var snippets, category, dataPath, newCategory;
+
+  newCategory = Number(req.body.category);
 
   if (uniques.indexOf(id) == -1) {
     res.json(false);
@@ -87,7 +107,7 @@ router.put('/:id', function(req, res) {
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    var dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
+    dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
     snippets = jf.readFileSync(dataPath);
 
     var desireableSnippet = snippets.filter(function (obj) {
@@ -99,19 +119,40 @@ router.put('/:id', function(req, res) {
     if (desireableSnippet) {
       category = i;
       break;
-    } 
+    }
   }
 
-  //TODO: modify element, write out
+  var index = snippets.indexOf(desireableSnippet);
+  snippets.splice(index, 1);
 
-  console.log(desireableSnippet, category);
-  res.json(desireableSnippet);
+  if (newCategory != category) {
+    jf.writeFileSync(dataPath, snippets);
+    dataPath = config.server.dataFolder + config.categories[newCategory] + config.server.dataExt;
+    snippets = jf.readFileSync(dataPath);
+  }
+
+  var modSnippet = {
+    id: id,
+    name: req.body.name,
+    code: req.body.code,
+    description: req.body.description,
+    inlineCss: req.body.inlineCss,
+    isEdited: true,
+    isDeleted: false
+  }
+
+  snippets.push(modSnippet);
+
+  jf.writeFileSync(dataPath, snippets);
+
+  res.json(modSnippet);
 });
+
 
 router.delete('/:id', function (req, res) {
   var uniques = jf.readFileSync(config.server.dataFolder + 'uniques.json');
   var id = Number(req.params.id);
-  var snippets, category;
+  var snippets, category, dataPath;
 
   if (uniques.indexOf(id) == -1) {
     res.json(false);
@@ -119,7 +160,7 @@ router.delete('/:id', function (req, res) {
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    var dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
+    dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
     snippets = jf.readFileSync(dataPath);
 
     var desireableSnippet = snippets.filter(function (obj) {
@@ -134,7 +175,12 @@ router.delete('/:id', function (req, res) {
     } 
   }
 
-  //TODO: delete element from arr, write out
+  desireableSnippet.isDeleted = true;
+
+  var index = snippets.indexOf(desireableSnippet);
+  snippets.splice(index, 1, desireableSnippet);
+
+  jf.writeFileSync(dataPath, snippets);
   res.json(desireableSnippet);
 });
 
