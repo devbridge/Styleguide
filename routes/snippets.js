@@ -30,6 +30,19 @@ router.get('/', function (req, res) {
   res.json(allSnippets);
 });
 
+router.get('/category/:id', function (req, res) {
+  var catId = Number(req.params.id);
+  var dataPath = config.server.dataFolder + config.categories[catId] + config.server.dataExt;
+
+  snippets = jf.readFileSync(dataPath);
+
+  snippets = snippets.filter(function (obj) {
+    return !obj.isDeleted;
+  });
+
+  res.json(snippets);
+});
+
 
 router.get('/:id', function (req, res) {
   var uniques = jf.readFileSync(config.server.dataFolder + 'uniques.json');
