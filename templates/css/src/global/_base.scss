@@ -1,0 +1,26 @@
+html {
+	box-sizing: border-box;
+	height: 100%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.main {
+	flex: 1;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+.page-wrapper {
+	margin: 0 auto;
+	max-width: $media-medium + $grid-gutter;
+	padding: 0 $grid-gutter/2;
+}
