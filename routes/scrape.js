@@ -5,7 +5,7 @@ var config = require('../config.json');
 
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/snippets', function (req, res, next) {
 
   var requestPages = function(urls, callback) {
     var results = {},
@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 
   var findSnippet = function(snippetId, callback) {
     for (var i = 0, length = config.categories.length; i < length; i++) {
-      var dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
+      var dataPath = './db/' + config.categories[i].name + '.json';
       var snippets = jf.readFileSync(dataPath, {throws: false}) || [];
 
       var desireableSnippet = snippets.filter(function (obj) {
@@ -47,7 +47,7 @@ router.get('/', function(req, res, next) {
   requestPages(config.scrapeUrls, function(responses) {
     var filteredHTml = [], results = [];
     var snippetai = {}
-    var url, response, uniques = jf.readFileSync(config.server.dataFolder + 'uniques.json', {throws: false}) || [];
+    var url, response, uniques = jf.readFileSync('./db/uniques.json', {throws: false}) || [];
     for (url in responses) {
       // reference to the response object
       response = responses[url];
@@ -68,12 +68,12 @@ router.get('/', function(req, res, next) {
     //build snippets
     for (var i = 0, length = filteredHTml.length; i < length; i++) {
       var snippetId, categoryId;
-      //TODO: atskirai pasiimti komentara ir jame ieskoti idiziku
       var domMarker = filteredHTml[i].match(/<!-- snippet:start [\d\D]*? -->/gi)[0];
       var extractedIds = domMarker.match(/[\d]+/g);
       if (extractedIds) {
         snippetId = Number(extractedIds[0]);
-        categoryId = extractedIds[1] ? Number(extractedIds[1]) : config.categories.indexOf('undefined');
+        //TODO: instead of 0, find undefined category id
+        categoryId = extractedIds[1] ? Number(extractedIds[1]) : 0;
       }
 
       if (!snippetId) {
@@ -97,7 +97,21 @@ router.get('/', function(req, res, next) {
 
     for (category in snippetai) {
 
-      var current = jf.readFileSync(config.server.dataFolder + config.categories[category] + config.server.dataExt, {throws: false}) || [];
+      var currentDataPath;
+
+      for (var i = 0, length = config.categories.length; i < length; i++) {
+        if (config.categories[i].id == category) {
+          currentDataPath = './db/' + config.categories[i].name + '.json';
+          break;
+        }
+      }
+
+     if (!currentDataPath) {
+      res.json('Category with id: ' + catId + 'not found.');
+      return;
+    }
+
+      var current = jf.readFileSync(currentDataPath, {throws: false}) || [];
 
       for (var i = 0, snipp = snippetai[category], length = snipp.length; i < length; i++) {
 
@@ -119,7 +133,21 @@ router.get('/', function(req, res, next) {
                 current.splice(index, 1);
                 current.push(snipp[i]);
               } else {
-                var snippets = jf.readFileSync(config.server.dataFolder + config.categories[snippAndCat.category] + config.server.dataExt, {throws: false}) || [];
+                var oldCatPath;
+
+                for (var i = 0, length = config.categories.length; i < length; i++) {
+                  if (config.categories[i].id == snippAndCat.category) {
+                    oldCatPath = './db/' + config.categories[i].name + '.json';
+                    break;
+                  }
+                }
+
+                if (!oldCatPath) {
+                  res.json('Category with id: ' + catId + 'not found.');
+                  return;
+                }
+
+                var snippets = jf.readFileSync(oldCatPath, {throws: false}) || [];
 
                 for(var j = 0, len = snippets.length; j < len; j++) {
                   if (snippets[j].id === snippAndCat.snippet.id) {
@@ -130,7 +158,7 @@ router.get('/', function(req, res, next) {
 
                 snippets.splice(index, 1);
 
-                jf.writeFileSync(config.server.dataFolder + config.categories[snippAndCat.category] + config.server.dataExt, snippets);
+                jf.writeFileSync(oldCatPath, snippets);
 
                 current.push(snipp[i]);
               }
@@ -142,14 +170,18 @@ router.get('/', function(req, res, next) {
         }
       }
 
-      jf.writeFileSync(config.server.dataFolder + config.categories[category] + config.server.dataExt, current);
+      jf.writeFileSync(currentDataPath, current);
     }
 
-    jf.writeFileSync(config.server.dataFolder + 'uniques.json', uniques);
+    jf.writeFileSync('./db/uniques.json', uniques);
 
     res.json(snippetai);
   });
 
+});
+
+router.get('/sass', function (req, res) {
+  res.json('hello');
 });
 
 module.exports = router;

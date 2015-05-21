@@ -12,8 +12,11 @@ router.get('/*.html', function (req, res) {
 router.get('/', function (req, res) {
   var allSnippets = [];
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    var dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
+    var dataPath = './db/' + config.categories[i].name + '.json';
+    console.log(dataPath);
     snippets = jf.readFileSync(dataPath);
+
+    console.log(snippets);
 
     snippets = snippets.map(function (obj) {
       obj.category = i;
@@ -30,9 +33,54 @@ router.get('/', function (req, res) {
   res.json(allSnippets);
 });
 
+router.get('/duplicates', function (req, res) {
+  var comparator = function (a, b) {
+    return a.id - b.id;
+  };
+
+  var allSnippets = [], found = false;
+  for (var i = 0, length = config.categories.length; i < length; i++) {
+    var dataPath = './db/' + config.categories[i].name + '.json';
+    snippets = jf.readFileSync(dataPath);
+
+    snippets = snippets.map(function (obj) {
+      obj.category = i;
+      return obj;
+    });
+
+    snippets = snippets.filter(function (obj) {
+      return !obj.isDeleted;
+    });
+
+    allSnippets = allSnippets.concat(snippets);
+  }
+
+  allSnippets.sort(comparator);
+
+  for (var i = 0, length = allSnippets.length - 1; i < length; i++) {
+    if (allSnippets[i].id == allSnippets[i + 1].id) {
+      res.json([allSnippets[i], allSnippets[i + 1]]);
+      found = true;
+      break;
+    }
+  }
+  if (!found) {
+    res.json(found);
+  }
+});
+
 router.get('/category/:id', function (req, res) {
-  var catId = Number(req.params.id);
-  var dataPath = config.server.dataFolder + config.categories[catId] + config.server.dataExt;
+  var catId = Number(req.params.id), dataPath;
+  for (var i = 0, length = config.categories.length; i < length; i++) {
+    if (config.categories[i].id == catId) {
+      dataPath = './db/' + config.categories[i].name + '.json'
+    }
+  }
+  
+  if (!dataPath) {
+    res.json('Category with id: ' + catId + 'not found.');
+    return;
+  }
 
   snippets = jf.readFileSync(dataPath);
 
@@ -45,7 +93,7 @@ router.get('/category/:id', function (req, res) {
 
 
 router.get('/:id', function (req, res) {
-  var uniques = jf.readFileSync(config.server.dataFolder + 'uniques.json');
+  var uniques = jf.readFileSync('./db/uniques.json');
   var id = Number(req.params.id);
   var snippets;
 
@@ -55,7 +103,7 @@ router.get('/:id', function (req, res) {
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    var dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
+    var dataPath = './db/' + config.categories[i].name + '.json';
     snippets = jf.readFileSync(dataPath);
 
     var desireableSnippet = snippets.filter(function (obj) {
@@ -75,10 +123,22 @@ router.get('/:id', function (req, res) {
 
 
 router.post('/', function (req, res) {
-  var dataPath = config.server.dataFolder + config.categories[req.body.category] + config.server.dataExt;
-  var datastore = jf.readFileSync(dataPath);
-  var uniques = jf.readFileSync(config.server.dataFolder + 'uniques.json');
+  var dataPath;
+  var uniques = jf.readFileSync('./db/uniques.json');
   var id, number;
+
+  for (var i = 0, length = config.categories.length; i < length; i++) {
+    if (config.categories[i].id == req.body.category) {
+      dataPath = './db/' + config.categories[i].name + '.json'
+    }
+  }
+  
+  if (!dataPath) {
+    res.json('Category with id: ' + catId + 'not found.');
+    return;
+  }
+
+  var datastore = jf.readFileSync(dataPath);
 
   while(!id) {
     number = Math.floor(Math.random() * 1001);
@@ -101,14 +161,14 @@ router.post('/', function (req, res) {
   uniques = uniques.concat(id);
 
   jf.writeFileSync(dataPath, datastore);
-  jf.writeFileSync(config.server.dataFolder + 'uniques.json', uniques);
+  jf.writeFileSync('./db/uniques.json', uniques);
 
   res.json(newSnippet);
 });
 
 
 router.put('/:id', function (req, res) {
-  var uniques = jf.readFileSync(config.server.dataFolder + 'uniques.json');
+  var uniques = jf.readFileSync('./db/uniques.json');
   var id = Number(req.params.id);
   var snippets, category, dataPath, newCategory;
 
@@ -120,7 +180,7 @@ router.put('/:id', function (req, res) {
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
+    dataPath = './db/' + config.categories[i].name + '.json';
     snippets = jf.readFileSync(dataPath);
 
     var desireableSnippet = snippets.filter(function (obj) {
@@ -140,7 +200,18 @@ router.put('/:id', function (req, res) {
 
   if (newCategory != category) {
     jf.writeFileSync(dataPath, snippets);
-    dataPath = config.server.dataFolder + config.categories[newCategory] + config.server.dataExt;
+
+    for (var i = 0, length = config.categories.length; i < length; i++) {
+      if (config.categories[i].id == newCategory) {
+        dataPath = './db/' + config.categories[i].name + '.json'
+      }
+    }
+  
+    if (!dataPath) {
+      res.json('Category with id: ' + catId + 'not found.');
+      return;
+    }
+
     snippets = jf.readFileSync(dataPath);
   }
 
@@ -163,7 +234,7 @@ router.put('/:id', function (req, res) {
 
 
 router.delete('/:id', function (req, res) {
-  var uniques = jf.readFileSync(config.server.dataFolder + 'uniques.json');
+  var uniques = jf.readFileSync('./db/uniques.json');
   var id = Number(req.params.id);
   var snippets, category, dataPath;
 
@@ -173,7 +244,7 @@ router.delete('/:id', function (req, res) {
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    dataPath = config.server.dataFolder + config.categories[i] + config.server.dataExt;
+    dataPath = './db/' + config.categories[i].name + '.json';
     snippets = jf.readFileSync(dataPath);
 
     var desireableSnippet = snippets.filter(function (obj) {
