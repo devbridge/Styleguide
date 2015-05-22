@@ -135,7 +135,7 @@ router.get('/snippets', function (req, res, next) {
               } else {
                 var oldCatPath;
 
-                for (var i = 0, length = config.categories.length; i < length; i++) {
+                for (var j = 0, length = config.categories.length; j < length; j++) {
                   if (config.categories[i].id == snippAndCat.category) {
                     oldCatPath = './db/' + config.categories[i].name + '.json';
                     break;
@@ -159,6 +159,8 @@ router.get('/snippets', function (req, res, next) {
                 snippets.splice(index, 1);
 
                 jf.writeFileSync(oldCatPath, snippets);
+
+                console.log(snipp[i])
 
                 current.push(snipp[i]);
               }
