@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class="page-container">
-		<header class="header">
+		<header class="header page-prewrapper">
 			<div class="page-wrapper">
 				<h1>Styleguide</h1>
 				<nav class="header-nav">
@@ -44,7 +44,7 @@
 		</header>
 		
 		<main class="main">
-			<section class="snippet-form">
+			<section class="snippet-form page-prewrapper" style="display: none;">
 				<div class="page-wrapper">
 					<form class="row">
 						<div class="medium-2 columns">
@@ -88,7 +88,7 @@
 					<div class="row controls-row">
 						<div class="medium-4 columns medium-offset-2">
 							<button class="btn-primary" type="submit">Create</button>
-							<button class="btn-secondary" type="button">Cancel</button>
+							<button class="btn-blank" type="button">Cancel</button>
 						</div>
 						<div class="medium-4 columns end text-right">
 							* - Mandatory fields
@@ -96,16 +96,108 @@
 					</div>
 				</div>
 			</section>
+			
+			<section class="snippet js-snippet">
+				<header class="snippet-header">
+					<div class="page-wrapper clearfix">
+						<h1>Snippet Name</h1>
+						<div class="pull-right">
+							<button class="snippet-control-btn js-snippet-settings-btn" type="button"><i class="fa fa-cog"></i></button>
+							<button class="snippet-control-btn js-snippet-code-btn" type="button"><i class="fa fa-code"></i></btutton>
+						</div>
+						<div class="snippet-size js-snippet-size">1200px</div>
+					</div>
+				</header>
+				<div class="snippet-code page-prewrapper js-snippet-code" style="display: none;">
+					<div class="page-wrapper">
+						<div class="row">
+							<code class="medium-6 columns code-preview">
+								code preview
+							</code>
+							<div class="medium-6 columns end code-description">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda alias, voluptatibus quasi ipsam quas ipsa tenetur pariatur velit cum reprehenderit optio perferendis ad labore ea, porro?
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="snippet-preview js-snippet-preview" style="width: 1200px;">
+					<div class="snippet-source">
+						<div class="made-up-snippet-example">
+							<h2>Example snippet with long heading Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores unde eveniet, non.</h2>
+							<div style="border: 1px solid #bada55;">
+								Some sort of content here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eaque deleniti qui perspiciatis tempora.
+							</div>
+						</div>
+					</div>
+					<div class="snippet-resize-handle snippet-resize-handle-left js-snippet-resize-handle-left" draggable="true"></div>
+					<div class="snippet-resize-handle snippet-resize-handle-right js-snippet-resize-handle-right" draggable="true"></div>
+				</div>
+				<div class="snippet-settings js-snippet-settings" style="display: none;">
+					<section class="snippet-form page-prewrapper">
+						<div class="page-wrapper">
+							<form class="row">
+								<div class="medium-2 columns">
+									<h1>Edit Snippet</h1>
+								</div>
+								<div class="medium-4 columns">
+									<div class="form-item">
+										<label for="form-new-name">* Name:</label>
+										<input type="text" id="form-new-name">
+									</div>
+									
+									<div class="form-item">
+										<label for="form-new-category">* Category:</label>
+										<select id="form-new-category">
+											<option value="0">Components</option>
+											<option value="1">General</option>
+											<option value="2">Layouts</option>
+											<option value="3">Buttons</option>
+											<option value="4">Form Elements</option>
+										</select>
+									</div>
+									
+									<div class="form-item">
+										<label for="form-new-code">* Code:</label>
+										<textarea id="form-new-code"></textarea>
+									</div>
+								</div>
+								
+								<div class="medium-4 columns end">
+									<div class="form-item form-item">
+										<label for="form-new-desciption">Desciption:</label>
+										<textarea id="form-new-desciption"></textarea>
+									</div>
+									
+									<div class="form-item">
+										<label for="form-new-inlinecss">Inline CSS: <i class="fa fa-info-circle"></i></label>
+										<textarea id="form-new-inlinecss" class="inline-css"></textarea>
+									</div>
+								</div>
+							</form>
+							<div class="row controls-row">
+								<div class="medium-4 columns medium-offset-2">
+									<button class="btn-primary" type="submit">Create</button>
+									<button class="btn-blank" type="button">Cancel</button>
+								</div>
+								<div class="medium-4 columns end text-right">
+									* - Mandatory fields
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</section>
 		</main>
 	</div>
 	
-	<footer class="footer">
+	<footer class="footer page-prewrapper">
 		<div class="page-wrapper">
 			Powered by Devbridge
 		</div>
 	</footer>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="js/interact-1.2.4.min.js"></script>
 	<script src="js/main.js"></script>
 </body>
 </html>

@@ -22,10 +22,6 @@ $btn-ghost-radius: $border-radius;
 	border-radius: $btn-ghost-radius;
 	color: $color-white;
 	
-	&[type=text] {
-		width: 56px;
-	}
-	
 	.fa-angle-left,
 	.fa-angle-right {
 		font-size: 21px;
@@ -44,7 +40,7 @@ $btn-ghost-radius: $border-radius;
 }
 
 .btn-ghost-group {
-	@extend %clearfix;
+	@extend .clearfix;
 	display: inline-block;
 	vertical-align: middle;
 	
@@ -73,7 +69,7 @@ $btn-ghost-radius: $border-radius;
 	min-width: 90px;
 }
 
-.btn-secondary {
+.btn-blank {
 	@extend %btn-template;
 	background-color: transparent;
 	border: 0;

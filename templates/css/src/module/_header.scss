@@ -1,5 +1,5 @@
 .header {
-	@extend %clearfix;
+	@extend .clearfix;
 	background: $color-black;
 	color: $color-white;
 	padding: 12px 0;
@@ -35,6 +35,7 @@
 	}
 	
 	.dropdown {
+		@extend .layer-6;
 		background: $color-black;
 		border: 1px solid $color-white;
 		border-radius: $border-radius;
@@ -68,6 +69,10 @@
 	
 	.btn-ghost {
 		min-width: 42px;
+		
+		&[type=text] {
+			width: 56px;
+		}
 	}
 }
 

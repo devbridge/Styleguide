@@ -1,5 +1,5 @@
 .row {
-	@extend %clearfix;
+	@extend .clearfix;
 	margin: 0 $grid-gutter/-2;
 }
 
