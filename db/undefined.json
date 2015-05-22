@@ -1,20 +1,1262 @@
 [
   {
-    "id": 11,
-    "name": "",
-    "code": "<!-- snippet:start 11 -->\r\n<div class=\"test-class3-real\">\r\n    This is test snippetas\r\n</div>\r\n<!-- snippet:end -->",
-    "description": "",
-    "inlineCss": "",
-    "isEdited": true,
+    "id": 714,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
     "isDeleted": false
   },
   {
-    "id": 13,
-    "name": "",
-    "code": "<!-- snippet:start 13-->\r\n<div class=\"test-class3\">\r\n    This is test snippetsdffsdf\r\n</div>\r\n<!-- snippet:end -->",
-    "description": "",
-    "inlineCss": "",
-    "isEdited": true,
+    "id": 224,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 169,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 485,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 641,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 391,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 501,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 569,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 949,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 570,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 633,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 676,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 236,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 862,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 85,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 96,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 730,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 751,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 291,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 254,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 912,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 941,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 697,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 225,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 28,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 117,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 788,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 891,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 610,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 99,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 776,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 566,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 437,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 424,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 387,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 995,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 568,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 766,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 334,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 821,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 452,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 761,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 52,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 712,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 50,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 913,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 74,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 97,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 128,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 21,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 572,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 863,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 721,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 874,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 585,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 871,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 544,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 640,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 601,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 12,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 852,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 471,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 742,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 182,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 36,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 440,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 107,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 340,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 687,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 168,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 552,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 657,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 800,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 998,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 363,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 267,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 191,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 150,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 261,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 595,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 415,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 550,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 733,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 554,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 202,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 240,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 335,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 940,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 288,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 159,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 213,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 935,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 87,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 200,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 78,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 961,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 69,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 669,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 494,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 320,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 275,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 447,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 106,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 903,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 211,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 664,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 819,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 808,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 813,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 379,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 807,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 947,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 553,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 350,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 518,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 282,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 963,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 432,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 155,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 523,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 815,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 927,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 854,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 10,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 348,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 283,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 625,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 357,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 831,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 171,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 880,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 473,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 243,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 142,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 908,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 464,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 431,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 345,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 972,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 466,
+    "name": "sample snippet13",
+    "code": "<div class=\"test-class-2\">This is test snippet 2</div>",
+    "description": "some sample snippet for testing purposes33",
+    "inlineCss": "color: blue;",
+    "isEdited": false,
     "isDeleted": false
   }
 ]

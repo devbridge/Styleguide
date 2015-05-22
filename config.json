@@ -4,12 +4,25 @@
       "path": "./app.js",
       "nodeArgs": ["--debug"],
       "env": { "NODE_ENV": "development", "PORT": "8080" }
-    },
-    "dataFolder": "./db/",
-    "dataExt": ".json"
+    }
   },
 
   "categories": [
+    {
+      "name": "undefined",
+      "id": 0
+    },
+    {
+      "name": "general",
+      "id": 1
+    },
+    {
+      "name": "samples",
+      "id": 2
+    }
+  ],
+
+  "categories2": [
     "undefined",
     "general",
     "samples"
