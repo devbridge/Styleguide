@@ -185,7 +185,7 @@ router.get('/sass', function (req, res) {
   var sass;
   var typography = [], colors = [];
   for (var i = 0, length = config.sassResources.length; i < length; i++) {
-    var typo, col, weig, colorValues;
+    var typo, col, weig, colorValues, unassigned = [], assigned = {};
     sass = fs.readFileSync(config.sassResources[i], {encoding: 'utf-8'});
 
 
@@ -221,20 +221,27 @@ router.get('/sass', function (req, res) {
 
     col = sass.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi);
 
-    colorValues = col.shift();
+    for (var j = 0, len = col.length; j < len; j++) {
+      colorValues = col[j].split('\n');
 
-    colorValues = colorValues.split('\n');
-    colorValues.shift(); colorValues.pop();
+      //remove dom markers
+      colorValues.shift();
+      colorValues.pop();
 
-    for (var j = 0, len = colorValues.length; j < len; j++) {
-      var variableName = colorValues[j].match(/\$[\d\D]*?(?=:)/gi)[0];
-      var value = colorValues[j].match(/\#[\d\D]*?(?=;)/gi)[0];
+      unassigned = unassigned.concat(colorValues);
     }
 
-    console.log(colorValues);
+    //prepare array structure
+    for (var j = 0, len = unassigned.length; j < len; j++) {
+      var variableName = unassigned[j].match(/\$[\d\D]*?(?=:)/gi)[0];
+      var value = unassigned[j].match(/\:[\d\D]*?(?=;)/gi)[0];
+
+      value = value.substring(1, value.length).trim();
+
+      unassigned[j] = {variable: variableName, value: value}
+    }
 
     weig = sass.match(/\([\d\D]*?\)/gi);
-    colors = colors.concat(col);
   }
 
   jf.writeFileSync('./db/sassdata.json', typography);
