@@ -1,6 +1,7 @@
 var express = require('express');
 var request = require('request');
 var jf = require('jsonfile');
+var fs = require('fs');
 var config = require('../config.json');
 
 var router = express.Router();
@@ -160,8 +161,6 @@ router.get('/snippets', function (req, res, next) {
 
                 jf.writeFileSync(oldCatPath, snippets);
 
-                console.log(snipp[i])
-
                 current.push(snipp[i]);
               }
             } else {
@@ -183,7 +182,64 @@ router.get('/snippets', function (req, res, next) {
 });
 
 router.get('/sass', function (req, res) {
-  res.json('hello');
+  var sass;
+  var typography = [], colors = [];
+  for (var i = 0, length = config.sassResources.length; i < length; i++) {
+    var typo, col, weig, colorValues;
+    sass = fs.readFileSync(config.sassResources[i], {encoding: 'utf-8'});
+
+
+    typo = sass.match(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi);
+    var array = typo[0].split('\n');
+    array.splice(0,1);
+    array.pop();
+
+    //Constructing types array
+    for (var j = 0, len = array.length; j <len; j++) {
+      var variableName = array[j].match(/\$[\d\D]*?(?=:)/gi)[0];
+      var value = array[j].match(/(?=:)[\d\D]*?(?=;)/)[0];
+      value = value.substring(1, value.length).trim();
+
+      var weights = array[j].match(/\([\d\D]*?(?=\))/gi)[0];
+      weights = weights.substring(1, weights.length);
+
+      weights = weights.replace(/ /g,'').split(',');
+
+      weights = weights.map(function (weight) {
+        return Number(weight);
+      });
+
+      var type = {
+        variable: variableName,
+        value: value,
+        weights: weights.sort()
+      }
+
+      typography.push(type);
+    }
+
+
+    col = sass.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi);
+
+    colorValues = col.shift();
+
+    colorValues = colorValues.split('\n');
+    colorValues.shift(); colorValues.pop();
+
+    for (var j = 0, len = colorValues.length; j < len; j++) {
+      var variableName = colorValues[j].match(/\$[\d\D]*?(?=:)/gi)[0];
+      var value = colorValues[j].match(/\#[\d\D]*?(?=;)/gi)[0];
+    }
+
+    console.log(colorValues);
+
+    weig = sass.match(/\([\d\D]*?\)/gi);
+    colors = colors.concat(col);
+  }
+
+  jf.writeFileSync('./db/sassdata.json', typography);
+
+  res.json(typography);
 });
 
 module.exports = router;

@@ -22,22 +22,16 @@
     }
   ],
 
-  "categories2": [
-    "undefined",
-    "general",
-    "samples"
-  ],
-
   "scrapeUrls": [
     "http://localhost:8080/snippets/snippet1.html",
     "http://localhost:8080/snippets/snippet2.html"
   ],
 
-  "cssResources": [
-
+  "sassResources": [
+    "C:\\Users\\Admin\\Documents\\Sites\\Styleguide\\_variables.scss"
   ],
 
-  "adminDomains": [
+  "cssResources": [
 
   ]
 }

@@ -13,10 +13,8 @@ router.get('/', function (req, res) {
   var allSnippets = [];
   for (var i = 0, length = config.categories.length; i < length; i++) {
     var dataPath = './db/' + config.categories[i].name + '.json';
-    console.log(dataPath);
-    snippets = jf.readFileSync(dataPath);
 
-    console.log(snippets);
+    snippets = jf.readFileSync(dataPath);
 
     snippets = snippets.map(function (obj) {
       obj.category = i;
@@ -134,7 +132,7 @@ router.post('/', function (req, res) {
   }
   
   if (!dataPath) {
-    res.json('Category with id: ' + catId + 'not found.');
+    res.json('Category with id: ' + req.body.category + 'not found.');
     return;
   }
 
@@ -163,6 +161,7 @@ router.post('/', function (req, res) {
   jf.writeFileSync(dataPath, datastore);
   jf.writeFileSync('./db/uniques.json', uniques);
 
+  newSnippet.category = req.body.category;
   res.json(newSnippet);
 });
 
@@ -188,7 +187,7 @@ router.put('/:id', function (req, res) {
         return obj
       }
     })[0];
-    console.log(i);
+
     if (desireableSnippet) {
       category = i;
       break;
@@ -252,7 +251,7 @@ router.delete('/:id', function (req, res) {
         return obj
       }
     })[0];
-    console.log(i);
+
     if (desireableSnippet) {
       category = i;
       break;
