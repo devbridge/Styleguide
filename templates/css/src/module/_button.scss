@@ -63,3 +63,20 @@ $btn-ghost-radius: $border-radius;
 		}
 	}
 }
+
+.btn-primary {
+	@extend %btn-template;
+	background-color: $color-black;
+	border: 0;
+	border-radius: $btn-ghost-radius;
+	color: $color-white;
+	min-width: 90px;
+}
+
+.btn-secondary {
+	@extend %btn-template;
+	background-color: transparent;
+	border: 0;
+	color: $color-black;
+	min-width: 90px;
+}

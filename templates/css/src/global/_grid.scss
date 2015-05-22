@@ -1,10 +1,10 @@
-.sg-row {
+.row {
 	@extend %clearfix;
 	margin: 0 $grid-gutter/-2;
 }
 
-.sg-row .column,
-.sg-row .columns {
+.column,
+.columns {
 	float: left;
 	padding: 0 $grid-gutter/2;
 	
@@ -18,15 +18,23 @@
 }
 
 @for $i from 1 through $grid-columns {
-	.sg-row .medium-#{$i} {
+	.medium-#{$i} {
 		width: 100% * ($i / $grid-columns);
+	}
+	
+	.medium-offset-#{$i} {
+		margin-left: 100% * ($i / $grid-columns);
 	}
 }
 
 @media (max-width: $media-small) {
 	@for $i from 1 through $grid-columns {
-		.sg-row .small-#{$i} {
+		.small-#{$i} {
 			width: 100% * ($i / $grid-columns);
+		}
+		
+		.small-offset-#{$i} {
+			margin-left: 100% * ($i / $grid-columns);
 		}
 	}
 }

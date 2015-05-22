@@ -4,13 +4,18 @@ html {
 }
 
 body {
-	display: flex;
-	flex-direction: column;
 	height: 100%;
 }
 
-.main {
-	flex: 1;
+.page-container {
+	margin-bottom: -$footer-height;
+	min-height: 100%;
+	
+	&:after {
+		content: '';
+		display: block;
+		height: $footer-height;
+	}
 }
 
 *,

@@ -1,12 +1,21 @@
+// Media queries
 $media-medium: 1180px;
 $media-small: 600px;
 
+// Grid
 $grid-columns: 12;
 $grid-gutter: 20px;
 
+// Fonts
 $font-main: Lato, Arial, sans-serif;
 
+// Colors
 $color-black: #000;
 $color-white: #fff;
+$color-grey: #e6e6e6;
+$color-grey-light: #f2f2f2;
+$color-grey-dark: #999;
 
-$border-radius: 6px;
+// Etc
+$border-radius: 4px;
+$footer-height: 62px;

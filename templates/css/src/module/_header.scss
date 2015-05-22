@@ -6,8 +6,6 @@
 	
 	h1,
 	h2 {
-		font-size: 24px;
-		font-weight: 300;
 		height: 28px;
 		line-height: 1;
 	}
@@ -25,6 +23,7 @@
 	h2 {
 		border-left: 1px solid $color-white;
 		display: inline-block;
+		font-weight: 300;
 		margin: 0 24px 0 0;
 		opacity: .6;
 		padding: 0 0 0 12px;

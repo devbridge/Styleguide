@@ -8,43 +8,96 @@
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-	<header class="header">
-		<div class="page-wrapper">
-			<h1>Styleguide</h1>
-			<nav class="header-nav">
-				<h2>Components</h2>
-				<div class="dropdown">
-					<a href="#">Components</a>
-					<a href="#">General</a>
-					<a href="#">Layouts</a>
-					<a href="#">Buttons</a>
-					<a href="#">Form Elements</a>
+	<div class="page-container">
+		<header class="header">
+			<div class="page-wrapper">
+				<h1>Styleguide</h1>
+				<nav class="header-nav">
+					<h2 class="h1">Components</h2>
+					<div class="dropdown">
+						<a href="#">Components</a>
+						<a href="#">General</a>
+						<a href="#">Layouts</a>
+						<a href="#">Buttons</a>
+						<a href="#">Form Elements</a>
+					</div>
+					<div class="btn-ghost-group">
+						<a class="btn-ghost" href="#" title="Previous"><i class="fa fa-angle-left"></i></a>
+						<a class="btn-ghost" href="#" title="Next"><i class="fa fa-angle-right"></i></a>
+					</div>
+				</nav>
+				
+				<div class="header-snippets-controls">
+					<button class="btn-ghost" type="button" title="New Snippet"><i class="fa fa-plus"></i> New</button>
+					<button class="btn-ghost" type="button" title="Menu"><i class="fa fa-list"></i></button>
 				</div>
-				<div class="btn-ghost-group">
-					<a class="btn-ghost" href="#" title="Previous"><i class="fa fa-angle-left"></i></a>
-					<a class="btn-ghost" href="#" title="Next"><i class="fa fa-angle-right"></i></a>
+				
+				<div class="header-size-controls">
+					<div class="btn-ghost-group">
+						<button class="btn-ghost" type="button" title="Desktop"><i class="fa fa-desktop"></i></button>
+						<button class="btn-ghost" type="button" title="Tablet"><i class="fa fa-tablet"></i></button>
+						<button class="btn-ghost" type="button" title="Mobile"><i class="fa fa-mobile"></i></button>
+						<input class="btn-ghost" type="text" title="Custom"value="1920">
+					</div>
 				</div>
-			</nav>
-			
-			<div class="header-snippets-controls">
-				<button class="btn-ghost" type="button" title="New Snippet"><i class="fa fa-plus"></i> New</button>
-				<button class="btn-ghost" type="button" title="Menu"><i class="fa fa-list"></i></button>
 			</div>
-			
-			<div class="header-size-controls">
-				<div class="btn-ghost-group">
-					<button class="btn-ghost" type="button" title="Desktop"><i class="fa fa-desktop"></i></button>
-					<button class="btn-ghost" type="button" title="Tablet"><i class="fa fa-tablet"></i></button>
-					<button class="btn-ghost" type="button" title="Mobile"><i class="fa fa-mobile"></i></button>
-					<input class="btn-ghost" type="text" title="Custom"value="1920">
-				</div>
-			</div>
-		</div>
-	</header>
-	
-	<main class="main">
+		</header>
 		
-	</main>
+		<main class="main">
+			<section class="snippet-form">
+				<div class="page-wrapper">
+					<form class="row">
+						<div class="medium-2 columns">
+							<h1>New Snippet</h1>
+						</div>
+						<div class="medium-4 columns">
+							<div class="form-item">
+								<label for="form-new-name">* Name:</label>
+								<input type="text" id="form-new-name">
+							</div>
+							
+							<div class="form-item">
+								<label for="form-new-category">* Category:</label>
+								<select id="form-new-category">
+									<option value="0">Components</option>
+									<option value="1">General</option>
+									<option value="2">Layouts</option>
+									<option value="3">Buttons</option>
+									<option value="4">Form Elements</option>
+								</select>
+							</div>
+							
+							<div class="form-item">
+								<label for="form-new-code">* Code:</label>
+								<textarea id="form-new-code"></textarea>
+							</div>
+						</div>
+						
+						<div class="medium-4 columns end">
+							<div class="form-item form-item">
+								<label for="form-new-desciption">Desciption:</label>
+								<textarea id="form-new-desciption"></textarea>
+							</div>
+							
+							<div class="form-item">
+								<label for="form-new-inlinecss">Inline CSS: <i class="fa fa-info-circle"></i></label>
+								<textarea id="form-new-inlinecss" class="inline-css"></textarea>
+							</div>
+						</div>
+					</form>
+					<div class="row controls-row">
+						<div class="medium-4 columns medium-offset-2">
+							<button class="btn-primary" type="submit">Create</button>
+							<button class="btn-secondary" type="button">Cancel</button>
+						</div>
+						<div class="medium-4 columns end text-right">
+							* - Mandatory fields
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
 	
 	<footer class="footer">
 		<div class="page-wrapper">
