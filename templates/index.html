@@ -28,7 +28,7 @@
 				</nav>
 				
 				<div class="header-snippets-controls">
-					<button class="btn-ghost" type="button" title="New Snippet"><i class="fa fa-plus"></i> New</button>
+					<button class="btn-ghost js-header-new-snippet" type="button" title="New Snippet"><i class="fa fa-plus"></i> New</button>
 					<button class="btn-ghost" type="button" title="Menu"><i class="fa fa-list"></i></button>
 				</div>
 				
@@ -44,7 +44,7 @@
 		</header>
 		
 		<main class="main">
-			<section class="snippet-form page-prewrapper" style="display: none;">
+			<section class="snippet-form snippet-form--new-snippet page-prewrapper js-new-snippet-form" style="display: none;">
 				<div class="page-wrapper">
 					<form class="row">
 						<div class="medium-2 columns">
@@ -75,8 +75,8 @@
 						
 						<div class="medium-4 columns end">
 							<div class="form-item form-item">
-								<label for="form-new-desciption">Desciption:</label>
-								<textarea id="form-new-desciption"></textarea>
+								<label for="form-new-description">Description:</label>
+								<textarea id="form-new-description"></textarea>
 							</div>
 							
 							<div class="form-item">
@@ -97,7 +97,157 @@
 				</div>
 			</section>
 			
-			<section class="snippet js-snippet">
+			<section class="snippet page-prewrapper">
+				<header class="snippet-header">
+					<div class="page-wrapper clearfix">
+						<h1>Colors</h1>
+					</div>
+				</header>
+				<div class="snippet-preview" style="width: 1200px;">
+					<div class="snippet-source">
+						<ul class="snippet-colors">
+							<li>
+								<i style="background: #000;"></i> <br>
+								$color-black: #000;
+							</li>
+							<li>
+								<i style="background: #fff;"></i> <br>
+								$color-white: #fff;
+							</li>
+							<li>
+								<i style="background: #e6e6e6;"></i> <br>
+								$color-grey: #e6e6e6;
+							</li>
+							<li>
+								<i style="background: #f2f2f2;"></i> <br>
+								$color-grey-light: #f2f2f2;
+							</li>
+							<li>
+								<i style="background: #ccc;"></i> <br>
+								$color-grey-dark: #ccc;
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			
+			<section class="snippet page-prewrapper">
+				<header class="snippet-header">
+					<div class="page-wrapper clearfix">
+						<h1>Fonts</h1>
+					</div>
+				</header>
+				<div class="snippet-preview" style="width: 1200px;">
+					<div class="snippet-source">
+						<ul class="snippet-fonts">
+							<li class="row">
+								<div class="medium-2 columns medium-offset-2 snippet-fonts-big" style="font-family: Lato, Arial, sans-serif;">
+									Aa
+								</div>
+								<div class="medium-8 columns">
+									<div class="snippet-fonts-variable">$font-main: Lato, Arial, sans-serif;</div>
+									<div class="snippet-fonts-small" style="font-family: Lato, Arial, sans-serif;">
+										a b c d e f g h i j k l m n o p q r s t u v w x y z <br>
+										A B C D E F G H I J K L M N O P Q R S T U V W X Y Z <br>
+										1 2 3 4 5 6 7 8 9 0
+									</div>
+								</div>
+							</li>
+							<li class="row">
+								<div class="medium-2 columns medium-offset-2 snippet-fonts-big" style="font-family: Courier New, Courier, monospace;">
+									Aa
+								</div>
+								<div class="medium-8 columns">
+									<div class="snippet-fonts-variable">$font-mono: Courier New, Courier, monospace;</div>
+									<div class="snippet-fonts-small" style="font-family: Courier New, Courier, monospace;">
+										a b c d e f g h i j k l m n o p q r s t u v w x y z <br>
+										A B C D E F G H I J K L M N O P Q R S T U V W X Y Z <br>
+										1 2 3 4 5 6 7 8 9 0
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			
+			<section class="snippet page-prewrapper">
+				<header class="snippet-header">
+					<div class="page-wrapper clearfix">
+						<h1>Typography</h1>
+					</div>
+				</header>
+				<div class="snippet-preview" style="width: 1200px;">
+					<div class="snippet-source">
+						<ul class="snippet-type-headings">
+							<li class="row">
+								<div class="medium-1 columns medium-offset-1"><h1>&lt;h1&gt;</h1></div>
+								<div class="medium-10 columns"><h1>The quick brown fox jumps over the lazy dog</h1></div>
+							</li>
+							<li class="row">
+								<div class="medium-1 columns medium-offset-1"><h2>&lt;h2&gt;</h2></div>
+								<div class="medium-10 columns"><h2>The quick brown fox jumps over the lazy dog</h2></div>
+							</li>
+							<li class="row">
+								<div class="medium-1 columns medium-offset-1"><h3>&lt;h3&gt;</h3></div>
+								<div class="medium-10 columns"><h3>The quick brown fox jumps over the lazy dog</h3></div>
+							</li>
+							<li class="row">
+								<div class="medium-1 columns medium-offset-1"><h4>&lt;h4&gt;</h4></div>
+								<div class="medium-10 columns"><h4>The quick brown fox jumps over the lazy dog</h4></div>
+							</li>
+							<li class="row">
+								<div class="medium-1 columns medium-offset-1"><h5>&lt;h5&gt;</h5></div>
+								<div class="medium-10 columns"><h5>The quick brown fox jumps over the lazy dog</h5></div>
+							</li>
+							<li class="row">
+								<div class="medium-1 columns medium-offset-1"><h6>&lt;h6&gt;</h6></div>
+								<div class="medium-10 columns"><h6>The quick brown fox jumps over the lazy dog</h6></div>
+							</li>
+						</ul>
+						
+						<div class="snippet-type-text">
+							<div class="row">
+								<div class="medium-4 columns">
+									<h1>Regular</h1>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit sint! Quibusdam est, quae nulla.
+									</p>
+									<ul>
+										<li>Lorem ipsum dolor sit.</li>
+										<li>Lorem ipsum dolor sit.</li>
+										<li>Lorem ipsum dolor sit.</li>
+									</ul>
+								</div>
+								<div class="medium-4 columns">
+									<h1>Bold</h1>
+									<p style="font-weight: bold;">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit sint! Quibusdam est, quae nulla.
+									</p>
+									<ul style="font-weight: bold;">
+										<li>Lorem ipsum dolor sit.</li>
+										<li>Lorem ipsum dolor sit.</li>
+										<li>Lorem ipsum dolor sit.</li>
+									</ul>
+								</div>
+								<div class="medium-4 columns">
+									<h1>Italic</h1>
+									<p style="font-style: italic;">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit sint! Quibusdam est, quae nulla.
+									</p>
+									<ul style="font-style: italic;">
+										<li>Lorem ipsum dolor sit.</li>
+										<li>Lorem ipsum dolor sit.</li>
+										<li>Lorem ipsum dolor sit.</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section class="snippet js-snippet page-prewrapper">
 				<header class="snippet-header">
 					<div class="page-wrapper clearfix">
 						<h1>Snippet Name</h1>
@@ -164,8 +314,8 @@
 								
 								<div class="medium-4 columns end">
 									<div class="form-item form-item">
-										<label for="form-new-desciption">Desciption:</label>
-										<textarea id="form-new-desciption"></textarea>
+										<label for="form-new-description">Description:</label>
+										<textarea id="form-new-description"></textarea>
 									</div>
 									
 									<div class="form-item">
@@ -180,7 +330,7 @@
 									<button class="btn-blank" type="button">Cancel</button>
 								</div>
 								<div class="medium-4 columns end text-right">
-									* - Mandatory fields
+									<button class="btn-primary btn-primary--white" type="button"><i class="fa fa-trash-o"></i>Delete Snippet</button>
 								</div>
 							</div>
 						</div>

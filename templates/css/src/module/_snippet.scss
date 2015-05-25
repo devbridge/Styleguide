@@ -1,13 +1,13 @@
 $snippet-header-height: 46px - 2px;
 
 .snippet {
-	// 
+	margin-top: -1px;
 }
 
 .snippet-header {
-	height: $snippet-header-height + 2px;
 	border-bottom: 1px solid $color-grey-dark;
 	border-top: 1px solid $color-grey-dark;
+	height: $snippet-header-height + 2px;
 	
 	h1 {
 		float: left;
@@ -21,6 +21,7 @@ $snippet-header-height: 46px - 2px;
 	border: 0;
 	font-size: 24px;
 	height: $snippet-header-height;
+	padding: 0;
 	position: relative;
 	width: 58px;
 	
@@ -72,8 +73,8 @@ $snippet-header-height: 46px - 2px;
 }
 
 .snippet-preview {
-	border-left: 1px solid $color-grey-dark;
-	border-right: 1px solid $color-grey-dark;
+	border: 1px solid $color-grey-dark;
+	border-top: 0;
 	margin: 0 auto;
 	position: relative;
 }
@@ -95,4 +96,71 @@ $snippet-header-height: 46px - 2px;
 	&-right {
 		right: -10px;
 	}
+}
+
+.snippet-colors {
+	list-style-type: none;
+	margin: 0;
+	padding: 20px;
+	text-align: center;
+	
+	li {
+		display: inline-block;
+		padding: 20px;
+		
+		i {
+			border: 1px solid $color-black;
+			border-radius: $border-radius;
+			display: inline-block;
+			height: 80px;
+			width: 80px;
+		}
+	}
+}
+
+.snippet-fonts {
+	list-style-type: none;
+	margin: 0;
+	padding: 20px;
+	
+	li {
+		padding: 30px 0;
+	}
+	
+	.snippet-fonts-big {
+		font-size: 136px;
+		line-height: 1;
+	}
+	
+	.snippet-fonts-variable {
+		border-bottom: 1px solid $color-grey;
+		margin-bottom: 10px;
+		padding-bottom: 10px;
+	}
+	
+	.snippet-fonts-small {
+		font-size: 20px;
+		line-height: 1.4;
+	}
+}
+
+.snippet-type-headings {
+	list-style-type: none;
+	margin: 0;
+	padding: 60px 0;
+	
+	li {
+		
+		div:first-child {
+			border-right: 1px solid $color-grey;
+		}
+		
+		div:last-child {
+			padding-left: 40px;
+		}
+	}
+}
+
+.snippet-type-text {
+	padding: 0 40px 40px;
 }

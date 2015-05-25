@@ -11,6 +11,7 @@
 				$settings = this.$element.find( ".js-snippet-settings" ),
 				$code = this.$element.find( ".js-snippet-code" ),
 				$preview = this.$element.find( ".js-snippet-preview" ),
+				$previewSource = $preview.find( "iframe" ),
 				$handleLeft = this.$element.find( ".js-snippet-resize-handle-left" ),
 				$handleRight = this.$element.find( ".js-snippet-resize-handle-right" ),
 				$sizeIndicator = this.$element.find( ".js-snippet-size" );
@@ -61,4 +62,8 @@
 	};
 })( jQuery, window, document );
 
-$( '.js-snippet' ).sgSnippet();
+$( ".js-snippet" ).sgSnippet();
+
+$( ".js-header-new-snippet" ).on( "click", function () {
+	$( ".js-new-snippet-form" ).toggle();
+});
