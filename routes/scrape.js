@@ -182,29 +182,37 @@ router.get('/snippets', function (req, res, next) {
 });
 
 router.get('/sass', function (req, res) {
-  var sass;
-  var typography = [], colors = [];
+  var sass,
+      result = [];
   for (var i = 0, length = config.sassResources.length; i < length; i++) {
-    var typo, col, weig, colorValues, unassigned = [], assigned = {};
+    var rawColArray, 
+        typography,
+        rawTypoArray,
+        unassignedColors = [],
+        iterations = 0,
+        assignedColors = {},
+        theme = {};
+
     sass = fs.readFileSync(config.sassResources[i], {encoding: 'utf-8'});
+    theme.name = config.sassResources[i];
 
 
-    typo = sass.match(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi);
-    var array = typo[0].split('\n');
-    array.splice(0,1);
-    array.pop();
+    typography = sass.match(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi);
+    rawTypoArray = typography[0].split('\n');
+    rawTypoArray.shift();
+    rawTypoArray.pop();
 
     //Constructing types array
-    for (var j = 0, len = array.length; j <len; j++) {
-      var variableName = array[j].match(/\$[\d\D]*?(?=:)/gi)[0];
-      var value = array[j].match(/(?=:)[\d\D]*?(?=;)/)[0];
+    typography = [];
+    for (var j = 0, len = rawTypoArray.length; j <len; j++) {
+      var variableName = rawTypoArray[j].match(/\$[\d\D]*?(?=:)/gi)[0],
+          value = rawTypoArray[j].match(/(?=:)[\d\D]*?(?=;)/)[0],
+          weights = rawTypoArray[j].match(/\([\d\D]*?(?=\))/gi)[0];
+
       value = value.substring(1, value.length).trim();
 
-      var weights = array[j].match(/\([\d\D]*?(?=\))/gi)[0];
       weights = weights.substring(1, weights.length);
-
       weights = weights.replace(/ /g,'').split(',');
-
       weights = weights.map(function (weight) {
         return Number(weight);
       });
@@ -218,35 +226,59 @@ router.get('/sass', function (req, res) {
       typography.push(type);
     }
 
+    theme.typography = typography;
 
-    col = sass.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi);
+    rawColArray = sass.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi);
 
-    for (var j = 0, len = col.length; j < len; j++) {
-      colorValues = col[j].split('\n');
+    for (var j = 0, len = rawColArray.length; j < len; j++) {
+      var colors = rawColArray[j].split('\n');
 
       //remove dom markers
-      colorValues.shift();
-      colorValues.pop();
+      colors.shift();
+      colors.pop();
 
-      unassigned = unassigned.concat(colorValues);
+      unassignedColors = unassignedColors.concat(colors);
     }
 
     //prepare array structure
-    for (var j = 0, len = unassigned.length; j < len; j++) {
-      var variableName = unassigned[j].match(/\$[\d\D]*?(?=:)/gi)[0];
-      var value = unassigned[j].match(/\:[\d\D]*?(?=;)/gi)[0];
+    for (var j = 0, len = unassignedColors.length; j < len; j++) {
+      var variableName = unassignedColors[j].match(/\$[\d\D]*?(?=:)/gi)[0],
+          value = unassignedColors[j].match(/\:[\d\D]*?(?=;)/gi)[0];
 
       value = value.substring(1, value.length).trim();
 
-      unassigned[j] = {variable: variableName, value: value}
+      unassignedColors[j] = {variable: variableName, value: value}
     }
 
-    weig = sass.match(/\([\d\D]*?\)/gi);
+    while(iterations < config.maxSassIterations && unassignedColors.length) {
+      for (var j = 0; j < unassignedColors.length; j++) {
+        if (unassignedColors[j].value.indexOf('$') != 0) {
+          assignedColors[unassignedColors[j].value] = [unassignedColors[j].variable];
+          unassignedColors.splice(j, 1);
+        } else {
+          for (var color in assignedColors) {
+            if (assignedColors[color].indexOf(unassignedColors[j].value) != -1) {
+              assignedColors[color].push(unassignedColors[j].variable);
+              unassignedColors.splice(j, 1);
+              break;
+            }
+          }
+        }
+      }
+      iterations++;
+    }
+
+    if (iterations == config.maxSassIterations) {
+      console.log('Iterations reached max size, your variables json file could be inaccurate!\nThis means, that variable r-value is trying to show to non existing variable!');
+    }
+
+    theme.colors = assignedColors;
+    result.push(theme);
   }
 
-  jf.writeFileSync('./db/sassdata.json', typography);
+  jf.writeFileSync('./db/sassdata.json', result);
 
-  res.json(typography);
+  res.json(result);
 });
 
 module.exports = router;
