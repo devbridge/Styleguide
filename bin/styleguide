@@ -1,0 +1,159 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var fs = require('fs');
+var q = require('q');
+var pkg = require('../package.json');
+var stdin = process.stdin;
+var stdout = process.stdout;
+
+var config = {
+  categories: [
+    {
+      name: 'undefined',
+      id: 0
+    }
+  ],
+
+  scrapeUrls: [],
+  sassResources: [],
+  cssResources: [],
+  jsResources: []
+}
+
+var ask = function (question, callback, repeat) {
+  var stdin = process.stdin, stdout = process.stdout;
+ 
+  stdin.resume();
+  stdout.write(question + ": ");
+ 
+  stdin.once('data', function(data) {
+    data = data.toString().trim();
+    callback(data);
+    if ( repeat ) {
+      ask(question, callback, repeat);
+    }
+ });
+};
+
+var parseCategories = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter categories to create delimited by comma: ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+    var categories = data.split(',');
+    
+    for (var index = 0, len = categories.length; index < len; index++) {
+      if ( categories[index] !== null && categories[index] !== 'null' && categories[index].length > 1 ) {
+        var category = {
+          name: categories[index].trim(),
+          id: index + 1
+        }
+        config.categories.push(category);
+      }
+    }
+    deferred.resolve();
+  });
+
+  return deferred.promise;
+};
+
+var parseScrapeUrl = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter URL to scrape snippets from, if left blank, we\'ll continue to next step: ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+    
+    if ( data !== null && data !== 'null' && data.length > 0 ) {
+      config.scrapeUrls.push(data);
+      parseScrapeUrl().then(function () {
+        deferred.resolve();
+      });
+    } else {
+      deferred.resolve();
+      return deferred.promise;
+    }
+  });
+  return deferred.promise;
+};
+
+var parseSassResources = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter relative path from main project directory to SASS file, if left blank, we\'ll continue to next step: ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+    
+    if ( data !== null && data !== 'null' && data.length > 0 ) {
+      config.sassResources.push(data);
+      parseSassResources().then(function () {
+        deferred.resolve();
+      });
+    } else {
+      deferred.resolve();
+      return deferred.promise;
+    }
+  });
+  return deferred.promise;
+};
+
+var parseMaxIterations = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter maximum iterations through SASS variables before exiting: ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+
+    config.maxSassIterations = Number(data);
+    deferred.resolve();
+
+  });
+
+  return deferred.promise;
+};
+
+var generate = function () {
+  var stdin = process.stdin,
+      stdout = process.stdout,
+      dbFolder = process.cwd() + '\\styleguide_db';
+
+  if ( !fs.existsSync(dbFolder) ) {
+    fs.mkdirSync(dbFolder);
+  }
+  
+
+
+
+  stdin.resume();
+
+  parseCategories()
+    .then(parseScrapeUrl)
+    .then(parseSassResources)
+    .then(parseMaxIterations)
+    .then(function () { console.log(config); });
+  //parseCategories(config)
+  //  .then(parseScrapeUrl(config))
+  //  .then(function () {
+      
+  //  });
+
+
+
+
+  
+};
+
+program
+  .version(pkg.version)
+  .description(pkg.description)
+  .usage('<command>')
+  .command('generateConfig', 'generate configuration file in working directory')
+  .action(generate);
+
+program.parse(process.argv);

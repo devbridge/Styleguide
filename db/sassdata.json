@@ -1,0 +1,171 @@
+[
+  {
+    "name": "./_variables.scss",
+    "typography": [
+      {
+        "variable": "$font-proxima",
+        "value": "'Neue Helvetica W01', helvetica, sans-serif",
+        "weights": [
+          300,
+          400,
+          500,
+          700
+        ]
+      },
+      {
+        "variable": "$font-proxima-alternative",
+        "value": "'Neue Helvetica W01', helvetica, sans-serif",
+        "weights": [
+          300
+        ]
+      },
+      {
+        "variable": "$font-newsgothic",
+        "value": "'Neue Helvetica W01', helvetica, sans-serif",
+        "weights": [
+          400,
+          700
+        ]
+      }
+    ],
+    "colors": {
+      "#000000": [
+        "$color-black"
+      ],
+      "#db9090": [
+        "$red-lighter-4",
+        "$text-store-nav-first-level"
+      ],
+      "#d26262": [
+        "$red-lighter-2",
+        "$background-notification-negative"
+      ],
+      "#8b0000": [
+        "$red",
+        "$background-store-nav-first",
+        "$background-header-red-section",
+        "$button-default-color",
+        "$button-call-to-action-color",
+        "$background-header-inner",
+        "$text-link",
+        "$border-active",
+        "$background-clickable",
+        "$background-footer"
+      ],
+      "#760000": [
+        "$red-darker-1",
+        "$background-header"
+      ],
+      "#800": [
+        "$red-darker-3"
+      ],
+      "#cacaca": [
+        "$gray-lighter-8"
+      ],
+      "#fbfbfb": [
+        "$gray-lighter-6"
+      ],
+      "#ededed": [
+        "$gray-lighter-4",
+        "$button-boxed-hover-color"
+      ],
+      "#e1e1e1": [
+        "$gray-lighter-2",
+        "$border-field",
+        "$button-neutral-hover"
+      ],
+      "#b8b8b8": [
+        "$gray-lighter-0",
+        "$background-gray-active"
+      ],
+      "#8f8f8f": [
+        "$gray",
+        "$background-dark",
+        "$text-light",
+        "$border-dark"
+      ],
+      "#d6d5d1": [
+        "$gray-darker-2"
+      ],
+      "#fff": [
+        "$white",
+        "$background-upper-level",
+        "$background-website",
+        "$border-red-section",
+        "$text-default"
+      ],
+      "#b4e4b7": [
+        "$green-lighter-2",
+        "$background-notification-positive"
+      ],
+      "#7bd4a1": [
+        "$green",
+        "$background-positive-opacity"
+      ],
+      "#141823": [
+        "$color-dark"
+      ],
+      "#bd2727": [
+        "$red-lighter-1",
+        "$background-header-account-button"
+      ],
+      "#631313": [
+        "$red-darker-2",
+        "$border-red-nav",
+        "$text-link-hover",
+        "$button-default-color-hover"
+      ],
+      "#f1f1f1": [
+        "$gray-lighter-7"
+      ],
+      "#ebebeb": [
+        "$gray-lighter-3",
+        "$background-controls-hover",
+        "$border-light"
+      ],
+      "#a4a4a4": [
+        "$gray-light"
+      ],
+      "#f6f6f6": [
+        "$almost-white",
+        "$background-light",
+        "$background-input-field",
+        "$text-default-dimmed",
+        "$button-small-inactive"
+      ],
+      "#cef4c0": [
+        "$green-lighter-1",
+        "$background-positive"
+      ],
+      "#cba4a4": [
+        "$red-lighter-3",
+        "$text-footer",
+        "$text-red-nav"
+      ],
+      "#969696": [
+        "$red-darker-4"
+      ],
+      "#d4d4d4": [
+        "$gray-lighter-1",
+        "$background-back-to-top",
+        "$border-neutral",
+        "$background-neutral"
+      ],
+      "#000": [
+        "$color-black"
+      ],
+      "#880000": [
+        "$red-dark"
+      ],
+      "#383838": [
+        "$gray-darker-1",
+        "$text-dark",
+        "$button-transparent-dark"
+      ],
+      "#f5f3ed": [
+        "$gray-lighter-5",
+        "$background-section-gray"
+      ]
+    }
+  }
+]
