@@ -1,5 +1,6 @@
 var express = require('express');
-var config = require('../../../config.json');
+var fs = require('fs');
+var config = JSON.parse(fs.readFileSync('../../config.txt', 'utf8'));
 var router = express.Router();
 
 /* GET home page. */

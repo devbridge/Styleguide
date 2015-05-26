@@ -3,6 +3,7 @@
 var program = require('commander');
 var fs = require('fs');
 var q = require('q');
+var formatter = require('format-json');
 var pkg = require('../package.json');
 var stdin = process.stdin;
 var stdout = process.stdout;
@@ -20,21 +21,6 @@ var config = {
   cssResources: [],
   jsResources: []
 }
-
-var ask = function (question, callback, repeat) {
-  var stdin = process.stdin, stdout = process.stdout;
- 
-  stdin.resume();
-  stdout.write(question + ": ");
- 
-  stdin.once('data', function(data) {
-    data = data.toString().trim();
-    callback(data);
-    if ( repeat ) {
-      ask(question, callback, repeat);
-    }
- });
-};
 
 var parseCategories = function () {
   var deferred = q.defer();
@@ -102,6 +88,48 @@ var parseSassResources = function () {
   return deferred.promise;
 };
 
+var parseCssResources = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter relative path from main project directory to CSS file, if left blank, we\'ll continue to next step: ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+    
+    if ( data !== null && data !== 'null' && data.length > 0 ) {
+      config.cssResources.push(data);
+      parseCssResources().then(function () {
+        deferred.resolve();
+      });
+    } else {
+      deferred.resolve();
+      return deferred.promise;
+    }
+  });
+  return deferred.promise;
+};
+
+var parseJsResources = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter relative path from main project directory to JS file, if left blank, we\'ll continue to next step: ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+    
+    if ( data !== null && data !== 'null' && data.length > 0 ) {
+      config.jsResources.push(data);
+      parseJsResources().then(function () {
+        deferred.resolve();
+      });
+    } else {
+      deferred.resolve();
+      return deferred.promise;
+    }
+  });
+  return deferred.promise;
+};
+
 var parseMaxIterations = function () {
   var deferred = q.defer();
 
@@ -118,7 +146,7 @@ var parseMaxIterations = function () {
   return deferred.promise;
 };
 
-var generate = function () {
+var generate = function (options) {
   var stdin = process.stdin,
       stdout = process.stdout,
       dbFolder = process.cwd() + '\\styleguide_db';
@@ -127,33 +155,38 @@ var generate = function () {
     fs.mkdirSync(dbFolder);
   }
   
-
-
-
   stdin.resume();
 
   parseCategories()
     .then(parseScrapeUrl)
     .then(parseSassResources)
     .then(parseMaxIterations)
-    .then(function () { console.log(config); });
-  //parseCategories(config)
-  //  .then(parseScrapeUrl(config))
-  //  .then(function () {
-      
-  //  });
+    .then(parseCssResources)
+    .then(parseJsResources)
+    .then(function () {
+      stdout.write('Press Enter to write out the following configuration to your project root directory:\n')
+      console.log(config);
+      stdin.once('data', function () {
+        
+        for (var index = 0, len = config.categories.length; index < len; index++) {
+          fs.writeFileSync(dbFolder + '\\' + config.categories[index].name + '.txt', formatter.plain([]));
+        }
 
-
-
-
+        fs.writeFileSync(process.cwd() + '\\styleguide_config.txt', formatter.plain(config));
+        process.exit(0);
+      });
+    });
   
 };
 
 program
   .version(pkg.version)
   .description(pkg.description)
-  .usage('<command>')
-  .command('generateConfig', 'generate configuration file in working directory')
+  .usage('<command>');
+
+program
+  .command('generate-config')
+  .description('generate configuration file in working directory')
   .action(generate);
 
 program.parse(process.argv);
