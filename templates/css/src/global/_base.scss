@@ -7,6 +7,10 @@ body {
 	height: 100%;
 }
 
+.main {
+	padding-bottom: 100px;
+}
+
 .page-container {
 	margin-bottom: -$footer-height;
 	min-height: 100%;
@@ -26,6 +30,23 @@ body {
 
 .page-wrapper {
 	margin: 0 auto;
-	max-width: $media-medium + $grid-gutter;
 	padding: 0 $grid-gutter/2;
+	
+	@if $grid-responsive == true {
+		max-width: $media-medium + $grid-gutter;
+	} @else {
+		width: $media-medium + $grid-gutter;
+	}
+}
+
+@if $grid-responsive == false {
+	.page-prewrapper {
+		min-width: $media-medium + $grid-gutter * 2;
+	}
+}
+
+@for $i from 1 through 9 {
+	.layer-#{$i} {
+		z-index: $i * 100;
+	}
 }

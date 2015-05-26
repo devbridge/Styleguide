@@ -28,8 +28,10 @@
   ],
 
   "sassResources": [
-    "C:\\Users\\Admin\\Documents\\Sites\\Styleguide\\_variables.scss"
+    "./_variables.scss"
   ],
+
+  "maxSassIterations": 1000,
 
   "cssResources": [
 

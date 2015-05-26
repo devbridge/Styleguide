@@ -9,4 +9,16 @@
 	.controls-row {
 		padding: 20px 0 0;
 	}
+	
+	&--new-snippet {
+		.page-wrapper {
+			position: relative;
+			
+			&:after {
+				@include triangle("top", 26px, 12px, $color-grey);
+				right: 66px;
+				top: -82px;
+			}
+		}
+	}
 }

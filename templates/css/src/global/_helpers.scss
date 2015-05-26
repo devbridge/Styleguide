@@ -1,11 +1,7 @@
-%clearfix:after {
+.clearfix:after {
 	clear: both;
 	content: '';
 	display: table;
-}
-
-.clearfix {
-	@extend %clearfix;
 }
 
 .full-width {

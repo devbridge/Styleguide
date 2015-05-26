@@ -1,6 +1,7 @@
 {
   "name": "Styleguide2",
   "version": "0.0.2",
+  "main": "index.js",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
