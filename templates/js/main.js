@@ -115,7 +115,8 @@ $(document).ready(function(){
 	$('.js-submit-form-button').on('click', function(event) {
 		event.preventDefault();
 		var selector = $(this).data('submit-form');
-		$(selector).on('submit', HandleCustomFormSubmit);
+		$(selector).off('submit.customSubmit');
+		$(selector).on('submit.customSubmit', HandleCustomFormSubmit);
 		$(selector).submit();
 	});
 
@@ -133,11 +134,11 @@ $(document).ready(function(){
 			data.code = codeEditor.getValue();
 			data.inlineCss = cssEditor.getValue();
 			$.ajax({
-			  type: "POST",
-			  url: formToSubmit.attr('action'),
-			  data: data,
-			  success: function(){},
-			  dataType: 'JSON'
+				type: "POST",
+				url: '//'+window.location.hostname+':8080'+formToSubmit.attr('action'),
+				data: data,
+				success: function(){},
+				dataType: 'JSON'
 			}).fail(function() {
 			    alert( "Failed to post!" );
 			});
