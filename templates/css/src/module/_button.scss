@@ -1,8 +1,9 @@
 %btn-template {
+	border: 1px solid transparent;
 	display: inline-block;
 	font-size: 14px;
 	height: 28px;
-	line-height: 28px;
+	line-height: 26px;
 	padding: 0 10px;
 	text-align: center;
 	text-decoration: none;
@@ -63,16 +64,24 @@ $btn-ghost-radius: $border-radius;
 .btn-primary {
 	@extend %btn-template;
 	background-color: $color-black;
-	border: 0;
 	border-radius: $btn-ghost-radius;
 	color: $color-white;
 	min-width: 90px;
+	
+	.fa {
+		margin-right: 8px;
+	}
+	
+	&--white {
+		background-color: $color-white;
+		border: 1px solid $color-black;
+		color: $color-black;
+	}
 }
 
 .btn-blank {
 	@extend %btn-template;
 	background-color: transparent;
-	border: 0;
 	color: $color-black;
 	min-width: 90px;
 }
