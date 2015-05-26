@@ -15,24 +15,24 @@
 				$handleLeft = this.$element.find( ".js-snippet-resize-handle-left" ),
 				$handleRight = this.$element.find( ".js-snippet-resize-handle-right" ),
 				$sizeIndicator = this.$element.find( ".js-snippet-size" );
-				
+
 			$btnSettings.on( "click", function () {
-				
+
 				$btnCode.removeClass( "active" );
 				$btnSettings.toggleClass( "active" );
 				$code.hide();
 				$settings.add( $preview ).toggle();
 			});
-			
+
 			$btnCode.on( "click", function () {
-				
+
 				$btnSettings.removeClass( "active" );
 				$btnCode.toggleClass( "active" );
 				$settings.hide();
 				$preview.show();
 				$code.toggle();
 			});
-			
+
 			interact( $preview[0] )
 				.resizable({
 					edges: {
@@ -43,7 +43,7 @@
 					},
 					onmove: function ( e ) {
 						var target = e.target;
-						
+
 						if ( e.rect.width > 319 ) {
 							target.style.width  = e.rect.width + 'px';
 							$sizeIndicator.text( e.rect.width + "px" );
@@ -52,7 +52,7 @@
 				});
 		}
 	};
-	
+
 	$.fn.sgSnippet = function () {
 		return this.each( function () {
 			if (!$.data( this, "sgSnippet" ) ) {
@@ -69,11 +69,36 @@ $( ".js-header-new-snippet" ).on( "click", function () {
 });
 
 $(document).ready(function(){
+	var dom = require("ace/lib/dom");
+	var commands = require("ace/commands/default_commands").commands;
+	commands.push({
+		name: "Toggle Fullscreen",
+		bindKey: "F11",
+		exec: function(editor) {
+			dom.toggleCssClass(document.body, "fullScreen");
+			dom.toggleCssClass(editor.container, "fullScreen-editor");
+			editor.resize();
+		}
+	});
 
 	// setting up ace editor
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/css");
+    var codeEditor = ace.edit("codeEditor");
+    codeEditor.setTheme("ace/theme/chrome");
+    codeEditor.getSession().setMode("ace/mode/html");
+
+    var cssEditor = ace.edit("cssEditor");
+    cssEditor.setTheme("ace/theme/chrome");
+    cssEditor.getSession().setMode("ace/mode/css");
+
+	$('.js-toggle-code-editor-full-screen').on('click', function(e) {
+		e.preventDefault();
+		codeEditor.keyBinding.$handlers[0].commands['Toggle Fullscreen'].exec(codeEditor);
+	});
+
+	$('.js-toggle-css-editor-full-screen').on('click', function(e) {
+		e.preventDefault();
+		cssEditor.keyBinding.$handlers[0].commands['Toggle Fullscreen'].exec(cssEditor);
+	});
 
 	// set categories
 	$('#form-new-category').each(function(index, el) {
@@ -105,7 +130,8 @@ $(document).ready(function(){
 			submitFields.each(function(index, el) {
 				data[$(this).data('js-field-name')] = $(this).val();
 			});
-			data.code = editor.getValue();
+			data.code = codeEditor.getValue();
+			data.inlineCss = cssEditor.getValue();
 			$.ajax({
 			  type: "POST",
 			  url: formToSubmit.attr('action'),
@@ -118,7 +144,7 @@ $(document).ready(function(){
 		}
 
 		function CodeInputValid() {
-			if ($('#editor').length == 1 && editor.getValue() == '') {
+			if ($('#codeEditor').length == 1 && codeEditor.getValue() == '') {
 				$('#form-new-code-error').show();
 				return false;
 			} else {
@@ -129,4 +155,3 @@ $(document).ready(function(){
 	}
 
 });
-
