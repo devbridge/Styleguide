@@ -20,26 +20,25 @@ $(document).ready(function(){
 	$('.js-submit-form-button').on('click', function(event) {
 		event.preventDefault();
 		var selector = $(this).data('submit-form');
+		$(selector).on('submit', HandleCustomFormSubmit);
 		$(selector).submit();
 	});
 
-
-	// snipet form validation
-	$("#SnipetForm").validate();
-
-	$('#SnipetForm').on('submit', function(event) {
+	function HandleCustomFormSubmit(event) {
 		event.preventDefault();
-		if ($('#form-new-name').valid() && $('#form-new-category').valid() && CodeInputValid()){
+		var formToSubmit = $(this);
+		formToSubmit.validate();
+		var submitFields = $('.js-form-submit-field');
+		var invalidFields = submitFields.filter(function(){ return !$(this).valid();});
+		if (invalidFields.length == 0 && CodeInputValid()) {
 			var data = {};
-			data.name = $('#form-new-name').val();
-			data.category = $('#form-new-category').val();
+			submitFields.each(function(index, el) {
+				data[$(this).data('js-field-name')] = $(this).val();
+			});
 			data.code = editor.getValue();
-			data.description = $('#form-new-desciption').val();
-			data.inlineCss = $('#form-new-inlinecss').val();
-			console.log(data);
 			$.ajax({
 			  type: "POST",
-			  url: 'http://localhost:8080/snippets', // where to post?
+			  url: formToSubmit.attr('action'),
 			  data: data,
 			  success: function(){},
 			  dataType: 'JSON'
@@ -49,7 +48,7 @@ $(document).ready(function(){
 		}
 
 		function CodeInputValid() {
-			if (editor.getValue() == '') {
+			if ($('#editor').length == 1 && editor.getValue() == '') {
 				$('#form-new-code-error').show();
 				return false;
 			} else {
@@ -57,6 +56,6 @@ $(document).ready(function(){
 				return true;
 			}
 		}
-	});
+	}
 
 });

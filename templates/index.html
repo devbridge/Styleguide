@@ -53,19 +53,19 @@
 		<main class="main">
 			<section class="snippet-form">
 				<div class="page-wrapper">
-					<form class="row" id="SnipetForm">
+					<form class="row" id="SnipetForm" action="">
 						<div class="medium-2 columns">
 							<h1>New Snippet</h1>
 						</div>
 						<div class="medium-4 columns">
 							<div class="form-item">
 								<label for="form-new-name">* Name:</label>
-								<input type="text" id="form-new-name" required>
+								<input type="text" id="form-new-name" class="js-form-submit-field" data-js-field-name="name" required>
 							</div>
 
 							<div class="form-item">
 								<label for="form-new-category">* Category:</label>
-								<select id="form-new-category" required>
+								<select id="form-new-category" required class="js-form-submit-field" data-js-field-name="category">
 								</select>
 							</div>
 
@@ -78,12 +78,12 @@
 						<div class="medium-4 columns end">
 							<div class="form-item form-item">
 								<label for="form-new-desciption">Desciption:</label>
-								<textarea id="form-new-desciption"></textarea>
+								<textarea id="form-new-desciption" class="js-form-submit-field" data-js-field-name="description"></textarea>
 							</div>
 
 							<div class="form-item">
 								<label for="form-new-inlinecss">Inline CSS: <i class="fa fa-info-circle"></i></label>
-								<textarea id="form-new-inlinecss" class="inline-css"></textarea>
+								<textarea id="form-new-inlinecss" class="inline-css js-form-submit-field" data-js-field-name="inlineCss"></textarea>
 							</div>
 						</div>
 					</form>
