@@ -151,6 +151,7 @@ router.post('/', function (req, res) {
     code: req.body.code,
     description: req.body.description,
     inlineCss: req.body.inlineCss,
+    includeJs: req.body.includeJs,
     isEdited: false,
     isDeleted: false
   }
@@ -220,6 +221,7 @@ router.put('/:id', function (req, res) {
     code: req.body.code,
     description: req.body.description,
     inlineCss: req.body.inlineCss,
+    includeJs: req.body.includeJs,
     isEdited: true,
     isDeleted: false
   }

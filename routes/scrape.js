@@ -70,6 +70,7 @@ router.get('/snippets', function (req, res, next) {
     for (var i = 0, length = filteredHTml.length; i < length; i++) {
       var snippetId, categoryId;
       var domMarker = filteredHTml[i].match(/<!-- snippet:start [\d\D]*? -->/gi)[0];
+      var includeJs = domMarker.match(/include-js/i);
       var extractedIds = domMarker.match(/[\d]+/g);
       if (extractedIds) {
         snippetId = Number(extractedIds[0]);
@@ -88,6 +89,7 @@ router.get('/snippets', function (req, res, next) {
         code: filteredHTml[i],
         description: "",
         inlineCss: "",
+        includeJs: includeJs ? true : false,
         isEdited: false,
         isDeleted: false
       }
