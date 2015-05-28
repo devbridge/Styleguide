@@ -41,7 +41,7 @@
 						bottom: false,
 						top: false
 					},
-					onmove: function ( e ) {
+					onmove: function (e) {
 						var target = e.target;
 
 						if ( e.rect.width > 319 ) {
