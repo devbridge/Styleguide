@@ -140,6 +140,7 @@ $(document).ready(function(){
 		$('.snippet-type-text > .row').remove();
 		$.each(fonts, function(index, val) {
 			fontFamilyPreview.style.fontFamily = val;
+			$(fontFamilyPreview).find('.js-font-family-name').text('Font family: '+val);
 			$('.snippet-type-text')[0].appendChild(fontFamilyPreview.cloneNode(true));
 		});
 		colorLocation.innerHTML = '';
@@ -182,7 +183,7 @@ $(document).ready(function(){
 			data.inlineCss = cssEditor.getValue();
 			$.ajax({
 				type: "POST",
-				url: '//'+window.location.hostname+':5858'+formToSubmit.attr('action'),
+				url: '//'+window.location.hostname+':3000'+formToSubmit.attr('action'),
 				data: data,
 				success: function(){},
 				dataType: 'JSON'
