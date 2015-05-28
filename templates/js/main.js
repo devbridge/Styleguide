@@ -70,6 +70,7 @@ $( ".js-header-new-snippet" ).on( "click", function () {
 
 $(document).ready(function(){
 	var dom = require("ace/lib/dom");
+	var sassdata;
 	var commands = require("ace/commands/default_commands").commands;
 	commands.push({
 		name: "Toggle Fullscreen",
@@ -124,33 +125,47 @@ $(document).ready(function(){
 	var colorLocation = $('.snippet-colors')[0];
 	var fontTemplate = $($('.snippet-fonts > li').first()[0].cloneNode(true));
 	var smallFontsTemplate = fontTemplate.find('.snippet-fonts-small')[0];
-	$.getJSON('../../db/sassdata.json', function(sassdata){
-		$.each(sassdata, function(i, element) {
-			colorLocation.innerHTML = '';
-			$.each(element.colors, function(index, el) {
-				colorLiTemplate.find('i')[0].style.background = index;
-				colorLiTemplate.find('i').text(index);
-				colorLiTemplate.find('.js-color-text').text(el.join(', '));
-				colorLocation.appendChild(colorLiTemplate[0].cloneNode(true));
-			});
-
-			var fontsLocation = $('.snippet-fonts')[0];
-			fontsLocation.innerHTML = '';
-			$.each(element.typography, function(index, el) {
-				var smallFontsContainer = fontTemplate.find('.js-small-fonts-container');
-				fontTemplate.find('.snippet-fonts-small').remove();
-				$.each(el.weights, function(index, fontWeight) {
-					smallFontsTemplate.style.fontWeight = fontWeight;
-					smallFontsContainer[0].appendChild(smallFontsTemplate.cloneNode(true));
-				});
-				fontTemplate.find('.snippet-fonts-variable').text(el.variable +': '+ el.value);
-				fontTemplate.find('.js-set-font').each(function(index, fontElement) {
-					fontElement.style.background = el.value;
-				});
-				fontsLocation.appendChild(fontTemplate[0].cloneNode(true));
-			});
-		});
+	$.getJSON('../../db/sassdata.json', function(data){
+		sassdata = data;
+		HandleSassData(data[0]);
 	});
+
+	function HandleSassData(element) {
+		var fonts = element.typography.map(function(elem) {
+			return elem.value.split('\'')[1];
+		}).filter(function(value, index, self) {
+		    return self.indexOf(value) === index;
+		});
+		var fontFamilyPreview = $('.snippet-type-text > .row')[0];
+		$('.snippet-type-text > .row').remove();
+		$.each(fonts, function(index, val) {
+			fontFamilyPreview.style.fontFamily = val;
+			$('.snippet-type-text')[0].appendChild(fontFamilyPreview.cloneNode(true));
+		});
+		colorLocation.innerHTML = '';
+		$.each(element.colors, function(index, el) {
+			colorLiTemplate.find('i')[0].style.background = index;
+			colorLiTemplate.find('i').text(index);
+			colorLiTemplate.find('.js-color-text').text(el.join(', '));
+			colorLocation.appendChild(colorLiTemplate[0].cloneNode(true));
+		});
+
+		var fontsLocation = $('.snippet-fonts')[0];
+		fontsLocation.innerHTML = '';
+		$.each(element.typography, function(index, el) {
+			var smallFontsContainer = fontTemplate.find('.js-small-fonts-container');
+			fontTemplate.find('.snippet-fonts-small').remove();
+			$.each(el.weights, function(index, fontWeight) {
+				smallFontsTemplate.style.fontWeight = fontWeight;
+				smallFontsContainer[0].appendChild(smallFontsTemplate.cloneNode(true));
+			});
+			fontTemplate.find('.snippet-fonts-variable').text(el.variable +': '+ el.value);
+			fontTemplate.find('.js-set-font').each(function(index, fontElement) {
+				fontElement.style.fontFamily = el.value;
+			});
+			fontsLocation.appendChild(fontTemplate[0].cloneNode(true));
+		});
+	}
 
 	function HandleCustomFormSubmit(event) {
 		event.preventDefault();
@@ -167,7 +182,7 @@ $(document).ready(function(){
 			data.inlineCss = cssEditor.getValue();
 			$.ajax({
 				type: "POST",
-				url: '//'+window.location.hostname+':8080'+formToSubmit.attr('action'),
+				url: '//'+window.location.hostname+':5858'+formToSubmit.attr('action'),
 				data: data,
 				success: function(){},
 				dataType: 'JSON'
