@@ -120,6 +120,38 @@ $(document).ready(function(){
 		$(selector).submit();
 	});
 
+	var colorLiTemplate = $($('.snippet-colors > li').first()[0].cloneNode(true));
+	var colorLocation = $('.snippet-colors')[0];
+	var fontTemplate = $($('.snippet-fonts > li').first()[0].cloneNode(true));
+	var smallFontsTemplate = fontTemplate.find('.snippet-fonts-small')[0];
+	$.getJSON('../../db/sassdata.json', function(sassdata){
+		$.each(sassdata, function(i, element) {
+			colorLocation.innerHTML = '';
+			$.each(element.colors, function(index, el) {
+				colorLiTemplate.find('i')[0].style.background = index;
+				colorLiTemplate.find('i').text(index);
+				colorLiTemplate.find('.js-color-text').text(el.join(', '));
+				colorLocation.appendChild(colorLiTemplate[0].cloneNode(true));
+			});
+
+			var fontsLocation = $('.snippet-fonts')[0];
+			fontsLocation.innerHTML = '';
+			$.each(element.typography, function(index, el) {
+				var smallFontsContainer = fontTemplate.find('.js-small-fonts-container');
+				fontTemplate.find('.snippet-fonts-small').remove();
+				$.each(el.weights, function(index, fontWeight) {
+					smallFontsTemplate.style.fontWeight = fontWeight;
+					smallFontsContainer[0].appendChild(smallFontsTemplate.cloneNode(true));
+				});
+				fontTemplate.find('.snippet-fonts-variable').text(el.variable +': '+ el.value);
+				fontTemplate.find('.js-set-font').each(function(index, fontElement) {
+					fontElement.style.background = el.value;
+				});
+				fontsLocation.appendChild(fontTemplate[0].cloneNode(true));
+			});
+		});
+	});
+
 	function HandleCustomFormSubmit(event) {
 		event.preventDefault();
 		var formToSubmit = $(this);
@@ -155,4 +187,11 @@ $(document).ready(function(){
 		}
 	}
 
+    function httpGet(theUrl)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false );
+        xmlHttp.send( null );
+        return xmlHttp;
+    }
 });
