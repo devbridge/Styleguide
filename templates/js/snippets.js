@@ -22,15 +22,16 @@ var injectFrames = function ( snippets ) {
     var $frame = $('<iframe></iframe>');
 
     $frame.attr('id', 'snippet-' + snippets[index].id);
-        var ind = index;
-    console.log(ind);
     $frame.attr('sandbox', 'allow-same-origin allow-scripts');
     $.when($frame.appendTo('.main')).then(function(){
 
       $.get('../template.html', function ( data ) {
+        console.log('entered');
         for (var ind = 0, len = snippets.length; ind < len; ind++) {
-          $('#snippet-' + snippets[ind].id).contents().find('html').html(data.match(/(?=<head)[\d\D]*?(?=<\/html)/)[0]);
-          $('#snippet-' + snippets[ind].id).contents().find('#snippet').html(snippets[ind].code);
+          var snippetFrame = $('#snippet-' + snippets[ind].id).contents();
+
+          snippetFrame.find('html').html(data);
+          snippetFrame.find('#snippet').html(snippets[ind].code);
         }
       });
     });
