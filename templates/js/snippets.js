@@ -38,3 +38,40 @@ var injectFrames = function ( snippets ) {
 
   }
 };
+
+
+var snippetService = (function ($, categoryService) {
+  var module = {};
+
+  module.getByCategoryId = function ( categoryId, callback ) {
+    categoryService.getCategories(function (categories) {
+      var index;
+      for (index = 0, len = categories.length; index < len; index++) {
+        if ( categories[index].id == categoryId ) {
+          break;
+        }
+      }
+
+      var path = '../../../styleguide_db/' + categories[index].name + '.txt';
+
+      $.getJSON(path, function ( data ) {
+        callback(data);
+      });
+    });
+  };
+
+  module.getById = function ( snippetId ) {
+
+  };
+
+  module.postNew = function ( snippet ) {
+
+  };
+
+  module.putEdited = function ( snippet ) {
+
+  };
+
+
+  return module;
+})(jQuery || {}, categoryService);
