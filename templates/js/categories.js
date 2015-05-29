@@ -2,32 +2,18 @@ var categoryService = (function ($) {
   var module = {};
   var cachedCategories;
 
-  var fetchCategories = function (callback) {
-    $.getJSON('../../../config.txt', function (data) {
-      cachedCategories = data.categories;
-    });
-  };
-
-  module.getCategories = function () {
+  module.getCategories = function (callback) {
     if ( !cachedCategories ) {
       console.log('ne is keso');
       $.getJSON('../../../config.txt', function (data) {
         cachedCategories = data.categories;
+        callback(cachedCategories);
       });
-    }
-    
-    return cachedCategories;
-    
-  };
-/*
-  module.getCategories = function () {
-    if (!cachedCategories) {
-      console.log('ne is keso');
-      fetchCategories();
     } else {
-      return cachedCategories;
+      console.log('is keso');
+      callback(cachedCategories);
     }
   };
-*/
+
   return module;
 })(jQuery || {});
