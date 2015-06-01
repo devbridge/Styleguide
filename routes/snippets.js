@@ -133,7 +133,7 @@ router.post('/', function (req, res) {
   }
   
   if (!dataPath) {
-    res.json('Category with id: ' + req.body.category + 'not found.');
+    res.json('Category with id: ' + req.body.category + ' not found.');
     return;
   }
 

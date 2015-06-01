@@ -183,7 +183,7 @@ $(document).ready(function(){
 			data.inlineCss = cssEditor.getValue();
 			$.ajax({
 				type: "POST",
-				url: '//'+window.location.hostname+':3000'+formToSubmit.attr('action'),
+				url: '//'+window.location.hostname+':3000'+ formToSubmit.attr('action'),
 				data: data,
 				success: function(){},
 				dataType: 'JSON'
