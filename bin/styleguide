@@ -17,9 +17,7 @@ var config = {
   ],
 
   scrapeUrls: [],
-  sassResources: [],
-  cssResources: [],
-  jsResources: []
+  sassResources: []
 }
 
 var parseCategories = function () {
@@ -88,48 +86,6 @@ var parseSassResources = function () {
   return deferred.promise;
 };
 
-var parseCssResources = function () {
-  var deferred = q.defer();
-
-  stdout.write('Enter relative path from main project directory to CSS file, if left blank, we\'ll continue to next step: ');
-
-  stdin.once('data', function (data) {
-    data = data.toString().trim();
-    
-    if ( data !== null && data !== 'null' && data.length > 0 ) {
-      config.cssResources.push(data);
-      parseCssResources().then(function () {
-        deferred.resolve();
-      });
-    } else {
-      deferred.resolve();
-      return deferred.promise;
-    }
-  });
-  return deferred.promise;
-};
-
-var parseJsResources = function () {
-  var deferred = q.defer();
-
-  stdout.write('Enter relative path from main project directory to JS file, if left blank, we\'ll continue to next step: ');
-
-  stdin.once('data', function (data) {
-    data = data.toString().trim();
-    
-    if ( data !== null && data !== 'null' && data.length > 0 ) {
-      config.jsResources.push(data);
-      parseJsResources().then(function () {
-        deferred.resolve();
-      });
-    } else {
-      deferred.resolve();
-      return deferred.promise;
-    }
-  });
-  return deferred.promise;
-};
-
 var parseMaxIterations = function () {
   var deferred = q.defer();
 
@@ -141,6 +97,21 @@ var parseMaxIterations = function () {
     config.maxSassIterations = Number(data);
     deferred.resolve();
 
+  });
+
+  return deferred.promise;
+};
+
+var parseSnippetTemplate = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter relative path from your project root directory to snippet template (optional): ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+
+    config.snippetTemplate = data;
+    deferred.resolve();
   });
 
   return deferred.promise;
@@ -161,8 +132,7 @@ var generate = function (options) {
     .then(parseScrapeUrl)
     .then(parseSassResources)
     .then(parseMaxIterations)
-    .then(parseCssResources)
-    .then(parseJsResources)
+    .then(parseSnippetTemplate)
     .then(function () {
       stdout.write('Press Enter to write out the following configuration to your project root directory:\n')
       console.log(config);
@@ -171,8 +141,10 @@ var generate = function (options) {
         for (var index = 0, len = config.categories.length; index < len; index++) {
           fs.writeFileSync(dbFolder + '\\' + config.categories[index].name + '.txt', formatter.plain([]));
         }
-
+        
+        fs.writeFileSync(dbFolder + '\\' + 'uniques.txt', formatter.plain([]));
         fs.writeFileSync(process.cwd() + '\\styleguide_config.txt', formatter.plain(config));
+        
         process.exit(0);
       });
     });

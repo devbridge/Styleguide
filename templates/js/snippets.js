@@ -86,6 +86,9 @@ var snippetService = (function ($, categoryService) {
       path = '../../../styleguide_db/' + categories[index].name + '.txt';
 
       $.getJSON(path, function ( data ) {
+        data = data.filter(function ( obj ) {
+          return !obj.isDeleted;
+        });
         callback(data);
       });
     });
