@@ -62,12 +62,6 @@
 	};
 })( jQuery, window, document );
 
-$.fn.multiline = function(text){
-    this.text(text);
-    this.html(this.html().replace(/\n/g,'<br/>'));
-    return this;
-}
-
 $( ".js-header-new-snippet" ).on( "click", function () {
 	$( ".js-new-snippet-form" ).toggle();
 });
@@ -224,7 +218,7 @@ $(document).ready(function(){
 
     			currentSnippetElement.find('.js-snippet-name').html(snippets[index].name);
     			currentSnippetElement.find('.js-snippet-description').html(snippets[index].description);
-    			currentSnippetElement.find('.js-snippet-code-preview').multiline(snippets[index].code);
+    			currentSnippetElement.find('.js-snippet-code-preview').text(snippets[index].code);
     			currentSnippetElement.find('.js-snippet-source').html(frames[index]);
 
     			console.log(snippets[index]);
