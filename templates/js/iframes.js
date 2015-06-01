@@ -27,7 +27,24 @@ var iframesService = (function ($, snippetService){
             '</body>';
   };
 
-  var getTemplate = function ( callback ) {
+  var constructFrames = function ( snippets, callback ) {
+    var index,
+        template,
+        len,
+        framesArray = [],
+        tempFrame;
+        len = snippets.length;
+
+    for (index = 0; len > index; index++) {
+      tempFrame = $('<iframe></iframe>');
+      tempFrame.attr('sandbox', 'allow-same-origin allow-scripts');
+      tempFrame.attr('id', 'snippet-' + snippets[index].id);
+      framesArray.push(tempFrame);
+    }
+    callback(framesArray);
+  };
+
+  module.getTemplate = function ( callback ) {
     getConfig(function ( config ) {     
       if (!config.snippetTemplate) {
         callback(getDefaultTemplate());
@@ -39,29 +56,10 @@ var iframesService = (function ($, snippetService){
     });
   };
 
-  var constructFrames = function ( snippets, callback ) {
-    var index,
-        template,
-        len,
-        framesArray = [],
-        tempFrame;
-        len = snippets.length;
-
-    getTemplate(function ( template ) {
-      for (index = 0; len > index; index++) {
-        tempFrame = $('<iframe></iframe>');
-        tempFrame.attr('sandbox', 'allow-same-origin allow-scripts');
-        tempFrame.attr('id', 'snippet-' + snippets[index].id);
-        framesArray.push(tempFrame);
-      }
-      callback(framesArray);
-    });
-  };
-
   module.formFramesForCategory = function ( categoryId, callback ) {
     snippetService.getByCategoryId(categoryId, function ( snippets ) {
       constructFrames(snippets, function ( frames ) {
-        callback(frames);
+        callback(frames, snippets);
       });
     });
   };
@@ -69,7 +67,7 @@ var iframesService = (function ($, snippetService){
   module.formFramesForDeleted = function ( callback ) {
     snippetService.getDeletedSnippets(function ( snippets ) {
       constructFrames(snippets, function ( frames ) {
-        callback(frames);
+        callback(frames, snippets);
       });
     });
   };

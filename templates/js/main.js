@@ -62,7 +62,11 @@
 	};
 })( jQuery, window, document );
 
-$( ".js-snippet" ).sgSnippet();
+$.fn.multiline = function(text){
+    this.text(text);
+    this.html(this.html().replace(/\n/g,'<br/>'));
+    return this;
+}
 
 $( ".js-header-new-snippet" ).on( "click", function () {
 	$( ".js-new-snippet-form" ).toggle();
@@ -210,4 +214,32 @@ $(document).ready(function(){
         xmlHttp.send( null );
         return xmlHttp;
     }
+
+    iframesService.formFramesForDeleted(function ( frames, snippets ) {
+    	var snippetId, snippetContents, snippetContainer, currentSnippetElement;
+    	snippetContainer = $('.js-snippet');
+    	iframesService.getTemplate(function ( template ) {
+    		for (var index = 0, len = frames.length; len > index; index++) {
+    			currentSnippetElement = snippetContainer.clone(true);
+
+    			currentSnippetElement.find('.js-snippet-name').html(snippets[index].name);
+    			currentSnippetElement.find('.js-snippet-description').html(snippets[index].description);
+    			currentSnippetElement.find('.js-snippet-code-preview').multiline(snippets[index].code);
+    			currentSnippetElement.find('.js-snippet-source').html(frames[index]);
+
+    			console.log(snippets[index]);
+
+    			currentSnippetElement.sgSnippet();
+    			currentSnippetElement.appendTo('.main');
+
+    			snippetId = frames[index].attr('id');
+    			snippetContents = $('#' + snippetId).contents();
+
+          snippetContents.find('html').html(template);
+          snippetContents.find('#snippet').html(snippets[index].code);
+
+    		}
+    	});
+    	
+    });
 });

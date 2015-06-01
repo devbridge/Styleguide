@@ -1,45 +1,3 @@
-$(function () {
-  loadSnippets();
-});
-
-var loadSnippets = function () {
-  var snippets = [], index;
-
-  $.getJSON('../styleguide_db/general.txt', function (data) {
-    for (index = 0, len = data.length; index < len; index++) {
-      if ( !data[index].isDeleted ) {
-        snippets.push(data[index]);
-      }
-    }
-    injectFrames(snippets);
-  });
-};
-
-var injectFrames = function ( snippets ) {
-  var index;
-
-  for (index = 0, len = snippets.length; index < len; index++) {
-    var $frame = $('<iframe></iframe>');
-
-    $frame.attr('id', 'snippet-' + snippets[index].id);
-    $frame.attr('sandbox', 'allow-same-origin allow-scripts');
-    $.when($frame.appendTo('.main')).then(function(){
-
-      $.get('../template.html', function ( data ) {
-        console.log('entered');
-        for (var ind = 0, len = snippets.length; ind < len; ind++) {
-          var snippetFrame = $('#snippet-' + snippets[ind].id).contents();
-
-          snippetFrame.find('html').html(data);
-          snippetFrame.find('#snippet').html(snippets[ind].code);
-        }
-      });
-    });
-
-  }
-};
-
-
 var snippetService = (function ($, categoryService) {
   var module = {},
       path = '//' + window.location.hostname + ':3000/snippets/';
@@ -59,6 +17,11 @@ var snippetService = (function ($, categoryService) {
         $.getJSON(path, function ( data ) {
           var filteredSnippets = data.filter(function ( obj ) {
             return obj.isDeleted;
+          });
+
+          filteredSnippets = filteredSnippets.map(function ( obj ) {
+            obj.category = categories[index].id;
+            return obj;
           });
 
           deletedSnippets = deletedSnippets.concat(filteredSnippets);
@@ -89,6 +52,12 @@ var snippetService = (function ($, categoryService) {
         data = data.filter(function ( obj ) {
           return !obj.isDeleted;
         });
+
+        data = data.map(function ( obj ) {
+          obj.category = categoryId;
+          return obj;
+        });
+
         callback(data);
       });
     });
@@ -114,7 +83,7 @@ var snippetService = (function ($, categoryService) {
           })[0];
 
           if ( desireableSnippet ) {
-            desireableSnippet.category = index;
+            desireableSnippet.category = categories[index].id;
             callback(desireableSnippet);
           }
 

@@ -105,16 +105,16 @@
 								<div id="cssEditor"></div>
 							</div>
 						</div>
-					</form>
-					<div class="row controls-row">
-						<div class="medium-4 columns medium-offset-2">
-							<button class="btn-primary js-submit-form-button" type="submit" data-submit-form="#SnipetForm">Create</button>
-							<button class="btn-blank" type="button">Cancel</button>
-						</div>
-						<div class="medium-4 columns end text-right">
-							* - Mandatory fields
-						</div>
+						<div class="row controls-row">
+							<div class="medium-4 columns medium-offset-2">
+								<button class="btn-primary js-submit-form-button" type="submit" data-submit-form="#SnipetForm">Create</button>
+								<button class="btn-blank" type="button">Cancel</button>
+							</div>
+							<div class="medium-4 columns end text-right">
+								* - Mandatory fields
+							</div>
 					</div>
+					</form>
 				</div>
 			</section>
 
@@ -272,7 +272,7 @@
 			<section class="snippet js-snippet page-prewrapper">
 				<header class="snippet-header">
 					<div class="page-wrapper clearfix">
-						<h1>Snippet Name</h1>
+						<h1 class="js-snippet-name">Snippet Name</h1>
 						<div class="pull-right">
 							<button class="snippet-control-btn js-snippet-settings-btn" type="button"><i class="fa fa-cog"></i></button>
 							<button class="snippet-control-btn js-snippet-code-btn" type="button"><i class="fa fa-code"></i></btutton>
@@ -283,17 +283,17 @@
 				<div class="snippet-code page-prewrapper js-snippet-code" style="display: none;">
 					<div class="page-wrapper">
 						<div class="row">
-							<code class="medium-6 columns code-preview">
+							<code class="medium-6 columns code-preview js-snippet-code-preview">
 								code preview
 							</code>
-							<div class="medium-6 columns end code-description">
+							<div class="medium-6 columns end code-description js-snippet-description">
 								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda alias, voluptatibus quasi ipsam quas ipsa tenetur pariatur velit cum reprehenderit optio perferendis ad labore ea, porro?
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="snippet-preview js-snippet-preview" style="width: 1200px;">
-					<div class="snippet-source">
+					<div class="snippet-source js-snippet-source">
 						<div class="made-up-snippet-example">
 							<h2>Example snippet with long heading Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores unde eveniet, non.</h2>
 							<div style="border: 1px solid #bada55;">
@@ -372,9 +372,9 @@
 	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/interact-1.2.4.min.js"></script>
-	<script src="js/main.js"></script>
 	<script src="js/categories.js" type="text/javascript"></script>
 	<script src="js/snippets.js" type="text/javascript"></script>
 	<script src="js/iframes.js" type="text/javascript"></script>
+	<script src="js/main.js"></script>
 </body>
 </html>
