@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
 	<link rel="stylesheet" href="css/main.css">
 	<style type="text/css" media="screen">
-	    #jsNewCode, #jsNewCss {
+	    .editor-view {
 	        position: relative;
 	        height: 180px;
 	        width: 380px;
@@ -94,7 +94,7 @@
 							<div class="form-item">
 								<label for="form-new-code">* Code:</label>
 								<button class="js-toggle-code-editor-full-screen">Toogle Full Screen</button>
-								<div id="jsNewCode"></div><label id="form-new-code-error" style="display: none;">This field is required.</label>
+								<div id="jsNewCode" class="editor-view"></div><label id="form-new-code-error" style="display: none;">This field is required.</label>
 							</div>
 						</div>
 
@@ -107,7 +107,7 @@
 							<div class="form-item">
 								<label>Inline CSS: <i class="fa fa-info-circle"></i></label>
 								<button class="js-toggle-css-editor-full-screen">Toogle Full Screen</button>
-								<div id="jsNewCss"></div>
+								<div id="jsNewCss" class="editor-view"></div>
 							</div>
 						</div>
 						<div class="row controls-row">
@@ -330,7 +330,7 @@
 
 									<div class="form-item">
 										<label for="form-new-code">* Code:</label>
-										<div id="js-edit-code"></div>
+										<div id="js-edit-code" class="editor-view"></div>
 									</div>
 								</div>
 
@@ -342,7 +342,7 @@
 
 									<div class="form-item">
 										<label for="form-new-inlinecss">Inline CSS: <i class="fa fa-info-circle"></i></label>
-										<div id="js-edit-css"></div>
+										<div id="js-edit-css" class="editor-view"></div>
 									</div>
 								</div>
 							</form>
@@ -375,6 +375,7 @@
 	<script src="js/categories.js" type="text/javascript"></script>
 	<script src="js/snippets.js" type="text/javascript"></script>
 	<script src="js/iframes.js" type="text/javascript"></script>
+	<script src="js/editor.js" type="text/javascript"></script>
 	<script src="js/main.js"></script>
 </body>
 </html>
