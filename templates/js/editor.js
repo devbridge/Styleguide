@@ -46,7 +46,7 @@ var editorService = (function ($) {
   };
 
   module.addToEditForm = function ( snippetContainer ) {
-    var currentEditor = snippetContainer.find('#js-edit-code'),
+    var currentEditor = snippetContainer.find('.js-edit-code'),
         snippetId = snippetContainer.attr('class').split(' ').pop(),
         currentId = snippetId + '-code';
 
@@ -55,7 +55,7 @@ var editorService = (function ($) {
     currentEditor.setTheme('ace/theme/monokai');
     currentEditor.getSession().setMode('ace/mode/html');
 
-    currentEditor = snippetContainer.find('#js-edit-css');
+    currentEditor = snippetContainer.find('.js-edit-css');
     currentId = snippetId + '-css';
 
     currentEditor.attr('id', currentId);

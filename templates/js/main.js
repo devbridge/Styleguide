@@ -116,7 +116,7 @@ var parseSassData = function () {
 };
 
 var bindCategoriesToForms = function () {
-	var selections = $('#form-new-category'),
+	var selections = $('.js-form-select'),
 			len = selections.length,
 			index,
 			currentSelection;
@@ -154,14 +154,31 @@ var createSnippet = function ( e ) {
 	});
 };
 
-$(document).ready(function(){
-	editorService.init();
-	parseSassData();
-	bindCategoriesToForms();
+var editSnippet = function ( e ) {
+	var form = $(this),
+			fields = form.find('.js-form-submit-field'),
+			snippetId = form.closest('.js-snippet').attr('id'),
+			currentField,
+			len = fields.length,
+			data = {},
+			index;
 
+	e.preventDefault();
 
-	$('.js-create-snippet').submit(createSnippet);
+	for (index = 0; len > index; index++) {
+		currentField = $(fields[index]);
+		data[currentField.data('js-field-name')] = currentField.val();
+	}
 
+	//TODO: take code and css
+	//data.code = ace.edit('jsNewCode').getValue();
+	//data.inlineCss = ace.edit('jsNewCss').getValue();
+	snippetService.putEdited(data, snippetId, function ( snippet ) {
+		console.log(snippet);
+	});
+};
+
+var testFramesForDeleted = function () {
   iframesService.formFramesForDeleted(function ( frames, snippets ) {
   	var snippetId,
   			snippetContents,
@@ -174,6 +191,7 @@ $(document).ready(function(){
    	iframesService.getTemplate(function ( template ) {
    		for (index = 0; len > index; index++) {
    			currentSnippetElement = snippetContainer.clone(true);
+   			currentSnippetElement.attr('id', snippets[index].id);
    			snippetId = frames[index].attr('id');
 
    			currentSnippetElement.find('.js-snippet-name').html(snippets[index].name);
@@ -194,5 +212,17 @@ $(document).ready(function(){
    		}
    	}); 	
   });
+};
+
+$(document).ready(function(){
+	editorService.init();
+	parseSassData();
+	
+	testFramesForDeleted();
+	bindCategoriesToForms();
+
+	$('.js-create-snippet').submit(createSnippet);
+	$('.js-edit-snippet').submit(editSnippet);
+
 
 });
