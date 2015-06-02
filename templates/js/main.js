@@ -66,65 +66,62 @@ $( ".js-header-new-snippet" ).on( "click", function () {
 	$( ".js-new-snippet-form" ).toggle();
 });
 
-$(document).ready(function(){
-	var dom = require("ace/lib/dom");
-	var sassdata;
-	var commands = require("ace/commands/default_commands").commands;
+var initializeAce = function() {
+	var dom = require('ace/lib/dom'),
+			codeEditor,
+			cssEditor,
+			commands = require('ace/commands/default_commands').commands
+			toggleFullScreen = function ( editor, e ) {
+   			e.preventDefault();
+   			editor.keyBinding.$handlers[0].commands['Toggle Fullscreen'].exec(editor);
+   		};
+
+
 	commands.push({
-		name: "Toggle Fullscreen",
-		bindKey: "F11",
-		exec: function(editor) {
-			dom.toggleCssClass(document.body, "fullScreen");
-			dom.toggleCssClass(editor.container, "fullScreen-editor");
+		name: 'Toggle Fullscreen',
+		bindKey: 'F11',
+		exec: function ( editor ) {
+			dom.toggleCssClass(document.body, 'fullScreen');
+			dom.toggleCssClass(editor.container, 'fullScreen-editor');
 			editor.resize();
 		}
 	});
 
-	// setting up ace editor
-    var codeEditor = ace.edit("codeEditor");
-    codeEditor.setTheme("ace/theme/chrome");
-    codeEditor.getSession().setMode("ace/mode/html");
-
-    var cssEditor = ace.edit("cssEditor");
-    cssEditor.setTheme("ace/theme/chrome");
-    cssEditor.getSession().setMode("ace/mode/css");
-
-	$('.js-toggle-code-editor-full-screen').on('click', function(e) {
-		e.preventDefault();
-		codeEditor.keyBinding.$handlers[0].commands['Toggle Fullscreen'].exec(codeEditor);
+	commands.push({
+		name: 'Exit Fullscreen',
+		bindKey: 'ESC',
+		exec: function ( editor ) {
+			dom.removeCssClass(document.body, 'fullScreen');
+			dom.removeCssClass(editor.container, 'fullScreen-editor');
+			editor.resize();
+		}
 	});
 
-	$('.js-toggle-css-editor-full-screen').on('click', function(e) {
-		e.preventDefault();
-		cssEditor.keyBinding.$handlers[0].commands['Toggle Fullscreen'].exec(cssEditor);
-	});
+	codeEditor = ace.edit('jsNewCode');
+	cssEditor = ace.edit('jsNewCss');
 
-	// set categories
-	$('#form-new-category').each(function(index, el) {
-		var comboBox = $(this);
-		$.getJSON('../config.json', function(data) {
-			var categories = [];
-			$.each(data.categories, function(index, val) {
-				categories.push('<option value="'+val.id+'">'+val.name+'</option>');
-			});
-			comboBox.html(categories.join(''));
-		});
-	});
+	codeEditor.setTheme('ace/theme/monokai');
+	cssEditor.setTheme('ace/theme/monokai');
 
-	$('.js-submit-form-button').on('click', function(event) {
-		event.preventDefault();
-		var selector = $(this).data('submit-form');
-		$(selector).off('submit.customSubmit');
-		$(selector).on('submit.customSubmit', HandleCustomFormSubmit);
-		$(selector).submit();
-	});
+	codeEditor.getSession().setMode("ace/mode/html");
+	cssEditor.getSession().setMode("ace/mode/css");
 
+	$('.js-toggle-code-editor-full-screen').on('click', $.proxy(toggleFullScreen, null, codeEditor));
+  $('.js-toggle-css-editor-full-screen').on('click', $.proxy(toggleFullScreen, null, cssEditor));
+};
+
+var addAceToEditForm = function ( snippetId ) {
+	//TODO: bind ace editor and toggle fullscreen to specific snippet edit form
+};
+
+
+//TODO: refactor
+var parseSassData = function () {
 	var colorLiTemplate = $($('.snippet-colors > li').first()[0].cloneNode(true));
 	var colorLocation = $('.snippet-colors')[0];
 	var fontTemplate = $($('.snippet-fonts > li').first()[0].cloneNode(true));
 	var smallFontsTemplate = fontTemplate.find('.snippet-fonts-small')[0];
 	$.getJSON('../../db/sassdata.json', function(data){
-		sassdata = data;
 		HandleSassData(data[0]);
 	});
 
@@ -165,75 +162,86 @@ $(document).ready(function(){
 			fontsLocation.appendChild(fontTemplate[0].cloneNode(true));
 		});
 	}
+};
 
-	function HandleCustomFormSubmit(event) {
-		event.preventDefault();
-		var formToSubmit = $(this);
-		formToSubmit.validate();
-		var submitFields = $('.js-form-submit-field');
-		var invalidFields = submitFields.filter(function(){ return !$(this).valid();});
-		if (invalidFields.length == 0 && CodeInputValid()) {
-			var data = {};
-			submitFields.each(function(index, el) {
-				data[$(this).data('js-field-name')] = $(this).val();
-			});
-			data.code = codeEditor.getValue();
-			data.inlineCss = cssEditor.getValue();
-			$.ajax({
-				type: "POST",
-				url: '//'+window.location.hostname+':3000'+ formToSubmit.attr('action'),
-				data: data,
-				success: function(){},
-				dataType: 'JSON'
-			}).fail(function() {
-			    alert( "Failed to post!" );
-			});
+var bindCategoriesToForms = function () {
+	var selections = $('#form-new-category'),
+			len = selections.length,
+			index,
+			currentSelection;
+	categoryService.getCategories(function ( categories ) {
+		categories = categories.map(function ( category ) {
+			return '<option value="' + category.id + '">' + category.name + '</option>';
+		});
+		for (index = 0; index < len; index++) {
+			currentSelection = $(selections[index]);
+			currentSelection.html(categories.join(''));
 		}
+	});
+};
 
-		function CodeInputValid() {
-			if ($('#codeEditor').length == 1 && codeEditor.getValue() == '') {
-				$('#form-new-code-error').show();
-				return false;
-			} else {
-				$('#form-new-code-error').hide();
-				return true;
-			}
-		}
+var createSnippet = function ( e ) {
+	var form = $(this),
+			fields = form.find('.js-form-submit-field'),
+			currentField,
+			len = fields.length,
+			data = {},
+			index;
+
+	e.preventDefault();
+
+	for (index = 0; len > index; index++) {
+		currentField = $(fields[index]);
+		data[currentField.data('js-field-name')] = currentField.val();
 	}
 
-    function httpGet(theUrl)
-    {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", theUrl, false );
-        xmlHttp.send( null );
-        return xmlHttp;
-    }
+	data.code = ace.edit('jsNewCode').getValue();
+	data.inlineCss = ace.edit('jsNewCss').getValue();
 
-    iframesService.formFramesForDeleted(function ( frames, snippets ) {
-    	var snippetId, snippetContents, snippetContainer, currentSnippetElement;
-    	snippetContainer = $('.js-snippet');
-    	iframesService.getTemplate(function ( template ) {
-    		for (var index = 0, len = frames.length; len > index; index++) {
-    			currentSnippetElement = snippetContainer.clone(true);
+	snippetService.postNew(data, function ( snippet ) {
+		console.log(snippet);
+	});
+};
 
-    			currentSnippetElement.find('.js-snippet-name').html(snippets[index].name);
-    			currentSnippetElement.find('.js-snippet-description').html(snippets[index].description);
-    			currentSnippetElement.find('.js-snippet-code-preview').text(snippets[index].code);
-    			currentSnippetElement.find('.js-snippet-source').html(frames[index]);
+$(document).ready(function(){
+	
 
-    			console.log(snippets[index]);
+	initializeAce();
+	parseSassData();
+	bindCategoriesToForms();
 
-    			currentSnippetElement.sgSnippet();
-    			currentSnippetElement.appendTo('.main');
 
-    			snippetId = frames[index].attr('id');
-    			snippetContents = $('#' + snippetId).contents();
+	$('.js-create-snippet').submit(createSnippet);
 
-          snippetContents.find('html').html(template);
-          snippetContents.find('#snippet').html(snippets[index].code);
+  iframesService.formFramesForDeleted(function ( frames, snippets ) {
+  	var snippetId,
+  			snippetContents,
+				snippetContainer,
+   			currentSnippetElement,
+   			index,
+   			len = frames.length;
 
-    		}
-    	});
-    	
-    });
+   	snippetContainer = $('.js-snippet');
+   	iframesService.getTemplate(function ( template ) {
+   		for (index = 0; len > index; index++) {
+   			currentSnippetElement = snippetContainer.clone(true);
+
+   			currentSnippetElement.find('.js-snippet-name').html(snippets[index].name);
+   			currentSnippetElement.find('.js-snippet-description').html(snippets[index].description);
+   			currentSnippetElement.find('.js-snippet-code-preview').text(snippets[index].code);
+   			currentSnippetElement.find('.js-snippet-source').html(frames[index]);
+
+   			currentSnippetElement.sgSnippet();
+   			currentSnippetElement.appendTo('.main');
+
+   			snippetId = frames[index].attr('id');
+   			snippetContents = $('#' + snippetId).contents();
+
+        snippetContents.find('html').html(template);
+        snippetContents.find('#snippet').html(snippets[index].code);
+
+   		}
+   	}); 	
+  });
+
 });

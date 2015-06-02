@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
 	<link rel="stylesheet" href="css/main.css">
 	<style type="text/css" media="screen">
-	    #codeEditor, #cssEditor {
+	    #jsNewCode, #jsNewCss {
 	        position: relative;
 	        height: 180px;
 	        width: 380px;
@@ -29,6 +29,11 @@
 		.fullScreen {
 			overflow: hidden
 		}
+
+		code {
+			white-space: pre;
+		}
+
 	</style>
 </head>
 <body>
@@ -70,7 +75,7 @@
 		<main class="main">
 			<section class="snippet-form snippet-form--new-snippet page-prewrapper js-new-snippet-form" style="display: none;">
 				<div class="page-wrapper">
-					<form class="row" id="SnipetForm" action="/snippets">
+					<form class="row js-create-snippet" action="/snippets">
 						<div class="medium-2 columns">
 							<h1>New Snippet</h1>
 						</div>
@@ -89,7 +94,7 @@
 							<div class="form-item">
 								<label for="form-new-code">* Code:</label>
 								<button class="js-toggle-code-editor-full-screen">Toogle Full Screen</button>
-								<div id="codeEditor"></div><label id="form-new-code-error" style="display: none;">This field is required.</label>
+								<div id="jsNewCode"></div><label id="form-new-code-error" style="display: none;">This field is required.</label>
 							</div>
 						</div>
 
@@ -102,12 +107,12 @@
 							<div class="form-item">
 								<label>Inline CSS: <i class="fa fa-info-circle"></i></label>
 								<button class="js-toggle-css-editor-full-screen">Toogle Full Screen</button>
-								<div id="cssEditor"></div>
+								<div id="jsNewCss"></div>
 							</div>
 						</div>
 						<div class="row controls-row">
 							<div class="medium-4 columns medium-offset-2">
-								<button class="btn-primary js-submit-form-button" type="submit" data-submit-form="#SnipetForm">Create</button>
+								<button class="btn-primary" type="submit">Create</button>
 								<button class="btn-blank" type="button">Cancel</button>
 							</div>
 							<div class="medium-4 columns end text-right">
@@ -319,18 +324,13 @@
 
 									<div class="form-item">
 										<label for="form-new-category">* Category:</label>
-										<select id="form-new-category">
-											<option value="0">Components</option>
-											<option value="1">General</option>
-											<option value="2">Layouts</option>
-											<option value="3">Buttons</option>
-											<option value="4">Form Elements</option>
+										<select id="form-new-category" required class="js-form-submit-field" data-js-field-name="category">
 										</select>
 									</div>
 
 									<div class="form-item">
 										<label for="form-new-code">* Code:</label>
-										<textarea id="form-new-code"></textarea>
+										<div id="js-edit-code"></div>
 									</div>
 								</div>
 
@@ -342,7 +342,7 @@
 
 									<div class="form-item">
 										<label for="form-new-inlinecss">Inline CSS: <i class="fa fa-info-circle"></i></label>
-										<textarea id="form-new-inlinecss" class="inline-css"></textarea>
+										<div id="js-edit-css"></div>
 									</div>
 								</div>
 							</form>
