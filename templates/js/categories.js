@@ -13,5 +13,21 @@ var categoryService = (function ($) {
     }
   };
 
+  module.bindCategoriesToForms = function () {
+    var selections = $('.js-form-select'),
+        len = selections.length,
+        index,
+        currentSelection;
+    module.getCategories(function ( categories ) {
+      categories = categories.map(function ( category ) {
+        return '<option value="' + category.id + '">' + category.name + '</option>';
+      });
+      for (index = 0; index < len; index++) {
+        currentSelection = $(selections[index]);
+        currentSelection.html(categories.join(''));
+      }
+    });
+  };
+
   return module;
 })(jQuery || {});
