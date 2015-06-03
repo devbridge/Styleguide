@@ -1,10 +1,10 @@
 var categoryService = (function ($) {
-  var module = {};
-  var cachedCategories;
+  var module = {},
+      cachedCategories;
 
-  module.getCategories = function (callback) {
+  module.getCategories = function ( callback ) {
     if ( !cachedCategories ) {
-      $.getJSON('../../../config.txt', function (data) {
+      $.getJSON('../../../config.txt', function ( data ) {
         cachedCategories = data.categories;
         callback(cachedCategories);
       });

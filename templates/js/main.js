@@ -68,8 +68,6 @@ $( ".js-header-new-snippet" ).on( "click", function () {
 
 //TODO: refactor
 var parseSassData = function () {
-	var colorLiTemplate = $($('.snippet-colors > li').first()[0].cloneNode(true));
-	var colorLocation = $('.snippet-colors')[0];
 	var fontTemplate = $($('.snippet-fonts > li').first()[0].cloneNode(true));
 	var smallFontsTemplate = fontTemplate.find('.snippet-fonts-small')[0];
 	$.getJSON('../../db/sassdata.json', function(data){
@@ -89,13 +87,7 @@ var parseSassData = function () {
 			$(fontFamilyPreview).find('.js-font-family-name').text('Font family: '+val);
 			$('.snippet-type-text')[0].appendChild(fontFamilyPreview.cloneNode(true));
 		});
-		colorLocation.innerHTML = '';
-		$.each(element.colors, function(index, el) {
-			colorLiTemplate.find('i')[0].style.background = index;
-			colorLiTemplate.find('i').text(index);
-			colorLiTemplate.find('.js-color-text').text(el.join(', '));
-			colorLocation.appendChild(colorLiTemplate[0].cloneNode(true));
-		});
+
 
 		var fontsLocation = $('.snippet-fonts')[0];
 		fontsLocation.innerHTML = '';
@@ -189,6 +181,7 @@ var testFramesForDeleted = function () {
   			snippetContents,
 				snippetContainer,
    			currentSnippetElement,
+   			currentId,
    			index,
    			len = frames.length,
    			formFields,
@@ -199,9 +192,10 @@ var testFramesForDeleted = function () {
    	snippetContainer = $('.js-snippet');
    	iframesService.getTemplate(function ( template ) {
    		for (index = 0; len > index; index++) {
+   			currentId = snippets[index].id;
    			currentSnippetElement = snippetContainer.clone(true);
    			formFields = currentSnippetElement.find('.js-edit-snippet').find('.js-form-submit-field');
-   			currentSnippetElement.attr('id', snippets[index].id);
+   			currentSnippetElement.attr('id', currentId);
    			snippetId = frames[index].attr('id');
 
    			currentSnippetElement.find('.js-snippet-name').html(snippets[index].name);
@@ -211,6 +205,14 @@ var testFramesForDeleted = function () {
    			currentSnippetElement.find('.js-snippet-code-preview').text(snippets[index].code);
    			currentSnippetElement.find('.js-snippet-source').html(frames[index]);
    			currentSnippetElement.addClass(snippetId);
+
+
+
+   			currentSnippetElement.find('.js-delete-snippet').on('click', function () {
+   				snippetService.deleteById(currentId, function ( data ) {
+   					console.log(data);
+   				});
+   			});
 
    			for (fieldIndex = 0, fieldLen = formFields.length; fieldIndex < fieldLen; fieldIndex++) {
    				currentField = $(formFields[fieldIndex]);
@@ -233,13 +235,11 @@ var testFramesForDeleted = function () {
 
 $(document).ready(function(){
 	editorService.init();
-	parseSassData();
+	sassService.loadSass();
 	
 	testFramesForDeleted();
 	bindCategoriesToForms();
 
 	$('.js-create-snippet').submit(createSnippet);
 	$('.js-edit-snippet').submit(editSnippet);
-
-
 });
