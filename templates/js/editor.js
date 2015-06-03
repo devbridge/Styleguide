@@ -1,15 +1,16 @@
 var editorService = (function ($) {
   var module = {};
 
+  var toggleFullScreen = function ( editor, e ) {
+    e.preventDefault();
+    editor.keyBinding.$handlers[0].commands['Toggle Fullscreen'].exec(editor);
+  };
+
   var addToNewForm = function () {
     var dom = require('ace/lib/dom'),
         codeEditor,
         cssEditor,
-        commands = require('ace/commands/default_commands').commands
-        toggleFullScreen = function ( editor, e ) {
-          e.preventDefault();
-          editor.keyBinding.$handlers[0].commands['Toggle Fullscreen'].exec(editor);
-        };
+        commands = require('ace/commands/default_commands').commands;
 
 
     commands.push({
@@ -55,6 +56,8 @@ var editorService = (function ($) {
     currentEditor.setTheme('ace/theme/monokai');
     currentEditor.getSession().setMode('ace/mode/html');
 
+    snippetContainer.find('.js-toggle-code-full-screen').on('click', $.proxy(toggleFullScreen, null, currentEditor));
+
     currentEditor = snippetContainer.find('.js-edit-css');
     currentId = snippetId + '-css';
 
@@ -62,6 +65,8 @@ var editorService = (function ($) {
     currentEditor = ace.edit(currentId);
     currentEditor.setTheme('ace/theme/monokai');
     currentEditor.getSession().setMode('ace/mode/css');
+
+    snippetContainer.find('.js-toggle-css-full-screen').on('click', $.proxy(toggleFullScreen, null, currentEditor));
   };
 
   module.init = function () {

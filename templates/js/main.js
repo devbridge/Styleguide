@@ -161,7 +161,9 @@ var editSnippet = function ( e ) {
 			currentField,
 			len = fields.length,
 			data = {},
-			index;
+			index,
+			code,
+			css;
 
 	e.preventDefault();
 
@@ -170,9 +172,12 @@ var editSnippet = function ( e ) {
 		data[currentField.data('js-field-name')] = currentField.val();
 	}
 
-	//TODO: take code and css
-	//data.code = ace.edit('jsNewCode').getValue();
-	//data.inlineCss = ace.edit('jsNewCss').getValue();
+	code = ace.edit('snippet-' + snippetId + '-code').getValue();
+	css = ace.edit('snippet-' + snippetId + '-css').getValue()
+
+	data.code = code;
+	data.inlineCss = css;
+
 	snippetService.putEdited(data, snippetId, function ( snippet ) {
 		console.log(snippet);
 	});
@@ -185,20 +190,32 @@ var testFramesForDeleted = function () {
 				snippetContainer,
    			currentSnippetElement,
    			index,
-   			len = frames.length;
+   			len = frames.length,
+   			formFields,
+   			fieldIndex,
+   			fieldLen,
+   			currentField;
 
    	snippetContainer = $('.js-snippet');
    	iframesService.getTemplate(function ( template ) {
    		for (index = 0; len > index; index++) {
    			currentSnippetElement = snippetContainer.clone(true);
+   			formFields = currentSnippetElement.find('.js-edit-snippet').find('.js-form-submit-field');
    			currentSnippetElement.attr('id', snippets[index].id);
    			snippetId = frames[index].attr('id');
 
    			currentSnippetElement.find('.js-snippet-name').html(snippets[index].name);
    			currentSnippetElement.find('.js-snippet-description').html(snippets[index].description);
+   			currentSnippetElement.find('.js-edit-code').text(snippets[index].code);
+   			currentSnippetElement.find('.js-edit-css').text(snippets[index].inlineCss);
    			currentSnippetElement.find('.js-snippet-code-preview').text(snippets[index].code);
    			currentSnippetElement.find('.js-snippet-source').html(frames[index]);
    			currentSnippetElement.addClass(snippetId);
+
+   			for (fieldIndex = 0, fieldLen = formFields.length; fieldIndex < fieldLen; fieldIndex++) {
+   				currentField = $(formFields[fieldIndex]);
+   				currentField.val(snippets[index][currentField.data('js-field-name')]);
+   			}
 
    			currentSnippetElement.sgSnippet();
    			currentSnippetElement.appendTo('.main');
