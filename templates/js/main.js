@@ -66,47 +66,6 @@ $( ".js-header-new-snippet" ).on( "click", function () {
 	$( ".js-new-snippet-form" ).toggle();
 });
 
-//TODO: refactor
-var parseSassData = function () {
-	var fontTemplate = $($('.snippet-fonts > li').first()[0].cloneNode(true));
-	var smallFontsTemplate = fontTemplate.find('.snippet-fonts-small')[0];
-	$.getJSON('../../db/sassdata.json', function(data){
-		HandleSassData(data[0]);
-	});
-
-	function HandleSassData(element) {
-		var fonts = element.typography.map(function(elem) {
-			return elem.value.split('\'')[1];
-		}).filter(function(value, index, self) {
-		    return self.indexOf(value) === index;
-		});
-		var fontFamilyPreview = $('.snippet-type-text > .row')[0];
-		$('.snippet-type-text > .row').remove();
-		$.each(fonts, function(index, val) {
-			fontFamilyPreview.style.fontFamily = val;
-			$(fontFamilyPreview).find('.js-font-family-name').text('Font family: '+val);
-			$('.snippet-type-text')[0].appendChild(fontFamilyPreview.cloneNode(true));
-		});
-
-
-		var fontsLocation = $('.snippet-fonts')[0];
-		fontsLocation.innerHTML = '';
-		$.each(element.typography, function(index, el) {
-			var smallFontsContainer = fontTemplate.find('.js-small-fonts-container');
-			fontTemplate.find('.snippet-fonts-small').remove();
-			$.each(el.weights, function(index, fontWeight) {
-				smallFontsTemplate.style.fontWeight = fontWeight;
-				smallFontsContainer[0].appendChild(smallFontsTemplate.cloneNode(true));
-			});
-			fontTemplate.find('.snippet-fonts-variable').text(el.variable +': '+ el.value);
-			fontTemplate.find('.js-set-font').each(function(index, fontElement) {
-				fontElement.style.fontFamily = el.value;
-			});
-			fontsLocation.appendChild(fontTemplate[0].cloneNode(true));
-		});
-	}
-};
-
 var bindCategoriesToForms = function () {
 	var selections = $('.js-form-select'),
 			len = selections.length,
@@ -236,7 +195,7 @@ var testFramesForDeleted = function () {
 $(document).ready(function(){
 	editorService.init();
 	sassService.loadSass();
-	
+
 	testFramesForDeleted();
 	bindCategoriesToForms();
 
