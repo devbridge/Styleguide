@@ -78,11 +78,59 @@ var testFramesForCategory = function () {
   });
 };
 
+var redrawPage = function ( categoryId ) {
+	$('.main').empty();
+	
+	if ( categoryId ) {
+		console.log(categoryId);
+		iframesService.formFramesForCategory(categoryId, function ( frames, snippets ) {
+			snippetActions.drawSnippets(frames, snippets);
+		});
+		return;
+	}
+	
+	sassService.loadSass(function () {
+		$('.main').append($('.js-sass-page').children().clone(true));
+	});
+};
+
+var buildNavigation = function () {
+	var navigation = $('.js-navigation'),
+			currentPage = navigation.find('.js-current-page'),
+			navList = navigation.find('.js-navigation-list'),
+			pages = [{ name: 'Colors, Typography' }],
+			iteratingPage,
+			pageElement,
+			index,
+			len;
+
+	currentPage.text(pages[0].name);
+	categoryService.getCategories(function ( categories ) {
+		pages = pages.concat(categories);
+		len = pages.length;
+
+		for (index = 0; len > index; index++) {
+			iteratingPage = pages[index];
+			pageElement = $('<a href="#" data-id="' + iteratingPage.id + '">' + iteratingPage.name + '</a>');
+			pageElement.on('click', function () {
+				redrawPage($(this).data('id'));
+			});
+			navList.append(pageElement);
+		}
+	});
+};
+
 $(document).ready(function(){
 	editorService.init();
-	sassService.loadSass();
+	buildNavigation();
+	
+	
+	sassService.loadSass(function () {
+		$('.main').append($('.js-sass-page').children().clone(true));
+	});
+	
+	
 
-	testFramesForCategory();
 	categoryService.bindCategoriesToForms();
 
 	$('.js-create-snippet').submit(snippetActions.createSnippet);

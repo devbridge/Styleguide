@@ -82,11 +82,12 @@ var sassService = (function ($) {
     }
   };
 
-  module.loadSass = function () {
+  module.loadSass = function ( callback ) {
     getSassData(function ( data ) {
       console.log(data[0].name);
       parseColors(data[0].colors);
       parseFonts(data[0].typography);
+      callback();
     });
   };
 

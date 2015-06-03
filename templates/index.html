@@ -41,14 +41,9 @@
 		<header class="header page-prewrapper">
 			<div class="page-wrapper">
 				<h1>Styleguide</h1>
-				<nav class="header-nav">
-					<h2 class="h1">Components</h2>
-					<div class="dropdown">
-						<a href="#">Components</a>
-						<a href="#">General</a>
-						<a href="#">Layouts</a>
-						<a href="#">Buttons</a>
-						<a href="#">Form Elements</a>
+				<nav class="header-nav js-navigation">
+					<h2 class="h1 js-current-page">Components</h2>
+					<div class="dropdown js-navigation-list">
 					</div>
 					<div class="btn-ghost-group">
 						<a class="btn-ghost" href="#" title="Previous"><i class="fa fa-angle-left"></i></a>
@@ -122,23 +117,121 @@
 					</form>
 				</div>
 			</section>
+		</main>
+	</div>
 
-			<section class="snippet page-prewrapper">
+	<footer class="footer page-prewrapper">
+		<div class="page-wrapper">
+			Powered by Devbridge
+		</div>
+	</footer>
+
+	<div hidden="">
+			<section class="snippet js-snippet page-prewrapper">
 				<header class="snippet-header">
 					<div class="page-wrapper clearfix">
-						<h1>Colors</h1>
+						<h1 class="js-snippet-name">Snippet Name</h1>
+						<div class="pull-right">
+							<button class="snippet-control-btn js-snippet-settings-btn" type="button"><i class="fa fa-cog"></i></button>
+							<button class="snippet-control-btn js-snippet-code-btn" type="button"><i class="fa fa-code"></i></btutton>
+						</div>
+						<div class="snippet-size js-snippet-size">1200px</div>
 					</div>
 				</header>
-				<div class="snippet-preview" style="width: 1200px;">
-					<div class="snippet-source">
-						<ul class="snippet-colors js-snippet-colors">
-							<li class="js-color-box">
-								<i style="background: #000;"></i> <br>
-							</li>
-						</ul>
+				<div class="snippet-code page-prewrapper js-snippet-code" style="display: none;">
+					<div class="page-wrapper">
+						<div class="row">
+							<code class="medium-6 columns code-preview js-snippet-code-preview">
+								code preview
+							</code>
+							<div class="medium-6 columns end code-description js-snippet-description">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda alias, voluptatibus quasi ipsam quas ipsa tenetur pariatur velit cum reprehenderit optio perferendis ad labore ea, porro?
+							</div>
+						</div>
 					</div>
 				</div>
+				<div class="snippet-preview js-snippet-preview" style="width: 1200px;">
+					<div class="snippet-source js-snippet-source">
+						<div class="made-up-snippet-example">
+							<h2>Example snippet with long heading Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores unde eveniet, non.</h2>
+							<div style="border: 1px solid #bada55;">
+								Some sort of content here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eaque deleniti qui perspiciatis tempora.
+							</div>
+						</div>
+					</div>
+					<div class="snippet-resize-handle snippet-resize-handle-left js-snippet-resize-handle-left" draggable="true"></div>
+					<div class="snippet-resize-handle snippet-resize-handle-right js-snippet-resize-handle-right" draggable="true"></div>
+				</div>
+				<div class="snippet-settings js-snippet-settings" style="display: none;">
+					<section class="snippet-form page-prewrapper">
+						<div class="page-wrapper">
+							<form class="row js-edit-snippet">
+								<div class="medium-2 columns">
+									<h1>Edit Snippet</h1>
+								</div>
+								<div class="medium-4 columns">
+									<div class="form-item">
+										<label for="form-new-name">* Name:</label>
+										<input type="text" id="form-new-name" class="js-form-submit-field" data-js-field-name="name" required>
+									</div>
+
+									<div class="form-item">
+										<label for="form-new-category">* Category:</label>
+										<select id="form-new-category" required class="js-form-submit-field js-form-select" data-js-field-name="category" required>
+										</select>
+									</div>
+
+									<div class="form-item">
+										<label for="form-new-code">* Code:</label>
+										<button class="js-toggle-code-full-screen">Toogle Full Screen</button>
+										<div class="editor-view js-edit-code"></div>
+									</div>
+								</div>
+
+								<div class="medium-4 columns end">
+									<div class="form-item form-item">
+										<label for="form-new-description">Description:</label>
+										<textarea id="form-new-description" class="js-form-submit-field" data-js-field-name="description"></textarea>
+									</div>
+
+									<div class="form-item">
+										<label for="form-new-inlinecss">Inline CSS: <i class="fa fa-info-circle"></i></label>
+										<button class="js-toggle-css-full-screen">Toogle Full Screen</button>
+										<div class="editor-view js-edit-css"></div>
+									</div>
+								</div>
+								<div class="row controls-row">
+									<div class="medium-4 columns medium-offset-2">
+										<button class="btn-primary" type="submit">Create</button>
+										<button class="btn-blank" type="button">Cancel</button>
+									</div>
+									<div class="medium-4 columns end text-right">
+										<button class="btn-primary btn-primary--white js-delete-snippet" type="button"><i class="fa fa-trash-o"></i>Delete Snippet</button>
+									</div>
+							</div>
+							</form>
+						</div>
+					</section>
+				</div>
 			</section>
+
+			<div class="js-sass-page">
+				<section class="snippet page-prewrapper">
+					<header class="snippet-header">
+						<div class="page-wrapper clearfix">
+							<h1>Colors</h1>
+						</div>
+					</header>
+					<div class="snippet-preview" style="width: 1200px;">
+						<div class="snippet-source">
+							<ul class="snippet-colors js-snippet-colors">
+								<li class="js-color-box">
+									<i style="background: #000;"></i> <br>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</section>
 
 			<section class="snippet page-prewrapper">
 				<header class="snippet-header">
@@ -242,102 +335,8 @@
 					</div>
 				</div>
 			</section>
-
-			<section class="snippet js-snippet page-prewrapper">
-				<header class="snippet-header">
-					<div class="page-wrapper clearfix">
-						<h1 class="js-snippet-name">Snippet Name</h1>
-						<div class="pull-right">
-							<button class="snippet-control-btn js-snippet-settings-btn" type="button"><i class="fa fa-cog"></i></button>
-							<button class="snippet-control-btn js-snippet-code-btn" type="button"><i class="fa fa-code"></i></btutton>
-						</div>
-						<div class="snippet-size js-snippet-size">1200px</div>
-					</div>
-				</header>
-				<div class="snippet-code page-prewrapper js-snippet-code" style="display: none;">
-					<div class="page-wrapper">
-						<div class="row">
-							<code class="medium-6 columns code-preview js-snippet-code-preview">
-								code preview
-							</code>
-							<div class="medium-6 columns end code-description js-snippet-description">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda alias, voluptatibus quasi ipsam quas ipsa tenetur pariatur velit cum reprehenderit optio perferendis ad labore ea, porro?
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="snippet-preview js-snippet-preview" style="width: 1200px;">
-					<div class="snippet-source js-snippet-source">
-						<div class="made-up-snippet-example">
-							<h2>Example snippet with long heading Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores unde eveniet, non.</h2>
-							<div style="border: 1px solid #bada55;">
-								Some sort of content here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eaque deleniti qui perspiciatis tempora.
-							</div>
-						</div>
-					</div>
-					<div class="snippet-resize-handle snippet-resize-handle-left js-snippet-resize-handle-left" draggable="true"></div>
-					<div class="snippet-resize-handle snippet-resize-handle-right js-snippet-resize-handle-right" draggable="true"></div>
-				</div>
-				<div class="snippet-settings js-snippet-settings" style="display: none;">
-					<section class="snippet-form page-prewrapper">
-						<div class="page-wrapper">
-							<form class="row js-edit-snippet">
-								<div class="medium-2 columns">
-									<h1>Edit Snippet</h1>
-								</div>
-								<div class="medium-4 columns">
-									<div class="form-item">
-										<label for="form-new-name">* Name:</label>
-										<input type="text" id="form-new-name" class="js-form-submit-field" data-js-field-name="name" required>
-									</div>
-
-									<div class="form-item">
-										<label for="form-new-category">* Category:</label>
-										<select id="form-new-category" required class="js-form-submit-field js-form-select" data-js-field-name="category" required>
-										</select>
-									</div>
-
-									<div class="form-item">
-										<label for="form-new-code">* Code:</label>
-										<button class="js-toggle-code-full-screen">Toogle Full Screen</button>
-										<div class="editor-view js-edit-code"></div>
-									</div>
-								</div>
-
-								<div class="medium-4 columns end">
-									<div class="form-item form-item">
-										<label for="form-new-description">Description:</label>
-										<textarea id="form-new-description" class="js-form-submit-field" data-js-field-name="description"></textarea>
-									</div>
-
-									<div class="form-item">
-										<label for="form-new-inlinecss">Inline CSS: <i class="fa fa-info-circle"></i></label>
-										<button class="js-toggle-css-full-screen">Toogle Full Screen</button>
-										<div class="editor-view js-edit-css"></div>
-									</div>
-								</div>
-								<div class="row controls-row">
-									<div class="medium-4 columns medium-offset-2">
-										<button class="btn-primary" type="submit">Create</button>
-										<button class="btn-blank" type="button">Cancel</button>
-									</div>
-									<div class="medium-4 columns end text-right">
-										<button class="btn-primary btn-primary--white js-delete-snippet" type="button"><i class="fa fa-trash-o"></i>Delete Snippet</button>
-									</div>
-							</div>
-							</form>
-						</div>
-					</section>
-				</div>
-			</section>
-		</main>
+			</div>
 	</div>
-
-	<footer class="footer page-prewrapper">
-		<div class="page-wrapper">
-			Powered by Devbridge
-		</div>
-	</footer>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
