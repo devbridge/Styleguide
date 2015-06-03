@@ -46,9 +46,13 @@ router.get('/snippets', function (req, res, next) {
   }
 
   requestPages(config.scrapeUrls, function(responses) {
-    var filteredHTml = [], results = [];
-    var snippetai = {}
-    var url, response, uniques = jf.readFileSync('../../styleguide_db/uniques.txt', {throws: false}) || [];
+    var filteredHTml = [],
+        results = [],
+        snippetai = {},
+        url,
+        response,
+        uniques = jf.readFileSync('../../styleguide_db/uniques.txt', {throws: false}) || [];
+
     for (url in responses) {
       // reference to the response object
       response = responses[url];
@@ -72,6 +76,8 @@ router.get('/snippets', function (req, res, next) {
       var domMarker = filteredHTml[i].match(/<!-- snippet:start [\d\D]*? -->/gi)[0];
       var includeJs = domMarker.match(/include-js/i);
       var extractedIds = domMarker.match(/[\d]+/g);
+      var code = filteredHTml[i].match(/(?=>)[\d\D]*?(?=<!)/gi)[0];
+      code = code.slice(1);
       if (extractedIds) {
         snippetId = Number(extractedIds[0]);
         //TODO: instead of 0, find undefined category id
@@ -86,7 +92,7 @@ router.get('/snippets', function (req, res, next) {
       var newSnippet = {
         id: snippetId,
         name: "",
-        code: filteredHTml[i],
+        code: code.trim(),
         description: "",
         inlineCss: "",
         includeJs: includeJs ? true : false,

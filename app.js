@@ -74,5 +74,5 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-//app.listen(port);
-//console.log('Started Styleguide App on port ' + port);
+app.listen(port);
+console.log('Started Styleguide App on port ' + port);
