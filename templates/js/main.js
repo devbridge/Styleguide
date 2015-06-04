@@ -1,4 +1,4 @@
-;(function ( $, window, document, undefined ) {
+(function ( $, window, document, editorService, undefined ) {
 	function Plugin( element ) {
 		this.$element = $( element );
 		this.events();
@@ -17,9 +17,15 @@
 				$sizeIndicator = this.$element.find( ".js-snippet-size" );
 
 			$btnSettings.on( "click", function () {
-
 				$btnCode.removeClass( "active" );
 				$btnSettings.toggleClass( "active" );
+
+				if ( $btnSettings.hasClass("active") ) {
+					editorService.addToEditForm($code.parent());
+				} else {
+					editorService.removeFromEditForm($code.parent());
+				}
+
 				$code.hide();
 				$settings.add( $preview ).toggle();
 			});
@@ -60,7 +66,7 @@
 			}
 		});
 	};
-})( jQuery, window, document );
+})( jQuery, window, document, editorService );
 
 $( ".js-header-new-snippet" ).on( "click", function () {
 	$( ".js-new-snippet-form" ).toggle();

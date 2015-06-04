@@ -69,6 +69,32 @@ var editorService = (function ($) {
     snippetContainer.find('.js-toggle-css-full-screen').on('click', $.proxy(toggleFullScreen, null, currentEditor));
   };
 
+  module.removeFromEditForm = function ( snippetContainer ) {
+    var currentEditor = snippetContainer.find('.js-edit-code'),
+        snippetId = snippetContainer.attr('class').split(' ').pop(),
+        currentId = snippetId + '-code',
+        code,
+        css;
+
+    currentEditor = ace.edit(currentId);
+    code = currentEditor.getValue();
+    currentEditor.destroy();
+    $(currentEditor.container).children().remove()
+    $(currentEditor.container).text(code);
+
+    snippetContainer.find('.js-toggle-code-full-screen').off('click');
+
+    currentId = snippetId + '-css';
+
+    currentEditor = ace.edit(currentId);
+    css = currentEditor.getValue();
+    currentEditor.destroy();
+    $(currentEditor.container).children().remove();
+    $(currentEditor.container).text(css);
+
+    snippetContainer.find('.js-toggle-css-full-screen').off('click');
+  };
+
   module.init = function () {
     addToNewForm();
   };

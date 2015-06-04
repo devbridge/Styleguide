@@ -95,14 +95,13 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         }
 
         currentSnippetElement.sgSnippet();
+
         currentSnippetElement.appendTo('.main');
 
         snippetContents = $('#' + snippetId).contents();
 
         snippetContents.find('html').html(template);
         snippetContents.find('#snippet').html(snippets[index].code);
-
-        editorService.addToEditForm(currentSnippetElement);
       }
     });
   };
