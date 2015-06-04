@@ -43,13 +43,25 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     }
 
     code = ace.edit('snippet-' + snippetId + '-code').getValue();
-    css = ace.edit('snippet-' + snippetId + '-css').getValue()
+    css = ace.edit('snippet-' + snippetId + '-css').getValue();
 
     data.code = code;
     data.inlineCss = css;
 
     snippetService.putEdited(data, snippetId, function ( snippet ) {
-      console.log(snippet);
+      if ( typeof snippet === 'object' ) {
+        var snippetContainer = form.closest('.js-snippet'),
+            snippetContents;
+
+        snippetContainer.find('.js-snippet-name').html(snippet.name);
+        snippetContainer.find('.js-snippet-description').html(snippet.description);
+        snippetContainer.find('.js-snippet-code-preview').text(snippet.code);
+
+        snippetContents = snippetContainer.find('iframe').contents();
+        snippetContents.find('#snippet').html(snippet.code);
+      } else {
+        console.log(snippet);
+      }
     });
   };
 
@@ -104,10 +116,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         snippetContents.find('html').html(template);
         snippetContents.find('#snippet').html(snippets[index].code);
-      }
-      
-      for (index = 0; len > index; index++) {
 
+        currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
       }
     });
   };

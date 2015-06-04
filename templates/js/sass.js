@@ -86,6 +86,10 @@ var sassService = (function ($) {
 
   module.loadSass = function () {
     getSassData(function ( data ) {
+      var sassContent = $($('#sass-page').html());
+      
+      $('.main').append(sassContent);
+
       parseColors(data[0].colors);
       parseFonts(data[0].typography);
     });

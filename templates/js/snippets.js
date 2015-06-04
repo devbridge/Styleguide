@@ -1,6 +1,6 @@
 var snippetService = (function ($, categoryService) {
   var module = {},
-      path = '//' + window.location.hostname + ':3000/snippets/';
+      path = '//' + window.location.hostname + ':8080/snippets/';
 
   module.getDeletedSnippets = function ( callback ) {
     categoryService.getCategories(function ( categories ) {
@@ -112,7 +112,6 @@ var snippetService = (function ($, categoryService) {
     });
 
     request.fail(function () {
-      console.log('Failed to create new snippet! Maybe your styleguide server is down?');
       callback('Failed to create new snippet! Maybe your styleguide server is down?');
     });
 
@@ -131,7 +130,6 @@ var snippetService = (function ($, categoryService) {
     });
 
     request.fail(function () {
-      console.log('Failed to edit snippet! Maybe your styleguide server is down?');
       callback('Failed to edit snippet! Maybe your styleguide server is down?');
     });
   };
@@ -149,7 +147,6 @@ var snippetService = (function ($, categoryService) {
     });
 
     request.fail(function () {
-      console.log('Failed to delete snippet! Maybe your styleguide server is down?');
       callback('Failed to delete snippet! Maybe your styleguide server is down?');
     });
   };

@@ -19,13 +19,11 @@
 			$btnSettings.on( "click", function () {
 				$btnCode.removeClass( "active" );
 				$btnSettings.toggleClass( "active" );
-
 				if ( $btnSettings.hasClass("active") ) {
 					editorService.addToEditForm($code.parent());
 				} else {
 					editorService.removeFromEditForm($code.parent());
 				}
-
 				$code.hide();
 				$settings.add( $preview ).toggle();
 			});
@@ -72,72 +70,6 @@ $( ".js-header-new-snippet" ).on( "click", function () {
 	$( ".js-new-snippet-form" ).toggle();
 });
 
-var testFramesForDeleted = function () {
-  iframesService.formFramesForDeleted(function ( frames, snippets ) {
-		snippetActions.drawSnippets(frames, snippets);
-  });
-};
-
-var testFramesForCategory = function () {
-  iframesService.formFramesForCategory(3, function ( frames, snippets ) {
-  	snippetActions.drawSnippets(frames, snippets);
-  });
-};
-
-var redrawPage = function ( categoryId ) {
-	var sassContent = $($('#sass-page').html());
-	$('.main').empty();
-	
-	if ( typeof categoryId === 'number' ) {
-		iframesService.formFramesForCategory(categoryId, function ( frames, snippets ) {
-			snippetActions.drawSnippets(frames, snippets);
-		});
-		return;
-	}
-	
-	$('.main').append(sassContent);
-	sassService.loadSass();
-};
-
-var buildNavigation = function () {
-	var navigation = $('.js-navigation'),
-			currentPage = navigation.find('.js-current-page'),
-			navList = navigation.find('.js-navigation-list'),
-			pages = [{ name: 'Colors, Typography' }],
-			iteratingPage,
-			pageElement,
-			index,
-			len;
-
-	currentPage.text(pages[0].name);
-	categoryService.getCategories(function ( categories ) {
-		pages = pages.concat(categories);
-		len = pages.length;
-
-		for (index = 0; len > index; index++) {
-			iteratingPage = pages[index];
-			pageElement = $('<a href="#" data-id="' + iteratingPage.id + '">' + iteratingPage.name + '</a>');
-			pageElement.on('click', function () {
-				redrawPage($(this).data('id'));
-			});
-			navList.append(pageElement);
-		}
-	});
-};
-
 $(document).ready(function(){
-	editorService.init();
-	buildNavigation();
-	
-	var sassContent = $($('#sass-page').html());
-	$('.main').append(sassContent);
-
-	sassService.loadSass();
-	
-	
-
-	categoryService.bindCategoriesToForm($('.js-form-select').first());
-
-	$('.js-create-snippet').submit(snippetActions.createSnippet);
-	$('.js-edit-snippet').submit(snippetActions.editSnippet);
+	viewService.init();
 });
