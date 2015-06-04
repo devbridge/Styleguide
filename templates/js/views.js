@@ -1,5 +1,6 @@
 var viewService = (function ( $, editorService, sassService, categoryService ) {
   var module = {},
+      views,
       currentView;
 
   var buildNavigation = function () {
@@ -14,7 +15,7 @@ var viewService = (function ( $, editorService, sassService, categoryService ) {
 
     currentPage.text(pages[0].name);
     categoryService.getCategories(function ( categories ) {
-      pages = pages.concat(categories);
+      views = pages = pages.concat(categories);
       len = pages.length;
 
       for (index = 0; len > index; index++) {
@@ -33,12 +34,19 @@ var viewService = (function ( $, editorService, sassService, categoryService ) {
     $('.main').empty();
   
     if ( typeof categoryId === 'number' ) {
+      currentView = $.grep(views, function ( el ) {
+        return el.id == categoryId;
+      }).pop();
+
+      $('.js-current-page').text(currentView.name);
+
       iframesService.formFramesForCategory(categoryId, function ( frames, snippets ) {
         snippetActions.drawSnippets(frames, snippets);
       });
       return;
     }
-  
+    currentView = views[0]
+    $('.js-current-page').text(currentView.name);
     $('.main').append(sassContent);
     sassService.loadSass();
   };
@@ -49,6 +57,10 @@ var viewService = (function ( $, editorService, sassService, categoryService ) {
     sassService.loadSass();
     categoryService.bindCategoriesToForm($('.js-form-select').first());
     $('.js-create-snippet').submit(snippetActions.createSnippet);
+  };
+
+  module.getCurrentView = function () {
+    return currentView;
   };
 
   return module;

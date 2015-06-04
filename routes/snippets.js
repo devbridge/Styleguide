@@ -231,6 +231,8 @@ router.put('/:id', function (req, res) {
 
   jf.writeFileSync(dataPath, snippets);
 
+  modSnippet.category = newCategory;
+
   res.json(modSnippet);
 });
 

@@ -1,4 +1,4 @@
-var snippetActions = (function ($, snippetService, iframesService, editorService) {
+var snippetActions = (function ($, snippetService, iframesService, editorService, viewService) {
   var module = {};
 
   module.createSnippet = function ( e ) {
@@ -52,6 +52,11 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
       if ( typeof snippet === 'object' ) {
         var snippetContainer = form.closest('.js-snippet'),
             snippetContents;
+
+        if ( snippet.category != viewService.getCurrentView().id ) {
+          snippetContainer.remove();
+          return;
+        }
 
         snippetContainer.find('.js-snippet-name').html(snippet.name);
         snippetContainer.find('.js-snippet-description').html(snippet.description);
@@ -123,4 +128,4 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
   };
 
   return module;
-})(jQuery || {}, snippetService, iframesService, editorService);
+})(jQuery || {}, snippetService, iframesService, editorService, viewService);
