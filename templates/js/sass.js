@@ -14,13 +14,15 @@ var sassService = (function ($) {
   };
 
   var parseColors = function ( colors ) {
-    var colorsContainer = $('.js-snippet-colors'),
-        colorBoxTpl = $('.js-color-box'),
+    var colorsContainer = $('.js-snippet-colors').first(),
+        colorBoxTpl = $('.js-color-box').first(),
         currentColorBox,
         color,
         len,
         index,
         varName;
+
+    colorBoxTpl.find('p').remove();
 
     colorsContainer.empty();
 
@@ -82,12 +84,10 @@ var sassService = (function ($) {
     }
   };
 
-  module.loadSass = function ( callback ) {
+  module.loadSass = function () {
     getSassData(function ( data ) {
-      console.log(data[0].name);
       parseColors(data[0].colors);
       parseFonts(data[0].typography);
-      callback();
     });
   };
 

@@ -66,7 +66,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         fieldLen,
         currentField;
 
-    snippetContainer = $('.js-snippet');
+    snippetContainer = $($('#snippet').html());
     iframesService.getTemplate(function ( template ) {
       for (index = 0; len > index; index++) {
         currentId = snippets[index].id;

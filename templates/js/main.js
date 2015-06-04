@@ -85,19 +85,18 @@ var testFramesForCategory = function () {
 };
 
 var redrawPage = function ( categoryId ) {
+	var sassContent = $($('#sass-page').html());
 	$('.main').empty();
 	
-	if ( categoryId ) {
-		console.log(categoryId);
+	if ( typeof categoryId === 'number' ) {
 		iframesService.formFramesForCategory(categoryId, function ( frames, snippets ) {
 			snippetActions.drawSnippets(frames, snippets);
 		});
 		return;
 	}
 	
-	sassService.loadSass(function () {
-		$('.main').append($('.js-sass-page').children().clone(true));
-	});
+	$('.main').append(sassContent);
+	sassService.loadSass();
 };
 
 var buildNavigation = function () {
@@ -130,10 +129,10 @@ $(document).ready(function(){
 	editorService.init();
 	buildNavigation();
 	
-	
-	sassService.loadSass(function () {
-		$('.main').append($('.js-sass-page').children().clone(true));
-	});
+	var sassContent = $($('#sass-page').html());
+	$('.main').append(sassContent);
+
+	sassService.loadSass();
 	
 	
 
