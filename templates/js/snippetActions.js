@@ -89,6 +89,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
           });
         });
 
+        categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
+
         for (fieldIndex = 0, fieldLen = formFields.length; fieldIndex < fieldLen; fieldIndex++) {
           currentField = $(formFields[fieldIndex]);
           currentField.val(snippets[index][currentField.data('js-field-name')]);
@@ -102,6 +104,10 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         snippetContents.find('html').html(template);
         snippetContents.find('#snippet').html(snippets[index].code);
+      }
+      
+      for (index = 0; len > index; index++) {
+
       }
     });
   };

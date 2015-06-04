@@ -136,7 +136,7 @@ $(document).ready(function(){
 	
 	
 
-	categoryService.bindCategoriesToForms();
+	categoryService.bindCategoriesToForm($('.js-form-select').first());
 
 	$('.js-create-snippet').submit(snippetActions.createSnippet);
 	$('.js-edit-snippet').submit(snippetActions.editSnippet);
