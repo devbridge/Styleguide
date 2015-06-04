@@ -20,7 +20,60 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     data.inlineCss = ace.edit('jsNewCss').getValue();
 
     snippetService.postNew(data, function ( snippet ) {
-      console.log(snippet);
+      if ( typeof snippet === 'object' && snippet.category == viewService.getCurrentView().id ) {
+        iframesService.constructFrame(snippet, function ( frame ) {
+          var currentSnippetElement = $($('#snippet').html()).clone(true),
+              formFields,
+              snippetId,
+              snippetContents;
+
+          iframesService.getTemplate(function ( template ) {
+            currentId = snippet.id;
+            formFields = currentSnippetElement.find('.js-edit-snippet').find('.js-form-submit-field');
+            currentSnippetElement.attr('id', currentId);
+            snippetId = frame.attr('id');
+
+            currentSnippetElement.find('.js-snippet-name').html(snippet.name);
+            currentSnippetElement.find('.js-snippet-description').html(snippet.description);
+            currentSnippetElement.find('.js-edit-code').text(snippet.code);
+            currentSnippetElement.find('.js-edit-css').text(snippet.inlineCss);
+            currentSnippetElement.find('.js-snippet-code-preview').text(snippet.code);
+            currentSnippetElement.find('.js-snippet-source').html(frame);
+            currentSnippetElement.addClass(snippetId);
+
+            currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', function () {
+              var idToDelete = $(this).data('id');
+              snippetService.deleteById(idToDelete, function ( data ) {
+                if ( typeof data === 'object' && data.isDeleted ) {
+                  $('#' + data.id).detach();
+                } else {
+                  console.log(data);
+                }
+              });
+            });
+
+            categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
+
+            for (fieldIndex = 0, fieldLen = formFields.length; fieldIndex < fieldLen; fieldIndex++) {
+              currentField = $(formFields[fieldIndex]);
+              currentField.val(snippet[currentField.data('js-field-name')]);
+            }
+
+            currentSnippetElement.sgSnippet();
+
+            currentSnippetElement.appendTo('.main');
+
+            snippetContents = $('#' + snippetId).contents();
+
+            snippetContents.find('html').html(template);
+            snippetContents.find('#snippet').html(snippet.code);
+
+            currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
+          });
+        });
+      } else if ( typeof snippet === 'string' ) {
+        console.log(snippet);
+      }
     });
   };
 
@@ -100,8 +153,12 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         currentSnippetElement.find('.js-snippet-source').html(frames[index]);
         currentSnippetElement.addClass(snippetId);
 
-        currentSnippetElement.find('.js-delete-snippet').on('click', function () {
-          snippetService.deleteById(currentId, function ( data ) {
+        currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', function () {
+          var idToDelete = $(this).data('id');
+          snippetService.deleteById(idToDelete, function ( data ) {
+            if ( typeof data === 'object' && data.isDeleted ) {
+              console.log($('#' + data.id).detach());
+            } 
             console.log(data);
           });
         });

@@ -29,8 +29,6 @@ var iframesService = (function ($, snippetService){
 
   var constructFrames = function ( snippets, callback ) {
     var index,
-        template,
-        len,
         framesArray = [],
         tempFrame;
         len = snippets.length;
@@ -42,6 +40,15 @@ var iframesService = (function ($, snippetService){
       framesArray.push(tempFrame);
     }
     callback(framesArray);
+  };
+
+  module.constructFrame = function ( snippet, callback ) {
+    var tempFrame = $('<iframe></iframe>');
+
+    tempFrame.attr('sandbox', 'allow-same-origin allow-scripts');
+    tempFrame.attr('id', 'snippet-' + snippet.id);
+
+    callback(tempFrame);
   };
 
   module.getTemplate = function ( callback ) {
