@@ -4,7 +4,7 @@ var iframesService = (function ($, snippetService){
 
   var getConfig = function ( callback ) {
     if (!cachedConfig) {
-      $.getJSON('../../../config.txt', function (data) {
+      $.getJSON('../styleguide_config.txt', function (data) {
         cachedConfig = data;
         callback(cachedConfig);
       });
@@ -56,7 +56,7 @@ var iframesService = (function ($, snippetService){
       if (!config.snippetTemplate) {
         callback(getDefaultTemplate());
       } else {
-        $.get('../../../' + config.snippetTemplate, function ( data ) {
+        $.get('../' + config.snippetTemplate, function ( data ) {
           callback(data);
         });
       }

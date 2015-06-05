@@ -4,7 +4,7 @@ var categoryService = (function ($) {
 
   module.getCategories = function ( callback ) {
     if ( !cachedCategories ) {
-      $.getJSON('../../../config.txt', function ( data ) {
+      $.getJSON('../styleguide_config.txt', function ( data ) {
         cachedCategories = data.categories;
         callback(cachedCategories);
       });

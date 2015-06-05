@@ -12,7 +12,7 @@ var snippetService = (function ($, categoryService) {
       $.ajaxSetup({ async: false });
 
       for (index = 0; index < len; index++) {
-        path = '../../../styleguide_db/' + categories[index].name + '.txt';
+        path = './db/' + categories[index].name + '.txt';
 
         $.getJSON(path, function ( data ) {
           var filteredSnippets = data.filter(function ( obj ) {
@@ -46,7 +46,7 @@ var snippetService = (function ($, categoryService) {
         }
       }
 
-      path = '../../../styleguide_db/' + categories[index].name + '.txt';
+      path = './db/' + categories[index].name + '.txt';
 
       $.getJSON(path, function ( data ) {
         data = data.filter(function ( obj ) {
@@ -73,7 +73,7 @@ var snippetService = (function ($, categoryService) {
       $.ajaxSetup({ async: false });
 
       for (index = 0; index < len; index++) {
-        path = '../../../styleguide_db/' + categories[index].name + '.txt';
+        path = './db/' + categories[index].name + '.txt';
 
         $.getJSON(path, function ( data ) {
           desireableSnippet = data.filter(function (obj) {

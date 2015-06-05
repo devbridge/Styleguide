@@ -4,7 +4,9 @@
   "description": "Styleguide automatization tool.",
   "main": "index.js",
   "private": true,
-  "bin": { "styleguide" : "./bin/styleguide"},
+  "bin": {
+    "styleguide": "./bin/styleguide"
+  },
   "scripts": {
     "start": "node ./bin/www"
   },

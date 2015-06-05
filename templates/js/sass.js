@@ -4,7 +4,7 @@ var sassService = (function ($) {
 
   var getSassData = function ( callback ) {
     if ( !cachedSassData ) {
-      $.getJSON('../../../styleguide_db/sassdata.txt', function ( data ) {
+      $.getJSON('./db/sassdata.txt', function ( data ) {
         cachedSassData = data;
         callback(cachedSassData);
       });

@@ -1,6 +1,6 @@
 var express = require('express');
 var fs = require('fs');
-var config = JSON.parse(fs.readFileSync('../../config.txt', 'utf8'));
+var config = JSON.parse(fs.readFileSync('../../styleguide_config.txt', 'utf8'));
 var jf = require('jsonfile');
 var router = express.Router();
 
@@ -13,7 +13,7 @@ router.get('/*.html', function (req, res) {
 router.get('/', function (req, res) {
   var allSnippets = [];
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    var dataPath = '../../styleguide_db/' + config.categories[i].name + '.txt';
+    var dataPath = '../../styleguide/db/' + config.categories[i].name + '.txt';
 
     snippets = jf.readFileSync(dataPath);
 
@@ -39,7 +39,7 @@ router.get('/duplicates', function (req, res) {
 
   var allSnippets = [], found = false;
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    var dataPath = '../../styleguide_db/' + config.categories[i].name + '.txt';
+    var dataPath = '../../styleguide/db/' + config.categories[i].name + '.txt';
     snippets = jf.readFileSync(dataPath);
 
     snippets = snippets.map(function (obj) {
@@ -72,7 +72,7 @@ router.get('/category/:id', function (req, res) {
   var catId = Number(req.params.id), dataPath;
   for (var i = 0, length = config.categories.length; i < length; i++) {
     if (config.categories[i].id == catId) {
-      dataPath = '../../styleguide_db/' + config.categories[i].name + '.txt'
+      dataPath = '../../styleguide/db/' + config.categories[i].name + '.txt'
     }
   }
   
@@ -92,7 +92,7 @@ router.get('/category/:id', function (req, res) {
 
 
 router.get('/:id', function (req, res) {
-  var uniques = jf.readFileSync('../../styleguide_db/uniques.json');
+  var uniques = jf.readFileSync('../../styleguide/db/uniques.json');
   var id = Number(req.params.id);
   var snippets;
 
@@ -102,7 +102,7 @@ router.get('/:id', function (req, res) {
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    var dataPath = '../../styleguide_db/' + config.categories[i].name + '.txt';
+    var dataPath = '../../styleguide/db/' + config.categories[i].name + '.txt';
     snippets = jf.readFileSync(dataPath);
 
     var desireableSnippet = snippets.filter(function (obj) {
@@ -123,12 +123,12 @@ router.get('/:id', function (req, res) {
 
 router.post('/', function (req, res) {
   var dataPath;
-  var uniques = jf.readFileSync('../../styleguide_db/uniques.txt');
+  var uniques = jf.readFileSync('../../styleguide/db/uniques.txt');
   var id, number;
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
     if (config.categories[i].id == req.body.category) {
-      dataPath = '../../styleguide_db/' + config.categories[i].name + '.txt'
+      dataPath = '../../styleguide/db/' + config.categories[i].name + '.txt'
     }
   }
   
@@ -161,7 +161,7 @@ router.post('/', function (req, res) {
   uniques = uniques.concat(id);
 
   jf.writeFileSync(dataPath, datastore);
-  jf.writeFileSync('../../styleguide_db/uniques.txt', uniques);
+  jf.writeFileSync('../../styleguide/db/uniques.txt', uniques);
 
   newSnippet.category = req.body.category;
   res.json(newSnippet);
@@ -169,7 +169,7 @@ router.post('/', function (req, res) {
 
 
 router.put('/:id', function (req, res) {
-  var uniques = jf.readFileSync('../../styleguide_db/uniques.txt');
+  var uniques = jf.readFileSync('../../styleguide/db/uniques.txt');
   var id = Number(req.params.id);
   var snippets, category, dataPath, newCategory;
 
@@ -181,7 +181,7 @@ router.put('/:id', function (req, res) {
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    dataPath = '../../styleguide_db/' + config.categories[i].name + '.txt';
+    dataPath = '../../styleguide/db/' + config.categories[i].name + '.txt';
     snippets = jf.readFileSync(dataPath);
 
     var desireableSnippet = snippets.filter(function (obj) {
@@ -204,7 +204,7 @@ router.put('/:id', function (req, res) {
 
     for (var i = 0, length = config.categories.length; i < length; i++) {
       if (config.categories[i].id == newCategory) {
-        dataPath = '../../styleguide_db/' + config.categories[i].name + '.txt'
+        dataPath = '../../styleguide/db/' + config.categories[i].name + '.txt'
       }
     }
   
@@ -238,7 +238,7 @@ router.put('/:id', function (req, res) {
 
 
 router.delete('/:id', function (req, res) {
-  var uniques = jf.readFileSync('../../styleguide_db/uniques.txt');
+  var uniques = jf.readFileSync('../../styleguide/db/uniques.txt');
   var id = Number(req.params.id);
   var snippets, category, dataPath;
 
@@ -248,7 +248,7 @@ router.delete('/:id', function (req, res) {
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    dataPath = '../../styleguide_db/' + config.categories[i].name + '.txt';
+    dataPath = '../../styleguide/db/' + config.categories[i].name + '.txt';
     snippets = jf.readFileSync(dataPath);
 
     var desireableSnippet = snippets.filter(function (obj) {

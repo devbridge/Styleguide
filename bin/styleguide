@@ -120,10 +120,33 @@ var parseSnippetTemplate = function () {
 var generate = function (options) {
   var stdin = process.stdin,
       stdout = process.stdout,
-      dbFolder = process.cwd() + '\\styleguide_db';
+      currentFolder = process.cwd(),
+      rootFolder = currentFolder + '\\styleguide',
+      dbFolder = rootFolder + '\\db',
+      templateFolder = currentFolder + '\\node_modules\\Styleguide\\templates\\',
+      currentContents,
+      javascripts;
 
-  if ( !fs.existsSync(dbFolder) ) {
+  if ( !fs.existsSync(rootFolder) ) {
+    fs.mkdirSync(rootFolder);
     fs.mkdirSync(dbFolder);
+    fs.mkdirSync(rootFolder + '\\css');
+    fs.mkdirSync(rootFolder + '\\js');
+
+    currentContents = fs.readFileSync(templateFolder + 'index.html', 'utf-8');
+
+    fs.writeFileSync(rootFolder + '\\index.html', currentContents);
+
+    currentContents = fs.readFileSync(templateFolder + 'css\\main.css', 'utf-8');
+
+    fs.writeFileSync(rootFolder + '\\css\\main.css', currentContents);
+
+    javascripts = fs.readdirSync(templateFolder + 'js');
+
+    for (var index = 0, len = javascripts.length; index < len; index++) {
+      currentContents = fs.readFileSync(templateFolder + '\\js\\' + javascripts[index], 'utf-8');
+      fs.writeFileSync(rootFolder + '\\js\\' + javascripts[index], currentContents);
+    }
   }
   
   stdin.resume();
@@ -143,6 +166,7 @@ var generate = function (options) {
         }
         
         fs.writeFileSync(dbFolder + '\\' + 'uniques.txt', formatter.plain([]));
+        fs.writeFileSync(dbFolder + '\\' + 'sassdata.txt', formatter.plain([]));
         fs.writeFileSync(process.cwd() + '\\styleguide_config.txt', formatter.plain(config));
         
         process.exit(0);

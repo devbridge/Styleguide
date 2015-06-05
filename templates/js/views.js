@@ -7,7 +7,7 @@ var viewService = (function ( $, editorService, sassService, categoryService ) {
     var navigation = $('.js-navigation'),
       currentPage = navigation.find('.js-current-page'),
       navList = navigation.find('.js-navigation-list'),
-      pages = [{ name: 'Colors, Typography' }],
+      pages = [{ name: 'Colors, Typography', id: 'sass' }],
       iteratingPage,
       pageElement,
       index,
@@ -26,6 +26,8 @@ var viewService = (function ( $, editorService, sassService, categoryService ) {
         });
         navList.append(pageElement);
       }
+
+      currentView = views[0]
     });
   };
 
