@@ -8,24 +8,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     $(frameId).contents().find('#snippet').html(content);
   };
 
-  module.createSnippet = function ( e ) {
-    var form = $(this),
-        fields = form.find('.js-form-submit-field'),
-        currentField,
-        len = fields.length,
-        data = {},
-        index;
-
-    e.preventDefault();
-
-    for (index = 0; len > index; index++) {
-      currentField = $(fields[index]);
-      data[currentField.data('js-field-name')] = currentField.val();
-    }
-
-    data.code = ace.edit('jsNewCode').getValue();
-    data.inlineCss = ace.edit('jsNewCss').getValue();
-
+  var submitSnippet = function ( data ) {
     snippetService.postNew(data, function ( snippet ) {
       if ( typeof snippet === 'object' && snippet.category == viewService.getCurrentView().id ) {
         iframesService.constructFrame(snippet, function ( frame ) {
@@ -50,13 +33,15 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
             currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', function () {
               var idToDelete = $(this).data('id');
-              snippetService.deleteById(idToDelete, function ( data ) {
-                if ( typeof data === 'object' && data.isDeleted ) {
-                  $('#' + data.id).detach();
-                } else {
-                  console.log(data);
-                }
-              });
+              if ( window.confirm('Are you sure you want to delete this snippet?') ) {
+                snippetService.deleteById(idToDelete, function ( data ) {
+                  if ( typeof data === 'object' && data.isDeleted ) {
+                    $('#' + data.id).detach();
+                  } else {
+                    console.log(data);
+                  }
+                });
+              }
             });
 
             categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
@@ -84,34 +69,10 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     });
   };
 
-  module.editSnippet = function ( e ) {
-    var form = $(this),
-        fields = form.find('.js-form-submit-field'),
-        snippetId = form.closest('.js-snippet').attr('id'),
-        currentField,
-        len = fields.length,
-        data = {},
-        index,
-        code,
-        css;
-
-    e.preventDefault();
-
-    for (index = 0; len > index; index++) {
-      currentField = $(fields[index]);
-      data[currentField.data('js-field-name')] = currentField.val();
-    }
-
-    code = ace.edit('snippet-' + snippetId + '-code').getValue();
-    css = ace.edit('snippet-' + snippetId + '-css').getValue();
-
-    data.code = code;
-    data.inlineCss = css;
-
+  var submitUpdatedSnippet = function ( data, snippetId, snippetContainer ) {
     snippetService.putEdited(data, snippetId, function ( snippet ) {
       if ( typeof snippet === 'object' ) {
-        var snippetContainer = form.closest('.js-snippet'),
-            snippetContents;
+        var snippetContents;
 
         if ( snippet.category != viewService.getCurrentView().id ) {
           snippetContainer.remove();
@@ -130,6 +91,114 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         console.log(snippet);
       }
     });
+  };
+
+  module.createSnippet = function ( e ) {
+    var form = $(this),
+        fields = form.find('.js-form-submit-field'),
+        currentField,
+        code,
+        css,
+        annotations,
+        errorText,
+        errors = [],
+        len = fields.length,
+        data = {},
+        index;
+
+    e.preventDefault();
+
+    for (index = 0; len > index; index++) {
+      currentField = $(fields[index]);
+      data[currentField.data('js-field-name')] = currentField.val();
+    }
+
+    code = ace.edit('jsNewCode');
+    css = ace.edit('jsNewCss');
+
+    annotations = code.getSession().getAnnotations();
+
+    for (index = 0, len = annotations.length; index < len; index++) {
+      if ( annotations[index].type === 'error' ) {
+        errors.push(annotations[index]);
+      }
+    }
+
+    annotations = css.getSession().getAnnotations();
+
+    for (index = 0, len = annotations.length; index < len; index++) {
+      if ( annotations[index].type === 'error' ) {
+        errors.push(annotations[index]);
+      }
+    }
+
+    if ( errors.length > 0 ) {
+      errorText = 'Your HTML or CSS syntax contains errors!\n'
+                  +'Are you sure you to submit your snippet?';
+        if (window.confirm(errorText)) {
+          data.code = code.getValue();
+          data.inlineCss = css.getValue();
+          submitSnippet(data);
+        }
+    } else {
+      data.code = code.getValue();
+      data.inlineCss = css.getValue();
+      submitSnippet(data);
+    }
+  };
+
+  module.editSnippet = function ( e ) {
+    var form = $(this),
+        fields = form.find('.js-form-submit-field'),
+        snippetId = form.closest('.js-snippet').attr('id'),
+        currentField,
+        len = fields.length,
+        data = {},
+        annotations,
+        errors = [],
+        index,
+        code,
+        css;
+
+    e.preventDefault();
+
+    for (index = 0; len > index; index++) {
+      currentField = $(fields[index]);
+      data[currentField.data('js-field-name')] = currentField.val();
+    }
+
+    code = ace.edit('snippet-' + snippetId + '-code');
+    css = ace.edit('snippet-' + snippetId + '-css');
+
+    annotations = code.getSession().getAnnotations();
+
+    for (index = 0, len = annotations.length; index < len; index++) {
+      if ( annotations[index].type === 'error' ) {
+        errors.push(annotations[index]);
+      }
+    }
+
+    annotations = css.getSession().getAnnotations();
+
+    for (index = 0, len = annotations.length; index < len; index++) {
+      if ( annotations[index].type === 'error' ) {
+        errors.push(annotations[index]);
+      }
+    }
+
+    if ( errors.length > 0 ) {
+      errorText = 'Your HTML or CSS syntax contains errors!\n'
+                  +'Are you sure you to submit your snippet?';
+        if (window.confirm(errorText)) {
+          data.code = code.getValue();
+          data.inlineCss = css.getValue();
+          submitUpdatedSnippet(data, snippetId, form.closest('.js-snippet'));
+        }
+    } else {
+      data.code = code.getValue();
+      data.inlineCss = css.getValue();
+      submitUpdatedSnippet(data, snippetId, form.closest('.js-snippet'));
+    }
   };
 
   module.drawSnippets = function ( frames, snippets ) {
@@ -166,12 +235,15 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', function () {
           var idToDelete = $(this).data('id');
-          snippetService.deleteById(idToDelete, function ( data ) {
-            if ( typeof data === 'object' && data.isDeleted ) {
-              $('#' + data.id).detach();
-            } 
-            console.log(data);
-          });
+          if ( window.confirm('Are you sure you want to delete this snippet?') ) {
+            snippetService.deleteById(idToDelete, function ( data ) {
+              if ( typeof data === 'object' && data.isDeleted ) {
+                $('#' + data.id).detach();
+              } 
+              console.log(data);
+            });            
+          }
+
         });
 
         categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));

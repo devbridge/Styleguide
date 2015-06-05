@@ -59,6 +59,7 @@ var viewService = (function ( $, editorService, sassService, categoryService ) {
       });
       return;
     }
+    
     currentView = views[0]
     $('.js-current-page').text(currentView.name);
     $('.main').append(sassContent);
