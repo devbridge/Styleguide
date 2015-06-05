@@ -16,6 +16,7 @@ var viewService = (function ( $, editorService, sassService, categoryService ) {
     currentPage.text(pages[0].name);
     categoryService.getCategories(function ( categories ) {
       views = pages = pages.concat(categories);
+      pages.push({ name: 'Deleted Snippets', id: 'deleted'});
       len = pages.length;
 
       for (index = 0; len > index; index++) {
@@ -43,6 +44,17 @@ var viewService = (function ( $, editorService, sassService, categoryService ) {
       $('.js-current-page').text(currentView.name);
 
       iframesService.formFramesForCategory(categoryId, function ( frames, snippets ) {
+        snippetActions.drawSnippets(frames, snippets);
+      });
+      return;
+    }
+
+    if ( typeof categoryId === 'string' && categoryId === 'deleted' ) {
+      currentView = views[views.length - 1];
+
+      $('.js-current-page').text(currentView.name);
+
+      iframesService.formFramesForDeleted(function ( frames, snippets ) {
         snippetActions.drawSnippets(frames, snippets);
       });
       return;
