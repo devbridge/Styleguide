@@ -1,6 +1,13 @@
 var snippetActions = (function ($, snippetService, iframesService, editorService, viewService) {
   var module = {};
 
+  var appendIframeContent = function ( frameId, template, content ) {
+    if ( template ) {
+      $(frameId).contents().find('html').html(template);
+    }
+    $(frameId).contents().find('#snippet').html(content);
+  };
+
   module.createSnippet = function ( e ) {
     var form = $(this),
         fields = form.find('.js-form-submit-field'),
@@ -63,10 +70,10 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
             currentSnippetElement.appendTo('.main');
 
-            snippetContents = $('#' + snippetId).contents();
+            snippetContents = $('#' + snippetId);
 
-            snippetContents.find('html').html(template);
-            snippetContents.find('#snippet').html(snippet.code);
+            appendIframeContent(snippetContents, template, snippet.code);
+            snippetContents.load($.proxy(appendIframeContent, null, snippetContents, template, snippet.code));
 
             currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
           });
@@ -115,8 +122,10 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         snippetContainer.find('.js-snippet-description').html(snippet.description);
         snippetContainer.find('.js-snippet-code-preview').text(snippet.code);
 
-        snippetContents = snippetContainer.find('iframe').contents();
-        snippetContents.find('#snippet').html(snippet.code);
+        snippetContents = snippetContainer.find('iframe');
+
+        appendIframeContent(snippetContents, null, snippet.code);
+        snippetContents.load($.proxy(appendIframeContent, null, snippetContents, null, snippet.code));
       } else {
         console.log(snippet);
       }
@@ -125,9 +134,10 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
   module.drawSnippets = function ( frames, snippets ) {
     var snippetId,
-        snippetContents,
         snippetContainer,
+        snippetIframe,
         currentSnippetElement,
+        currentCode,
         currentId,
         index,
         len = frames.length,
@@ -144,12 +154,13 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         formFields = currentSnippetElement.find('.js-edit-snippet').find('.js-form-submit-field');
         currentSnippetElement.attr('id', currentId);
         snippetId = frames[index].attr('id');
+        currentCode = snippets[index].code;
 
         currentSnippetElement.find('.js-snippet-name').html(snippets[index].name);
         currentSnippetElement.find('.js-snippet-description').html(snippets[index].description);
-        currentSnippetElement.find('.js-edit-code').text(snippets[index].code);
+        currentSnippetElement.find('.js-edit-code').text(currentCode);
         currentSnippetElement.find('.js-edit-css').text(snippets[index].inlineCss);
-        currentSnippetElement.find('.js-snippet-code-preview').text(snippets[index].code);
+        currentSnippetElement.find('.js-snippet-code-preview').text(currentCode);
         currentSnippetElement.find('.js-snippet-source').html(frames[index]);
         currentSnippetElement.addClass(snippetId);
 
@@ -157,7 +168,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
           var idToDelete = $(this).data('id');
           snippetService.deleteById(idToDelete, function ( data ) {
             if ( typeof data === 'object' && data.isDeleted ) {
-              console.log($('#' + data.id).detach());
+              $('#' + data.id).detach();
             } 
             console.log(data);
           });
@@ -174,10 +185,10 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         currentSnippetElement.appendTo('.main');
 
-        snippetContents = $('#' + snippetId).contents();
+        snippetIframe = $('#' + snippetId);
 
-        snippetContents.find('html').html(template);
-        snippetContents.find('#snippet').html(snippets[index].code);
+        appendIframeContent(snippetIframe, template, currentCode);
+        snippetIframe.load($.proxy(appendIframeContent, null, snippetIframe, template, currentCode));
 
         currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
       }
