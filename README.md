@@ -32,6 +32,8 @@ At next step you'll be asked to supply maximum of iterations to go through SASS 
 
 Furthermore, you'll be asked to supply relative path from your project root to template for snippets (which will be inserted into iframe). This is optional, but if you want to customize what's inside the iframe feel free to do so.
 
+At last step you'll be asked to supply port on which Styleguide server will work.
+
 Finally, all the generated configuration will be printed to terminal and if you confirm - press <kbd>Enter</kbd>.
 
 After these steps there will be created folder structure like this:
@@ -73,8 +75,27 @@ And then write a task to start a server:
 
 ```
 gulp.task('start-styleguide', function () {
-  styleguide.startServer(3040);
+  styleguide.startServer();
 });
 ```
 
-The only parameter shows on which port to start Styleguide server.
+Function does not take any arguments and returns server instance.
+
+###Scraping snippets and SASS variables
+
+Your styleguide server should be running, and these are the URL's to enter if you want to scrape data:
+
+```
+http://localhost:PORT/scrape/snippets/
+http://localhost:PORT/scrape/sass/
+```
+
+###Accessing your styleguide
+
+Your project server should be running, also if you want to edit/create/scrape snippets Styleguide server should be running.
+
+This is how you open your styleguide:
+
+```
+http://your-project-hostname/styleguide/index.html
+```

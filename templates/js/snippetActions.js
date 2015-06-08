@@ -10,6 +10,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
       frameHTML.innerHTML = template;
     }
     
+    frame.find('style').empty();
     frame.find('style').append(css);
     frame.find('#snippet').html(content);
   };

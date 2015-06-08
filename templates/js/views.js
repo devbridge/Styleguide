@@ -2,7 +2,10 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
   var module = {},
       views,
       currentView,
+      currentRoute,
       isServerOn;
+
+  var setLastView = function () {};
 
   var buildNavigation = function () {
     var navigation = $('.js-navigation'),
@@ -68,6 +71,10 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
   };
 
   module.init = function () {
+    var route = window.location.hash;
+
+    route = route.replace('#', '');
+    
     editorService.init();
     buildNavigation();
     sassService.loadSass();
