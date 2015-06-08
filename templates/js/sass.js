@@ -86,12 +86,24 @@ var sassService = (function ($) {
 
   module.loadSass = function () {
     getSassData(function ( data ) {
-      var sassContent = $($('#sass-page').html());
+      var sassContent = $($('#sass-page').html()),
+          errorMessage = 'Sass variables has not been scraped yet or markers were not found in file!';
       
       $('.main').append(sassContent);
 
-      parseColors(data[0].colors);
-      parseFonts(data[0].typography);
+      if ( data[0].colors ) {
+        parseColors(data[0].colors);
+      } else {
+        $('.js-color-box').html(errorMessage);
+      }
+
+      if ( data[0].typography ) {
+        parseFonts(data[0].typography);  
+      } else {
+        $('.js-font-tpl').html(errorMessage);
+        $('.js-font-example').html(errorMessage);
+      }
+      
     });
   };
 
