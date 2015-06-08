@@ -48,7 +48,7 @@
 					onmove: function (e) {
 						var target = e.target;
 
-						if ( e.rect.width > 319 ) {
+						if ( e.rect.width > 150 ) {
 							target.style.width  = e.rect.width + 'px';
 							$sizeIndicator.text( e.rect.width + "px" );
 						}

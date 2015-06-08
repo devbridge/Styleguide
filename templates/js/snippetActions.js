@@ -1,11 +1,17 @@
 var snippetActions = (function ($, snippetService, iframesService, editorService, viewService) {
   var module = {};
 
-  var appendIframeContent = function ( frameId, template, content ) {
+  var appendIframeContent = function ( frameId, template, content, css ) {
+    var frame = $(frameId).contents(),
+        frameHTML;
+
     if ( template ) {
-      $(frameId).contents().find('html').html(template);
+      frameHTML = frame.find('html').get(0);
+      frameHTML.innerHTML = template;
     }
-    $(frameId).contents().find('#snippet').html(content);
+    
+    frame.find('style').append(css);
+    frame.find('#snippet').html(content);
   };
 
   var submitSnippet = function ( data ) {
@@ -85,8 +91,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         snippetContents = snippetContainer.find('iframe');
 
-        appendIframeContent(snippetContents, null, snippet.code);
-        snippetContents.load($.proxy(appendIframeContent, null, snippetContents, null, snippet.code));
+        appendIframeContent(snippetContents, null, snippet.code, snippet.inlineCss);
+        snippetContents.load($.proxy(appendIframeContent, null, snippetContents, null, snippet.code, snippet.inlineCss));
       } else {
         console.log(snippet);
       }
@@ -260,8 +266,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         snippetIframe = $('#' + snippetId);
 
-        appendIframeContent(snippetIframe, template, currentCode);
-        snippetIframe.load($.proxy(appendIframeContent, null, snippetIframe, template, currentCode));
+        appendIframeContent(snippetIframe, template, currentCode, snippets[index].inlineCss);
+        snippetIframe.load($.proxy(appendIframeContent, null, snippetIframe, template, currentCode, snippets[index].inlineCss));
 
         currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
       }
