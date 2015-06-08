@@ -204,83 +204,110 @@ router.get('/sass', function (req, res) {
     sass = fs.readFileSync(config.sassResources[i], {encoding: 'utf-8'});
     theme.name = config.sassResources[i];
 
+    if ( sass.search(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi) != -1 ) {
+      typography = sass.match(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi);
+      rawTypoArray = typography[0].split('\n');
+      rawTypoArray.shift();
+      rawTypoArray.pop();
 
-    typography = sass.match(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi);
-    rawTypoArray = typography[0].split('\n');
-    rawTypoArray.shift();
-    rawTypoArray.pop();
-
-    //Constructing types array
-    typography = [];
-    for (var j = 0, len = rawTypoArray.length; j <len; j++) {
-      var variableName = rawTypoArray[j].match(/\$[\d\D]*?(?=:)/gi)[0],
-          value = rawTypoArray[j].match(/(?=:)[\d\D]*?(?=;)/)[0],
-          weights = rawTypoArray[j].match(/\([\d\D]*?(?=\))/gi)[0];
-
-      value = value.substring(1, value.length).trim();
-
-      weights = weights.substring(1, weights.length);
-      weights = weights.replace(/ /g,'').split(',');
-      weights = weights.map(function (weight) {
-        return Number(weight);
+      rawTypoArray = rawTypoArray.filter(function ( value ) {
+        return value.search(/(?=\$)[\d\D]/) == 0;
       });
 
-      var type = {
-        variable: variableName,
-        value: value,
-        weights: weights.sort()
+      //Constructing types array
+      typography = [];
+      for (var j = 0, len = rawTypoArray.length; j <len; j++) {
+        var variableName = rawTypoArray[j].match(/\$[\d\D]*?(?=:)/gi)[0],
+            value = rawTypoArray[j].match(/(?=:)[\d\D]*?(?=;)/)[0],
+            weights = rawTypoArray[j].match(/\([\d\D]*?(?=\))/gi);
+
+        value = value.substring(1, value.length).trim();
+
+        if ( weights ) {
+          weights = weights[0]
+          weights = weights.substring(1, weights.length);
+          weights = weights.replace(/ /g,'').split(',');
+          weights = weights.map(function (weight) {
+            return Number(weight);
+          });
+          weights = weights.sort();
+        } else {
+          console.log('Weights were not found for ' + variableName + '.');
+        }
+
+        var type = {
+          variable: variableName,
+          value: value,
+          weights: weights
+        }
+
+        typography.push(type);
       }
 
-      typography.push(type);
+      theme.typography = typography;
+    } else {
+      console.log('Typography markers not found in ' + theme.name + '.');
     }
-
-    theme.typography = typography;
 
     rawColArray = sass.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi);
 
-    for (var j = 0, len = rawColArray.length; j < len; j++) {
-      var colors = rawColArray[j].split('\n');
+    if ( rawColArray ) {
+      for (var j = 0, len = rawColArray.length; j < len; j++) {
+        var colors = rawColArray[j].split('\n');
 
-      //remove dom markers
-      colors.shift();
-      colors.pop();
+        //remove dom markers
+        colors.shift();
+        colors.pop();
 
-      unassignedColors = unassignedColors.concat(colors);
-    }
+        unassignedColors = unassignedColors.concat(colors);
+      }
 
-    //prepare array structure
-    for (var j = 0, len = unassignedColors.length; j < len; j++) {
-      var variableName = unassignedColors[j].match(/\$[\d\D]*?(?=:)/gi)[0],
-          value = unassignedColors[j].match(/\:[\d\D]*?(?=;)/gi)[0];
+      unassignedColors = unassignedColors.filter(function ( value ) {
+        return value.search(/(?=\$)[\d\D]/) == 0;
+      });
 
-      value = value.substring(1, value.length).trim();
+      //prepare array structure
+      for (var j = 0, len = unassignedColors.length; j < len; j++) {
+        var variableName = unassignedColors[j].match(/\$[\d\D]*?(?=:)/gi)[0],
+            value = unassignedColors[j].match(/\:[\d\D]*?(?=;)/gi)[0];
 
-      unassignedColors[j] = {variable: variableName, value: value}
-    }
+        value = value.substring(1, value.length).trim();
 
-    while(iterations < config.maxSassIterations && unassignedColors.length) {
-      for (var j = 0; j < unassignedColors.length; j++) {
-        if (unassignedColors[j].value.indexOf('$') != 0) {
-          assignedColors[unassignedColors[j].value] = [unassignedColors[j].variable];
-          unassignedColors.splice(j, 1);
-        } else {
-          for (var color in assignedColors) {
-            if (assignedColors[color].indexOf(unassignedColors[j].value) != -1) {
-              assignedColors[color].push(unassignedColors[j].variable);
-              unassignedColors.splice(j, 1);
-              break;
+        unassignedColors[j] = {variable: variableName, value: value};
+      }
+
+      while(iterations < config.maxSassIterations && unassignedColors.length) {
+        for (var j = 0; j < unassignedColors.length; j++) {
+          if (unassignedColors[j].value.indexOf('$') != 0) {
+
+            if ( assignedColors[unassignedColors[j].value] ) {
+              assignedColors[unassignedColors[j].value].push(unassignedColors[j].variable);
+            } else {
+              assignedColors[unassignedColors[j].value] = [unassignedColors[j].variable];
+            }
+        
+            unassignedColors.splice(j, 1);
+          } else {
+            for (var color in assignedColors) {
+              if (assignedColors[color].indexOf(unassignedColors[j].value) != -1) {
+                assignedColors[color].push(unassignedColors[j].variable);
+                unassignedColors.splice(j, 1);
+                break;
+              }
             }
           }
         }
+        iterations++;
       }
-      iterations++;
-    }
 
-    if (iterations == config.maxSassIterations) {
-      console.log('Iterations reached max size, your variables json file could be inaccurate!\nThis means, that variable r-value is trying to show to non existing variable!');
-    }
+      if (iterations == config.maxSassIterations) {
+        console.log('Iterations reached max size, your variables json file could be inaccurate!\nThis means, that variable r-value is trying to show to non existing variable!');
+      }
 
-    theme.colors = assignedColors;
+      theme.colors = assignedColors;
+    } else {
+      console.log('Color markers not found in ' + theme.name + '.');
+    }
     result.push(theme);
   }
 
