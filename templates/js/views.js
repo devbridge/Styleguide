@@ -1,7 +1,8 @@
-var viewService = (function ( $, editorService, sassService, categoryService ) {
+var viewService = (function ( $, editorService, sassService, categoryService, snippetService ) {
   var module = {},
       views,
-      currentView;
+      currentView,
+      isServerOn;
 
   var buildNavigation = function () {
     var navigation = $('.js-navigation'),
@@ -71,6 +72,19 @@ var viewService = (function ( $, editorService, sassService, categoryService ) {
     buildNavigation();
     sassService.loadSass();
     categoryService.bindCategoriesToForm($('.js-form-select').first());
+
+    snippetService.init(function ( data ) {
+      if (typeof data === 'string') {
+        isServerOn = false;
+        console.log(data); //server is down
+      } else {
+        isServerOn = true;
+        if ( data ) {
+          alert('Found duplicates!\n' + JSON.stringify(data, null, 4));
+        }
+      }
+    });
+
     $('.js-create-snippet').submit(snippetActions.createSnippet);
   };
 
@@ -79,4 +93,4 @@ var viewService = (function ( $, editorService, sassService, categoryService ) {
   };
 
   return module;
-})(jQuery || {}, editorService, sassService, categoryService);
+})(jQuery || {}, editorService, sassService, categoryService, snippetService);

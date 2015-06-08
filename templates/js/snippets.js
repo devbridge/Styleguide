@@ -1,6 +1,30 @@
 var snippetService = (function ($, categoryService) {
   var module = {},
-      path = '//' + window.location.hostname + ':8080/snippets/';
+      apiPath;
+
+  module.init = function ( callback ) {
+    var path = '../styleguide_config.txt',
+        request;
+
+    $.getJSON(path, function ( data ) {
+      apiPath = '//' + window.location.hostname + ':' + data.serverPort + '/snippets/';
+      request = $.ajax({
+        method: 'GET',
+        url: apiPath + 'duplicates',
+        data: {},
+        dataType: 'json'
+      });
+
+      request.done(function ( data ) {
+        callback(data);
+      });
+
+      request.fail(function () {
+        callback('Server is down!');
+      });
+
+    });
+  };
 
   module.getDeletedSnippets = function ( callback ) {
     categoryService.getCategories(function ( categories ) {
@@ -102,7 +126,7 @@ var snippetService = (function ($, categoryService) {
   module.postNew = function ( snippet, callback ) {
     var request = $.ajax({
       method: 'POST',
-      url: path,
+      url: apiPath,
       data: snippet,
       dataType: 'json'
     });
@@ -120,7 +144,7 @@ var snippetService = (function ($, categoryService) {
   module.putEdited = function ( snippet, id, callback ) {
     var request = $.ajax({
       method: 'PUT',
-      url: path + id,
+      url: apiPath + id,
       data: snippet,
       dataType: 'json'
     });
@@ -137,7 +161,7 @@ var snippetService = (function ($, categoryService) {
   module.deleteById = function ( snippetId, callback ) {
     var request = $.ajax({
       method: 'DELETE',
-      url: path + snippetId,
+      url: apiPath + snippetId,
       data: {},
       dataType: 'json'
     });
