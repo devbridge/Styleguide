@@ -57,30 +57,38 @@ var sassService = (function ($) {
 
     for (index = 0; index < len; index++) {
       currentFont = typography[index];
-      weightsLen = currentFont.weights.length;
-      for(weightsInd = 0; weightsInd < weightsLen; weightsInd++) {
-        currentFontView = fontTpl.clone(true);
-        currentExampleView = exampleTpl.clone(true);
 
-        currentFontView.find('.js-set-font').css({
-          'font-family': currentFont.value,
-          'font-weight': currentFont.weights[weightsInd]
-        });
+      if ( currentFont.weights ) {
+        weightsLen = currentFont.weights.length;
 
-        currentExampleView.css({
-          'font-family': currentFont.value,
-          'font-weight': currentFont.weights[weightsInd]
-        });
+        for(weightsInd = 0; weightsInd < weightsLen; weightsInd++) {
+          currentFontView = fontTpl.clone(true);
+          currentExampleView = exampleTpl.clone(true);
 
-        fontDescription = currentFont.variable + ': ' + currentFont.value + '; '
-          + 'font-weight: ' + currentFont.weights[weightsInd] + ';';
+          currentFontView.find('.js-set-font').css({
+            'font-family': currentFont.value,
+            'font-weight': currentFont.weights[weightsInd]
+          });
 
-        currentFontView.find('.js-variable').text(fontDescription);
-        currentExampleView.prepend($('<p>' + fontDescription + '</p>'));
+          currentExampleView.css({
+            'font-family': currentFont.value,
+            'font-weight': currentFont.weights[weightsInd]
+          });
 
-        fontsContainer.append(currentFontView);
-        examplesContainer.append(currentExampleView);
+          fontDescription = currentFont.variable + ': ' + currentFont.value + '; '
+            + 'font-weight: ' + currentFont.weights[weightsInd] + ';';
+
+          currentFontView.find('.js-variable').text(fontDescription);
+          currentExampleView.prepend($('<p>' + fontDescription + '</p>'));
+
+          fontsContainer.append(currentFontView);
+          examplesContainer.append(currentExampleView);
+        }
+      } else {
+        fontsContainer.append('Weights were not defined for ' + currentFont.variable + '.<br>');
+        examplesContainer.append('Weights were not defined for ' + currentFont.variable + '.<br>');
       }
+
     }
   };
 
