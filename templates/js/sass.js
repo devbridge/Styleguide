@@ -91,6 +91,13 @@ var sassService = (function ($) {
       
       $('.main').append(sassContent);
 
+      if ( !data.length ) {
+        $('.js-color-box').html(errorMessage);
+        $('.js-font-tpl').html(errorMessage);
+        $('.js-font-example').html(errorMessage);
+        return;
+      }
+
       if ( data[0].colors ) {
         parseColors(data[0].colors);
       } else {
