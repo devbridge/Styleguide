@@ -121,13 +121,13 @@ var generate = function (options) {
   var stdin = process.stdin,
       stdout = process.stdout,
       currentFolder = process.cwd(),
-      rootFolder = currentFolder + '\\styleguide',
+      rootFolder = currentFolder + '\\styleguide\\',
       dbFolder = rootFolder + '\\db',
       templateFolder = currentFolder + '\\node_modules\\Styleguide\\templates\\',
       currentContents,
       javascripts;
 
-  if ( !fs.existsSync(rootFolder) ) {
+  if ( !fs.existsSync(dbFolder) ) {
     fs.mkdirSync(rootFolder);
     fs.mkdirSync(dbFolder);
     fs.mkdirSync(rootFolder + '\\css');

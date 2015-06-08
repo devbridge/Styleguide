@@ -239,8 +239,9 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             snippetService.deleteById(idToDelete, function ( data ) {
               if ( typeof data === 'object' && data.isDeleted ) {
                 $('#' + data.id).detach();
-              } 
-              console.log(data);
+              } else {
+                console.log(data);
+              }
             });            
           }
 
