@@ -1,5 +1,8 @@
 Styleguide
 ===
+```
+Note: this is not relevant as the package is still not published on NPM.
+```
 Usage:
 ---
 

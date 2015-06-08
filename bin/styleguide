@@ -117,6 +117,21 @@ var parseSnippetTemplate = function () {
   return deferred.promise;
 };
 
+var parseServerPort = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter PORT on which Styleguide app server should run: ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+
+    config.serverPort = Number(data);
+    deferred.resolve();
+  });
+
+  return deferred.promise;
+};
+
 var generate = function (options) {
   var stdin = process.stdin,
       stdout = process.stdout,
@@ -156,6 +171,7 @@ var generate = function (options) {
     .then(parseSassResources)
     .then(parseMaxIterations)
     .then(parseSnippetTemplate)
+    .then(parseServerPort)
     .then(function () {
       stdout.write('Press Enter to write out the following configuration to your project root directory:\n')
       console.log(config);

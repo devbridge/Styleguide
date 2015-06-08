@@ -30,7 +30,7 @@ router.get('/snippets', function (req, res, next) {
 
   var findSnippet = function(snippetId, callback) {
     for (var i = 0, length = config.categories.length; i < length; i++) {
-      var dataPath = '../../styleguide/db/' + config.categories[i].name + '.txt';
+      var dataPath = './styleguide/db/' + config.categories[i].name + '.txt';
       var snippets = jf.readFileSync(dataPath, {throws: false}) || [];
 
       var desireableSnippet = snippets.filter(function (obj) {
@@ -51,7 +51,7 @@ router.get('/snippets', function (req, res, next) {
         snippetai = {},
         url,
         response,
-        uniques = jf.readFileSync('../../styleguide/db/uniques.txt', {throws: false}) || [];
+        uniques = jf.readFileSync('./styleguide/db/uniques.txt', {throws: false}) || [];
 
     for (url in responses) {
       // reference to the response object
@@ -110,7 +110,7 @@ router.get('/snippets', function (req, res, next) {
 
       for (var i = 0, length = config.categories.length; i < length; i++) {
         if (config.categories[i].id == category) {
-          currentDataPath = '../../styleguide/db/' + config.categories[i].name + '.txt';
+          currentDataPath = './styleguide/db/' + config.categories[i].name + '.txt';
           break;
         }
       }
@@ -146,7 +146,7 @@ router.get('/snippets', function (req, res, next) {
 
                 for (var j = 0, length = config.categories.length; j < length; j++) {
                   if (config.categories[i].id == snippAndCat.category) {
-                    oldCatPath = '../../styleguide/db/' + config.categories[i].name + '.txt';
+                    oldCatPath = './styleguide/db/' + config.categories[i].name + '.txt';
                     break;
                   }
                 }
@@ -182,7 +182,7 @@ router.get('/snippets', function (req, res, next) {
       jf.writeFileSync(currentDataPath, current);
     }
 
-    jf.writeFileSync('../../styleguide/db/uniques.txt', uniques);
+    jf.writeFileSync('./styleguide/db/uniques.txt', uniques);
 
     res.json(snippetai);
   });
@@ -284,7 +284,7 @@ router.get('/sass', function (req, res) {
     result.push(theme);
   }
 
-  jf.writeFileSync('../../styleguide/db/sassdata.txt', result);
+  jf.writeFileSync('./styleguide/db/sassdata.txt', result);
 
   res.json(result);
 });
