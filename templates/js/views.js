@@ -13,10 +13,12 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       navList = navigation.find('.js-navigation-list'),
       pages = [{ name: 'Colors, Typography', id: 'sass' }],
       iteratingPage,
+      route = window.location.hash,
       pageElement,
       index,
       len;
 
+    route = route.replace('#', '');
     currentPage.text(pages[0].name);
     categoryService.getCategories(function ( categories ) {
       views = pages = pages.concat(categories);
@@ -26,13 +28,25 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       for (index = 0; len > index; index++) {
         iteratingPage = pages[index];
         pageElement = $('<a href="#" data-id="' + iteratingPage.id + '">' + iteratingPage.name + '</a>');
-        pageElement.on('click', function () {
-          redrawPage($(this).data('id'));
+        pageElement.on('click', function ( e ) {
+          var id = $(this).data('id')
+          e.preventDefault();
+          redrawPage(id);
+          window.history.pushState({ id: id }, '', '#' + id);
         });
         navList.append(pageElement);
       }
 
-      currentView = views[0]
+      if ( route.length ) {
+        currentView = $.grep(views, function ( el ) {
+          return el.id == route;
+        }).pop();
+      } else {
+        currentView = views[0];
+        window.history.replaceState({ id: currentView.id }, '', '')
+      }
+
+      redrawPage(currentView.id);
     });
   };
 
@@ -50,12 +64,12 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       iframesService.formFramesForCategory(categoryId, function ( frames, snippets ) {
         snippetActions.drawSnippets(frames, snippets);
       });
+
       return;
     }
 
     if ( typeof categoryId === 'string' && categoryId === 'deleted' ) {
       currentView = views[views.length - 1];
-
       $('.js-current-page').text(currentView.name);
 
       iframesService.formFramesForDeleted(function ( frames, snippets ) {
@@ -70,14 +84,13 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
     sassService.loadSass();
   };
 
-  module.init = function () {
-    var route = window.location.hash;
+  window.onpopstate = function(event) {
+    redrawPage(event.state.id);
+  };
 
-    route = route.replace('#', '');
-    
+  module.init = function () {
     editorService.init();
     buildNavigation();
-    sassService.loadSass();
     categoryService.bindCategoriesToForm($('.js-form-select').first());
 
     snippetService.init(function ( data ) {
