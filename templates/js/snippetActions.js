@@ -298,5 +298,23 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     });
   };
 
+  module.scrapeHandler = function ( whatToScrape ) {
+    var scrapeUrl = snippetService.getScrapePath(whatToScrape),
+        request = $.ajax({
+                    method: 'GET',
+                    url: scrapeUrl,
+                    data: {},
+                    dataType: 'json'
+                  });
+
+    request.done(function ( data ) {
+      alert('Scraped ' + whatToScrape + ': \n' + JSON.stringify(data, null, 2));
+    });
+
+    request.fail(function () {
+      alert('Failed to scrape ' + whatToScrape + '! Maybe your styleguide server is down?');
+    });
+  };
+
   return module;
 })(jQuery || {}, snippetService, iframesService, editorService, viewService);

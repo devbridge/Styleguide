@@ -99,6 +99,8 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
         console.log(data); //server is down
       } else {
         isServerOn = true;
+        $('.js-scrape-snipp').on('click', $.proxy(snippetActions.scrapeHandler, null, 'snippets'));
+        $('.js-scrape-sass').on('click', $.proxy(snippetActions.scrapeHandler, null, 'sass'));
         if ( data ) {
           alert('Found duplicates!\n' + JSON.stringify(data, null, 4));
         }

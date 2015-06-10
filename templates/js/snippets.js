@@ -1,6 +1,11 @@
 var snippetService = (function ($, categoryService) {
   var module = {},
+      scrapePath,
       apiPath;
+
+  module.getScrapePath = function ( whatToScrape ) {
+    return scrapePath + whatToScrape;
+  };
 
   module.init = function ( callback ) {
     var path = '../styleguide_config.txt',
@@ -8,6 +13,7 @@ var snippetService = (function ($, categoryService) {
 
     $.getJSON(path, function ( data ) {
       apiPath = '//' + window.location.hostname + ':' + data.serverPort + '/snippets/';
+      scrapePath = '//' + window.location.hostname + ':' + data.serverPort + '/scrape/';
       request = $.ajax({
         method: 'GET',
         url: apiPath + 'duplicates',
