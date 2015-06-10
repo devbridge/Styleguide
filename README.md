@@ -79,14 +79,6 @@ gulp.task('start-styleguide', function () {
 
 Function does not take any arguments and returns server instance.
 
-###Scraping snippets and SASS variables
-
-Your styleguide server should be running, and these are the URL's to enter if you want to scrape data:
-
-```
-http://localhost:PORT/scrape/snippets/
-http://localhost:PORT/scrape/sass/
-```
 
 ###Accessing your styleguide
 
@@ -96,4 +88,82 @@ This is how you open your styleguide:
 
 ```
 http://your-project-hostname/styleguide/index.html
+```
+
+###Snippet structure for scraping
+
+You have to wrap your snippet with DOM comments, you must define snippet ID and CAN define category ID, wheter include javascripts or not, for example:
+
+```
+<!-- snippet:start 18 include-js -->
+<div class="test-class3-real">
+    This is test snippetas
+</div>
+<!-- snippet:end -->
+
+<!-- snippet:start 14:1 include-js -->
+<div class="test-class-2">
+    This is test snippet 2
+    (yeah)
+</div>
+<!-- snippet:end -->
+
+<!-- snippet:start 16 -->
+<div class="test-class-2">
+    This is test snippet 2
+    (yeah)
+</div>
+<!-- snippet:end -->
+```
+
+Where the first number is snippet ID, the second one category ID and if include-js flag is defined, then javascript files will be included in that snippet.
+
+
+###Sass variables file structure for scraping
+
+Like with snippets, here you must wrap fonts and colors with specific comments, this is how it should look like:
+```
+//-- typo:start --//
+//module TYPO
+$font-proxima: 'Neue Helvetica W01', helvetica, sans-serif; //(300, 700)
+$font-proxima-alternative: 'Neue Helvetica W01', helvetica, sans-serif; //(400)
+$font-newsgothic: 'Neue Helvetica W01', helvetica, sans-serif; //(700)
+//-- typo:end --//
+
+//-- colors:start --//
+//module MAIN COLORS
+$color-black: #000000;
+$color-dark: #141823;
+$red-lighter-2: #d26262;
+$red-lighter-1: #bd2727;
+$red: #8b0000;
+$red-dark: #880000;
+$red-darker-1: #8b0000;
+$red-darker-2: #4c0d0d;
+
+//module BACKGROUND COLORS
+$background-clickable: $red;
+$background-positive: #fff;
+$background-positive-opacity: #fff;
+$background-header: $red-darker-1;
+$background-header-inner: $red;
+$background-store-nav-first: $red;
+$background-footer: $red;
+$background-header-red-section: $red;
+$background-notification-negative: $red-lighter-2;
+$background-header-account-button: $red-lighter-1;
+
+//module TEXT COLORS
+$text-link: $red;
+$text-link-hover: $red-darker-2;
+
+//module BORDERS
+$border-red-nav: $red-darker-2;
+$border-active: $red;
+
+//module BUTTONS
+$button-default-color: $red;
+$button-default-color-hover: $red-darker-2;
+$button-call-to-action-color: $red;
+//-- colors:end --//
 ```
