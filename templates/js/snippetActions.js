@@ -38,7 +38,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     });
   };
 
-  var submitSnippet = function ( data ) {
+  var submitSnippet = function ( data, form ) {
     snippetService.postNew(data, function ( snippet ) {
       if ( typeof snippet === 'object' && snippet.category == viewService.getCurrentView().id ) {
         iframesService.constructFrame(snippet, function ( frame ) {
@@ -91,15 +91,18 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             snippetContents.load($.proxy(appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss));
 
             currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
+
+            form.removeClass('preloading');
           });
         });
       } else if ( typeof snippet === 'string' ) {
-        console.log(snippet);
+        alert(snippet);
+        form.removeClass('preloading');
       }
     });
   };
 
-  var submitUpdatedSnippet = function ( data, snippetId, snippetContainer ) {
+  var submitUpdatedSnippet = function ( data, snippetId, snippetContainer, form ) {
     snippetService.putEdited(data, snippetId, function ( snippet ) {
       if ( typeof snippet === 'object' ) {
         var snippetContents;
@@ -117,8 +120,11 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         appendIframeContent(snippetContents, null, snippet.code, snippet.inlineCss);
         snippetContents.load($.proxy(appendIframeContent, null, snippetContents, null, snippet.code, snippet.inlineCss));
+
+        form.removeClass('preloading');
       } else {
-        console.log(snippet);
+        alert(snippet);
+        form.removeClass('preloading');
       }
     });
   };
@@ -135,6 +141,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         len = fields.length,
         data = {},
         index;
+
+    form.addClass('preloading');
 
     e.preventDefault();
 
@@ -168,12 +176,12 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         if (window.confirm(errorText)) {
           data.code = code.getValue();
           data.inlineCss = css.getValue();
-          submitSnippet(data);
+          submitSnippet(data, form);
         }
     } else {
       data.code = code.getValue();
       data.inlineCss = css.getValue();
-      submitSnippet(data);
+      submitSnippet(data, form);
     }
   };
 
@@ -189,6 +197,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         index,
         code,
         css;
+
+    form.addClass('preloading');
 
     e.preventDefault();
 
@@ -222,12 +232,12 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         if (window.confirm(errorText)) {
           data.code = code.getValue();
           data.inlineCss = css.getValue();
-          submitUpdatedSnippet(data, snippetId, form.closest('.js-snippet'));
+          submitUpdatedSnippet(data, snippetId, form.closest('.js-snippet'), form);
         }
     } else {
       data.code = code.getValue();
       data.inlineCss = css.getValue();
-      submitUpdatedSnippet(data, snippetId, form.closest('.js-snippet'));
+      submitUpdatedSnippet(data, snippetId, form.closest('.js-snippet'), form);
     }
   };
 

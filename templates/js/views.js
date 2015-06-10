@@ -99,6 +99,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
         console.log(data); //server is down
       } else {
         isServerOn = true;
+        $('html').addClass('server-on');
         $('.js-scrape-snipp').on('click', $.proxy(snippetActions.scrapeHandler, null, 'snippets'));
         $('.js-scrape-sass').on('click', $.proxy(snippetActions.scrapeHandler, null, 'sass'));
         if ( data ) {
