@@ -139,12 +139,11 @@ router.post('/', function (req, res) {
 
   var datastore = jf.readFileSync(dataPath);
 
-  while(!id) {
-    number = Math.floor(Math.random() * 1001);
-    if (uniques.indexOf(number) == -1) {
-      id = number;
-    }
-  }
+  uniques.sort(function ( a, b ) {
+    return a > b;
+  });
+
+  id = uniques[uniques.length - 1] + 1;
 
   var newSnippet = {
     id: id,
@@ -157,8 +156,8 @@ router.post('/', function (req, res) {
     isDeleted: false
   }
 
-  datastore = datastore.concat(newSnippet);
-  uniques = uniques.concat(id);
+  datastore.push(newSnippet);
+  uniques.push(id);
 
   jf.writeFileSync(dataPath, datastore);
   jf.writeFileSync('./styleguide/db/uniques.txt', uniques);

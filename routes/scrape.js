@@ -80,7 +80,6 @@ router.get('/snippets', function (req, res, next) {
       code = code.slice(1);
       if (extractedIds) {
         snippetId = Number(extractedIds[0]);
-        //TODO: instead of 0, find undefined category id
         categoryId = extractedIds[1] ? Number(extractedIds[1]) : 0;
       }
 
