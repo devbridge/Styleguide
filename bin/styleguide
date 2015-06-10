@@ -17,7 +17,8 @@ var config = {
   ],
 
   scrapeUrls: [],
-  sassResources: []
+  sassResources: [],
+  jsResources: []
 }
 
 var parseCategories = function () {
@@ -76,6 +77,27 @@ var parseSassResources = function () {
     if ( data !== null && data !== 'null' && data.length > 0 ) {
       config.sassResources.push(data);
       parseSassResources().then(function () {
+        deferred.resolve();
+      });
+    } else {
+      deferred.resolve();
+      return deferred.promise;
+    }
+  });
+  return deferred.promise;
+};
+
+var parseJsResources = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter relative path from domain root to JS file, if left blank, we\'ll continue to next step: ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+    
+    if ( data !== null && data !== 'null' && data.length > 0 ) {
+      config.jsResources.push(data);
+      parseJsResources().then(function () {
         deferred.resolve();
       });
     } else {
@@ -171,6 +193,7 @@ var generate = function (options) {
     .then(parseSassResources)
     .then(parseMaxIterations)
     .then(parseSnippetTemplate)
+    .then(parseJsResources)
     .then(parseServerPort)
     .then(function () {
       stdout.write('Press Enter to write out the following configuration to your project root directory:\n')

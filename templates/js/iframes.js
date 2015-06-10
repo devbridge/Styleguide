@@ -35,7 +35,7 @@ var iframesService = (function ($, snippetService){
 
     for (index = 0; len > index; index++) {
       tempFrame = $('<iframe></iframe>');
-      tempFrame.attr('sandbox', 'allow-same-origin allow-scripts');
+      //tempFrame.attr('sandbox', 'allow-same-origin allow-scripts allow-popups');
       tempFrame.attr('id', 'snippet-' + snippets[index].id);
       framesArray.push(tempFrame);
     }
@@ -45,7 +45,7 @@ var iframesService = (function ($, snippetService){
   module.constructFrame = function ( snippet, callback ) {
     var tempFrame = $('<iframe></iframe>');
 
-    tempFrame.attr('sandbox', 'allow-same-origin allow-scripts');
+    //tempFrame.attr('sandbox', 'allow-same-origin allow-scripts allow-popups');
     tempFrame.attr('id', 'snippet-' + snippet.id);
 
     callback(tempFrame);
@@ -53,12 +53,22 @@ var iframesService = (function ($, snippetService){
 
   module.getTemplate = function ( callback ) {
     getConfig(function ( config ) {     
-      if (!config.snippetTemplate) {
+      if ( !config.snippetTemplate ) {
         callback(getDefaultTemplate());
       } else {
         $.get('../' + config.snippetTemplate, function ( data ) {
           callback(data);
         });
+      }
+    });
+  };
+
+  module.getJavaScripts = function ( callback ) {
+    getConfig(function ( config ) {
+      if ( config.jsResources ) {
+        callback(config.jsResources);
+      } else {
+        console.log('No JavaScript files are defined in configuration to load into iframe.');
       }
     });
   };

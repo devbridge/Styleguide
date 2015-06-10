@@ -1,9 +1,22 @@
 var snippetActions = (function ($, snippetService, iframesService, editorService, viewService) {
   var module = {};
 
+  var injectJavaScript = function ( iframe, source ) {
+    var scriptTag = iframe.contentWindow.document.createElement('script');
+
+    scriptTag.type = 'text/javascript';
+    scriptTag.src = source;
+    scriptTag.async = false;
+      
+    iframe.contentWindow.document.body.appendChild(scriptTag);
+  };
+
   var appendIframeContent = function ( frameId, template, content, css ) {
     var frame = $(frameId).contents(),
-        frameHTML;
+        rawJsFrame,
+        frameHTML,
+        index,
+        length;
 
     if ( template ) {
       frameHTML = frame.find('html').get(0);
@@ -13,6 +26,16 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     frame.find('style').empty();
     frame.find('style').append(css);
     frame.find('#snippet').html(content);
+
+    rawJsFrame = document.getElementById(frameId.attr('id'));
+
+    iframesService.getJavaScripts(function ( jsResources ) {
+      length = jsResources.length;
+
+      for (index = 0; index < length; index++) {
+        injectJavaScript(rawJsFrame, jsResources[index]);
+      }
+    });
   };
 
   var submitSnippet = function ( data ) {
@@ -64,8 +87,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
             snippetContents = $('#' + snippetId);
 
-            appendIframeContent(snippetContents, template, snippet.code);
-            snippetContents.load($.proxy(appendIframeContent, null, snippetContents, template, snippet.code));
+            appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss);
+            snippetContents.load($.proxy(appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss));
 
             currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
           });
