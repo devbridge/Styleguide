@@ -4,6 +4,7 @@ Usage:
 ---
 
 ###Setting up
+
 Firstly install this package locally to your project:
 ```
 npm install devbridge-styleguide --save-dev
@@ -14,7 +15,7 @@ Also assure that you have it installed globally:
 npm install devbridge-styleguide -g
 ```
 
-After this is done you can generate your configuration file running `devbridge-styleguide generate-config` in your project root directory.
+After this is done you can generate your configuration file running `styleguide generate-config` in your project root directory.
 
 Firstly, you'll need to supply your snippet categories delimited by comma, for example:
 ```
