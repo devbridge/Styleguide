@@ -5,7 +5,40 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       currentRoute,
       isServerOn;
 
-  var setLastView = function () {};
+  var bindNavClick = function ( e ) {
+    var id = $(this).data('id');
+    e.preventDefault();
+    redrawPage(id);
+    window.history.pushState({ id: id }, '', '#' + id);
+  };
+
+  var bindCategoryButtons = function () {
+    var currentViewIndex = $.inArray(currentView, views),
+        next,
+        prev;
+
+    if ( currentViewIndex == 0) {
+      prev = currentViewIndex;
+      next = currentViewIndex + 1;
+    } else if ( currentViewIndex == views.length -1 ) {
+      prev = currentViewIndex - 1;
+      next = currentViewIndex;
+    } else {
+      prev = currentViewIndex - 1;
+      next = currentViewIndex + 1;
+    }
+
+    //$('.js-next-cat').attr('href', '#' + views[currentViewIndex + 1].id);
+    $('.js-next-cat').data('id', views[next].id);
+    //$('.js-prev-cat').attr('href', '#' + views[currentViewIndex - 1].id);
+    $('.js-prev-cat').data('id', views[prev].id);
+
+    $('.js-next-cat').off('click');
+    $('.js-prev-cat').off('click');
+
+    $('.js-next-cat').on('click', bindNavClick);
+    $('.js-prev-cat').on('click', bindNavClick);
+  };
 
   var buildNavigation = function () {
     var navigation = $('.js-navigation'),
@@ -28,12 +61,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       for (index = 0; len > index; index++) {
         iteratingPage = pages[index];
         pageElement = $('<a href="#" data-id="' + iteratingPage.id + '">' + iteratingPage.name + '</a>');
-        pageElement.on('click', function ( e ) {
-          var id = $(this).data('id')
-          e.preventDefault();
-          redrawPage(id);
-          window.history.pushState({ id: id }, '', '#' + id);
-        });
+        pageElement.on('click', bindNavClick);
         navList.append(pageElement);
       }
 
@@ -52,6 +80,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
 
   var redrawPage = function ( categoryId ) {
     var sassContent = $($('#sass-page').html());
+
     $('.main').empty();
   
     if ( typeof categoryId === 'number' ) {
@@ -65,6 +94,8 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
         snippetActions.drawSnippets(frames, snippets);
       });
 
+      bindCategoryButtons();
+
       return;
     }
 
@@ -75,10 +106,16 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       iframesService.formFramesForDeleted(function ( frames, snippets ) {
         snippetActions.drawSnippets(frames, snippets);
       });
+
+      bindCategoryButtons();
+
       return;
     }
     
     currentView = views[0]
+
+    bindCategoryButtons();
+
     $('.js-current-page').text(currentView.name);
     $('.main').append(sassContent);
     sassService.loadSass();
