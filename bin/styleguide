@@ -18,7 +18,8 @@ var config = {
 
   scrapeUrls: [],
   sassResources: [],
-  jsResources: []
+  jsResources: [],
+  resolutions: {}
 }
 
 var parseCategories = function () {
@@ -154,6 +155,66 @@ var parseServerPort = function () {
   return deferred.promise;
 };
 
+var parseDesktopResolution = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter desktop width in which snippets will be displayed by default (if left blank will be set to 1200): ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+
+    if ( data.length > 0 ) {
+      config.resolutions.desktop = Number(data);
+    } else {
+      config.resolutions.desktop = 1200;
+    }
+    
+    deferred.resolve();
+  });
+
+  return deferred.promise;
+};
+
+var parseTabletResolution = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter tablet width which you will be able to trigger presing a button (if left blank will be set to 768): ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+
+    if ( data.length > 0 ) {
+      config.resolutions.tablet = Number(data);
+    } else {
+      config.resolutions.tablet = 768;
+    }
+    
+    deferred.resolve();
+  });
+
+  return deferred.promise;
+};
+
+var parseMobileResolution = function () {
+  var deferred = q.defer();
+
+  stdout.write('Enter mobile width which you will be able to trigger presing a button (if left blank will be set to 480): ');
+
+  stdin.once('data', function (data) {
+    data = data.toString().trim();
+
+    if ( data.length > 0 ) {
+      config.resolutions.mobile = Number(data);
+    } else {
+      config.resolutions.mobile = 480;
+    }
+    
+    deferred.resolve();
+  });
+
+  return deferred.promise;
+};
+
 var generate = function (options) {
   var stdin = process.stdin,
       stdout = process.stdout,
@@ -195,6 +256,9 @@ var generate = function (options) {
     .then(parseSnippetTemplate)
     .then(parseJsResources)
     .then(parseServerPort)
+    .then(parseDesktopResolution)
+    .then(parseTabletResolution)
+    .then(parseMobileResolution)
     .then(function () {
       stdout.write('Press Enter to write out the following configuration to your project root directory:\n')
       console.log(config);

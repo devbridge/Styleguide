@@ -3,6 +3,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       views,
       currentView,
       currentRoute,
+      defaultResolution,
       isServerOn;
 
   var bindNavClick = function ( e ) {
@@ -28,9 +29,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       next = currentViewIndex + 1;
     }
 
-    //$('.js-next-cat').attr('href', '#' + views[currentViewIndex + 1].id);
     $('.js-next-cat').data('id', views[next].id);
-    //$('.js-prev-cat').attr('href', '#' + views[currentViewIndex - 1].id);
     $('.js-prev-cat').data('id', views[prev].id);
 
     $('.js-next-cat').off('click');
@@ -91,7 +90,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       $('.js-current-page').text(currentView.name);
 
       iframesService.formFramesForCategory(categoryId, function ( frames, snippets ) {
-        snippetActions.drawSnippets(frames, snippets);
+        snippetActions.drawSnippets(frames, snippets, defaultResolution);
       });
 
       bindCategoryButtons();
@@ -104,7 +103,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       $('.js-current-page').text(currentView.name);
 
       iframesService.formFramesForDeleted(function ( frames, snippets ) {
-        snippetActions.drawSnippets(frames, snippets);
+        snippetActions.drawSnippets(frames, snippets, defaultResolution);
       });
 
       bindCategoryButtons();
@@ -127,9 +126,19 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
   };
 
   var bindResolutionActions = function () {
-    $('.js-desktop').on('click', $.proxy(defaultResolutionsHandler, null, '1200px'));
-    $('.js-tablet').on('click', $.proxy(defaultResolutionsHandler, null, '768px'));
-    $('.js-mobile').on('click', $.proxy(defaultResolutionsHandler, null, '480px'));
+    var desktop,
+        tablet,
+        mobile;
+    $.getJSON('../styleguide_config.txt', function ( data ) {
+      defaultResolution = desktop = data.resolutions.desktop ? data.resolutions.desktop + 'px' : '1200px';
+      tablet = data.resolutions.tablet ? data.resolutions.tablet + 'px' : '768px';
+      mobile = data.resolutions.mobile ? data.resolutions.mobile + 'px' : '480px';
+
+      $('.js-desktop').on('click', $.proxy(defaultResolutionsHandler, null, desktop));
+      $('.js-tablet').on('click', $.proxy(defaultResolutionsHandler, null, tablet));
+      $('.js-mobile').on('click', $.proxy(defaultResolutionsHandler, null, mobile));
+
+    });
 
     $('.js-custom').on('keyup', function () {
       var width = $(this).val() + 'px';
@@ -143,6 +152,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
 
   module.init = function () {
     editorService.init();
+    bindResolutionActions();
     buildNavigation();
     categoryService.bindCategoriesToForm($('.js-form-select').first());
 
@@ -160,8 +170,6 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
         }
       }
     });
-
-    bindResolutionActions();
 
     $('.js-create-snippet').submit(snippetActions.createSnippet);
   };

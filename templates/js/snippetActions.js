@@ -243,7 +243,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     }
   };
 
-  module.drawSnippets = function ( frames, snippets ) {
+  module.drawSnippets = function ( frames, snippets, resolution ) {
     var snippetId,
         snippetContainer,
         snippetIframe,
@@ -273,6 +273,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         currentSnippetElement.find('.js-edit-css').text(snippets[index].inlineCss);
         currentSnippetElement.find('.js-snippet-code-preview').text(currentCode);
         currentSnippetElement.find('.js-snippet-source').html(frames[index]);
+        currentSnippetElement.find('.js-snippet-preview').css('width', resolution);
+        currentSnippetElement.find('.js-snippet-size').val(resolution);
         currentSnippetElement.addClass(snippetId);
 
         currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', function () {
