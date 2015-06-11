@@ -13,10 +13,76 @@ var sassService = (function ($) {
     }
   };
 
+  var parseHsv = function ( rgb ) {
+    var hsv,
+        hue = 0,
+        sat = 0,
+        val,
+        chr,
+        max,
+        min;
+
+    rgb = rgb.replace(/[rgb()]/g, '').split(',').map(Number);
+
+    rgb[0] = rgb[0]/255;
+    rgb[1] = rgb[1]/255;
+    rgb[2] = rgb[2]/255;
+
+    max = Math.max.apply(Math, rgb);
+    min = Math.min.apply(Math, rgb);
+
+    val = max;
+    chr = max - min;
+
+    sat = max == 0 ? 0 : chr / max;
+
+    if( max == min ){
+        hue = 0;
+    } else {
+        switch( max ){
+            case rgb[0]: hue = (rgb[1] - rgb[2]) / chr + (rgb[1] < rgb[2] ? 6 : 0); break;
+            case rgb[1]: hue = (rgb[2] - rgb[0]) / chr + 2; break;
+            case rgb[2]: hue = (rgb[0] - rgb[1]) / chr + 4; break;
+        }
+        hue /= 6;
+    }
+
+    hsv = {
+      hue: hue,
+      sat: sat,
+      val: val
+    }
+
+    return hsv;
+  };
+
+  var colorComparator = function ( a, b ) {
+    var aColor = a.find('i').css('background-color'),
+        bColor = b.find('i').css('background-color');
+
+    aColor = parseHsv(aColor);
+    bColor = parseHsv(bColor);
+
+    if ( aColor.hue < bColor.hue )
+      return -1;
+    if ( aColor.hue > bColor.hue )
+      return 1;
+    if ( aColor.sat < bColor.sat )
+      return -1;
+    if ( aColor.sat > bColor.sat )
+      return 1;
+    if ( aColor.val < bColor.val )
+      return -1;
+    if ( aColor.val > bColor.val )
+      return 1;
+    return 0;
+  };
+
   var parseColors = function ( colors ) {
     var colorsContainer = $('.js-snippet-colors').first(),
         colorBoxTpl = $('.js-color-box').first(),
         currentColorBox,
+        colorBoxes = [],
         color,
         len,
         index,
@@ -30,11 +96,20 @@ var sassService = (function ($) {
       currentColorBox = colorBoxTpl.clone(true);
       currentColorBox.find('i').css('background', color)
                                .text(color);
+
       for (index = 0, len = colors[color].length; index < len; index++) {
         varName = $('<p>' + colors[color][index] + '</p>');
         currentColorBox.append(varName);
       }
-      colorsContainer.append(currentColorBox);
+      colorBoxes.push(currentColorBox);
+      console.log(currentColorBox.find('i').css('background-color'));
+      console.log(parseHsv(currentColorBox.find('i').css('background-color')));
+    }
+
+    colorBoxes.sort(colorComparator);
+
+    for (index = 0, len = colorBoxes.length; index < len; index++) {
+      colorsContainer.append(colorBoxes[index]);
     }
   };
 
