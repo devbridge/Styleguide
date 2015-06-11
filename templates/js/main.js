@@ -62,6 +62,10 @@
 				$code.toggle();
 			});
 
+			$sizeIndicator.on('keyup', function () {
+				$preview[0].style.width = $sizeIndicator.val();
+			});
+
 			interact( $preview[0] )
 				.resizable({
 					edges: {
@@ -75,7 +79,7 @@
 
 						if ( e.rect.width > 150 ) {
 							target.style.width  = e.rect.width + 'px';
-							$sizeIndicator.text( e.rect.width + "px" );
+							$sizeIndicator.val( e.rect.width + "px" );
 						}
 					}
 				});
