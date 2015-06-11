@@ -84,6 +84,22 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
     sassService.loadSass();
   };
 
+  var defaultResolutionsHandler = function ( width ) {
+    $('.js-snippet-preview').css('width', width);
+    $('.js-snippet-size').val(width);
+  };
+
+  var bindResolutionActions = function () {
+    $('.js-desktop').on('click', $.proxy(defaultResolutionsHandler, null, '1200px'));
+    $('.js-tablet').on('click', $.proxy(defaultResolutionsHandler, null, '768px'));
+    $('.js-mobile').on('click', $.proxy(defaultResolutionsHandler, null, '480px'));
+
+    $('.js-custom').on('keyup', function () {
+      var width = $(this).val() + 'px';
+      defaultResolutionsHandler(width);
+    });
+  };
+
   window.onpopstate = function(event) {
     redrawPage(event.state.id);
   };
@@ -107,6 +123,8 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
         }
       }
     });
+
+    bindResolutionActions();
 
     $('.js-create-snippet').submit(snippetActions.createSnippet);
   };
