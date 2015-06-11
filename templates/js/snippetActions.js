@@ -11,7 +11,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     iframe.contentWindow.document.body.appendChild(scriptTag);
   };
 
-  var appendIframeContent = function ( frameId, template, content, css ) {
+  module.appendIframeContent = function ( frameId, template, content, css ) {
     var frame = $(frameId).contents(),
         rawJsFrame,
         frameHTML,
@@ -21,11 +21,12 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     if ( template ) {
       frameHTML = frame.find('html').get(0);
       frameHTML.innerHTML = template;
-    }
+    } 
     
     frame.find('style').empty();
     frame.find('style').append(css);
     frame.find('#snippet').html(content);
+    frame.find('script').remove();
 
     rawJsFrame = document.getElementById(frameId.attr('id'));
 
@@ -87,8 +88,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
             snippetContents = $('#' + snippetId);
 
-            appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss);
-            snippetContents.load($.proxy(appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss));
+            module.appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss);
+            snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss));
 
             currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
 
@@ -118,10 +119,11 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         snippetContents = snippetContainer.find('iframe');
 
-        appendIframeContent(snippetContents, null, snippet.code, snippet.inlineCss);
-        snippetContents.load($.proxy(appendIframeContent, null, snippetContents, null, snippet.code, snippet.inlineCss));
+        module.appendIframeContent(snippetContents, null, snippet.code, snippet.inlineCss);
+        snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, null, snippet.code, snippet.inlineCss));
 
         form.removeClass('preloading');
+        snippetContents.addClass('updated');
       } else {
         alert(snippet);
         form.removeClass('preloading');
@@ -300,8 +302,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         snippetIframe = $('#' + snippetId);
 
-        appendIframeContent(snippetIframe, template, currentCode, snippets[index].inlineCss);
-        snippetIframe.load($.proxy(appendIframeContent, null, snippetIframe, template, currentCode, snippets[index].inlineCss));
+        module.appendIframeContent(snippetIframe, template, currentCode, snippets[index].inlineCss);
+        snippetIframe.load($.proxy(module.appendIframeContent, null, snippetIframe, template, currentCode, snippets[index].inlineCss));
 
         currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
       }

@@ -50,12 +50,15 @@ var editorService = (function ($) {
   module.addToEditForm = function ( snippetContainer ) {
     var currentEditor = snippetContainer.find('.js-edit-code'),
         snippetId = snippetContainer.attr('class').split(' ').pop(),
-        currentId = snippetId + '-code';
+        currentId = snippetId + '-code',
+        editors = {};
 
     currentEditor.attr('id', currentId);
     currentEditor = ace.edit(currentId);
     currentEditor.setTheme('ace/theme/monokai');
     currentEditor.getSession().setMode('ace/mode/html');
+
+    editors.code = currentEditor;
 
     snippetContainer.find('.js-toggle-code-full-screen').on('click', $.proxy(toggleFullScreen, null, currentEditor));
 
@@ -67,7 +70,11 @@ var editorService = (function ($) {
     currentEditor.setTheme('ace/theme/monokai');
     currentEditor.getSession().setMode('ace/mode/css');
 
+    editors.css = currentEditor;
+
     snippetContainer.find('.js-toggle-css-full-screen').on('click', $.proxy(toggleFullScreen, null, currentEditor));
+
+    return editors;
   };
 
   module.removeFromEditForm = function ( snippetContainer ) {
