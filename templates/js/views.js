@@ -78,8 +78,6 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
   };
 
   var redrawPage = function ( categoryId ) {
-    var sassContent = $($('#sass-page').html());
-
     $('.main').empty();
   
     if ( typeof categoryId === 'number' ) {
@@ -116,7 +114,6 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
     bindCategoryButtons();
 
     $('.js-current-page').text(currentView.name);
-    $('.main').append(sassContent);
     sassService.loadSass();
   };
 

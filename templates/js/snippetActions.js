@@ -323,6 +323,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
     request.done(function ( data ) {
       alert('Scraped ' + whatToScrape + ': \n' + JSON.stringify(data, null, 2));
+      window.location.reload(true);
     });
 
     request.fail(function () {
