@@ -14,6 +14,7 @@ var app = express();
 
 var port = process.env.PORT || 8080;
 // view engine setup
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 

@@ -72,35 +72,37 @@ router.get('/snippets', function (req, res, next) {
 
     //build snippets
     for (var i = 0, length = filteredHTml.length; i < length; i++) {
-      var snippetId, categoryId;
-      var domMarker = filteredHTml[i].match(/<!-- snippet:start [\d\D]*? -->/gi)[0];
-      var includeJs = domMarker.match(/include-js/i);
-      var extractedIds = domMarker.match(/[\d]+/g);
-      var code = filteredHTml[i].match(/(?=>)[\d\D]*?(?=<!)/gi)[0];
-      code = code.slice(1);
-      if (extractedIds) {
-        snippetId = Number(extractedIds[0]);
-        categoryId = extractedIds[1] ? Number(extractedIds[1]) : 0;
-      }
+      if ( filteredHTml[i] ) {
+        var snippetId, categoryId;
+        var domMarker = filteredHTml[i].match(/<!-- snippet:start [\d\D]*? -->/gi)[0];
+        var includeJs = domMarker.match(/include-js/i);
+        var extractedIds = domMarker.match(/[\d]+/g);
+        var code = filteredHTml[i].match(/(?=>)[\d\D]*?(?=<!)/gi)[0];
+        code = code.slice(1);
+        if (extractedIds) {
+          snippetId = Number(extractedIds[0]);
+          categoryId = extractedIds[1] ? Number(extractedIds[1]) : 0;
+        }
 
-      if (!snippetId) {
-        res.status(500).send('Snippet ID is not defined! In: ' + filteredHTml[i]);
-        return;
-      }
+        if (!snippetId) {
+          res.status(500).send('Snippet ID is not defined! In: ' + filteredHTml[i]);
+          return;
+        }
 
-      var newSnippet = {
-        id: snippetId,
-        name: "",
-        code: code.trim(),
-        description: "",
-        inlineCss: "",
-        includeJs: includeJs ? true : false,
-        isEdited: false,
-        isDeleted: false
-      }
+        var newSnippet = {
+          id: snippetId,
+          name: "",
+          code: code.trim(),
+          description: "",
+          inlineCss: "",
+          includeJs: includeJs ? true : false,
+          isEdited: false,
+          isDeleted: false
+        }
 
-      snippetai[categoryId] = snippetai[categoryId] ? snippetai[categoryId].concat(newSnippet) : [newSnippet];
-      results.push(newSnippet);
+        snippetai[categoryId] = snippetai[categoryId] ? snippetai[categoryId].concat(newSnippet) : [newSnippet];
+        results.push(newSnippet);
+      }
     }
 
     for (category in snippetai) {
