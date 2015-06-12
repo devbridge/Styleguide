@@ -102,8 +102,6 @@ var sassService = (function ($) {
         currentColorBox.append(varName);
       }
       colorBoxes.push(currentColorBox);
-      console.log(currentColorBox.find('i').css('background-color'));
-      console.log(parseHsv(currentColorBox.find('i').css('background-color')));
     }
 
     colorBoxes.sort(colorComparator);
