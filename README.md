@@ -17,22 +17,26 @@ npm install devbridge-styleguide -g
 
 After this is done you can generate your configuration file running `styleguide generate-config` in your project root directory.
 
-Firstly, you'll need to supply your snippet categories delimited by comma, for example:
-```
-General, Buttons, Navigation
-```
+These are the steps, that generator will lead you through:
 
-In the next step, you can supply URLs to scrape snippets from, but this is optional.
+1. You'll need to supply your snippet categories delimited by comma, for example:
+  ```General, Buttons, Navigation```
 
-You can supply relative path from your project root to SASS file, where fonts and colors variables are stored.
+2. You can supply URLs to scrape snippets from, but this is optional.
 
-At next step you'll be asked to supply maximum of iterations to go through SASS variables, this means if references in your SASS file are messed up - the script will just exit after that number of iterations.
+3. You can supply relative path from your project root to SASS file, where fonts and colors variables are stored.
 
-Furthermore, you'll be asked to supply relative path from your project root to template for snippets (which will be inserted into iframe). This is optional, but if you want to customize what's inside the iframe feel free to do so.
+4. You'll be asked to supply maximum of iterations to go through SASS variables, this means if references in your SASS file are messed up - the script will just exit after that number of iterations.
 
-At last step you'll be asked to supply port on which Styleguide server will work.
+5. You'll be asked to supply relative path from your project root to template for snippets (which will be inserted into iframe). This is optional, but if you want to customize what's inside the iframe feel free to do so.
 
-Finally, all the generated configuration will be printed to terminal and if you confirm - press <kbd>Enter</kbd>.
+6. You'll be asked to supply relative path from domain root to JS file (this will be injected to snippet iframe). This is optional (you can supply more than one, they will be loaded in the order you supplied them).
+
+7. You'll be asked to supply port on which Styleguide server will work.
+
+8. You'll be asked to provide default resolution widths for desktop, tablet, mobile. This is optional. By default snippets will be represented with desktop width. And there will be buttons in UI to alter snippets widths (Also you'll be able to input the exact width that you want).
+
+9. Finally, all the generated configuration will be printed to terminal and if you confirm - press <kbd>Enter</kbd>.
 
 After these steps there will be created folder structure like this:
 ```

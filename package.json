@@ -1,10 +1,35 @@
 {
   "name": "devbridge-styleguide",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Styleguide automatization tool.",
   "author": "Gediminas Stanaitis <gedas@devbridge.com>",
   "main": "index.js",
+  "homepage": "https://www.devbridge.com/",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devbridge/Styleguide.git"
+    },
   "private": false,
+  "keywords": [
+    "styleguide",
+    "webstyleguide",
+    "gulp",
+    "sass",
+    "snippet",
+    "snippets",
+    "colors",
+    "typography",
+    "scrape",
+    "crawl",
+    "generate",
+    "styleguide-generator",
+    "frontend",
+    "front-end",
+    "automated",
+    "automatization",
+    "tool"
+  ],
   "bin": {
     "styleguide": "./bin/styleguide"
   },

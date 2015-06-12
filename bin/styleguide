@@ -221,7 +221,7 @@ var generate = function (options) {
       currentFolder = process.cwd(),
       rootFolder = currentFolder + '\\styleguide\\',
       dbFolder = rootFolder + '\\db',
-      templateFolder = currentFolder + '\\node_modules\\devbridge-tyleguide\\templates\\',
+      templateFolder = currentFolder + '\\node_modules\\devbridge-styleguide\\templates\\',
       currentContents,
       javascripts;
 
