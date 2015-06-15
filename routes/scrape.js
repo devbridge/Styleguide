@@ -23,10 +23,12 @@ router.get('/snippets', function (req, res) {
     for (url in responses) {
       if ( responses.hasOwnProperty(url) ) {
         response = responses[url];
+
         if (response.error) {
           console.log("Error", url, response.error);
           return;
         }
+        
         if ( response.body ) {
           htmlBody = response.body;
           filters = htmlBody.match(/<!-- snippet:start [\d\D]*?snippet:end -->/gi);

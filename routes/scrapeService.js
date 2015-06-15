@@ -6,6 +6,136 @@ var config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8'));
 
 var exports = module.exports = {};
 
+var findSnippet = function ( snippetId, callback ) {
+	var dataPath,
+      	snippets,
+     	desireableSnippet,
+      	index,
+      	length = config.categories.length;
+  	for (index = 0; index < length; index++) {
+    	dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+    	snippets = jf.readFileSync(dataPath, {throws: false}) || [];
+    	desireableSnippet = snippets.filter(helpers.filterOutById, snippetId)[0];
+    	if ( desireableSnippet ) {
+      		callback({ snippet: desireableSnippet, category: index });
+    	}
+  	}
+};
+
+var parseTypoghraphy = function ( theme, sass ) {
+	var weights,
+		typography,
+		type,
+		rawTypoArray,
+		value,
+		variableName,
+		index,
+		length;
+
+	typography = sass.match(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi);
+    rawTypoArray = typography[0].split('\n');
+
+    //removing markers
+    rawTypoArray.shift();
+    rawTypoArray.pop();
+
+    rawTypoArray = rawTypoArray.filter(helpers.filterOutNotVars);
+
+    //Constructing types array
+    typography = [];
+
+    for (index = 0, length = rawTypoArray.length; index < length; index++) {
+    	variableName = rawTypoArray[index].match(/\$[\d\D]*?(?=:)/gi)[0];
+        value = rawTypoArray[index].match(/(?=:)[\d\D]*?(?=;)/)[0];
+        weights = rawTypoArray[index].match(/\([\d\D]*?(?=\))/gi);
+
+        value = value.substring(1, value.length).trim();
+
+        if ( weights ) {
+        	weights = weights[0];
+        	weights = weights.substring(1, weights.length);
+          	weights = weights.replace(/ /g,'').split(',');
+          	weights = weights.map(helpers.convertToNumber);
+          	weights = weights.sort();
+        } else {
+          	console.log('Weights were not found for ' + variableName + '.');
+        }
+
+        type = {
+          variable: variableName,
+          value: value,
+          weights: weights
+        };
+
+        typography.push(type);
+    }
+
+    theme.typography = typography;
+};
+
+var parseColors = function ( theme, sass ) {
+	var rawColArray = sass.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi),
+		unassignedColors = [],
+		assignedColors = {},
+		iterations = 0,
+		index,
+		length,
+		variableName,
+		value,
+		color;
+
+	for (index = 0, length = rawColArray.length; index < length; index++) {
+    	rawColArray[index] = rawColArray[index].split('\n');
+
+        //remove dom markers
+        rawColArray[index].shift();
+        rawColArray[index].pop();
+
+        unassignedColors = unassignedColors.concat(rawColArray[index]);
+    }
+
+    unassignedColors = unassignedColors.filter(helpers.filterOutNotVars);
+
+    //prepare array structure
+    for (index = 0, length = unassignedColors.length; index < length; index++) {
+    	variableName = unassignedColors[index].match(/\$[\d\D]*?(?=:)/gi)[0];
+        value = unassignedColors[index].match(/\:[\d\D]*?(?=;)/gi)[0];
+
+        value = value.substring(1, value.length).trim();
+
+        unassignedColors[index] = {variable: variableName, value: value};
+    }
+
+    while(iterations < config.maxSassIterations && unassignedColors.length) {
+        for (index = 0; index < unassignedColors.length; index++) {
+          	if (unassignedColors[index].value.indexOf('$') !== 0) {
+            	if ( assignedColors[unassignedColors[index].value] ) {
+              		assignedColors[unassignedColors[index].value].push(unassignedColors[index].variable);
+            	} else {
+              		assignedColors[unassignedColors[index].value] = [unassignedColors[index].variable];
+            	}
+        
+            	unassignedColors.splice(index, 1);
+          	} else {
+            	for (color in assignedColors) {
+              		if (assignedColors[color].indexOf(unassignedColors[index].value) !== -1) {
+                		assignedColors[color].push(unassignedColors[index].variable);
+                		unassignedColors.splice(index, 1);
+                		break;
+              		}
+            	}
+          	}
+        }
+        iterations++;
+      }
+
+      if (iterations === config.maxSassIterations) {
+        console.log('Iterations reached max size, your variables json file could be inaccurate!\nThis means, that variable r-value is trying to show to non existing variable!');
+      }
+
+      theme.colors = assignedColors;
+};
+
 exports.requestPages = function ( urls, callback ) {
   var results = {},
       t = urls.length,
@@ -25,22 +155,6 @@ exports.requestPages = function ( urls, callback ) {
       while (t--) {
         request(urls[t], handler);
       }
-};
-
-exports.findSnippet = function ( snippetId, callback ) {
-  var dataPath,
-      snippets,
-      desireableSnippet,
-      index,
-      length = config.categories.length;
-  for (index = 0; index < length; index++) {
-    dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
-    snippets = jf.readFileSync(dataPath, {throws: false}) || [];
-    desireableSnippet = snippets.filter(helpers.filterOutById, snippetId)[0];
-    if ( desireableSnippet ) {
-      callback({ snippet: desireableSnippet, category: index });
-    }
-  }
 };
 
 exports.buildSnippetFromHtml = function ( filteredHTml, snippets ) {
@@ -87,6 +201,7 @@ exports.writeOutSnippets = function ( snippets, category, uniques ) {
       nestedLen,
       oldCategoryPath,
       oldCatSnippets,
+      foundSnippetCallback,
       length = config.categories.length;
 
   for (index = 0; index < length; index++) {
@@ -105,43 +220,45 @@ exports.writeOutSnippets = function ( snippets, category, uniques ) {
 
   snippet = snippets[category];
 
-  for (index = 0, length = snippet.length; index < length; index++) {
-    if ( uniques.indexOf(snippet[index].id) === -1 ) {
-      uniques.push(snippet[index].id);
-      dataStore.push(snippet[index]);
-    } else {
-      exports.findSnippet(snippet[index].id, function ( snippetAndCategory ) {
-        if ( !snippetAndCategory.snippet.isEdited ) {
-          if ( snippetAndCategory.category === category ) {
-            for (nestedIndex = 0, nestedLen = dataStore.length; nestedIndex < nestedLen; nestedIndex++) {
-              if ( dataStore[nestedIndex] === snippetAndCategory.snippet.id ) {
-                break;
-              }
+  foundSnippetCallback = function ( snippetAndCategory ) {
+	if ( !snippetAndCategory.snippet.isEdited ) {
+        if ( snippetAndCategory.category === category ) {
+    		for (nestedIndex = 0, nestedLen = dataStore.length; nestedIndex < nestedLen; nestedIndex++) {
+            	if ( dataStore[nestedIndex] === snippetAndCategory.snippet.id ) {
+                	break;
+              	}
             }
             dataStore.splice(nestedIndex, 1, snippet[index]);
-          } else {
+        } else {
             for (nestedIndex = 0, nestedLen = config.categories.length; nestedIndex < nestedLen; nestedIndex++) {
-              if (config.categories[nestedIndex].id === snippetAndCategory.category) {
-                oldCategoryPath = './styleguide/db/' + config.categories[nestedIndex].name + '.txt';
-                break;
-              }
+            	if (config.categories[nestedIndex].id === snippetAndCategory.category) {
+                	oldCategoryPath = './styleguide/db/' + config.categories[nestedIndex].name + '.txt';
+                	break;
+              	}
             }
 
             oldCatSnippets = jf.readFileSync(oldCategoryPath, { throws: false }) || [];
 
             for (nestedIndex = 0, nestedLen = oldCatSnippets.length; nestedIndex < nestedLen; nestedIndex++) {
-              if ( oldCatSnippets[nestedIndex].id === snippetAndCategory.snippet.id ) {
-                break;
-              }
+            	if ( oldCatSnippets[nestedIndex].id === snippetAndCategory.snippet.id ) {
+                	break;
+            	}
             }
 
             oldCatSnippets.splice(nestedIndex, 1);
             dataStore.push(snippet[index]);
           }
         } else {
-          console.log('Snippet was edited.');
+        	console.log('Snippet was edited.');
         }
-      });
+  };
+
+  for (index = 0, length = snippet.length; index < length; index++) {
+    if ( uniques.indexOf(snippet[index].id) === -1 ) {
+      uniques.push(snippet[index].id);
+      dataStore.push(snippet[index]);
+    } else {
+      findSnippet(snippet[index].id, foundSnippetCallback);
     }
   }
 
@@ -150,121 +267,22 @@ exports.writeOutSnippets = function ( snippets, category, uniques ) {
 
 exports.scrapeTheme = function ( themeIndex, result ) {
   var sass,
-      variableName,
-      value,
-      weights,
-      rawColArray, 
-      typography,
-      rawTypoArray,
-      unassignedColors = [],
-      iterations = 0,
-      assignedColors = {},
-      theme = {},
-      index,
-      length;
+      theme = {};
 
     sass = fs.readFileSync(config.sassResources[themeIndex], {encoding: 'utf-8'});
     theme.name = config.sassResources[themeIndex];
 
     if ( sass.search(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi) !== -1 ) {
-      typography = sass.match(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi);
-      rawTypoArray = typography[0].split('\n');
-      rawTypoArray.shift();
-      rawTypoArray.pop();
-
-      rawTypoArray = rawTypoArray.filter(function ( value ) {
-        return value.search(/(?=\$)[\d\D]/) === 0;
-      });
-
-      //Constructing types array
-      typography = [];
-      for (index = 0, length = rawTypoArray.length; index < length; index++) {
-        variableName = rawTypoArray[index].match(/\$[\d\D]*?(?=:)/gi)[0];
-        value = rawTypoArray[index].match(/(?=:)[\d\D]*?(?=;)/)[0];
-        weights = rawTypoArray[index].match(/\([\d\D]*?(?=\))/gi);
-
-        value = value.substring(1, value.length).trim();
-
-        if ( weights ) {
-          weights = weights[0];
-          weights = weights.substring(1, weights.length);
-          weights = weights.replace(/ /g,'').split(',');
-          weights = weights.map(helpers.convertToNumber);
-          weights = weights.sort();
-        } else {
-          console.log('Weights were not found for ' + variableName + '.');
-        }
-
-        var type = {
-          variable: variableName,
-          value: value,
-          weights: weights
-        };
-
-        typography.push(type);
-      }
-
-      theme.typography = typography;
+      parseTypoghraphy(theme, sass);
     } else {
       console.log('Typography markers not found in ' + theme.name + '.');
     }
 
-    rawColArray = sass.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi);
-
-    if ( rawColArray ) {
-      for (index = 0, length = rawColArray.length; index < length; index++) {
-        var colors = rawColArray[index].split('\n');
-
-        //remove dom markers
-        colors.shift();
-        colors.pop();
-
-        unassignedColors = unassignedColors.concat(colors);
-      }
-
-      unassignedColors = unassignedColors.filter(helpers.filterOutNotVars);
-
-      //prepare array structure
-      for (index = 0, length = unassignedColors.length; index < length; index++) {
-        variableName = unassignedColors[index].match(/\$[\d\D]*?(?=:)/gi)[0];
-        value = unassignedColors[index].match(/\:[\d\D]*?(?=;)/gi)[0];
-
-        value = value.substring(1, value.length).trim();
-
-        unassignedColors[index] = {variable: variableName, value: value};
-      }
-
-      while(iterations < config.maxSassIterations && unassignedColors.length) {
-        for (index = 0; index < unassignedColors.length; index++) {
-          if (unassignedColors[index].value.indexOf('$') !== 0) {
-
-            if ( assignedColors[unassignedColors[index].value] ) {
-              assignedColors[unassignedColors[index].value].push(unassignedColors[index].variable);
-            } else {
-              assignedColors[unassignedColors[index].value] = [unassignedColors[index].variable];
-            }
-        
-            unassignedColors.splice(index, 1);
-          } else {
-            for (var color in assignedColors) {
-              if (assignedColors[color].indexOf(unassignedColors[index].value) !== -1) {
-                assignedColors[color].push(unassignedColors[index].variable);
-                unassignedColors.splice(index, 1);
-                break;
-              }
-            }
-          }
-        }
-        iterations++;
-      }
-
-      if (iterations === config.maxSassIterations) {
-        console.log('Iterations reached max size, your variables json file could be inaccurate!\nThis means, that variable r-value is trying to show to non existing variable!');
-      }
-
-      theme.colors = assignedColors;
+    if ( sass.search(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi) !== -1 ) {
+    	parseColors(theme, sass);
     } else {
       console.log('Color markers not found in ' + theme.name + '.');
     }
+
     result.push(theme);
 };
