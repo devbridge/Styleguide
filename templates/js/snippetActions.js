@@ -11,6 +11,19 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     iframe.contentWindow.document.body.appendChild(scriptTag);
   };
 
+  var deleteHandler = function () {
+    var idToDelete = $(this).data('id');
+    if ( window.confirm('Are you sure you want to delete this snippet?') ) {
+      snippetService.deleteById(idToDelete, function ( data ) {
+        if ( typeof data === 'object' && data.isDeleted ) {
+          $('#' + data.id).detach();
+        } else {
+          console.log(data);
+        }
+      });            
+    }
+  };
+
   module.appendIframeContent = function ( frameId, template, content, css ) {
     var frame = $(frameId).contents(),
         rawJsFrame,
@@ -41,11 +54,15 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
   var submitSnippet = function ( data, form ) {
     snippetService.postNew(data, function ( snippet ) {
-      if ( typeof snippet === 'object' && snippet.category == viewService.getCurrentView().id ) {
+      if ( typeof snippet === 'object' && snippet.category === viewService.getCurrentView().id ) {
         iframesService.constructFrame(snippet, function ( frame ) {
           var currentSnippetElement = $($('#snippet').html()).clone(true),
               formFields,
               snippetId,
+              currentId,
+              fieldIndex,
+              fieldLen,
+              currentField,
               snippetContents;
 
           iframesService.getTemplate(function ( template ) {
@@ -62,18 +79,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             currentSnippetElement.find('.js-snippet-source').html(frame);
             currentSnippetElement.addClass(snippetId);
 
-            currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', function () {
-              var idToDelete = $(this).data('id');
-              if ( window.confirm('Are you sure you want to delete this snippet?') ) {
-                snippetService.deleteById(idToDelete, function ( data ) {
-                  if ( typeof data === 'object' && data.isDeleted ) {
-                    $('#' + data.id).detach();
-                  } else {
-                    console.log(data);
-                  }
-                });
-              }
-            });
+            currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
 
             categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
 
@@ -108,7 +114,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
       if ( typeof snippet === 'object' ) {
         var snippetContents;
 
-        if ( snippet.category != viewService.getCurrentView().id ) {
+        if ( snippet.category !== viewService.getCurrentView().id ) {
           snippetContainer.remove();
           return;
         }
@@ -197,6 +203,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         annotations,
         errors = [],
         index,
+        errorText,
         code,
         css;
 
@@ -277,19 +284,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         currentSnippetElement.find('.js-snippet-size').val(resolution);
         currentSnippetElement.addClass(snippetId);
 
-        currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', function () {
-          var idToDelete = $(this).data('id');
-          if ( window.confirm('Are you sure you want to delete this snippet?') ) {
-            snippetService.deleteById(idToDelete, function ( data ) {
-              if ( typeof data === 'object' && data.isDeleted ) {
-                $('#' + data.id).detach();
-              } else {
-                console.log(data);
-              }
-            });            
-          }
-
-        });
+        currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
 
         categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
 

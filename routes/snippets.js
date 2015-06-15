@@ -5,10 +5,6 @@ var jf = require('jsonfile');
 var helpers = require('./helpers.js');
 var router = express.Router();
 
-router.get('/*.html', function (req, res) {
-    res.sendFile('/snippets' + req.path, {'root': './'});
-});
-
 router.get('/', function (req, res) {
   var allSnippets = [],
       snippets,
@@ -47,7 +43,7 @@ router.get('/duplicates', function (req, res) {
   allSnippets.sort(helpers.duplicateComparator);
 
   for (index = 0, length = allSnippets.length - 1; index < length; index++) {
-    if (allSnippets[index].id === allSnippets[index + 1].id) {
+    if (allSnippets[index].id == allSnippets[index + 1].id) {
       res.json([allSnippets[index], allSnippets[index + 1]]);
       found = true;
       break;
@@ -67,7 +63,7 @@ router.get('/category/:id', function (req, res) {
       length = config.categories.length;
 
   for (index = 0; index < length; index++) {
-    if (config.categories[index].id === catId) {
+    if (config.categories[index].id == catId) {
       dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
     }
   }
@@ -196,7 +192,7 @@ router.put('/:id', function (req, res) {
     jf.writeFileSync(dataPath, snippets);
 
     for (index = 0; index < length; index++) {
-      if (config.categories[index].id === newCategory) {
+      if (config.categories[index].id == newCategory) {
         dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
       }
     }
@@ -256,6 +252,7 @@ router.delete('/:id', function (req, res) {
   }
 
   desireableSnippet.isDeleted = true;
+  desireableSnippet.isEdited = true;
 
   index = snippets.indexOf(desireableSnippet);
   snippets.splice(index, 1, desireableSnippet);

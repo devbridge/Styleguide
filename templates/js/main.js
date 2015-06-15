@@ -15,7 +15,7 @@
 				$handleLeft = this.$element.find( ".js-snippet-resize-handle-left" ),
 				$handleRight = this.$element.find( ".js-snippet-resize-handle-right" ),
 				$sizeIndicator = this.$element.find( ".js-snippet-size" ),
-				$editors
+				$editors,
 				$originalValues = {};
 
 			$btnSettings.on( "click", function () {

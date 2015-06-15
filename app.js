@@ -12,7 +12,7 @@ var scraper = require('./routes/scrape');
 
 var app = express();
 
-var port = process.env.PORT || 8080;
+//var port = process.env.PORT || 8080;
 // view engine setup
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 app.set('views', path.join(__dirname, 'views'));
@@ -28,10 +28,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
   if (req.headers.origin) {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization')
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE')
-    if (req.method === 'OPTIONS') return res.sendStatus(200)
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE');
+    if (req.method === 'OPTIONS') return res.sendStatus(200);
   }
   next();
 });
@@ -53,7 +53,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use(function(err, req, res) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -64,7 +64,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,

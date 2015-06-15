@@ -14,7 +14,7 @@ exports.duplicateComparator = function ( a, b ) {
 };
 
 exports.filterOutById = function ( obj ) {
-  if ( obj.id === this ) {
+  if ( obj.id == this ) {
     return obj;
   }
 };

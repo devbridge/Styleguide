@@ -18,7 +18,7 @@ gulp.task('start', function () {
     //tasks: tasks to be made after 'ext' files are changed (array)
     //ignore: files to be ignores (array)
   });
-})
+});
 
 gulp.task('default', ['browser-sync'], function() {
   gulp.watch(['./public/**/*.js', './public/**/*.css', './views/*.jade'], browserSync.reload);

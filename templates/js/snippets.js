@@ -71,7 +71,7 @@ var snippetService = (function ($, categoryService) {
           path;
 
       for (index = 0; index < len; index++) {
-        if ( categories[index].id == categoryId ) {
+        if ( categories[index].id === categoryId ) {
           break;
         }
       }
@@ -107,8 +107,8 @@ var snippetService = (function ($, categoryService) {
 
         $.getJSON(path, function ( data ) {
           desireableSnippet = data.filter(function (obj) {
-            if (obj.id == snippetId) {
-              return obj
+            if (obj.id === snippetId) {
+              return obj;
             }
           })[0];
 

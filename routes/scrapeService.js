@@ -222,16 +222,15 @@ exports.writeOutSnippets = function ( snippets, category, uniques ) {
 
   foundSnippetCallback = function ( snippetAndCategory ) {
 	if ( !snippetAndCategory.snippet.isEdited ) {
-        if ( snippetAndCategory.category === category ) {
-    		for (nestedIndex = 0, nestedLen = dataStore.length; nestedIndex < nestedLen; nestedIndex++) {
-            	if ( dataStore[nestedIndex] === snippetAndCategory.snippet.id ) {
-                	break;
-              	}
+        if ( snippetAndCategory.category == category ) {
+    		  for (nestedIndex = 0, nestedLen = dataStore.length; nestedIndex < nestedLen; nestedIndex++) {
+            if ( dataStore[nestedIndex].id == snippetAndCategory.snippet.id ) {
+           	  break;
             }
-            dataStore.splice(nestedIndex, 1, snippet[index]);
+          }
         } else {
             for (nestedIndex = 0, nestedLen = config.categories.length; nestedIndex < nestedLen; nestedIndex++) {
-            	if (config.categories[nestedIndex].id === snippetAndCategory.category) {
+            	if (config.categories[nestedIndex].id == snippetAndCategory.category) {
                 	oldCategoryPath = './styleguide/db/' + config.categories[nestedIndex].name + '.txt';
                 	break;
               	}
@@ -240,7 +239,7 @@ exports.writeOutSnippets = function ( snippets, category, uniques ) {
             oldCatSnippets = jf.readFileSync(oldCategoryPath, { throws: false }) || [];
 
             for (nestedIndex = 0, nestedLen = oldCatSnippets.length; nestedIndex < nestedLen; nestedIndex++) {
-            	if ( oldCatSnippets[nestedIndex].id === snippetAndCategory.snippet.id ) {
+            	if ( oldCatSnippets[nestedIndex].id == snippetAndCategory.snippet.id ) {
                 	break;
             	}
             }

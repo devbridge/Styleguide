@@ -34,9 +34,9 @@ var sassService = (function ($) {
     val = max;
     chr = max - min;
 
-    sat = max == 0 ? 0 : chr / max;
+    sat = max === 0 ? 0 : chr / max;
 
-    if( max == min ){
+    if( max === min ){
         hue = 0;
     } else {
         switch( max ){
@@ -51,7 +51,7 @@ var sassService = (function ($) {
       hue: hue,
       sat: sat,
       val: val
-    }
+    };
 
     return hsv;
   };
@@ -93,15 +93,18 @@ var sassService = (function ($) {
     colorsContainer.empty();
 
     for (color in colors) {
-      currentColorBox = colorBoxTpl.clone(true);
-      currentColorBox.find('i').css('background', color)
-                               .text(color);
+      if ( colors.hasOwnProperty(color) ) {
+        currentColorBox = colorBoxTpl.clone(true);
+        currentColorBox.find('i').css('background', color)
+                                 .text(color);
 
       for (index = 0, len = colors[color].length; index < len; index++) {
         varName = $('<p>' + colors[color][index] + '</p>');
         currentColorBox.append(varName);
       }
+      
       colorBoxes.push(currentColorBox);
+    }
     }
 
     colorBoxes.sort(colorComparator);

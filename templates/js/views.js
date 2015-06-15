@@ -2,7 +2,6 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
   var module = {},
       views,
       currentView,
-      currentRoute,
       defaultResolution,
       isServerOn;
 
@@ -18,10 +17,10 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
         next,
         prev;
 
-    if ( currentViewIndex == 0) {
+    if ( currentViewIndex === 0) {
       prev = currentViewIndex;
       next = currentViewIndex + 1;
-    } else if ( currentViewIndex == views.length -1 ) {
+    } else if ( currentViewIndex === views.length -1 ) {
       prev = currentViewIndex - 1;
       next = currentViewIndex;
     } else {
@@ -70,7 +69,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
         }).pop();
       } else {
         currentView = views[0];
-        window.history.replaceState({ id: currentView.id }, '', '')
+        window.history.replaceState({ id: currentView.id }, '', '');
       }
 
       redrawPage(currentView.id);
@@ -82,7 +81,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
   
     if ( typeof categoryId === 'number' ) {
       currentView = $.grep(views, function ( el ) {
-        return el.id == categoryId;
+        return el.id === categoryId;
       }).pop();
 
       $('.js-current-page').text(currentView.name);
@@ -109,7 +108,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       return;
     }
     
-    currentView = views[0]
+    currentView = views[0];
 
     bindCategoryButtons();
 

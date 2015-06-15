@@ -30,7 +30,7 @@ var iframesService = (function ($, snippetService){
   var constructFrames = function ( snippets, callback ) {
     var index,
         framesArray = [],
-        tempFrame;
+        tempFrame,
         len = snippets.length;
 
     for (index = 0; len > index; index++) {

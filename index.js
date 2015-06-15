@@ -5,6 +5,7 @@ var config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8'));
 var exports = module.exports = {};
 
 exports.startServer = function() {
+  var serverInstance;
   app.set('port', config.serverPort);
   serverInstance = http.createServer(app);
   serverInstance.listen(config.serverPort, function () {
