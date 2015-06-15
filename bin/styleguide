@@ -20,7 +20,7 @@ var config = {
   sassResources: [],
   jsResources: [],
   resolutions: {}
-}
+};
 
 var parseCategories = function () {
   var deferred = q.defer();
@@ -36,7 +36,7 @@ var parseCategories = function () {
         var category = {
           name: categories[index].trim(),
           id: index + 1
-        }
+        };
         config.categories.push(category);
       }
     }
@@ -215,7 +215,7 @@ var parseMobileResolution = function () {
   return deferred.promise;
 };
 
-var generate = function (options) {
+var generate = function () {
   var stdin = process.stdin,
       stdout = process.stdout,
       currentFolder = process.cwd(),
@@ -260,7 +260,7 @@ var generate = function (options) {
     .then(parseTabletResolution)
     .then(parseMobileResolution)
     .then(function () {
-      stdout.write('Press Enter to write out the following configuration to your project root directory:\n')
+      stdout.write('Press Enter to write out the following configuration to your project root directory:\n');
       console.log(config);
       stdin.once('data', function () {
         

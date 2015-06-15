@@ -2,77 +2,73 @@ var express = require('express');
 var fs = require('fs');
 var config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8'));
 var jf = require('jsonfile');
+var helpers = require('./helpers.js');
 var router = express.Router();
-
 
 router.get('/*.html', function (req, res) {
     res.sendFile('/snippets' + req.path, {'root': './'});
 });
 
-
 router.get('/', function (req, res) {
-  var allSnippets = [];
-  for (var i = 0, length = config.categories.length; i < length; i++) {
-    var dataPath = './styleguide/db/' + config.categories[i].name + '.txt';
+  var allSnippets = [],
+      snippets,
+      dataPath,
+      index,
+      length = config.categories.length;
+
+  for (index = 0; index < length; index++) {
+    dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
 
     snippets = jf.readFileSync(dataPath);
-
-    snippets = snippets.map(function (obj) {
-      obj.category = i;
-      return obj;
-    });
-
-    snippets = snippets.filter(function (obj) {
-      return !obj.isDeleted;
-    });
-
+    snippets = snippets.map(helpers.mapCategory, index);
+    snippets = snippets.filter(helpers.filterOutDeleted);
     allSnippets = allSnippets.concat(snippets);
   }
-
   res.json(allSnippets);
 });
 
 router.get('/duplicates', function (req, res) {
-  var comparator = function (a, b) {
-    return a.id - b.id;
-  };
+  var allSnippets = [],
+      found = false,
+      dataPath,
+      snippets,
+      index,
+      length = config.categories.length;
 
-  var allSnippets = [], found = false;
-  for (var i = 0, length = config.categories.length; i < length; i++) {
-    var dataPath = './styleguide/db/' + config.categories[i].name + '.txt';
+  for (index = 0; index < length; index++) {
+    dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+
     snippets = jf.readFileSync(dataPath);
-
-    snippets = snippets.map(function (obj) {
-      obj.category = i;
-      return obj;
-    });
-
-    snippets = snippets.filter(function (obj) {
-      return !obj.isDeleted;
-    });
-
+    snippets = snippets.map(helpers.mapCategory, index);
+    snippets = snippets.filter(helpers.filterOutDeleted);
     allSnippets = allSnippets.concat(snippets);
   }
 
-  allSnippets.sort(comparator);
+  allSnippets.sort(helpers.duplicateComparator);
 
-  for (var i = 0, length = allSnippets.length - 1; i < length; i++) {
-    if (allSnippets[i].id == allSnippets[i + 1].id) {
-      res.json([allSnippets[i], allSnippets[i + 1]]);
+  for (index = 0, length = allSnippets.length - 1; index < length; index++) {
+    if (allSnippets[index].id === allSnippets[index + 1].id) {
+      res.json([allSnippets[index], allSnippets[index + 1]]);
       found = true;
       break;
     }
   }
+  
   if (!found) {
     res.json(found);
   }
 });
 
 router.get('/category/:id', function (req, res) {
-  var catId = Number(req.params.id), dataPath;
-  for (var i = 0, length = config.categories.length; i < length; i++) {
-    if (config.categories[i].id == catId) {
-      dataPath = './styleguide/db/' + config.categories[i].name + '.txt'
+  var catId = Number(req.params.id),
+      dataPath,
+      snippets,
+      index,
+      length = config.categories.length;
+
+  for (index = 0; index < length; index++) {
+    if (config.categories[index].id === catId) {
+      dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
     }
   }
   
@@ -82,34 +78,29 @@ router.get('/category/:id', function (req, res) {
   }
 
   snippets = jf.readFileSync(dataPath);
-
-  snippets = snippets.filter(function (obj) {
-    return !obj.isDeleted;
-  });
+  snippets = snippets.filter(helpers.filterOutDeleted);
 
   res.json(snippets);
 });
 
 
 router.get('/:id', function (req, res) {
-  var uniques = jf.readFileSync('./styleguide/db/uniques.json');
-  var id = Number(req.params.id);
-  var snippets;
+  var uniques = jf.readFileSync('./styleguide/db/uniques.json'),
+      id = Number(req.params.id),
+      snippets,
+      dataPath,
+      desireableSnippet;
 
-  if (uniques.indexOf(id) == -1) {
+  if (uniques.indexOf(id) === -1) {
     res.json(false);
     return;
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    var dataPath = './styleguide/db/' + config.categories[i].name + '.txt';
+    dataPath = './styleguide/db/' + config.categories[i].name + '.txt';
     snippets = jf.readFileSync(dataPath);
 
-    var desireableSnippet = snippets.filter(function (obj) {
-      if (obj.id == id) {
-        return obj
-      }
-    })[0];
+    desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];
 
     if (desireableSnippet) {
       desireableSnippet.category = i;
@@ -122,13 +113,17 @@ router.get('/:id', function (req, res) {
 
 
 router.post('/', function (req, res) {
-  var dataPath;
-  var uniques = jf.readFileSync('./styleguide/db/uniques.txt');
-  var id, number;
+  var uniques = jf.readFileSync('./styleguide/db/uniques.txt'),
+      dataPath,
+      dataStore,
+      id,
+      newSnippet,
+      index,
+      length = config.categories.length;
 
-  for (var i = 0, length = config.categories.length; i < length; i++) {
-    if (config.categories[i].id == req.body.category) {
-      dataPath = './styleguide/db/' + config.categories[i].name + '.txt'
+  for (index = 0; index < length; index++) {
+    if (config.categories[index].id === Number(req.body.category)) {
+      dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
     }
   }
   
@@ -137,15 +132,13 @@ router.post('/', function (req, res) {
     return;
   }
 
-  var datastore = jf.readFileSync(dataPath);
+  dataStore = jf.readFileSync(dataPath);
 
-  uniques.sort(function ( a, b ) {
-    return a > b;
-  });
+  uniques.sort();
 
   id = uniques[uniques.length - 1] + 1;
 
-  var newSnippet = {
+  newSnippet = {
     id: id,
     name: req.body.name,
     code: req.body.code,
@@ -154,68 +147,69 @@ router.post('/', function (req, res) {
     includeJs: req.body.includeJs,
     isEdited: false,
     isDeleted: false
-  }
+  };
 
-  datastore.push(newSnippet);
+  dataStore.push(newSnippet);
   uniques.push(id);
 
-  jf.writeFileSync(dataPath, datastore);
+  jf.writeFileSync(dataPath, dataStore);
   jf.writeFileSync('./styleguide/db/uniques.txt', uniques);
 
-  newSnippet.category = req.body.category;
+  newSnippet.category = Number(req.body.category);
   res.json(newSnippet);
 });
 
 
 router.put('/:id', function (req, res) {
-  var uniques = jf.readFileSync('./styleguide/db/uniques.txt');
-  var id = Number(req.params.id);
-  var snippets, category, dataPath, newCategory;
+  var uniques = jf.readFileSync('./styleguide/db/uniques.txt'),
+      id = Number(req.params.id),
+      snippets,
+      category,
+      dataPath,
+      index,
+      length = config.categories.length,
+      newCategory = Number(req.body.category),
+      desireableSnippet,
+      modifiedSnippet;
 
-  newCategory = Number(req.body.category);
-
-  if (uniques.indexOf(id) == -1) {
+  if ( uniques.indexOf(id) === -1 ) {
     res.json(false);
     return;
   }
 
-  for (var i = 0, length = config.categories.length; i < length; i++) {
-    dataPath = './styleguide/db/' + config.categories[i].name + '.txt';
+  for (index = 0; index < length; index++) {
+    dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
     snippets = jf.readFileSync(dataPath);
 
-    var desireableSnippet = snippets.filter(function (obj) {
-      if (obj.id == id) {
-        return obj
-      }
-    })[0];
+    desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];
 
     if (desireableSnippet) {
-      category = i;
+      category = index;
       break;
     }
   }
 
-  var index = snippets.indexOf(desireableSnippet);
+  index = snippets.indexOf(desireableSnippet);
   snippets.splice(index, 1);
 
-  if (newCategory != category) {
+  if (newCategory !== Number(category)) {
     jf.writeFileSync(dataPath, snippets);
 
-    for (var i = 0, length = config.categories.length; i < length; i++) {
-      if (config.categories[i].id == newCategory) {
-        dataPath = './styleguide/db/' + config.categories[i].name + '.txt'
+    for (index = 0; index < length; index++) {
+      if (config.categories[index].id === newCategory) {
+        dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
       }
     }
   
     if (!dataPath) {
-      res.json('Category with id: ' + catId + 'not found.');
+      res.json('Category with id: ' + newCategory + 'not found.');
       return;
     }
 
     snippets = jf.readFileSync(dataPath);
   }
 
-  var modSnippet = {
+  modifiedSnippet = {
     id: id,
     name: req.body.name,
     code: req.body.code,
@@ -224,47 +218,46 @@ router.put('/:id', function (req, res) {
     includeJs: req.body.includeJs,
     isEdited: true,
     isDeleted: false
-  }
+  };
 
-  snippets.push(modSnippet);
-
+  snippets.push(modifiedSnippet);
   jf.writeFileSync(dataPath, snippets);
 
-  modSnippet.category = newCategory;
-
-  res.json(modSnippet);
+  modifiedSnippet.category = newCategory;
+  res.json(modifiedSnippet);
 });
 
 
 router.delete('/:id', function (req, res) {
-  var uniques = jf.readFileSync('./styleguide/db/uniques.txt');
-  var id = Number(req.params.id);
-  var snippets, category, dataPath;
+  var uniques = jf.readFileSync('./styleguide/db/uniques.txt'),
+      id = Number(req.params.id),
+      snippets,
+      category,
+      dataPath,
+      index,
+      length = config.categories.length,
+      desireableSnippet;
 
-  if (uniques.indexOf(id) == -1) {
+  if (uniques.indexOf(id) === -1) {
     res.json(false);
     return;
   }
 
-  for (var i = 0, length = config.categories.length; i < length; i++) {
-    dataPath = './styleguide/db/' + config.categories[i].name + '.txt';
+  for (index = 0; index < length; index++) {
+    dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
     snippets = jf.readFileSync(dataPath);
 
-    var desireableSnippet = snippets.filter(function (obj) {
-      if (obj.id == id) {
-        return obj
-      }
-    })[0];
+    desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];
 
     if (desireableSnippet) {
-      category = i;
+      category = index;
       break;
     } 
   }
 
   desireableSnippet.isDeleted = true;
 
-  var index = snippets.indexOf(desireableSnippet);
+  index = snippets.indexOf(desireableSnippet);
   snippets.splice(index, 1, desireableSnippet);
 
   jf.writeFileSync(dataPath, snippets);
