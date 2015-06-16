@@ -13,7 +13,7 @@ var findSnippet = function(snippetId, callback) {
     index,
     length = config.categories.length;
   for (index = 0; index < length; index++) {
-    dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+    dataPath = config.database + config.categories[index].name + config.extension;
     snippets = jf.readFileSync(dataPath, {
       throws: false
     }) || [];
@@ -225,7 +225,7 @@ exports.writeOutSnippets = function(snippets, category, uniques) {
 
   for (index = 0; index < length; index++) {
     if (config.categories[index].id === Number(category)) {
-      dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+      dataPath = config.database + config.categories[index].name + config.extension;
       break;
     }
   }
@@ -252,7 +252,7 @@ exports.writeOutSnippets = function(snippets, category, uniques) {
       } else {
         for (nestedIndex = 0, nestedLen = config.categories.length; nestedIndex < nestedLen; nestedIndex++) {
           if (config.categories[nestedIndex].id == snippetAndCategory.category) {
-            oldCategoryPath = './styleguide/db/' + config.categories[nestedIndex].name + '.txt';
+            oldCategoryPath = config.database + config.categories[nestedIndex].name + config.extension;
             break;
           }
         }

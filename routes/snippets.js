@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
     length = config.categories.length;
 
   for (index = 0; index < length; index++) {
-    dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+    dataPath = config.database + config.categories[index].name + config.extension;
 
     snippets = jf.readFileSync(dataPath);
     snippets = snippets.map(helpers.mapCategory, index);
@@ -32,7 +32,7 @@ router.get('/duplicates', function(req, res) {
     length = config.categories.length;
 
   for (index = 0; index < length; index++) {
-    dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+    dataPath = config.database + config.categories[index].name + config.extension;
 
     snippets = jf.readFileSync(dataPath);
     snippets = snippets.map(helpers.mapCategory, index);
@@ -64,7 +64,7 @@ router.get('/category/:id', function(req, res) {
 
   for (index = 0; index < length; index++) {
     if (config.categories[index].id == catId) {
-      dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+      dataPath = config.database + config.categories[index].name + config.extension;
     }
   }
 
@@ -81,7 +81,7 @@ router.get('/category/:id', function(req, res) {
 
 
 router.get('/:id', function(req, res) {
-  var uniques = jf.readFileSync('./styleguide/db/uniques.json'),
+  var uniques = jf.readFileSync(config.uniques),
     id = Number(req.params.id),
     snippets,
     dataPath,
@@ -93,7 +93,7 @@ router.get('/:id', function(req, res) {
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    dataPath = './styleguide/db/' + config.categories[i].name + '.txt';
+    dataPath = config.database + config.categories[i].name + config.extension;
     snippets = jf.readFileSync(dataPath);
 
     desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];
@@ -109,7 +109,7 @@ router.get('/:id', function(req, res) {
 
 
 router.post('/', function(req, res) {
-  var uniques = jf.readFileSync('./styleguide/db/uniques.txt'),
+  var uniques = jf.readFileSync(config.uniques),
     dataPath,
     dataStore,
     id,
@@ -119,7 +119,7 @@ router.post('/', function(req, res) {
 
   for (index = 0; index < length; index++) {
     if (config.categories[index].id === Number(req.body.category)) {
-      dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+      dataPath = config.database + config.categories[index].name + config.extension;
     }
   }
 
@@ -149,7 +149,7 @@ router.post('/', function(req, res) {
   uniques.push(id);
 
   jf.writeFileSync(dataPath, dataStore);
-  jf.writeFileSync('./styleguide/db/uniques.txt', uniques);
+  jf.writeFileSync(config.uniques, uniques);
 
   newSnippet.category = Number(req.body.category);
   res.json(newSnippet);
@@ -157,7 +157,7 @@ router.post('/', function(req, res) {
 
 
 router.put('/:id', function(req, res) {
-  var uniques = jf.readFileSync('./styleguide/db/uniques.txt'),
+  var uniques = jf.readFileSync(config.uniques),
     id = Number(req.params.id),
     snippets,
     category,
@@ -174,7 +174,7 @@ router.put('/:id', function(req, res) {
   }
 
   for (index = 0; index < length; index++) {
-    dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+    dataPath = config.database + config.categories[index].name + config.extension;
     snippets = jf.readFileSync(dataPath);
 
     desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];
@@ -193,7 +193,7 @@ router.put('/:id', function(req, res) {
 
     for (index = 0; index < length; index++) {
       if (config.categories[index].id == newCategory) {
-        dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+        dataPath = config.database + config.categories[index].name + config.extension;
       }
     }
 
@@ -225,7 +225,7 @@ router.put('/:id', function(req, res) {
 
 
 router.delete('/:id', function(req, res) {
-  var uniques = jf.readFileSync('./styleguide/db/uniques.txt'),
+  var uniques = jf.readFileSync(config.uniques),
     id = Number(req.params.id),
     snippets,
     category,
@@ -240,7 +240,7 @@ router.delete('/:id', function(req, res) {
   }
 
   for (index = 0; index < length; index++) {
-    dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
+    dataPath = config.database + config.categories[index].name + config.extension;
     snippets = jf.readFileSync(dataPath);
 
     desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];

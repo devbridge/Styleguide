@@ -17,7 +17,12 @@ var config = {
   scrapeUrls: [],
   sassResources: [],
   jsResources: [],
-  resolutions: {}
+  resolutions: {},
+
+  database: './styleguide/db/',
+  uniques: './styleguide/db/uniques.txt',
+  sassData: './styleguide/db/sassdata.txt',
+  extension: '.txt'
 };
 
 var parseCategories = function() {

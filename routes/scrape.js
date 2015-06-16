@@ -18,7 +18,7 @@ router.get('/snippets', function(req, res) {
       response,
       index,
       length,
-      uniques = jf.readFileSync('./styleguide/db/uniques.txt', {
+      uniques = jf.readFileSync(config.uniques, {
         throws: false
       }) || [];
 
@@ -57,7 +57,7 @@ router.get('/snippets', function(req, res) {
       }
     }
 
-    jf.writeFileSync('./styleguide/db/uniques.txt', uniques);
+    jf.writeFileSync(config.uniques, uniques);
 
     res.json(snippets);
   });
@@ -73,7 +73,7 @@ router.get('/sass', function(req, res) {
     service.scrapeTheme(index, result);
   }
 
-  jf.writeFileSync('./styleguide/db/sassdata.txt', result);
+  jf.writeFileSync(config.sassData, result);
 
   res.json(result);
 });
