@@ -1,28 +1,35 @@
 var exports = module.exports = {};
 
-exports.mapCategory = function ( obj ) {
-  obj.category = this;
-  return obj;
+var isNumeric = function(num) {
+	return !isNaN(num);
 };
 
-exports.filterOutDeleted = function ( obj ) {
-  return !obj.isDeleted;
+exports.mapCategory = function(obj) {
+	obj.category = this;
+	return obj;
 };
 
-exports.duplicateComparator = function ( a, b ) {
-  return a.id - b.id;
+exports.filterOutDeleted = function(obj) {
+	return !obj.isDeleted;
 };
 
-exports.filterOutById = function ( obj ) {
-  if ( obj.id == this ) {
-    return obj;
-  }
+exports.duplicateComparator = function(a, b) {
+	return a.id - b.id;
 };
 
-exports.convertToNumber = function ( obj ) {
-	return Number(obj);
+exports.filterOutById = function(obj) {
+	if (obj.id == this) {
+		return obj;
+	}
 };
 
-exports.filterOutNotVars = function ( obj ) {
+exports.convertToNumber = function(obj) {
+	if (isNumeric(obj)) {
+		return Number(obj);
+	}
+	return obj;
+};
+
+exports.filterOutNotVars = function(obj) {
 	return obj.search(/(?=\$)[\d\D]/) === 0;
 };

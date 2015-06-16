@@ -6,30 +6,32 @@ var config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8'));
 
 var router = express.Router();
 
-router.get('/snippets', function (req, res) {
-  service.requestPages(config.scrapeUrls, function( responses ) {
+router.get('/snippets', function(req, res) {
+  service.requestPages(config.scrapeUrls, function(responses) {
     var filteredHTml = [],
-        filters,
-        htmlBody,
-        snippets = {},
-        newSnippet,
-        category,
-        url,
-        response,
-        index,
-        length,
-        uniques = jf.readFileSync('./styleguide/db/uniques.txt', {throws: false}) || [];
+      filters,
+      htmlBody,
+      snippets = {},
+      newSnippet,
+      category,
+      url,
+      response,
+      index,
+      length,
+      uniques = jf.readFileSync('./styleguide/db/uniques.txt', {
+        throws: false
+      }) || [];
 
     for (url in responses) {
-      if ( responses.hasOwnProperty(url) ) {
+      if (responses.hasOwnProperty(url)) {
         response = responses[url];
 
         if (response.error) {
           console.log("Error", url, response.error);
           return;
         }
-        
-        if ( response.body ) {
+
+        if (response.body) {
           htmlBody = response.body;
           filters = htmlBody.match(/<!-- snippet:start [\d\D]*?snippet:end -->/gi);
           filteredHTml = filteredHTml.concat(filters);
@@ -38,10 +40,10 @@ router.get('/snippets', function (req, res) {
     }
 
     for (index = 0, length = filteredHTml.length; index < length; index++) {
-      if ( filteredHTml[index] ) {
+      if (filteredHTml[index]) {
         newSnippet = service.buildSnippetFromHtml(filteredHTml[index], snippets);
 
-        if ( !newSnippet ) {
+        if (!newSnippet) {
           res.status(500).send('Something went wrong when building snippet from HTML!');
           return;
         }
@@ -49,7 +51,7 @@ router.get('/snippets', function (req, res) {
     }
 
     for (category in snippets) {
-      if ( snippets.hasOwnProperty(category) ) {
+      if (snippets.hasOwnProperty(category)) {
         service.writeOutSnippets(snippets, category, uniques);
       }
     }
@@ -61,10 +63,10 @@ router.get('/snippets', function (req, res) {
 
 });
 
-router.get('/sass', function (req, res) {
+router.get('/sass', function(req, res) {
   var result = [],
-      index,
-      length = config.sassResources.length;
+    index,
+    length = config.sassResources.length;
 
   for (index = 0; index < length; index++) {
     service.scrapeTheme(index, result);

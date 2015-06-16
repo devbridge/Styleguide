@@ -1,26 +1,28 @@
-var viewService = (function ( $, editorService, sassService, categoryService, snippetService ) {
+var viewService = (function($, editorService, sassService, categoryService, snippetService) {
   var module = {},
-      views,
-      currentView,
-      defaultResolution,
-      isServerOn;
+    views,
+    currentView,
+    defaultResolution,
+    isServerOn;
 
-  var bindNavClick = function ( e ) {
+  var bindNavClick = function(e) {
     var id = $(this).data('id');
     e.preventDefault();
     redrawPage(id);
-    window.history.pushState({ id: id }, '', '#' + id);
+    window.history.pushState({
+      id: id
+    }, '', '#' + id);
   };
 
-  var bindCategoryButtons = function () {
+  var bindCategoryButtons = function() {
     var currentViewIndex = $.inArray(currentView, views),
-        next,
-        prev;
+      next,
+      prev;
 
-    if ( currentViewIndex === 0) {
+    if (currentViewIndex === 0) {
       prev = currentViewIndex;
       next = currentViewIndex + 1;
-    } else if ( currentViewIndex === views.length -1 ) {
+    } else if (currentViewIndex === views.length - 1) {
       prev = currentViewIndex - 1;
       next = currentViewIndex;
     } else {
@@ -38,11 +40,14 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
     $('.js-prev-cat').on('click', bindNavClick);
   };
 
-  var buildNavigation = function () {
+  var buildNavigation = function() {
     var navigation = $('.js-navigation'),
       currentPage = navigation.find('.js-current-page'),
       navList = navigation.find('.js-navigation-list'),
-      pages = [{ name: 'Colors, Typography', id: 'sass' }],
+      pages = [{
+        name: 'Colors, Typography',
+        id: 'sass'
+      }],
       iteratingPage,
       route = window.location.hash,
       pageElement,
@@ -51,9 +56,12 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
 
     route = route.replace('#', '');
     currentPage.text(pages[0].name);
-    categoryService.getCategories(function ( categories ) {
+    categoryService.getCategories(function(categories) {
       views = pages = pages.concat(categories);
-      pages.push({ name: 'Deleted Snippets', id: 'deleted'});
+      pages.push({
+        name: 'Deleted Snippets',
+        id: 'deleted'
+      });
       len = pages.length;
 
       for (index = 0; len > index; index++) {
@@ -63,30 +71,32 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
         navList.append(pageElement);
       }
 
-      if ( route.length ) {
-        currentView = $.grep(views, function ( el ) {
+      if (route.length) {
+        currentView = $.grep(views, function(el) {
           return el.id == route;
         }).pop();
       } else {
         currentView = views[0];
-        window.history.replaceState({ id: currentView.id }, '', '');
+        window.history.replaceState({
+          id: currentView.id
+        }, '', '');
       }
 
       redrawPage(currentView.id);
     });
   };
 
-  var redrawPage = function ( categoryId ) {
+  var redrawPage = function(categoryId) {
     $('.main').empty();
-  
-    if ( typeof categoryId === 'number' ) {
-      currentView = $.grep(views, function ( el ) {
+
+    if (typeof categoryId === 'number') {
+      currentView = $.grep(views, function(el) {
         return el.id === categoryId;
       }).pop();
 
       $('.js-current-page').text(currentView.name);
 
-      iframesService.formFramesForCategory(categoryId, function ( frames, snippets ) {
+      iframesService.formFramesForCategory(categoryId, function(frames, snippets) {
         snippetActions.drawSnippets(frames, snippets, defaultResolution);
       });
 
@@ -95,11 +105,11 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
       return;
     }
 
-    if ( typeof categoryId === 'string' && categoryId === 'deleted' ) {
+    if (typeof categoryId === 'string' && categoryId === 'deleted') {
       currentView = views[views.length - 1];
       $('.js-current-page').text(currentView.name);
 
-      iframesService.formFramesForDeleted(function ( frames, snippets ) {
+      iframesService.formFramesForDeleted(function(frames, snippets) {
         snippetActions.drawSnippets(frames, snippets, defaultResolution);
       });
 
@@ -107,7 +117,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
 
       return;
     }
-    
+
     currentView = views[0];
 
     bindCategoryButtons();
@@ -116,16 +126,16 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
     sassService.loadSass();
   };
 
-  var defaultResolutionsHandler = function ( width ) {
+  var defaultResolutionsHandler = function(width) {
     $('.js-snippet-preview').css('width', width);
     $('.js-snippet-size').val(width);
   };
 
-  var bindResolutionActions = function () {
+  var bindResolutionActions = function() {
     var desktop,
-        tablet,
-        mobile;
-    $.getJSON('../styleguide_config.txt', function ( data ) {
+      tablet,
+      mobile;
+    $.getJSON('../styleguide_config.txt', function(data) {
       defaultResolution = desktop = data.resolutions.desktop ? data.resolutions.desktop + 'px' : '1200px';
       tablet = data.resolutions.tablet ? data.resolutions.tablet + 'px' : '768px';
       mobile = data.resolutions.mobile ? data.resolutions.mobile + 'px' : '480px';
@@ -136,7 +146,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
 
     });
 
-    $('.js-custom').on('keyup', function () {
+    $('.js-custom').on('keyup', function() {
       var width = $(this).val() + 'px';
       defaultResolutionsHandler(width);
     });
@@ -146,13 +156,13 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
     redrawPage(event.state.id);
   };
 
-  module.init = function () {
+  module.init = function() {
     editorService.init();
     bindResolutionActions();
     buildNavigation();
     categoryService.bindCategoriesToForm($('.js-form-select').first());
 
-    snippetService.init(function ( data ) {
+    snippetService.init(function(data) {
       if (typeof data === 'string') {
         isServerOn = false;
         console.log(data); //server is down
@@ -161,7 +171,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
         $('html').addClass('server-on');
         $('.js-scrape-snipp').on('click', $.proxy(snippetActions.scrapeHandler, null, 'snippets'));
         $('.js-scrape-sass').on('click', $.proxy(snippetActions.scrapeHandler, null, 'sass'));
-        if ( data ) {
+        if (data) {
           alert('Found duplicates!\n' + JSON.stringify(data, null, 4));
         }
       }
@@ -170,7 +180,7 @@ var viewService = (function ( $, editorService, sassService, categoryService, sn
     $('.js-create-snippet').submit(snippetActions.createSnippet);
   };
 
-  module.getCurrentView = function () {
+  module.getCurrentView = function() {
     return currentView;
   };
 

@@ -8,9 +8,9 @@ exports.startServer = function() {
   var serverInstance;
   app.set('port', config.serverPort);
   serverInstance = http.createServer(app);
-  serverInstance.listen(config.serverPort, function () {
+  serverInstance.listen(config.serverPort, function() {
     console.log('Styleguide server listening on port ' + config.serverPort);
-  }).on('error', function (error) {
+  }).on('error', function(error) {
     if (error.code === 'EADDRINUSE') {
       console.error('Port:' + config.serverPort + ' is already in use.');
       console.error('Please provide another port.');

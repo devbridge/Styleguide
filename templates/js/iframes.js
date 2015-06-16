@@ -1,10 +1,10 @@
-var iframesService = (function ($, snippetService){
+var iframesService = (function($, snippetService) {
   var module = {},
-      cachedConfig;
+    cachedConfig;
 
-  var getConfig = function ( callback ) {
+  var getConfig = function(callback) {
     if (!cachedConfig) {
-      $.getJSON('../styleguide_config.txt', function (data) {
+      $.getJSON('../styleguide_config.txt', function(data) {
         cachedConfig = data;
         callback(cachedConfig);
       });
@@ -13,25 +13,25 @@ var iframesService = (function ($, snippetService){
     }
   };
 
-  var getDefaultTemplate = function () {
-    return  '<head lang="en">' + 
-            ' <meta charset="UTF-8">' +
-            ' <title>Snippet Iframe</title>' +
-            ' <style type="text/css">' +
-            '   body, html{margin: 0; height: 100%}' +
-            '   body > div{ height: 100%}' +
-            ' </style>' +
-            '</head>' +
-            '<body>' +
-            ' <div id="snippet"></div>' +
-            '</body>';
+  var getDefaultTemplate = function() {
+    return '<head lang="en">' +
+      ' <meta charset="UTF-8">' +
+      ' <title>Snippet Iframe</title>' +
+      ' <style type="text/css">' +
+      '   body, html{margin: 0; height: 100%}' +
+      '   body > div{ height: 100%}' +
+      ' </style>' +
+      '</head>' +
+      '<body>' +
+      ' <div id="snippet"></div>' +
+      '</body>';
   };
 
-  var constructFrames = function ( snippets, callback ) {
+  var constructFrames = function(snippets, callback) {
     var index,
-        framesArray = [],
-        tempFrame,
-        len = snippets.length;
+      framesArray = [],
+      tempFrame,
+      len = snippets.length;
 
     for (index = 0; len > index; index++) {
       tempFrame = $('<iframe></iframe>');
@@ -42,7 +42,7 @@ var iframesService = (function ($, snippetService){
     callback(framesArray);
   };
 
-  module.constructFrame = function ( snippet, callback ) {
+  module.constructFrame = function(snippet, callback) {
     var tempFrame = $('<iframe></iframe>');
 
     //tempFrame.attr('sandbox', 'allow-same-origin allow-scripts allow-popups');
@@ -51,21 +51,21 @@ var iframesService = (function ($, snippetService){
     callback(tempFrame);
   };
 
-  module.getTemplate = function ( callback ) {
-    getConfig(function ( config ) {     
-      if ( !config.snippetTemplate ) {
+  module.getTemplate = function(callback) {
+    getConfig(function(config) {
+      if (!config.snippetTemplate) {
         callback(getDefaultTemplate());
       } else {
-        $.get('../' + config.snippetTemplate, function ( data ) {
+        $.get('../' + config.snippetTemplate, function(data) {
           callback(data);
         });
       }
     });
   };
 
-  module.getJavaScripts = function ( callback ) {
-    getConfig(function ( config ) {
-      if ( config.jsResources ) {
+  module.getJavaScripts = function(callback) {
+    getConfig(function(config) {
+      if (config.jsResources) {
         callback(config.jsResources);
       } else {
         console.log('No JavaScript files are defined in configuration to load into iframe.');
@@ -73,17 +73,17 @@ var iframesService = (function ($, snippetService){
     });
   };
 
-  module.formFramesForCategory = function ( categoryId, callback ) {
-    snippetService.getByCategoryId(categoryId, function ( snippets ) {
-      constructFrames(snippets, function ( frames ) {
+  module.formFramesForCategory = function(categoryId, callback) {
+    snippetService.getByCategoryId(categoryId, function(snippets) {
+      constructFrames(snippets, function(frames) {
         callback(frames, snippets);
       });
     });
   };
 
-  module.formFramesForDeleted = function ( callback ) {
-    snippetService.getDeletedSnippets(function ( snippets ) {
-      constructFrames(snippets, function ( frames ) {
+  module.formFramesForDeleted = function(callback) {
+    snippetService.getDeletedSnippets(function(snippets) {
+      constructFrames(snippets, function(frames) {
         callback(frames, snippets);
       });
     });

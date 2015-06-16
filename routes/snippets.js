@@ -5,12 +5,12 @@ var jf = require('jsonfile');
 var helpers = require('./helpers.js');
 var router = express.Router();
 
-router.get('/', function (req, res) {
+router.get('/', function(req, res) {
   var allSnippets = [],
-      snippets,
-      dataPath,
-      index,
-      length = config.categories.length;
+    snippets,
+    dataPath,
+    index,
+    length = config.categories.length;
 
   for (index = 0; index < length; index++) {
     dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
@@ -23,13 +23,13 @@ router.get('/', function (req, res) {
   res.json(allSnippets);
 });
 
-router.get('/duplicates', function (req, res) {
+router.get('/duplicates', function(req, res) {
   var allSnippets = [],
-      found = false,
-      dataPath,
-      snippets,
-      index,
-      length = config.categories.length;
+    found = false,
+    dataPath,
+    snippets,
+    index,
+    length = config.categories.length;
 
   for (index = 0; index < length; index++) {
     dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
@@ -49,25 +49,25 @@ router.get('/duplicates', function (req, res) {
       break;
     }
   }
-  
+
   if (!found) {
     res.json(found);
   }
 });
 
-router.get('/category/:id', function (req, res) {
+router.get('/category/:id', function(req, res) {
   var catId = Number(req.params.id),
-      dataPath,
-      snippets,
-      index,
-      length = config.categories.length;
+    dataPath,
+    snippets,
+    index,
+    length = config.categories.length;
 
   for (index = 0; index < length; index++) {
     if (config.categories[index].id == catId) {
       dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
     }
   }
-  
+
   if (!dataPath) {
     res.json('Category with id: ' + catId + 'not found.');
     return;
@@ -80,12 +80,12 @@ router.get('/category/:id', function (req, res) {
 });
 
 
-router.get('/:id', function (req, res) {
+router.get('/:id', function(req, res) {
   var uniques = jf.readFileSync('./styleguide/db/uniques.json'),
-      id = Number(req.params.id),
-      snippets,
-      dataPath,
-      desireableSnippet;
+    id = Number(req.params.id),
+    snippets,
+    dataPath,
+    desireableSnippet;
 
   if (uniques.indexOf(id) === -1) {
     res.json(false);
@@ -101,28 +101,28 @@ router.get('/:id', function (req, res) {
     if (desireableSnippet) {
       desireableSnippet.category = i;
       break;
-    } 
+    }
   }
 
   res.json(desireableSnippet);
 });
 
 
-router.post('/', function (req, res) {
+router.post('/', function(req, res) {
   var uniques = jf.readFileSync('./styleguide/db/uniques.txt'),
-      dataPath,
-      dataStore,
-      id,
-      newSnippet,
-      index,
-      length = config.categories.length;
+    dataPath,
+    dataStore,
+    id,
+    newSnippet,
+    index,
+    length = config.categories.length;
 
   for (index = 0; index < length; index++) {
     if (config.categories[index].id === Number(req.body.category)) {
       dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
     }
   }
-  
+
   if (!dataPath) {
     res.json('Category with id: ' + req.body.category + ' not found.');
     return;
@@ -156,19 +156,19 @@ router.post('/', function (req, res) {
 });
 
 
-router.put('/:id', function (req, res) {
+router.put('/:id', function(req, res) {
   var uniques = jf.readFileSync('./styleguide/db/uniques.txt'),
-      id = Number(req.params.id),
-      snippets,
-      category,
-      dataPath,
-      index,
-      length = config.categories.length,
-      newCategory = Number(req.body.category),
-      desireableSnippet,
-      modifiedSnippet;
+    id = Number(req.params.id),
+    snippets,
+    category,
+    dataPath,
+    index,
+    length = config.categories.length,
+    newCategory = Number(req.body.category),
+    desireableSnippet,
+    modifiedSnippet;
 
-  if ( uniques.indexOf(id) === -1 ) {
+  if (uniques.indexOf(id) === -1) {
     res.json(false);
     return;
   }
@@ -196,7 +196,7 @@ router.put('/:id', function (req, res) {
         dataPath = './styleguide/db/' + config.categories[index].name + '.txt';
       }
     }
-  
+
     if (!dataPath) {
       res.json('Category with id: ' + newCategory + 'not found.');
       return;
@@ -224,15 +224,15 @@ router.put('/:id', function (req, res) {
 });
 
 
-router.delete('/:id', function (req, res) {
+router.delete('/:id', function(req, res) {
   var uniques = jf.readFileSync('./styleguide/db/uniques.txt'),
-      id = Number(req.params.id),
-      snippets,
-      category,
-      dataPath,
-      index,
-      length = config.categories.length,
-      desireableSnippet;
+    id = Number(req.params.id),
+    snippets,
+    category,
+    dataPath,
+    index,
+    length = config.categories.length,
+    desireableSnippet;
 
   if (uniques.indexOf(id) === -1) {
     res.json(false);
@@ -248,7 +248,7 @@ router.delete('/:id', function (req, res) {
     if (desireableSnippet) {
       category = index;
       break;
-    } 
+    }
   }
 
   desireableSnippet.isDeleted = true;

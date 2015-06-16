@@ -1,17 +1,17 @@
-var snippetService = (function ($, categoryService) {
+var snippetService = (function($, categoryService) {
   var module = {},
-      scrapePath,
-      apiPath;
+    scrapePath,
+    apiPath;
 
-  module.getScrapePath = function ( whatToScrape ) {
+  module.getScrapePath = function(whatToScrape) {
     return scrapePath + whatToScrape;
   };
 
-  module.init = function ( callback ) {
+  module.init = function(callback) {
     var path = '../styleguide_config.txt',
-        request;
+      request;
 
-    $.getJSON(path, function ( data ) {
+    $.getJSON(path, function(data) {
       apiPath = '//' + window.location.hostname + ':' + data.serverPort + '/snippets/';
       scrapePath = '//' + window.location.hostname + ':' + data.serverPort + '/scrape/';
       request = $.ajax({
@@ -21,35 +21,37 @@ var snippetService = (function ($, categoryService) {
         dataType: 'json'
       });
 
-      request.done(function ( data ) {
+      request.done(function(data) {
         callback(data);
       });
 
-      request.fail(function () {
+      request.fail(function() {
         callback('Server is down!');
       });
 
     });
   };
 
-  module.getDeletedSnippets = function ( callback ) {
-    categoryService.getCategories(function ( categories ) {
+  module.getDeletedSnippets = function(callback) {
+    categoryService.getCategories(function(categories) {
       var len = categories.length,
-          index,
-          deletedSnippets = [],
-          path;
+        index,
+        deletedSnippets = [],
+        path;
 
-      $.ajaxSetup({ async: false });
+      $.ajaxSetup({
+        async: false
+      });
 
       for (index = 0; index < len; index++) {
         path = './db/' + categories[index].name + '.txt';
 
-        $.getJSON(path, function ( data ) {
-          var filteredSnippets = data.filter(function ( obj ) {
+        $.getJSON(path, function(data) {
+          var filteredSnippets = data.filter(function(obj) {
             return obj.isDeleted;
           });
 
-          filteredSnippets = filteredSnippets.map(function ( obj ) {
+          filteredSnippets = filteredSnippets.map(function(obj) {
             obj.category = categories[index].id;
             return obj;
           });
@@ -58,32 +60,34 @@ var snippetService = (function ($, categoryService) {
         });
       }
 
-      $.ajaxSetup({ async: true });
+      $.ajaxSetup({
+        async: true
+      });
 
       callback(deletedSnippets);
     });
   };
 
-  module.getByCategoryId = function ( categoryId, callback ) {
-    categoryService.getCategories(function ( categories ) {
-      var len = categories.length, 
-          index, 
-          path;
+  module.getByCategoryId = function(categoryId, callback) {
+    categoryService.getCategories(function(categories) {
+      var len = categories.length,
+        index,
+        path;
 
       for (index = 0; index < len; index++) {
-        if ( categories[index].id === categoryId ) {
+        if (categories[index].id === categoryId) {
           break;
         }
       }
 
       path = './db/' + categories[index].name + '.txt';
 
-      $.getJSON(path, function ( data ) {
-        data = data.filter(function ( obj ) {
+      $.getJSON(path, function(data) {
+        data = data.filter(function(obj) {
           return !obj.isDeleted;
         });
 
-        data = data.map(function ( obj ) {
+        data = data.map(function(obj) {
           obj.category = categoryId;
           return obj;
         });
@@ -93,26 +97,28 @@ var snippetService = (function ($, categoryService) {
     });
   };
 
-  module.getById = function ( snippetId, callback ) {
-    categoryService.getCategories(function ( categories ) {
+  module.getById = function(snippetId, callback) {
+    categoryService.getCategories(function(categories) {
       var len = categories.length,
-          index,
-          desireableSnippet,
-          path;
+        index,
+        desireableSnippet,
+        path;
 
-      $.ajaxSetup({ async: false });
+      $.ajaxSetup({
+        async: false
+      });
 
       for (index = 0; index < len; index++) {
         path = './db/' + categories[index].name + '.txt';
 
-        $.getJSON(path, function ( data ) {
-          desireableSnippet = data.filter(function (obj) {
+        $.getJSON(path, function(data) {
+          desireableSnippet = data.filter(function(obj) {
             if (obj.id === snippetId) {
               return obj;
             }
           })[0];
 
-          if ( desireableSnippet ) {
+          if (desireableSnippet) {
             desireableSnippet.category = categories[index].id;
             callback(desireableSnippet);
           }
@@ -120,16 +126,18 @@ var snippetService = (function ($, categoryService) {
         });
       }
 
-      $.ajaxSetup({ async: true });
+      $.ajaxSetup({
+        async: true
+      });
 
-      if ( !desireableSnippet ) {
+      if (!desireableSnippet) {
         callback(desireableSnippet);
       }
 
     });
   };
 
-  module.postNew = function ( snippet, callback ) {
+  module.postNew = function(snippet, callback) {
     var request = $.ajax({
       method: 'POST',
       url: apiPath,
@@ -137,17 +145,17 @@ var snippetService = (function ($, categoryService) {
       dataType: 'json'
     });
 
-    request.done(function ( data ) {
+    request.done(function(data) {
       callback(data);
     });
 
-    request.fail(function () {
+    request.fail(function() {
       callback('Failed to create new snippet! Maybe your styleguide server is down?');
     });
 
   };
 
-  module.putEdited = function ( snippet, id, callback ) {
+  module.putEdited = function(snippet, id, callback) {
     var request = $.ajax({
       method: 'PUT',
       url: apiPath + id,
@@ -155,16 +163,16 @@ var snippetService = (function ($, categoryService) {
       dataType: 'json'
     });
 
-    request.done(function ( data ) {
+    request.done(function(data) {
       callback(data);
     });
 
-    request.fail(function () {
+    request.fail(function() {
       callback('Failed to edit snippet! Maybe your styleguide server is down?');
     });
   };
 
-  module.deleteById = function ( snippetId, callback ) {
+  module.deleteById = function(snippetId, callback) {
     var request = $.ajax({
       method: 'DELETE',
       url: apiPath + snippetId,
@@ -172,11 +180,11 @@ var snippetService = (function ($, categoryService) {
       dataType: 'json'
     });
 
-    request.done(function ( data ) {
+    request.done(function(data) {
       callback(data);
     });
 
-    request.fail(function () {
+    request.fail(function() {
       callback('Failed to delete snippet! Maybe your styleguide server is down?');
     });
   };
