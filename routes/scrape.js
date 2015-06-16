@@ -1,10 +1,10 @@
-var express = require('express');
-var jf = require('jsonfile');
-var fs = require('fs');
-var service = require('./scrapeService.js');
-var config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8'));
+var express = require('express'),
+  jf = require('jsonfile'),
+  fs = require('fs'),
+  service = require('./scrapeService.js'),
+  config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8')),
 
-var router = express.Router();
+  router = express.Router();
 
 router.get('/snippets', function(req, res) {
   service.requestPages(config.scrapeUrls, function(responses) {
@@ -33,6 +33,7 @@ router.get('/snippets', function(req, res) {
 
         if (response.body) {
           htmlBody = response.body;
+          // matches all the snippet body (<!-- snippet:start 1:1 include-js --><div id="example"></div><!-- snippet:end -->)
           filters = htmlBody.match(/<!-- snippet:start [\d\D]*?snippet:end -->/gi);
           filteredHTml = filteredHTml.concat(filters);
         }

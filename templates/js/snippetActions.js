@@ -302,7 +302,18 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
 
         currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
       }
+      //TODO: redo that the content would be appended with iframe, so that timeout could be removed
+      setTimeout($.proxy(module.handleHeights, null, $('iframe')), 1000);
     });
+  };
+
+  module.handleHeights = function(iframes) {
+    var len = iframes.length,
+      index;
+
+    for (index = 0; index < len; index++) {
+      $(iframes[index]).height($(iframes[index]).contents().height());
+    }
   };
 
   module.scrapeHandler = function(whatToScrape) {

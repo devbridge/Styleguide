@@ -1,10 +1,10 @@
-var request = require('request');
-var jf = require('jsonfile');
-var helpers = require('./helpers.js');
-var fs = require('fs');
-var config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8'));
+var request = require('request'),
+  jf = require('jsonfile'),
+  helpers = require('./helpers.js'),
+  fs = require('fs'),
+  config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8')),
 
-var exports = module.exports = {};
+  exports = module.exports = {};
 
 var findSnippet = function(snippetId, callback) {
   var dataPath,
@@ -32,11 +32,12 @@ var parseTypoghraphy = function(theme, sass) {
     typography,
     type,
     rawTypoArray,
-    value,
+    fontValue,
     variableName,
     index,
     length;
 
+  //matches everything between //-- typo:start --// and //-- typo:end --/ including these markers
   typography = sass.match(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi);
   rawTypoArray = typography[0].split('\n');
 
@@ -50,11 +51,14 @@ var parseTypoghraphy = function(theme, sass) {
   typography = [];
 
   for (index = 0, length = rawTypoArray.length; index < length; index++) {
+    //matches from $ to :, including $. To take variable name.
     variableName = rawTypoArray[index].match(/\$[\d\D]*?(?=:)/gi)[0];
-    value = rawTypoArray[index].match(/(?=:)[\d\D]*?(?=;)/)[0];
+    //matches from : to ;, including :. To take variable value.
+    fontValue = rawTypoArray[index].match(/(?=:)[\d\D]*?(?=;)/)[0];
+    //matches everything in between (), including (. To take font weights.
     weights = rawTypoArray[index].match(/\([\d\D]*?(?=\))/gi);
 
-    value = value.substring(1, value.length).trim();
+    fontValue = fontValue.substring(1, fontValue.length).trim();
 
     if (weights) {
       weights = weights[0];
@@ -68,7 +72,7 @@ var parseTypoghraphy = function(theme, sass) {
 
     type = {
       variable: variableName,
-      value: value,
+      value: fontValue,
       weights: weights
     };
 
@@ -79,6 +83,7 @@ var parseTypoghraphy = function(theme, sass) {
 };
 
 var parseColors = function(theme, sass) {
+  //matches everything between //-- colors:start --// and //-- colors:end --/ including these markers
   var rawColArray = sass.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi),
     unassignedColors = [],
     assignedColors = {},
@@ -86,7 +91,7 @@ var parseColors = function(theme, sass) {
     index,
     length,
     variableName,
-    value,
+    hexOrVarValue,
     color;
 
   for (index = 0, length = rawColArray.length; index < length; index++) {
@@ -103,14 +108,16 @@ var parseColors = function(theme, sass) {
 
   //prepare array structure
   for (index = 0, length = unassignedColors.length; index < length; index++) {
+    //matches from $ to :, including $. To take variable name.
     variableName = unassignedColors[index].match(/\$[\d\D]*?(?=:)/gi)[0];
-    value = unassignedColors[index].match(/\:[\d\D]*?(?=;)/gi)[0];
+    //matches from : to ;, including :. To take variable value.
+    hexOrVarValue = unassignedColors[index].match(/\:[\d\D]*?(?=;)/gi)[0];
 
-    value = value.substring(1, value.length).trim();
+    hexOrVarValue = hexOrVarValue.substring(1, hexOrVarValue.length).trim();
 
     unassignedColors[index] = {
       variable: variableName,
-      value: value
+      value: hexOrVarValue
     };
   }
 
@@ -166,9 +173,13 @@ exports.requestPages = function(urls, callback) {
 };
 
 exports.buildSnippetFromHtml = function(filteredHTml, snippets) {
+  //matches <!-- snippet:start 5:6 --> in string. only to take dom marker.
   var domMarker = filteredHTml.match(/<!-- snippet:start [\d\D]*? -->/gi)[0],
+    //matches if there is include-js in domMarker
     includeJs = domMarker.match(/include-js/i),
+    //matches all numbers, that are in domMarker (first will be snippet id, second if exists - category id)
     extractedIds = domMarker.match(/[\d]+/g),
+    //matches from first > to <!, including >. Used to trim off dom markers from html.
     code = filteredHTml.match(/(?=>)[\d\D]*?(?=<!)/gi)[0],
     snippetId,
     categoryId,
@@ -285,12 +296,14 @@ exports.scrapeTheme = function(themeIndex, result) {
   });
   theme.name = config.sassResources[themeIndex];
 
+  //matches everything between //-- typo:start --// and //-- typo:end --/ including these markers
   if (sass.search(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi) !== -1) {
     parseTypoghraphy(theme, sass);
   } else {
     console.log('Typography markers not found in ' + theme.name + '.');
   }
 
+  //matches everything between //-- colors:start --// and //-- colors:end --/ including these markers
   if (sass.search(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi) !== -1) {
     parseColors(theme, sass);
   } else {

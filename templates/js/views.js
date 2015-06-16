@@ -129,6 +129,7 @@ var viewService = (function($, editorService, sassService, categoryService, snip
   var defaultResolutionsHandler = function(width) {
     $('.js-snippet-preview').css('width', width);
     $('.js-snippet-size').val(width);
+    snippetActions.handleHeights($('iframe'));
   };
 
   var bindResolutionActions = function() {

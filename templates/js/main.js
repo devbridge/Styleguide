@@ -77,6 +77,8 @@
 					onmove: function(e) {
 						var target = e.target;
 
+						snippetActions.handleHeights($(target).find('iframe'));
+
 						if (e.rect.width > 150) {
 							target.style.width = e.rect.width + 'px';
 							$sizeIndicator.val(e.rect.width + "px");
