@@ -1,6 +1,6 @@
 {
   "name": "devbridge-styleguide",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Styleguide automatization tool.",
   "author": "Gediminas Stanaitis <gedas@devbridge.com>",
   "main": "index.js",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/devbridge/Styleguide.git"
-    },
+  },
   "private": false,
   "keywords": [
     "styleguide",
