@@ -9,12 +9,10 @@ var stdin = process.stdin;
 var stdout = process.stdout;
 
 var config = {
-  categories: [
-    {
-      name: 'undefined',
-      id: 0
-    }
-  ],
+  categories: [{
+    name: 'undefined',
+    id: 0
+  }],
 
   scrapeUrls: [],
   sassResources: [],
@@ -22,17 +20,17 @@ var config = {
   resolutions: {}
 };
 
-var parseCategories = function () {
+var parseCategories = function() {
   var deferred = q.defer();
 
   stdout.write('Enter categories to create delimited by comma: ');
 
-  stdin.once('data', function (data) {
+  stdin.once('data', function(data) {
     data = data.toString().trim();
     var categories = data.split(',');
-    
+
     for (var index = 0, len = categories.length; index < len; index++) {
-      if ( categories[index] !== null && categories[index] !== 'null' && categories[index].length > 1 ) {
+      if (categories[index] !== null && categories[index] !== 'null' && categories[index].length > 1) {
         var category = {
           name: categories[index].trim(),
           id: index + 1
@@ -46,17 +44,17 @@ var parseCategories = function () {
   return deferred.promise;
 };
 
-var parseScrapeUrl = function () {
+var parseScrapeUrl = function() {
   var deferred = q.defer();
 
   stdout.write('Enter URL to scrape snippets from, if left blank, we\'ll continue to next step: ');
 
-  stdin.once('data', function (data) {
+  stdin.once('data', function(data) {
     data = data.toString().trim();
-    
-    if ( data !== null && data !== 'null' && data.length > 0 ) {
+
+    if (data !== null && data !== 'null' && data.length > 0) {
       config.scrapeUrls.push(data);
-      parseScrapeUrl().then(function () {
+      parseScrapeUrl().then(function() {
         deferred.resolve();
       });
     } else {
@@ -67,17 +65,17 @@ var parseScrapeUrl = function () {
   return deferred.promise;
 };
 
-var parseSassResources = function () {
+var parseSassResources = function() {
   var deferred = q.defer();
 
   stdout.write('Enter relative path from main project directory to SASS file, if left blank, we\'ll continue to next step: ');
 
-  stdin.once('data', function (data) {
+  stdin.once('data', function(data) {
     data = data.toString().trim();
-    
-    if ( data !== null && data !== 'null' && data.length > 0 ) {
+
+    if (data !== null && data !== 'null' && data.length > 0) {
       config.sassResources.push(data);
-      parseSassResources().then(function () {
+      parseSassResources().then(function() {
         deferred.resolve();
       });
     } else {
@@ -88,17 +86,17 @@ var parseSassResources = function () {
   return deferred.promise;
 };
 
-var parseJsResources = function () {
+var parseJsResources = function() {
   var deferred = q.defer();
 
   stdout.write('Enter relative path from domain root to JS file, if left blank, we\'ll continue to next step: ');
 
-  stdin.once('data', function (data) {
+  stdin.once('data', function(data) {
     data = data.toString().trim();
-    
-    if ( data !== null && data !== 'null' && data.length > 0 ) {
+
+    if (data !== null && data !== 'null' && data.length > 0) {
       config.jsResources.push(data);
-      parseJsResources().then(function () {
+      parseJsResources().then(function() {
         deferred.resolve();
       });
     } else {
@@ -109,12 +107,12 @@ var parseJsResources = function () {
   return deferred.promise;
 };
 
-var parseMaxIterations = function () {
+var parseMaxIterations = function() {
   var deferred = q.defer();
 
   stdout.write('Enter maximum iterations through SASS variables before exiting: ');
 
-  stdin.once('data', function (data) {
+  stdin.once('data', function(data) {
     data = data.toString().trim();
 
     config.maxSassIterations = Number(data);
@@ -125,12 +123,12 @@ var parseMaxIterations = function () {
   return deferred.promise;
 };
 
-var parseSnippetTemplate = function () {
+var parseSnippetTemplate = function() {
   var deferred = q.defer();
 
   stdout.write('Enter relative path from your project root directory to snippet template (optional): ');
 
-  stdin.once('data', function (data) {
+  stdin.once('data', function(data) {
     data = data.toString().trim();
 
     config.snippetTemplate = data;
@@ -140,12 +138,12 @@ var parseSnippetTemplate = function () {
   return deferred.promise;
 };
 
-var parseServerPort = function () {
+var parseServerPort = function() {
   var deferred = q.defer();
 
   stdout.write('Enter PORT on which Styleguide app server should run: ');
 
-  stdin.once('data', function (data) {
+  stdin.once('data', function(data) {
     data = data.toString().trim();
 
     config.serverPort = Number(data);
@@ -155,77 +153,77 @@ var parseServerPort = function () {
   return deferred.promise;
 };
 
-var parseDesktopResolution = function () {
+var parseDesktopResolution = function() {
   var deferred = q.defer();
 
   stdout.write('Enter desktop width in which snippets will be displayed by default (if left blank will be set to 1200): ');
 
-  stdin.once('data', function (data) {
+  stdin.once('data', function(data) {
     data = data.toString().trim();
 
-    if ( data.length > 0 ) {
+    if (data.length > 0) {
       config.resolutions.desktop = Number(data);
     } else {
       config.resolutions.desktop = 1200;
     }
-    
+
     deferred.resolve();
   });
 
   return deferred.promise;
 };
 
-var parseTabletResolution = function () {
+var parseTabletResolution = function() {
   var deferred = q.defer();
 
   stdout.write('Enter tablet width which you will be able to trigger presing a button (if left blank will be set to 768): ');
 
-  stdin.once('data', function (data) {
+  stdin.once('data', function(data) {
     data = data.toString().trim();
 
-    if ( data.length > 0 ) {
+    if (data.length > 0) {
       config.resolutions.tablet = Number(data);
     } else {
       config.resolutions.tablet = 768;
     }
-    
+
     deferred.resolve();
   });
 
   return deferred.promise;
 };
 
-var parseMobileResolution = function () {
+var parseMobileResolution = function() {
   var deferred = q.defer();
 
   stdout.write('Enter mobile width which you will be able to trigger presing a button (if left blank will be set to 480): ');
 
-  stdin.once('data', function (data) {
+  stdin.once('data', function(data) {
     data = data.toString().trim();
 
-    if ( data.length > 0 ) {
+    if (data.length > 0) {
       config.resolutions.mobile = Number(data);
     } else {
       config.resolutions.mobile = 480;
     }
-    
+
     deferred.resolve();
   });
 
   return deferred.promise;
 };
 
-var generate = function () {
+var generate = function() {
   var stdin = process.stdin,
-      stdout = process.stdout,
-      currentFolder = process.cwd(),
-      rootFolder = currentFolder + '\\styleguide\\',
-      dbFolder = rootFolder + '\\db',
-      templateFolder = currentFolder + '\\node_modules\\devbridge-styleguide\\templates\\',
-      currentContents,
-      javascripts;
+    stdout = process.stdout,
+    currentFolder = process.cwd(),
+    rootFolder = currentFolder + '\\styleguide\\',
+    dbFolder = rootFolder + '\\db',
+    templateFolder = currentFolder + '\\node_modules\\devbridge-styleguide\\templates\\',
+    currentContents,
+    javascripts;
 
-  if ( !fs.existsSync(dbFolder) ) {
+  if (!fs.existsSync(rootFolder)) {
     fs.mkdirSync(rootFolder);
     fs.mkdirSync(dbFolder);
     fs.mkdirSync(rootFolder + '\\css');
@@ -246,7 +244,7 @@ var generate = function () {
       fs.writeFileSync(rootFolder + '\\js\\' + javascripts[index], currentContents);
     }
   }
-  
+
   stdin.resume();
 
   parseCategories()
@@ -259,23 +257,23 @@ var generate = function () {
     .then(parseDesktopResolution)
     .then(parseTabletResolution)
     .then(parseMobileResolution)
-    .then(function () {
+    .then(function() {
       stdout.write('Press Enter to write out the following configuration to your project root directory:\n');
       console.log(config);
-      stdin.once('data', function () {
-        
+      stdin.once('data', function() {
+
         for (var index = 0, len = config.categories.length; index < len; index++) {
           fs.writeFileSync(dbFolder + '\\' + config.categories[index].name + '.txt', formatter.plain([]));
         }
-        
+
         fs.writeFileSync(dbFolder + '\\' + 'uniques.txt', formatter.plain([]));
         fs.writeFileSync(dbFolder + '\\' + 'sassdata.txt', formatter.plain([]));
         fs.writeFileSync(process.cwd() + '\\styleguide_config.txt', formatter.plain(config));
-        
+
         process.exit(0);
       });
     });
-  
+
 };
 
 program
