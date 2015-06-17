@@ -198,10 +198,10 @@ exports.buildSnippetFromHtml = function(filteredHTml, snippets) {
 
   newSnippet = {
     id: snippetId,
-    name: "",
+    name: '',
     code: code.trim(),
-    description: "",
-    inlineCss: "",
+    description: '',
+    inlineCss: '#snippet { \n  \n}',
     includeJs: includeJs ? true : false,
     isEdited: false,
     isDeleted: false
