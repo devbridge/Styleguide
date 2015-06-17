@@ -1,12 +1,13 @@
-var express = require('express');
+var express = require('express'),
+  bodyParser = require('body-parser'),
+
+  snippets = require('./routes/snippets'),
+  categories = require('./routes/categories'),
+  scraper = require('./routes/scrape'),
+
+  app = express();
+
 //var logger = require('morgan');
-var bodyParser = require('body-parser');
-
-var snippets = require('./routes/snippets');
-var categories = require('./routes/categories');
-var scraper = require('./routes/scrape');
-
-var app = express();
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 

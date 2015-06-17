@@ -238,6 +238,10 @@ var generate = function() {
 
     fs.writeFileSync(rootFolder + '\\index.html', currentContents);
 
+    currentContents = fs.readFileSync(templateFolder + 'favicon.ico');
+
+    fs.writeFileSync(rootFolder + '\\favicon.ico', currentContents);
+
     currentContents = fs.readFileSync(templateFolder + 'css\\main.css', 'utf-8');
 
     fs.writeFileSync(rootFolder + '\\css\\main.css', currentContents);
