@@ -1,32 +1,20 @@
 var express = require('express');
-var path = require('path');
-//var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+//var logger = require('morgan');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
 var snippets = require('./routes/snippets');
 var categories = require('./routes/categories');
 var scraper = require('./routes/scrape');
 
 var app = express();
 
-//var port = process.env.PORT || 8080;
-// view engine setup
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
   if (req.headers.origin) {
@@ -38,7 +26,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/', routes);
 app.use('/snippets', snippets);
 app.use('/categories', categories);
 app.use('/scrape', scraper);
@@ -76,6 +63,3 @@ app.use(function(err, req, res) {
 
 
 module.exports = app;
-
-//app.listen(port);
-//console.log('Started Styleguide App on port ' + port);
