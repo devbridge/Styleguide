@@ -17,8 +17,9 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
       snippetService.deleteById(idToDelete, function(data) {
         if (typeof data === 'object' && data.isDeleted) {
           $('#' + data.id).detach();
+          alert('Snippet successfully deleted!');
         } else {
-          console.log(data);
+          alert(data);
         }
       });
     }
