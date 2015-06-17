@@ -102,6 +102,8 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
       bindCategoryButtons();
 
+      $('.header-size-controls').show();
+
       return;
     }
 
@@ -115,6 +117,8 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
       bindCategoryButtons();
 
+      $('.header-size-controls').show();
+
       return;
     }
 
@@ -122,34 +126,79 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
     bindCategoryButtons();
 
+    $('.header-size-controls').hide();
+
     $('.js-current-page').text(currentView.name);
     sassService.loadSass();
   };
 
-  var defaultResolutionsHandler = function(width) {
+  var defaultResolutionsHandler = function(width, button) {
+    $('.header-size-controls').find('.btn-ghost').removeClass('active');
+    $(button).addClass('active');
+
     $('.js-snippet-preview').css('width', width);
     $('.js-snippet-size').val(width);
+    $('.js-custom').val(width);
     snippetActions.handleHeights($('iframe'));
   };
 
   var bindResolutionActions = function() {
     var desktop,
       tablet,
-      mobile;
+      mobile,
+      desktopButton = $('.js-desktop'),
+      tabletButton = $('.js-tablet'),
+      mobileButton = $('.js-mobile'),
+      customInput = $('.js-custom');
     $.getJSON('../styleguide_config.txt', function(data) {
       defaultResolution = desktop = data.resolutions.desktop ? data.resolutions.desktop + 'px' : '1200px';
       tablet = data.resolutions.tablet ? data.resolutions.tablet + 'px' : '768px';
       mobile = data.resolutions.mobile ? data.resolutions.mobile + 'px' : '480px';
 
-      $('.js-desktop').on('click', $.proxy(defaultResolutionsHandler, null, desktop));
-      $('.js-tablet').on('click', $.proxy(defaultResolutionsHandler, null, tablet));
-      $('.js-mobile').on('click', $.proxy(defaultResolutionsHandler, null, mobile));
+      customInput.val(defaultResolution);
+
+      desktopButton.on('click', function() {
+        defaultResolutionsHandler(desktop, desktopButton);
+      });
+
+
+      tabletButton.on('click', function() {
+        defaultResolutionsHandler(tablet, tabletButton);
+      });
+
+      mobileButton.on('click', function() {
+        defaultResolutionsHandler(mobile, mobileButton);
+      });
 
     });
 
-    $('.js-custom').on('keyup', function() {
-      var width = $(this).val() + 'px';
-      defaultResolutionsHandler(width);
+    customInput.on('keyup', function(event) {
+      var width = $(this).val();
+      width = parseInt(width);
+
+      if (event.keyCode === 38) {
+        width += 1;
+        width = width + 'px';
+        defaultResolutionsHandler(width, event.target);
+      } else if (event.keyCode === 40) {
+        width -= 1;
+        width = width + 'px';
+        defaultResolutionsHandler(width, event.target);
+      }
+    });
+
+    customInput.on('change', function(event) {
+      var width = $(this).val();
+      width = parseInt(width);
+
+      if (event.keyCode === 38) {
+        width += 1;
+      } else if (event.keyCode === 40) {
+        width -= 1;
+      }
+
+      width = width + 'px';
+      defaultResolutionsHandler(width, event.target);
     });
   };
 

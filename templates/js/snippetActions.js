@@ -52,6 +52,19 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
     });
   };
 
+  var clearOutForm = function(form) {
+    var fields = form.find('.js-form-submit-field'),
+      len = fields.length,
+      index;
+
+    for (index = 0; len > index; index++) {
+      $(fields[index]).val('');
+    }
+
+    ace.edit('jsNewCss').setValue('#snippet { \n  \n}');
+    ace.edit('jsNewCode').setValue('');
+  };
+
   var submitSnippet = function(data, form) {
     snippetService.postNew(data, function(snippet) {
       if (typeof snippet === 'object' && snippet.category === viewService.getCurrentView().id) {
@@ -99,12 +112,20 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
 
             currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
 
+            alert('Snippet Created successfully!');
+            clearOutForm(form);
             form.removeClass('preloading');
+            $(".js-new-snippet-form").toggle();
           });
         });
       } else if (typeof snippet === 'string') {
         alert(snippet);
         form.removeClass('preloading');
+      } else if (typeof snippet === 'object') {
+        alert('Snippet Created successfully!');
+        clearOutForm(form);
+        form.removeClass('preloading');
+        $(".js-new-snippet-form").toggle();
       }
     });
   };
@@ -130,6 +151,7 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
 
         form.removeClass('preloading');
         snippetContents.addClass('updated');
+        alert('Snippet updated successfully!');
       } else {
         alert(snippet);
         form.removeClass('preloading');

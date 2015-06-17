@@ -139,31 +139,35 @@ var sassService = (function($) {
 
     for (index = 0; index < len; index++) {
       currentFont = typography[index];
+      currentExampleView = exampleTpl.clone(true);
+
+      currentExampleView.css({
+        'font-family': currentFont.value,
+      });
+
+      fontDescription = currentFont.variable + ': ' + currentFont.value + ';';
+      currentExampleView.prepend($('<p>' + fontDescription + '</p>'));
+
+      examplesContainer.append(currentExampleView);
 
       if (currentFont.weights) {
         weightsLen = currentFont.weights.length;
 
         for (weightsInd = 0; weightsInd < weightsLen; weightsInd++) {
           currentFontView = fontTpl.clone(true);
-          currentExampleView = exampleTpl.clone(true);
 
           currentFontView.find('.js-set-font').css({
             'font-family': currentFont.value,
             'font-weight': currentFont.weights[weightsInd]
           });
 
-          currentExampleView.css({
-            'font-family': currentFont.value,
-            'font-weight': currentFont.weights[weightsInd]
-          });
-
           fontDescription = currentFont.variable + ': ' + currentFont.value + '; ' + 'font-weight: ' + currentFont.weights[weightsInd] + ';';
-
           currentFontView.find('.js-variable').text(fontDescription);
-          currentExampleView.prepend($('<p>' + fontDescription + '</p>'));
 
           fontsContainer.append(currentFontView);
-          examplesContainer.append(currentExampleView);
+        }
+        if (index < len - 1) {
+          fontsContainer.append('<li><hr></li>');
         }
       } else {
         fontsContainer.append('Weights were not defined for ' + currentFont.variable + '.<br>');
