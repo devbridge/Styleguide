@@ -40,6 +40,40 @@ var viewService = (function($, editorService, sassService, categoryService, snip
     $('.js-prev-cat').on('click', bindNavClick);
   };
 
+  var categoriesComparator = function(a, b) {
+    return a.category.name > b.category.name;
+  };
+
+  var sortAndAppendLinks = function(navList, navLinksArr) {
+    var sass,
+      undefCat,
+      index,
+      len = navLinksArr.length;
+
+    sass = navLinksArr.map(function(el) {
+      return el.category.id;
+    }).indexOf('sass');
+
+    sass = navLinksArr.splice(sass, 1);
+
+    undefCat = navLinksArr.map(function(el) {
+      return el.category.name;
+    }).indexOf('undefined');
+
+    undefCat = navLinksArr.splice(undefCat, 1);
+
+    navLinksArr.sort(categoriesComparator);
+
+    navLinksArr.unshift(sass[0]);
+    navLinksArr.push(undefCat[0]);
+
+    for (index = 0; index < len; index++) {
+      navList.append(navLinksArr[index].element);
+    }
+
+    console.log(sass, undefCat, navLinksArr);
+  };
+
   var buildNavigation = function() {
     var navigation = $('.js-navigation'),
       currentPage = navigation.find('.js-current-page'),
@@ -51,7 +85,7 @@ var viewService = (function($, editorService, sassService, categoryService, snip
       iteratingPage,
       route = window.location.hash,
       pageElement,
-      pageLinksArr = [],
+      navLinksArr = [],
       index,
       len;
 
@@ -71,30 +105,26 @@ var viewService = (function($, editorService, sassService, categoryService, snip
           if (typeof count === 'number') {
             pageElement = $('<a href="#" data-id="' + category.id + '">' + category.name + ' (' + count + ')</a>');
             pageElement.on('click', bindNavClick);
-            //navList.append(pageElement);
-            pageLinksArr.push({
-              element: pageElement,
-              category: category
-            });
+            if (category.name === 'undefined') {
+              pageElement.addClass('snippet-undefined-category');
+            }
           } else {
             pageElement = $('<a href="#" data-id="' + category.id + '">' + category.name + '</a>');
             pageElement.on('click', bindNavClick);
-            //navList.append(pageElement);
-            pageLinksArr.push({
-              element: pageElement,
-              category: category
-            });
           }
+          navLinksArr.push({
+            element: pageElement,
+            category: category
+          });
+          navList.trigger('added:element');
         });
       }
 
-      for (index = len; index > 0; index--) {
-        if (pageLinksArr[index].category.name !== 'undefined') {
-          navList.append(pageLinksArr[index].element);
-        } else {
-
+      navList.on('added:element', function() {
+        if (navLinksArr.length === pages.length) {
+          sortAndAppendLinks(navList, navLinksArr);
         }
-      }
+      });
 
       if (route.length) {
         currentView = $.grep(views, function(el) {
