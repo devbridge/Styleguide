@@ -103,7 +103,6 @@ var viewService = (function($, editorService, sassService, categoryService, snip
       bindCategoryButtons();
 
       $('.header-size-controls').show();
-
       return;
     }
 
@@ -118,7 +117,6 @@ var viewService = (function($, editorService, sassService, categoryService, snip
       bindCategoryButtons();
 
       $('.header-size-controls').show();
-
       return;
     }
 

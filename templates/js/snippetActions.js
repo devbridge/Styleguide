@@ -91,6 +91,7 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
             currentSnippetElement.find('.js-edit-css').text(snippet.inlineCss);
             currentSnippetElement.find('.js-snippet-code-preview').text(snippet.code);
             currentSnippetElement.find('.js-snippet-source').html(frame);
+            currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', snippet.code);
             currentSnippetElement.addClass(snippetId);
 
             currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
@@ -112,6 +113,8 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
             snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss));
 
             currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
+
+            new ZeroClipboard(currentSnippetElement.find('.js-copy-code').get());
 
             alert('Snippet Created successfully!');
             clearOutForm(form);
@@ -144,6 +147,7 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
         snippetContainer.find('.js-snippet-name').html(snippet.name);
         snippetContainer.find('.js-snippet-description').html(snippet.description);
         snippetContainer.find('.js-snippet-code-preview').text(snippet.code);
+        snippetContainer.find('.js-copy-code').attr('data-clipboard-text', snippet.code);
 
         snippetContents = snippetContainer.find('iframe');
 
@@ -303,6 +307,7 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
         currentSnippetElement.find('.js-snippet-source').html(frames[index]);
         currentSnippetElement.find('.js-snippet-preview').css('width', resolution);
         currentSnippetElement.find('.js-snippet-size').val(resolution);
+        currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', currentCode);
         currentSnippetElement.addClass(snippetId);
 
         currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
@@ -327,6 +332,8 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
       }
       //TODO: redo that the content would be appended with iframe, so that timeout could be removed
       setTimeout($.proxy(module.handleHeights, null, $('iframe')), 1000);
+
+      new ZeroClipboard($('.js-copy-code').get());
     });
   };
 
