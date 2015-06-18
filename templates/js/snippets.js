@@ -3,6 +3,20 @@ var snippetService = (function($, categoryService) {
     scrapePath,
     apiPath;
 
+  module.getCategoryItemsCount = function(category, callback) {
+    if (typeof category.id === 'number') {
+      module.getByCategoryId(category.id, function(snippets) {
+        callback(snippets.length, category);
+      });
+    } else if (typeof category.id === 'string' && category.id === 'deleted') {
+      module.getDeletedSnippets(function(snippets) {
+        callback(snippets.length, category);
+      });
+    } else if (typeof category.id === 'string') {
+      callback(null, category);
+    }
+  };
+
   module.getScrapePath = function(whatToScrape) {
     return scrapePath + whatToScrape;
   };

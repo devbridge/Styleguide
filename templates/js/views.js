@@ -66,9 +66,17 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
       for (index = 0; len > index; index++) {
         iteratingPage = pages[index];
-        pageElement = $('<a href="#" data-id="' + iteratingPage.id + '">' + iteratingPage.name + '</a>');
-        pageElement.on('click', bindNavClick);
-        navList.append(pageElement);
+        snippetService.getCategoryItemsCount(iteratingPage, function(count, category) {
+          if (typeof count === 'number') {
+            pageElement = $('<a href="#" data-id="' + category.id + '">' + category.name + ' (' + count + ')</a>');
+            pageElement.on('click', bindNavClick);
+            navList.append(pageElement);
+          } else {
+            pageElement = $('<a href="#" data-id="' + category.id + '">' + category.name + '</a>');
+            pageElement.on('click', bindNavClick);
+            navList.append(pageElement);
+          }
+        });
       }
 
       if (route.length) {
