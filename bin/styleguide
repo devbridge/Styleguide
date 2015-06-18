@@ -252,6 +252,10 @@ var generate = function() {
       currentContents = fs.readFileSync(templateFolder + '\\js\\' + javascripts[index], 'utf-8');
       fs.writeFileSync(rootFolder + '\\js\\' + javascripts[index], currentContents);
     }
+
+    currentContents = fs.readFileSync(templateFolder + '\\ZeroZlipboard.swf');
+
+    fs.writeFileSync(rootFolder + '\\js\\ZeroZlipboard.swf', currentContents);
   }
 
   stdin.resume();
