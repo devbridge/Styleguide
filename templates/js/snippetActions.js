@@ -149,6 +149,8 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
         snippetContainer.find('.js-snippet-code-preview').text(snippet.code);
         snippetContainer.find('.js-copy-code').attr('data-clipboard-text', snippet.code);
 
+        snippetContainer.addClass('edited-snippet');
+
         snippetContents = snippetContainer.find('iframe');
 
         module.appendIframeContent(snippetContents, null, snippet.code, snippet.inlineCss);
@@ -309,6 +311,10 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
         currentSnippetElement.find('.js-snippet-size').val(resolution);
         currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', currentCode);
         currentSnippetElement.addClass(snippetId);
+
+        if (snippets[index].isEdited) {
+          currentSnippetElement.addClass('edited-snippet');
+        }
 
         currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
 
