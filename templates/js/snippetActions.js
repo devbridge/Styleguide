@@ -354,6 +354,7 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
 
   module.scrapeHandler = function(whatToScrape) {
     var scrapeUrl = snippetService.getScrapePath(whatToScrape),
+      content,
       request = $.ajax({
         method: 'GET',
         url: scrapeUrl,
@@ -362,8 +363,20 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
       });
 
     request.done(function(data) {
-      alert('Scraped ' + whatToScrape + ': \n' + JSON.stringify(data, null, 2));
-      window.location.reload(true);
+      if (whatToScrape === 'snippets') {
+        content = '<p>Count of found snippets: ' + data.totalFound + '</p>' + '<p>Count of new snippets: ' + data.foundNew + '</p>' + '<p>Duplicate IDs in your code: ' + data.duplicateIds.toString() + '</p>';
+
+        $.openModal({
+          title: 'Scrape Report',
+          width: 500,
+          content: content,
+          onClose: function() {
+            window.location.reload(true);
+          }
+        });
+      }
+
+      //alert('Scraped ' + whatToScrape + ': \n' + JSON.stringify(data, null, 2));
     });
 
     request.fail(function() {
