@@ -1,10 +1,23 @@
 var express = require('express'),
   jf = require('jsonfile'),
   fs = require('fs'),
+  async = require('async'),
   service = require('./scrapeService.js'),
   config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8')),
 
   router = express.Router();
+
+var pushAsyncTask = function(snippets, category, uniques) {
+  return function(callback) {
+    service.writeOutSnippets(snippets, category, uniques, function(changedSnipps, newSnipps) {
+      console.log(newSnipps);
+      callback(null, {
+        changedSnipps: changedSnipps,
+        newSnipps: newSnipps
+      });
+    });
+  };
+};
 
 router.get('/snippets', function(req, res) {
   service.requestPages(config.scrapeUrls, function(responses) {
@@ -18,6 +31,8 @@ router.get('/snippets', function(req, res) {
       response,
       index,
       length,
+      asyncTasks = [],
+      report = {},
       uniques = jf.readFileSync(config.uniques, {
         throws: false
       }) || [];
@@ -40,6 +55,10 @@ router.get('/snippets', function(req, res) {
       }
     }
 
+    report.totalFound = filteredHTml.length;
+    report.changedSnippets = [];
+    report.foundNew = 0;
+
     for (index = 0, length = filteredHTml.length; index < length; index++) {
       if (filteredHTml[index]) {
         newSnippet = service.buildSnippetFromHtml(filteredHTml[index], snippets);
@@ -51,15 +70,30 @@ router.get('/snippets', function(req, res) {
       }
     }
 
+
+
     for (category in snippets) {
       if (snippets.hasOwnProperty(category)) {
-        service.writeOutSnippets(snippets, category, uniques);
+        asyncTasks.push(pushAsyncTask(snippets, category, uniques));
       }
     }
 
-    jf.writeFileSync(config.uniques, uniques);
+    async.series(asyncTasks, function(err, reports) {
+      var index,
+        len = reports.length;
 
-    res.json(snippets);
+      for (index = 0; index < len; index++) {
+        report.changedSnippets = report.changedSnippets.concat(reports[index].changedSnipps);
+        report.foundNew += reports[index].newSnipps;
+      }
+
+      jf.writeFileSync(config.uniques, uniques);
+
+      res.json(report);
+    });
+
+
+
   });
 
 });

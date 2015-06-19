@@ -1,5 +1,6 @@
 var request = require('request'),
   jf = require('jsonfile'),
+  async = require('async'),
   helpers = require('./helpers.js'),
   fs = require('fs'),
   config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8')),
@@ -211,7 +212,7 @@ exports.buildSnippetFromHtml = function(filteredHTml, snippets) {
   return newSnippet;
 };
 
-exports.writeOutSnippets = function(snippets, category, uniques) {
+exports.writeOutSnippets = function(snippets, category, uniques, callback) {
   var dataPath,
     snippet,
     dataStore,
@@ -221,6 +222,9 @@ exports.writeOutSnippets = function(snippets, category, uniques) {
     oldCategoryPath,
     oldCatSnippets,
     foundSnippetCallback,
+    asyncTasks = [],
+    changedSnippets = [],
+    newSnippsFound = 0,
     length = config.categories.length;
 
   for (index = 0; index < length; index++) {
@@ -241,13 +245,18 @@ exports.writeOutSnippets = function(snippets, category, uniques) {
 
   snippet = snippets[category];
 
-  foundSnippetCallback = function(snippetAndCategory) {
+  foundSnippetCallback = function(snippetAndCategory, changedSnippets, snippetToWriteOut, cb) {
     if (!snippetAndCategory.snippet.isEdited) {
       if (snippetAndCategory.category == category) {
         for (nestedIndex = 0, nestedLen = dataStore.length; nestedIndex < nestedLen; nestedIndex++) {
           if (dataStore[nestedIndex].id == snippetAndCategory.snippet.id) {
             break;
           }
+        }
+        dataStore.splice(nestedIndex, 1);
+        dataStore.push(snippetToWriteOut);
+        if (snippetAndCategory.snippet.code.localeCompare(snippetToWriteOut.code) !== 0) {
+          changedSnippets.push(snippetToWriteOut);
         }
       } else {
         for (nestedIndex = 0, nestedLen = config.categories.length; nestedIndex < nestedLen; nestedIndex++) {
@@ -266,25 +275,39 @@ exports.writeOutSnippets = function(snippets, category, uniques) {
             break;
           }
         }
-
         oldCatSnippets.splice(nestedIndex, 1);
-        dataStore.push(snippet[index]);
+        dataStore.push(snippetToWriteOut);
+        changedSnippets.push(snippetToWriteOut);
       }
+      cb();
     } else {
-      console.log('Snippet was edited.');
+      console.log('Snippet was edited from UI.');
+      cb();
     }
+  };
+
+  var createFuncContext = function(snippetToSearch) {
+    return function(cb) {
+      findSnippet(snippetToSearch.id, function(snippetAndCategory) {
+        foundSnippetCallback(snippetAndCategory, changedSnippets, snippetToSearch, cb);
+      });
+    };
   };
 
   for (index = 0, length = snippet.length; index < length; index++) {
     if (uniques.indexOf(snippet[index].id) === -1) {
       uniques.push(snippet[index].id);
       dataStore.push(snippet[index]);
+      newSnippsFound++;
     } else {
-      findSnippet(snippet[index].id, foundSnippetCallback);
+      asyncTasks.push(createFuncContext(snippet[index]));
     }
   }
 
-  jf.writeFileSync(dataPath, dataStore);
+  async.series(asyncTasks, function(err, stuff) {
+    callback(changedSnippets, newSnippsFound);
+    jf.writeFileSync(dataPath, dataStore);
+  });
 };
 
 exports.scrapeTheme = function(themeIndex, result) {
