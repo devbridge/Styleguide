@@ -30,6 +30,7 @@ router.get('/snippets', function(req, res) {
       url,
       response,
       index,
+      allSnippets = [],
       length,
       asyncTasks = [],
       report = {},
@@ -57,11 +58,14 @@ router.get('/snippets', function(req, res) {
 
     report.totalFound = filteredHTml.length;
     report.changedSnippets = [];
+    report.duplicateIds = [];
     report.foundNew = 0;
 
     for (index = 0, length = filteredHTml.length; index < length; index++) {
       if (filteredHTml[index]) {
         newSnippet = service.buildSnippetFromHtml(filteredHTml[index], snippets);
+
+        allSnippets.push(newSnippet.id);
 
         if (!newSnippet) {
           res.status(500).send('Something went wrong when building snippet from HTML!');
@@ -70,7 +74,13 @@ router.get('/snippets', function(req, res) {
       }
     }
 
+    allSnippets.sort();
 
+    for (index = 0, length = allSnippets.length; index < length; index++) {
+      if (allSnippets[index + 1] === allSnippets[index]) {
+        report.duplicateIds.push(allSnippets[index]);
+      }
+    }
 
     for (category in snippets) {
       if (snippets.hasOwnProperty(category)) {
@@ -91,9 +101,6 @@ router.get('/snippets', function(req, res) {
 
       res.json(report);
     });
-
-
-
   });
 
 });
