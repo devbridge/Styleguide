@@ -2,14 +2,15 @@ var express = require('express'),
   jf = require('jsonfile'),
   fs = require('fs'),
   async = require('async'),
-  service = require('./scrapeService.js'),
+  sassScraper = require('./sassScraper.js'),
+  snippetScraper = require('./snippetScraper.js'),
   config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8')),
 
   router = express.Router();
 
 var pushAsyncTask = function(snippets, category, uniques) {
   return function(callback) {
-    service.writeOutSnippets(snippets, category, uniques, function(changedSnipps, newSnipps) {
+    snippetScraper.writeOutSnippets(snippets, category, uniques, function(changedSnipps, newSnipps) {
       console.log(newSnipps);
       callback(null, {
         changedSnipps: changedSnipps,
@@ -20,7 +21,7 @@ var pushAsyncTask = function(snippets, category, uniques) {
 };
 
 router.get('/snippets', function(req, res) {
-  service.requestPages(config.scrapeUrls, function(responses) {
+  snippetScraper.requestPages(config.scrapeUrls, function(responses) {
     var filteredHTml = [],
       filters,
       htmlBody,
@@ -63,7 +64,7 @@ router.get('/snippets', function(req, res) {
 
     for (index = 0, length = filteredHTml.length; index < length; index++) {
       if (filteredHTml[index]) {
-        newSnippet = service.buildSnippetFromHtml(filteredHTml[index], snippets);
+        newSnippet = snippetScraper.buildSnippetFromHtml(filteredHTml[index], snippets);
 
         allSnippets.push(newSnippet.id);
 
@@ -111,7 +112,7 @@ router.get('/sass', function(req, res) {
     length = config.sassResources.length;
 
   for (index = 0; index < length; index++) {
-    service.scrapeTheme(index, result);
+    sassScraper.scrapeTheme(index, result);
   }
 
   jf.writeFileSync(config.sassData, result);

@@ -364,7 +364,10 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
 
     request.done(function(data) {
       if (whatToScrape === 'snippets') {
-        content = '<p>Count of found snippets: ' + data.totalFound + '</p>' + '<p>Count of new snippets: ' + data.foundNew + '</p>' + '<p>Duplicate IDs in your code: ' + data.duplicateIds.toString() + '</p>';
+        content = '<p>Count of found snippets: ' + data.totalFound + '</p>' 
+                + '<p>Count of new snippets: ' + data.foundNew + '</p>' 
+                + '<p>Duplicate IDs in your code: ' + data.duplicateIds ? data.duplicateIds.toString() : 'None.' + '</p>'
+                + '<p>IDs of snippets that were changed: ' + data.changedSnippets ? data.changedSnippets.toString() : 'None.' + '</p>';
 
         $.openModal({
           title: 'Scrape Report',
