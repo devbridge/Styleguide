@@ -77,6 +77,8 @@
 					onmove: function(e) {
 						var target = e.target;
 
+						$(target).children(':first').children('div').addClass('iframe-overlay');
+
 						snippetActions.handleHeights($(target).find('iframe'));
 
 						if (e.rect.width > 150) {
