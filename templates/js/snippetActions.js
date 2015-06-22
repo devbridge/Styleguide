@@ -94,7 +94,11 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
             currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', snippet.code);
             currentSnippetElement.addClass(snippetId);
 
-            currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
+            if (!snippets[index].isDeleted) {
+              currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
+            } else {
+              currentSnippetElement.find('.js-delete-snippet').addClass('hidden');
+            }
 
             categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
 
@@ -316,7 +320,11 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
           currentSnippetElement.addClass('edited-snippet');
         }
 
-        currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
+        if (!snippets[index].isDeleted) {
+          currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
+        } else {
+          currentSnippetElement.find('.js-delete-snippet').addClass('hidden');
+        }
 
         categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
 
@@ -390,7 +398,11 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
     });
 
     request.fail(function() {
-      alert('Failed to scrape ' + whatToScrape + '! Maybe your styleguide server is down?');
+      $.openModal({
+        title: 'Scrape Report',
+        width: 500,
+        content: '<p>Failed to scrape ' + whatToScrape + '! Maybe your styleguide server is down?</p>'
+      });
     });
   };
 
