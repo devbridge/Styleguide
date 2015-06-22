@@ -247,6 +247,10 @@ var generate = function() {
 
     fs.writeFileSync(path.join(rootFolder, 'css', 'main.css'), currentContents);
 
+    currentContents = fs.readFileSync(path.join(templateFolder, 'css', 'modal-styles.css'), 'utf-8');
+
+    fs.writeFileSync(path.join(rootFolder, 'css', 'modal-styles.css'), currentContents);
+
     javascripts = fs.readdirSync(path.join(templateFolder, 'js'));
 
     for (var index = 0, len = javascripts.length; index < len; index++) {

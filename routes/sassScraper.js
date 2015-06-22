@@ -1,4 +1,4 @@
-var helpers = require('helpers.js'),
+var helpers = require('./helpers.js'),
   fs = require('fs'),
   config = JSON.parse(fs.readFileSync('styleguide_config.txt', 'utf8')),
 

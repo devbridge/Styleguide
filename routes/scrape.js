@@ -2,8 +2,8 @@ var express = require('express'),
   jf = require('jsonfile'),
   fs = require('fs'),
   async = require('async'),
-  sassScraper = require('sassScraper.js'),
-  snippetScraper = require('snippetScraper.js'),
+  sassScraper = require('./sassScraper.js'),
+  snippetScraper = require('./snippetScraper.js'),
   config = JSON.parse(fs.readFileSync('styleguide_config.txt', 'utf8')),
 
   router = express.Router();
