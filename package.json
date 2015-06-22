@@ -1,6 +1,6 @@
 {
   "name": "devbridge-styleguide",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Styleguide automatization tool.",
   "author": "Gediminas Stanaitis <gedas@devbridge.com>",
   "main": "index.js",

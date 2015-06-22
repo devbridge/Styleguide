@@ -2,16 +2,15 @@ var express = require('express'),
   jf = require('jsonfile'),
   fs = require('fs'),
   async = require('async'),
-  sassScraper = require('./sassScraper.js'),
-  snippetScraper = require('./snippetScraper.js'),
-  config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8')),
+  sassScraper = require('sassScraper.js'),
+  snippetScraper = require('snippetScraper.js'),
+  config = JSON.parse(fs.readFileSync('styleguide_config.txt', 'utf8')),
 
   router = express.Router();
 
 var pushAsyncTask = function(snippets, category, uniques) {
   return function(callback) {
     snippetScraper.writeOutSnippets(snippets, category, uniques, function(changedSnipps, newSnipps) {
-      console.log(newSnipps);
       callback(null, {
         changedSnipps: changedSnipps,
         newSnipps: newSnipps

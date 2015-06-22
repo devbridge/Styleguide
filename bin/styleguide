@@ -5,6 +5,7 @@ var fs = require('fs');
 var q = require('q');
 var formatter = require('format-json');
 var pkg = require('../package.json');
+var path = require('path');
 var stdin = process.stdin;
 var stdout = process.stdout;
 
@@ -19,9 +20,9 @@ var config = {
   jsResources: [],
   resolutions: {},
 
-  database: './styleguide/db/',
-  uniques: './styleguide/db/uniques.txt',
-  sassData: './styleguide/db/sassdata.txt',
+  database: path.join('./', 'styleguide', 'db'),
+  uniques: path.join('./', 'styleguide', 'db', 'uniques.txt'),
+  sassData: path.join('./', 'styleguide', 'db', 'sassdata.txt'),
   extension: '.txt'
 };
 
@@ -222,40 +223,40 @@ var generate = function() {
   var stdin = process.stdin,
     stdout = process.stdout,
     currentFolder = process.cwd(),
-    rootFolder = currentFolder + '\\styleguide\\',
-    dbFolder = rootFolder + '\\db',
-    templateFolder = currentFolder + '\\node_modules\\devbridge-styleguide\\templates\\',
+    rootFolder = path.join(currentFolder, 'styleguide'),
+    dbFolder = path.join(rootFolder, 'db'),
+    templateFolder = path.join(currentFolder, 'node_modules', 'devbridge-styleguide', 'templates'),
     currentContents,
     javascripts;
 
   if (!fs.existsSync(rootFolder)) {
     fs.mkdirSync(rootFolder);
     fs.mkdirSync(dbFolder);
-    fs.mkdirSync(rootFolder + '\\css');
-    fs.mkdirSync(rootFolder + '\\js');
+    fs.mkdirSync(path.join(rootFolder, 'css'));
+    fs.mkdirSync(path.join(rootFolder, 'js'));
 
-    currentContents = fs.readFileSync(templateFolder + 'index.html', 'utf-8');
+    currentContents = fs.readFileSync(path.join(templateFolder, 'index.html'), 'utf-8');
 
-    fs.writeFileSync(rootFolder + '\\index.html', currentContents);
+    fs.writeFileSync(path.join(rootFolder, 'index.html'), currentContents);
 
-    currentContents = fs.readFileSync(templateFolder + 'favicon.ico');
+    currentContents = fs.readFileSync(path.join(templateFolder, 'favicon.ico'));
 
-    fs.writeFileSync(rootFolder + '\\favicon.ico', currentContents);
+    fs.writeFileSync(path.join(rootFolder, 'favicon.ico'), currentContents);
 
-    currentContents = fs.readFileSync(templateFolder + 'css\\main.css', 'utf-8');
+    currentContents = fs.readFileSync(path.join(templateFolder, 'css', 'main.css'), 'utf-8');
 
-    fs.writeFileSync(rootFolder + '\\css\\main.css', currentContents);
+    fs.writeFileSync(path.join(rootFolder, 'css', 'main.css'), currentContents);
 
-    javascripts = fs.readdirSync(templateFolder + 'js');
+    javascripts = fs.readdirSync(path.join(templateFolder, 'js'));
 
     for (var index = 0, len = javascripts.length; index < len; index++) {
-      currentContents = fs.readFileSync(templateFolder + '\\js\\' + javascripts[index], 'utf-8');
-      fs.writeFileSync(rootFolder + '\\js\\' + javascripts[index], currentContents);
+      currentContents = fs.readFileSync(path.join(templateFolder, 'js', javascripts[index]), 'utf-8');
+      fs.writeFileSync(path.join(rootFolder, 'js', javascripts[index]), currentContents);
     }
 
-    currentContents = fs.readFileSync(templateFolder + '\\ZeroClipboard.swf');
+    currentContents = fs.readFileSync(path.join(templateFolder, 'ZeroClipboard.swf'));
 
-    fs.writeFileSync(rootFolder + '\\js\\ZeroClipboard.swf', currentContents);
+    fs.writeFileSync(path.join(rootFolder, 'js', 'ZeroClipboard.swf'), currentContents);
   }
 
   stdin.resume();

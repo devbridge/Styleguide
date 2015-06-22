@@ -364,10 +364,19 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
 
     request.done(function(data) {
       if (whatToScrape === 'snippets') {
-        content = '<p>Count of found snippets: ' + data.totalFound + '</p>' 
-                + '<p>Count of new snippets: ' + data.foundNew + '</p>' 
-                + '<p>Duplicate IDs in your code: ' + data.duplicateIds ? data.duplicateIds.toString() : 'None.' + '</p>'
-                + '<p>IDs of snippets that were changed: ' + data.changedSnippets ? data.changedSnippets.toString() : 'None.' + '</p>';
+        content = '<p>Count of found snippets: ' + data.totalFound + '</p>' + '<p>Count of new snippets: ' + data.foundNew + '</p>';
+
+        if (data.duplicateIds.length) {
+          content += '<p>Duplicate IDs in your code: ' + data.duplicateIds.toString() + '</p>' + '<p><span class="error">There are duplicate IDs in your code, this can cause unexpected behaviour of Styleguide!</span></p>';
+        } else {
+          content += '<p>Duplicate IDs in your code: None.</p>';
+        }
+
+        if (data.changedSnippets.length) {
+          content += '<p>IDs of snippets that were changed: ' + data.changedSnippets.toString() + '</p>';
+        } else {
+          content += '<p>IDs of snippets that were changed: None.</p>';
+        }
 
         $.openModal({
           title: 'Scrape Report',
@@ -378,8 +387,6 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
           }
         });
       }
-
-      //alert('Scraped ' + whatToScrape + ': \n' + JSON.stringify(data, null, 2));
     });
 
     request.fail(function() {

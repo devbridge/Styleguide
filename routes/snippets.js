@@ -1,8 +1,9 @@
 var express = require('express'),
   fs = require('fs'),
-  config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8')),
+  path = require('path'),
+  config = JSON.parse(fs.readFileSync('styleguide_config.txt', 'utf8')),
   jf = require('jsonfile'),
-  helpers = require('./helpers.js'),
+  helpers = require('helpers.js'),
   router = express.Router();
 
 router.get('/', function(req, res) {
@@ -13,7 +14,7 @@ router.get('/', function(req, res) {
     length = config.categories.length;
 
   for (index = 0; index < length; index++) {
-    dataPath = config.database + config.categories[index].name + config.extension;
+    dataPath = path.join(config.database, config.categories[index].name + config.extension);
 
     snippets = jf.readFileSync(dataPath);
     snippets = snippets.map(helpers.mapCategory, index);
@@ -32,7 +33,7 @@ router.get('/duplicates', function(req, res) {
     length = config.categories.length;
 
   for (index = 0; index < length; index++) {
-    dataPath = config.database + config.categories[index].name + config.extension;
+    dataPath = path.join(config.database, config.categories[index].name + config.extension);
 
     snippets = jf.readFileSync(dataPath);
     snippets = snippets.map(helpers.mapCategory, index);
@@ -64,7 +65,7 @@ router.get('/category/:id', function(req, res) {
 
   for (index = 0; index < length; index++) {
     if (config.categories[index].id == catId) {
-      dataPath = config.database + config.categories[index].name + config.extension;
+      dataPath = path.join(config.database, config.categories[index].name + config.extension);
     }
   }
 
@@ -93,7 +94,7 @@ router.get('/:id', function(req, res) {
   }
 
   for (var i = 0, length = config.categories.length; i < length; i++) {
-    dataPath = config.database + config.categories[i].name + config.extension;
+    dataPath = path.join(config.database, config.categories[i].name + config.extension);
     snippets = jf.readFileSync(dataPath);
 
     desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];
@@ -119,7 +120,7 @@ router.post('/', function(req, res) {
 
   for (index = 0; index < length; index++) {
     if (config.categories[index].id === Number(req.body.category)) {
-      dataPath = config.database + config.categories[index].name + config.extension;
+      dataPath = path.join(config.database, config.categories[index].name + config.extension);
     }
   }
 
@@ -174,7 +175,7 @@ router.put('/:id', function(req, res) {
   }
 
   for (index = 0; index < length; index++) {
-    dataPath = config.database + config.categories[index].name + config.extension;
+    dataPath = path.join(config.database, config.categories[index].name + config.extension);
     snippets = jf.readFileSync(dataPath);
 
     desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];
@@ -193,7 +194,7 @@ router.put('/:id', function(req, res) {
 
     for (index = 0; index < length; index++) {
       if (config.categories[index].id == newCategory) {
-        dataPath = config.database + config.categories[index].name + config.extension;
+        dataPath = path.join(config.database, config.categories[index].name + config.extension);
       }
     }
 
@@ -240,7 +241,7 @@ router.delete('/:id', function(req, res) {
   }
 
   for (index = 0; index < length; index++) {
-    dataPath = config.database + config.categories[index].name + config.extension;
+    dataPath = path.join(config.database, config.categories[index].name + config.extension);
     snippets = jf.readFileSync(dataPath);
 
     desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];

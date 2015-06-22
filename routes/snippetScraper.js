@@ -1,9 +1,10 @@
 var request = require('request'),
+  path = require('path'),
   jf = require('jsonfile'),
   async = require('async'),
   helpers = require('./helpers.js'),
   fs = require('fs'),
-  config = JSON.parse(fs.readFileSync('./styleguide_config.txt', 'utf8')),
+  config = JSON.parse(fs.readFileSync('styleguide_config.txt', 'utf8')),
 
   exports = module.exports = {};
 
@@ -14,7 +15,7 @@ var findSnippet = function(snippetId, callback) {
     index,
     length = config.categories.length;
   for (index = 0; index < length; index++) {
-    dataPath = config.database + config.categories[index].name + config.extension;
+    dataPath = path.join(config.database, config.categories[index].name + config.extension);
     snippets = jf.readFileSync(dataPath, {
       throws: false
     }) || [];
@@ -106,7 +107,7 @@ exports.writeOutSnippets = function(snippets, category, uniques, callback) {
 
   for (index = 0; index < length; index++) {
     if (config.categories[index].id === Number(category)) {
-      dataPath = config.database + config.categories[index].name + config.extension;
+      dataPath = path.join(config.database, config.categories[index].name + config.extension);
       break;
     }
   }
@@ -138,7 +139,7 @@ exports.writeOutSnippets = function(snippets, category, uniques, callback) {
       } else {
         for (nestedIndex = 0, nestedLen = config.categories.length; nestedIndex < nestedLen; nestedIndex++) {
           if (config.categories[nestedIndex].id == snippetAndCategory.category) {
-            oldCategoryPath = config.database + config.categories[nestedIndex].name + config.extension;
+            oldCategoryPath = path.join(config.database, config.categories[nestedIndex].name + config.extension);
             break;
           }
         }
@@ -160,7 +161,7 @@ exports.writeOutSnippets = function(snippets, category, uniques, callback) {
       }
       cb();
     } else {
-      console.log('Snippet was edited from UI.');
+      console.log('Snippet was edited from UI. Snippet ID: ' + snippetToWriteOut.id);
       cb();
     }
   };
