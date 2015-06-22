@@ -79,7 +79,7 @@ var editorService = (function($) {
 
   module.removeFromEditForm = function(snippetContainer) {
     var currentEditor = snippetContainer.find('.js-edit-code'),
-      snippetId = snippetContainer.attr('class').split(' ').pop(),
+      snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
       currentId = snippetId + '-code',
       code,
       css;

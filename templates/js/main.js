@@ -83,6 +83,11 @@
 							target.style.width = e.rect.width + 'px';
 							$sizeIndicator.val(e.rect.width + "px");
 						}
+					},
+					onend: function(e) {
+						var target = e.target;
+
+						$(target).children(':first').children('div').removeClass('iframe-overlay');
 					}
 				});
 		}

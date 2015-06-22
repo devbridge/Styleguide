@@ -91,10 +91,11 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
             currentSnippetElement.find('.js-edit-css').text(snippet.inlineCss);
             currentSnippetElement.find('.js-snippet-code-preview').text(snippet.code);
             currentSnippetElement.find('.js-snippet-source').html(frame);
+            currentSnippetElement.find('.js-snippet-source').append('<div></div>');
             currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', snippet.code);
             currentSnippetElement.addClass(snippetId);
 
-            if (!snippets[index].isDeleted) {
+            if (!snippet.isDeleted) {
               currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
             } else {
               currentSnippetElement.find('.js-delete-snippet').addClass('hidden');
@@ -311,6 +312,7 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
         currentSnippetElement.find('.js-edit-css').text(snippets[index].inlineCss);
         currentSnippetElement.find('.js-snippet-code-preview').text(currentCode);
         currentSnippetElement.find('.js-snippet-source').html(frames[index]);
+        currentSnippetElement.find('.js-snippet-source').append('<div></div>');
         currentSnippetElement.find('.js-snippet-preview').css('width', resolution);
         currentSnippetElement.find('.js-snippet-size').val(resolution);
         currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', currentCode);

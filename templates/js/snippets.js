@@ -51,14 +51,15 @@ var snippetService = (function($, categoryService) {
       var len = categories.length,
         index,
         deletedSnippets = [],
-        path;
+        path,
+        cacheBust = '?t=' + Date.now();
 
       $.ajaxSetup({
         async: false
       });
 
       for (index = 0; index < len; index++) {
-        path = './db/' + categories[index].name + '.txt';
+        path = './db/' + categories[index].name + '.txt' + cacheBust;
 
         $.getJSON(path, function(data) {
           var filteredSnippets = data.filter(function(obj) {
@@ -86,7 +87,8 @@ var snippetService = (function($, categoryService) {
     categoryService.getCategories(function(categories) {
       var len = categories.length,
         index,
-        path;
+        path,
+        cacheBust = '?t=' + Date.now();
 
       for (index = 0; index < len; index++) {
         if (categories[index].id === categoryId) {
@@ -94,7 +96,7 @@ var snippetService = (function($, categoryService) {
         }
       }
 
-      path = './db/' + categories[index].name + '.txt';
+      path = './db/' + categories[index].name + '.txt' + cacheBust;
 
       $.getJSON(path, function(data) {
         data = data.filter(function(obj) {
@@ -116,14 +118,15 @@ var snippetService = (function($, categoryService) {
       var len = categories.length,
         index,
         desireableSnippet,
-        path;
+        path,
+        cacheBust = '?t=' + Date.now();
 
       $.ajaxSetup({
         async: false
       });
 
       for (index = 0; index < len; index++) {
-        path = './db/' + categories[index].name + '.txt';
+        path = './db/' + categories[index].name + '.txt' + cacheBust;
 
         $.getJSON(path, function(data) {
           desireableSnippet = data.filter(function(obj) {
