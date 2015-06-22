@@ -63,7 +63,7 @@
 			});
 
 			$sizeIndicator.on('keyup', function() {
-				$preview[0].style.width = $sizeIndicator.val();
+				$preview.find('iframe').get(0).style.width = $sizeIndicator.val();
 			});
 
 			interact($preview[0])
@@ -75,14 +75,15 @@
 						top: false
 					},
 					onmove: function(e) {
-						var target = e.target;
+						var target = e.target,
+							iframe = $(target).find('iframe').get(0);
 
 						$(target).children(':first').children('div').addClass('iframe-overlay');
 
 						snippetActions.handleHeights($(target).find('iframe'));
 
 						if (e.rect.width > 150) {
-							target.style.width = e.rect.width + 'px';
+							iframe.style.width = e.rect.width + 'px';
 							$sizeIndicator.val(e.rect.width + "px");
 						}
 					},

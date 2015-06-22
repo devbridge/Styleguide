@@ -77,6 +77,7 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
             fieldIndex,
             fieldLen,
             currentField,
+            iframeWindow,
             snippetContents;
 
           iframesService.getTemplate(function(template) {
@@ -94,6 +95,9 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
             currentSnippetElement.find('.js-snippet-source').append('<div></div>');
             currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', snippet.code);
             currentSnippetElement.addClass(snippetId);
+
+            iframeWindow = currentSnippetElement.find('.js-snippet-preview').find('iframe').get(0);
+            iframeWindow.style.width = resolution;
 
             if (!snippet.isDeleted) {
               currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
@@ -294,6 +298,7 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
       formFields,
       fieldIndex,
       fieldLen,
+      iframeWindow,
       currentField;
 
     snippetContainer = $($('#snippet').html());
@@ -313,10 +318,12 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
         currentSnippetElement.find('.js-snippet-code-preview').text(currentCode);
         currentSnippetElement.find('.js-snippet-source').html(frames[index]);
         currentSnippetElement.find('.js-snippet-source').append('<div></div>');
-        currentSnippetElement.find('.js-snippet-preview').css('width', resolution);
         currentSnippetElement.find('.js-snippet-size').val(resolution);
         currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', currentCode);
         currentSnippetElement.addClass(snippetId);
+
+        iframeWindow = currentSnippetElement.find('.js-snippet-preview').find('iframe').get(0);
+        iframeWindow.style.width = resolution;
 
         if (snippets[index].isEdited) {
           currentSnippetElement.addClass('edited-snippet');

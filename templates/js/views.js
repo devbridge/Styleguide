@@ -186,12 +186,20 @@ var viewService = (function($, editorService, sassService, categoryService, snip
   };
 
   var defaultResolutionsHandler = function(width, button) {
+    var iframe = $('iframe').get(),
+      len = iframe.length,
+      index;
+
     $('.header-size-controls').find('.btn-ghost').removeClass('active');
     $(button).addClass('active');
 
-    $('.js-snippet-preview').css('width', width);
+    for (index = 0; index < len; index++) {
+      iframe[index].style.width = width;
+    }
+
     $('.js-snippet-size').val(width);
     $('.js-custom').val(width);
+
     snippetActions.handleHeights($('iframe'));
   };
 
