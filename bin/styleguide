@@ -281,12 +281,12 @@ var generate = function() {
       stdin.once('data', function() {
 
         for (var index = 0, len = config.categories.length; index < len; index++) {
-          fs.writeFileSync(dbFolder + '\\' + config.categories[index].name + '.txt', formatter.plain([]));
+          fs.writeFileSync(path.join(dbFolder, config.categories[index].name + '.txt'), formatter.plain([]));
         }
 
-        fs.writeFileSync(dbFolder + '\\' + 'uniques.txt', formatter.plain([]));
-        fs.writeFileSync(dbFolder + '\\' + 'sassdata.txt', formatter.plain([]));
-        fs.writeFileSync(process.cwd() + '\\styleguide_config.txt', formatter.plain(config));
+        fs.writeFileSync(path.join(dbFolder, 'uniques.txt'), formatter.plain([]));
+        fs.writeFileSync(path.join(dbFolder, 'sassdata.txt'), formatter.plain([]));
+        fs.writeFileSync(path.join(currentFolder, 'styleguide_config.txt'), formatter.plain(config));
 
         process.exit(0);
       });

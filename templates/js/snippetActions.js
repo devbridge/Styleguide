@@ -12,17 +12,39 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
   };
 
   var deleteHandler = function() {
-    var idToDelete = $(this).data('id');
-    if (window.confirm('Are you sure you want to delete this snippet?')) {
-      snippetService.deleteById(idToDelete, function(data) {
-        if (typeof data === 'object' && data.isDeleted) {
-          $('#' + data.id).detach();
-          alert('Snippet successfully deleted!');
-        } else {
-          alert(data);
-        }
-      });
-    }
+    var idToDelete = $(this).data('id'),
+      modalContent,
+      modal;
+
+    modalContent = '<p>Are you sure you want to delete this snippet?</p>';
+    modalContent += '<button class="btn-primary btn-primary--white js-confirm-delete">Yes!</button>';
+    modalContent += '<button class="btn-primary btn-primary--white" data-modal-control="close">No!</button>';
+
+    modal = $.openModal({
+      title: 'Snippet Deletion',
+      width: 500,
+      content: modalContent,
+      onLoad: function() {
+        $('.js-confirm-delete').on('click', function(e) {
+          e.preventDefault();
+          modal.close();
+          snippetService.deleteById(idToDelete, function(data) {
+            var content;
+            if (typeof data === 'object' && data.isDeleted) {
+              $('#' + data.id).detach();
+              content = '<p>Snippet successfully deleted!</p>';
+            } else {
+              content = '<p>' + data + '</p>';
+            }
+            $.openModal({
+              title: 'Snippet Deletion',
+              width: 500,
+              content: content
+            });
+          });
+        });
+      }
+    });
   };
 
   module.appendIframeContent = function(frameId, template, content, css) {
@@ -68,6 +90,7 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
 
   var submitSnippet = function(data, form) {
     snippetService.postNew(data, function(snippet) {
+      var modalContent;
       if (typeof snippet === 'object' && snippet.category === viewService.getCurrentView().id) {
         iframesService.constructFrame(snippet, function(frame) {
           var currentSnippetElement = $($('#snippet').html()).clone(true),
@@ -125,26 +148,33 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
 
             new ZeroClipboard(currentSnippetElement.find('.js-copy-code').get());
 
-            alert('Snippet Created successfully!');
+            modalContent = '<p>Snippet Created successfully!</p>';
             clearOutForm(form);
             form.removeClass('preloading');
             $(".js-new-snippet-form").toggle();
           });
         });
       } else if (typeof snippet === 'string') {
-        alert(snippet);
+        modalContent = '<p>' + snippet + '</p>';
         form.removeClass('preloading');
       } else if (typeof snippet === 'object') {
-        alert('Snippet Created successfully!');
+        modalContent = '<p>Snippet Created successfully!</p>';
         clearOutForm(form);
         form.removeClass('preloading');
         $(".js-new-snippet-form").toggle();
       }
+
+      $.openModal({
+        title: 'Snippet Creation',
+        width: 500,
+        content: modalContent
+      });
     });
   };
 
   var submitUpdatedSnippet = function(data, snippetId, snippetContainer, form) {
     snippetService.putEdited(data, snippetId, function(snippet) {
+      var modalContent;
       if (typeof snippet === 'object') {
         var snippetContents;
 
@@ -167,11 +197,17 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
 
         form.removeClass('preloading');
         snippetContents.addClass('updated');
-        alert('Snippet updated successfully!');
+        modalContent = '<p>Snippet updated successfully!</p>';
       } else {
-        alert(snippet);
+        modalContent = '<p>' + snippet + '</p>';
         form.removeClass('preloading');
       }
+
+      $.openModal({
+        title: 'Update Snippet',
+        width: 500,
+        content: modalContent
+      });
     });
   };
 
@@ -186,7 +222,8 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
       errors = [],
       len = fields.length,
       data = {},
-      index;
+      index,
+      modal;
 
     form.addClass('preloading');
 
@@ -217,12 +254,25 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
     }
 
     if (errors.length > 0) {
-      errorText = 'Your HTML or CSS syntax contains errors!\n' + 'Are you sure you to submit your snippet?';
-      if (window.confirm(errorText)) {
-        data.code = code.getValue();
-        data.inlineCss = css.getValue();
-        submitSnippet(data, form);
-      }
+      errorText = '<p>Your HTML or CSS syntax contains errors!</p><p>Are you sure you to submit your snippet?</p>';
+      errorText += '<button class="btn-primary btn-primary--white js-confirm-create">Yes!</button>';
+      errorText += '<button class="btn-primary btn-primary--white" data-modal-control="close">No!</button>';
+
+      modal = $.openModal({
+        title: 'Snippet Creation',
+        width: 500,
+        content: errorText,
+        onLoad: function() {
+          $('.js-confirm-create').on('click', function(e) {
+            e.preventDefault();
+            modal.close();
+
+            data.code = code.getValue();
+            data.inlineCss = css.getValue();
+            submitSnippet(data, form);
+          });
+        }
+      });
     } else {
       data.code = code.getValue();
       data.inlineCss = css.getValue();

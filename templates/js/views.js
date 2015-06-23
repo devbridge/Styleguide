@@ -70,8 +70,6 @@ var viewService = (function($, editorService, sassService, categoryService, snip
     for (index = 0; index < len; index++) {
       navList.append(navLinksArr[index].element);
     }
-
-    console.log(sass, undefCat, navLinksArr);
   };
 
   var buildNavigation = function() {
@@ -283,7 +281,11 @@ var viewService = (function($, editorService, sassService, categoryService, snip
         $('.js-scrape-snipp').on('click', $.proxy(snippetActions.scrapeHandler, null, 'snippets'));
         $('.js-scrape-sass').on('click', $.proxy(snippetActions.scrapeHandler, null, 'sass'));
         if (data) {
-          alert('Found duplicates!\n' + JSON.stringify(data, null, 4));
+          $.openModal({
+            title: 'Found Duplicates!',
+            width: 500,
+            content: '<p>Found duplicates!</p><pre>' + JSON.stringify(data, null, 2) + '</pre>'
+          });
         }
       }
     });
