@@ -108,15 +108,16 @@ router.get('/snippets', function(req, res) {
 router.get('/sass', function(req, res) {
   var result = [],
     index,
-    length = config.sassResources.length;
+    length = config.sassResources.length,
+    report = [];
 
   for (index = 0; index < length; index++) {
-    sassScraper.scrapeTheme(index, result);
+    report.push(sassScraper.scrapeTheme(index, result));
   }
 
   jf.writeFileSync(config.sassData, result);
 
-  res.json(result);
+  res.json(report);
 });
 
 module.exports = router;

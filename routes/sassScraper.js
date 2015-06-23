@@ -1,8 +1,63 @@
 var helpers = require('./helpers.js'),
   fs = require('fs'),
+  jf = require('jsonfile'),
   config = JSON.parse(fs.readFileSync('styleguide_config.txt', 'utf8')),
 
   exports = module.exports = {};
+
+Array.prototype.equals = function(array) {
+  if (!array)
+    return false;
+
+  if (this.length !== array.length)
+    return false;
+
+  for (var i = 0, l = this.length; i < l; i++) {
+    if (this[i] instanceof Array && array[i] instanceof Array) {
+      if (!this[i].equals(array[i]))
+        return false;
+    } else if (this[i] instanceof Object && array[i] instanceof Object) {
+      if (!this[i].equals(array[i]))
+        return false;
+    } else if (this[i] !== array[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+Object.prototype.equals = function(object2) {
+  var propName;
+  for (propName in this) {
+    if (this.hasOwnProperty(propName) !== object2.hasOwnProperty(propName)) {
+      return false;
+    } else if (typeof this[propName] !== typeof object2[propName]) {
+      return false;
+    }
+  }
+
+  for (propName in object2) {
+    if (this.hasOwnProperty(propName) !== object2.hasOwnProperty(propName)) {
+      return false;
+    } else if (typeof this[propName] !== typeof object2[propName]) {
+      return false;
+    }
+
+    if (!this.hasOwnProperty(propName))
+      continue;
+
+    if (this[propName] instanceof Array && object2[propName] instanceof Array) {
+      if (!this[propName].equals(object2[propName]))
+        return false;
+    } else if (this[propName] instanceof Object && object2[propName] instanceof Object) {
+      if (!this[propName].equals(object2[propName]))
+        return false;
+    } else if (this[propName] !== object2[propName]) {
+      return false;
+    }
+  }
+  return true;
+};
 
 var parseTypoghraphy = function(theme, sass) {
   var weights,
@@ -128,9 +183,32 @@ var parseColors = function(theme, sass) {
   theme.colors = assignedColors;
 };
 
+var compareForReport = function(theme, report) {
+  var oldData = jf.readFileSync(config.sassData),
+    len = oldData.length,
+    index;
+
+  for (index = 0; index < len; index++) {
+    if (oldData[index].name === theme.name) {
+      oldData = oldData[index];
+      break;
+    }
+  }
+
+  report.themeName = theme.name;
+  report.uniqueColVals = Object.keys(theme.colors).length;
+  report.diffOfColVals = report.uniqueColVals - Object.keys(oldData.colors).length;
+
+  if (!theme.typography.equals(oldData.typography)) {
+    report.oldTypo = oldData.typography;
+    report.newTypo = theme.typography;
+  }
+};
+
 exports.scrapeTheme = function(themeIndex, result) {
   var sass,
-    theme = {};
+    theme = {},
+    report = {};
 
   sass = fs.readFileSync(config.sassResources[themeIndex], {
     encoding: 'utf-8'
@@ -151,5 +229,9 @@ exports.scrapeTheme = function(themeIndex, result) {
     console.log('Color markers not found in ' + theme.name + '.');
   }
 
+  compareForReport(theme, report);
+
   result.push(theme);
+
+  return report;
 };

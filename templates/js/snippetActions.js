@@ -372,6 +372,8 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
   module.scrapeHandler = function(whatToScrape) {
     var scrapeUrl = snippetService.getScrapePath(whatToScrape),
       content,
+      index,
+      len,
       request = $.ajax({
         method: 'GET',
         url: scrapeUrl,
@@ -394,16 +396,40 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
         } else {
           content += '<p>IDs of snippets that were changed: None.</p>';
         }
+      } else {
+        len = data.length;
 
-        $.openModal({
-          title: 'Scrape Report',
-          width: 500,
-          content: content,
-          onClose: function() {
-            window.location.reload(true);
+        for (index = 0; len > index; index++) {
+          content = '<p>Report for theme: ' + data[index].themeName + '</p>';
+          content += '<p>Count of unique color values: ' + data[index].uniqueColVals + '</p>';
+
+          if (data[index].diffOfColVals > 0) {
+            content += '<p>' + data[index].diffOfColVals + ' color values were added.</p>';
+          } else if (data[index].diffOfColVals < 0) {
+            content += '<p>' + Math.abs(data[index].diffOfColVals) + ' color values were removed.</p>';
+          } else if (data[index].diffOfColVals == 0) {
+            content += '<p>Count of color values is the same as it was before.</p>';
           }
-        });
+
+          if (data[index].hasOwnProperty('oldTypo')) {
+            content += '<p>Typography has changed!</p>';
+            content += '<div class="typo-summary-old"><h5>Old Typography:</h5><pre>' + JSON.stringify(data[index].oldTypo, null, 2) + '</pre></div>';
+            content += '<div class="typo-summary-new"><h5>New Typography:</h5><pre>' + JSON.stringify(data[index].newTypo, null, 2) + '</pre></div>';
+          } else {
+            content += '<p>Typography hasn\'t changed!</p>';
+          }
+          content += '<br>';
+        }
       }
+
+      $.openModal({
+        title: 'Scrape Report',
+        width: 500,
+        content: content,
+        onClose: function() {
+          window.location.reload(true);
+        }
+      });
     });
 
     request.fail(function() {
