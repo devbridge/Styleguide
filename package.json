@@ -1,8 +1,11 @@
 {
   "name": "devbridge-styleguide",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Styleguide automatization tool.",
   "author": "Gediminas Stanaitis <gedas@devbridge.com>",
+  "contributors": [
+    "Mantas Miežinas <miezinas.mantas@gmail.com>"
+  ],
   "main": "index.js",
   "homepage": "https://www.devbridge.com/",
   "license": "MIT",

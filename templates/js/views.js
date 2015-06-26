@@ -195,6 +195,8 @@ var viewService = (function($, editorService, sassService, categoryService, snip
       iframe[index].style.width = width;
     }
 
+    $('.js-snippet-preview').css('width', width);
+
     $('.js-snippet-size').val(width);
     $('.js-custom').val(width);
 

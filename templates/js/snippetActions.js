@@ -122,6 +122,8 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
             iframeWindow = currentSnippetElement.find('.js-snippet-preview').find('iframe').get(0);
             iframeWindow.style.width = resolution;
 
+            currentSnippetElement.find('.js-snippet-preview').css('width', resolution);
+
             if (!snippet.isDeleted) {
               currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
             } else {
@@ -374,6 +376,8 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
 
         iframeWindow = currentSnippetElement.find('.js-snippet-preview').find('iframe').get(0);
         iframeWindow.style.width = resolution;
+
+        currentSnippetElement.find('.js-snippet-preview').css('width', resolution);
 
         if (snippets[index].isEdited) {
           currentSnippetElement.addClass('edited-snippet');
