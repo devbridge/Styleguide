@@ -166,9 +166,7 @@ var parseColors = function(theme, sass) {
 
         unassignedColors.splice(index, 1);
       } else {
-        console.log(assignedColors);
         for (color in assignedColors) {
-          console.log(color);
           if (assignedColors[color].indexOf(unassignedColors[index].value) !== -1) {
             assignedColors[color].push(unassignedColors[index].variable);
             unassignedColors.splice(index, 1);
