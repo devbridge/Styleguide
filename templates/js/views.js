@@ -299,5 +299,9 @@ var viewService = (function($, editorService, sassService, categoryService, snip
     return currentView;
   };
 
+  module.getDefaultResolution = function() {
+    return defaultResolution;
+  };
+
   return module;
 })(jQuery || {}, editorService, sassService, categoryService, snippetService);
