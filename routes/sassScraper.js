@@ -90,16 +90,14 @@ var parseTypoghraphy = function(theme, sass) {
     //matches from : to ;, including :. To take variable value.
     fontValue = rawTypoArray[index].match(/(?=:)[\d\D]*?(?=;)/)[0];
     //matches everything in between (), including (. To take font weights.
-    weights = rawTypoArray[index].match(/\([\d\D]*?(?=\))/gi);
+    weights = rawTypoArray[index].match(/(?=\/)[\d\D]+/gi);
 
     fontValue = fontValue.substring(1, fontValue.length).trim();
 
     if (weights) {
       weights = weights[0];
-      weights = weights.substring(1, weights.length);
-      weights = weights.replace(/ /g, '').split(',');
-      weights = weights.map(helpers.convertToNumber);
-      weights = weights.sort();
+      weights = weights.replace(/\//g, '').replace(/ /g, '').split(',');
+      weights = weights.map(helpers.convertToWeightObject);
     } else {
       console.log('Weights were not found for ' + variableName + '.');
     }

@@ -129,9 +129,9 @@ Like with snippets, here you must wrap fonts and colors with specific comments, 
 ```
 //-- typo:start --//
 //module TYPO
-$font-proxima: 'Neue Helvetica W01', helvetica, sans-serif; //(300, 700)
-$font-proxima-alternative: 'Neue Helvetica W01', helvetica, sans-serif; //(400)
-$font-newsgothic: 'Neue Helvetica W01', helvetica, sans-serif; //(700)
+$font-proxima: 'Neue Helvetica W01', helvetica, sans-serif; // 300, 700
+$font-proxima-alternative: 'Neue Helvetica W01', helvetica, sans-serif; // 400, 400 italic
+$font-newsgothic: 'Neue Helvetica W01', helvetica, sans-serif; // 700
 //-- typo:end --//
 
 //-- colors:start --//

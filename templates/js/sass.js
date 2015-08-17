@@ -158,10 +158,16 @@ var sassService = (function($) {
 
           currentFontView.find('.js-set-font').css({
             'font-family': currentFont.value,
-            'font-weight': currentFont.weights[weightsInd]
+            'font-weight': currentFont.weights[weightsInd].weight,
+            'font-style': currentFont.weights[weightsInd].italic ? 'italic' : 'normal'
           });
 
-          fontDescription = currentFont.variable + ': ' + currentFont.value + '; ' + 'font-weight: ' + currentFont.weights[weightsInd] + ';';
+          fontDescription = currentFont.variable + ': ' + currentFont.value + '; ' + 'font-weight: ' + currentFont.weights[weightsInd].weight + ';';
+
+          if (currentFont.weights[weightsInd].italic) {
+            fontDescription += ' font-style: italic;';
+          }
+
           currentFontView.find('.js-variable').text(fontDescription);
 
           fontsContainer.append(currentFontView);

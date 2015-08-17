@@ -23,11 +23,18 @@ exports.filterOutById = function(obj) {
 	}
 };
 
-exports.convertToNumber = function(obj) {
+exports.convertToWeightObject = function(obj) {
 	if (isNumeric(obj)) {
-		return Number(obj);
+		return {
+			weight: Number(obj),
+			italic: false
+		};
 	}
-	return obj;
+
+	return {
+		weight: parseInt(obj),
+		italic: true
+	};
 };
 
 exports.filterOutNotVars = function(obj) {
