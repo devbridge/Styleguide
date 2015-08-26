@@ -17,51 +17,6 @@
 
 $btn-ghost-radius: $border-radius;
 
-.btn-ghost {
-    @extend %btn-template;
-    background-color: transparent;
-    border: 1px solid rgba($color-white, .6);
-    border-radius: $btn-ghost-radius;
-    color: $color-white;
-
-    .fa-angle-left,
-    .fa-angle-right {
-        font-size: 21px;
-    }
-
-    .fa-desktop,
-    .fa-tablet,
-    .fa-mobile {
-        font-size: 17px;
-    }
-
-    .fa-plus,
-    .fa-list {
-        font-size: 15px;
-    }
-}
-
-.btn-ghost-group {
-    @extend .clearfix;
-    display: inline-block;
-    vertical-align: middle;
-
-    .btn-ghost {
-        border-radius: 0;
-        float: left;
-        margin-left: -1px;
-
-        &:first-child {
-            border-radius: $btn-ghost-radius 0 0 $btn-ghost-radius;
-            margin-left: 0;
-        }
-
-        &:last-child {
-            border-radius: 0 $btn-ghost-radius $btn-ghost-radius 0;
-        }
-    }
-}
-
 .btn-primary {
     @extend %btn-template;
     background-color: $color-black;
@@ -77,6 +32,34 @@ $btn-ghost-radius: $border-radius;
         background-color: $color-white;
         border: 1px solid $color-black;
         color: $color-black;
+    }
+}
+
+.btn-menu {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid $color-blue;
+    border-radius: 50%;
+    font-size: 0;
+
+    &:before,
+    &:after {
+        content: '';
+        @include position(absolute, 0 0 0 0);
+        margin: auto;
+        background-color: $color-blue;
+    }
+
+    &:before {
+        width: 13px;
+        height: 1px;
+    }
+
+    &:after {
+        height: 13px;
+        width: 1px;
     }
 }
 

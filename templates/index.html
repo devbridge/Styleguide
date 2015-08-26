@@ -1,379 +1,423 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Styleguide</title>
-	<link rel="icon" type="image/ico" href="favicon.ico">
-	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
-	<link rel="stylesheet" href="content/main.css">
-	<link rel="stylesheet" type="text/css" href="content/modal-styles.css">
-	<style type="text/css" media="screen">
-	    .editor-view {
-	        position: relative;
-	        height: 180px;
-	        width: 380px;
-	    }
+    <meta charset="UTF-8">
+    <title>Styleguide</title>
+    <link rel="icon" type="image/ico" href="favicon.ico">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
+    <link rel="stylesheet" href="content/main.css">
+    <link rel="stylesheet" type="text/css" href="content/modal-styles.css">
+    <style type="text/css" media="screen">
+        .editor-view {
+            position: relative;
+            height: 180px;
+            width: 380px;
+        }
 
-	    .fullScreen .fullScreen-editor{
-			height: auto!important;
-			width: auto!important;
-			border: 0;
-	        margin: 0;
-	        position: fixed !important;
-	        top: 0;
-	        bottom: 0;
-	        left: 0;
-	        right: 0;
-			z-index: 10000
-	    }
+        .fullScreen .fullScreen-editor {
+            height: auto !important;
+            width: auto !important;
+            border: 0;
+            margin: 0;
+            position: fixed !important;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000
+        }
 
-		.fullScreen {
-			overflow: hidden
-		}
+        .fullScreen {
+            overflow: hidden
+        }
 
-		code {
-			white-space: pre;
-		}
+        code {
+            white-space: pre;
+        }
 
-		iframe {
-			width: 100%;
-			height: auto;
-			border: 0;
-		}
+        iframe {
+            width: 100%;
+            height: auto;
+            border: 0;
+        }
 
-	</style>
+    </style>
 </head>
 <body>
-	<div class="page-container">
-		<header class="header page-prewrapper">
-			<div class="page-wrapper">
-				<h1>Styleguide</h1>
-				<span class="icon-edit">edit</span>
-				<nav class="header-nav js-navigation">
-					<h2 class="h1 js-current-page">Components</h2>
-					<div class="dropdown js-navigation-list">
-					</div>
-					<div class="btn-ghost-group">
-						<a class="btn-ghost js-prev-cat" href="#" title="Previous"><i class="fa fa-angle-left"></i></a>
-						<a class="btn-ghost js-next-cat" href="#" title="Next"><i class="fa fa-angle-right"></i></a>
-					</div>
-				</nav>
+<div class="page-container">
+    <header class="sg-header page-prewrapper">
+        <div class="page-wrapper clearfix">
+            <h1>Styleguide</h1>
+            <nav class="sg-header-nav js-navigation">
+                <button class="subtitle js-current-page js-open-dropdown">Components</button>
 
-				<div class="header-snippets-controls">
-					<button class="btn-ghost js-header-new-snippet" type="button" title="New Snippet"><i class="fa fa-plus"></i> New</button>
-					<button class="btn-ghost" type="button" title="Menu"><i class="fa fa-list"></i></button>
-					<div class="dropdown-buttons">
-						<button class="btn-ghost js-scrape-snipp">Scrape Snippets</button>
-						<button class="btn-ghost js-scrape-sass">Scrape SASS</button>
-					</div>
-				</div>
+                <div class="dropdown-list js-dropdown-list">
+                    <ul class="js-navigation-list"></ul>
+                </div>
+                <div class="btn-nav-group">
+                    <button class="btn-nav js-prev-cat" type="button" title="Previous">Previous</button>
+                    <button class="btn-nav js-next-cat" type="button" title="Next">Next</button>
+                </div>
+            </nav>
 
-				<div class="header-size-controls">
-					<div class="btn-ghost-group">
-						<button class="btn-ghost js-desktop" type="button" title="Desktop"><i class="fa fa-desktop"></i></button>
-						<button class="btn-ghost js-tablet" type="button" title="Tablet"><i class="fa fa-tablet"></i></button>
-						<button class="btn-ghost js-mobile" type="button" title="Mobile"><i class="fa fa-mobile"></i></button>
-						<input class="btn-ghost js-custom" type="text" title="Custom" value="">
-					</div>
-				</div>
-			</div>
-		</header>
+            <div class="sg-snippets-controls">
+                <button class="btn-menu js-open-dropdown" type="button" title="Menu">Menu</button>
+                <div class="dropdown-list js-dropdown-list">
+                    <ul>
+                        <li>
+                            <button class="js-header-new-snippet" type="button">New snippet</button>
+                        </li>
+                        <li>
+                            <button class="js-scrape-snipp" type="button">Scrape snippets</button>
+                        </li>
+                        <li>
+                            <button class="js-scrape-sass" type="button">Scrape Scss</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-		<section class="snippet-form snippet-form--new-snippet page-prewrapper js-new-snippet-form" style="display: none;">
-				<div class="page-wrapper">
-					<form class="row js-create-snippet" action="/snippets">
-						<div class="medium-2 columns">
-							<h1>New Snippet</h1>
-						</div>
-						<div class="medium-4 columns">
-							<div class="form-item">
-								<label for="form-new-name">* Name:</label>
-								<input type="text" id="form-new-name" class="js-form-submit-field" data-js-field-name="name" required>
-							</div>
+            <ul class="header-size-controls">
+                <li>
+                    <button class="btn-ghost js-mobile" type="button" title="Mobile">480</button>
+                <li>
+                    <button class="btn-ghost js-tablet" type="button" title="Tablet">768</button>
+                </li>
+                <li>
+                    <button class="btn-ghost js-desktop" type="button" title="Desktop">1200</button>
+                </li>
+                <li>
+                    <input class="input-new-size js-custom" type="text" title="Custom" value="">
+                    <span class="dots">...</span>
+                </li>
+            </ul>
+        </div>
+    </header>
 
-							<div class="form-item">
-								<label for="form-new-category">* Category:</label>
-								<select id="form-new-category" required class="js-form-submit-field js-form-select" data-js-field-name="category" required>
-								</select>
-							</div>
+    <section class="snippet-form snippet-form--new-snippet page-prewrapper js-new-snippet-form" style="display: none;">
+        <div class="page-wrapper">
+            <form class="row js-create-snippet" action="/snippets">
+                <div class="medium-2 columns">
+                    <h1>New Snippet</h1>
+                </div>
+                <div class="medium-4 columns">
+                    <div class="form-item">
+                        <label for="form-new-name">* Name:</label>
+                        <input type="text" id="form-new-name" class="js-form-submit-field" data-js-field-name="name"
+                               required>
+                    </div>
 
-							<div class="form-item">
-								<label for="form-new-code">* Code:</label>
-								<button class="js-toggle-code-editor-full-screen">Toogle Full Screen</button>
-								<div id="jsNewCode" class="editor-view"></div><label id="form-new-code-error" style="display: none;">This field is required.</label>
-							</div>
-							<div class="form-item">
-								<label for="form-new-include-js">Include JavaScripts:</label>
-								<input type="checkbox" id="form-new-include-js">
-							</div>
-						</div>
+                    <div class="form-item">
+                        <label for="form-new-category">* Category:</label>
+                        <select id="form-new-category" required class="js-form-submit-field js-form-select"
+                                data-js-field-name="category" required>
+                        </select>
+                    </div>
 
-						<div class="medium-4 columns end">
-							<div class="form-item form-item">
-								<label for="form-new-desciption">Desciption:</label>
-								<textarea id="form-new-desciption" class="js-form-submit-field" data-js-field-name="description"></textarea>
-							</div>
+                    <div class="form-item">
+                        <label for="form-new-code">* Code:</label>
+                        <button class="js-toggle-code-editor-full-screen">Toogle Full Screen</button>
+                        <div id="jsNewCode" class="editor-view"></div>
+                        <label id="form-new-code-error" style="display: none;">This field is required.</label>
+                    </div>
+                    <div class="form-item">
+                        <label for="form-new-include-js">Include JavaScripts:</label>
+                        <input type="checkbox" id="form-new-include-js">
+                    </div>
+                </div>
 
-							<div class="form-item">
-								<label>Inline CSS: <i class="fa fa-info-circle"></i></label>
-								<button class="js-toggle-css-editor-full-screen">Toogle Full Screen</button>
-								<div id="jsNewCss" class="editor-view"></div>
-							</div>
-						</div>
-						<div class="row controls-row">
-							<div class="medium-4 columns medium-offset-2">
-								<button class="btn-primary" type="submit">Create</button>
-								<button class="btn-blank" type="button">Cancel</button>
-							</div>
-							<div class="medium-4 columns end text-right">
-								* - Mandatory fields
-							</div>
-					</div>
-					</form>
-				</div>
-		</section>
+                <div class="medium-4 columns end">
+                    <div class="form-item form-item">
+                        <label for="form-new-desciption">Desciption:</label>
+                        <textarea id="form-new-desciption" class="js-form-submit-field"
+                                  data-js-field-name="description"></textarea>
+                    </div>
 
-		<main class="main">
+                    <div class="form-item">
+                        <label>Inline CSS: <i class="fa fa-info-circle"></i></label>
+                        <button class="js-toggle-css-editor-full-screen">Toogle Full Screen</button>
+                        <div id="jsNewCss" class="editor-view"></div>
+                    </div>
+                </div>
+                <div class="row controls-row">
+                    <div class="medium-4 columns medium-offset-2">
+                        <button class="btn-primary" type="submit">Create</button>
+                        <button class="btn-blank" type="button">Cancel</button>
+                    </div>
+                    <div class="medium-4 columns end text-right">
+                        * - Mandatory fields
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
 
-		</main>
-	</div>
+    <main class="main">
 
-	<footer class="footer page-prewrapper">
-		<div class="page-wrapper">
-			Powered by Devbridge
-		</div>
-	</footer>
+    </main>
+</div>
 
-	<script type="text/html" id="snippet">
-		<section class="snippet js-snippet page-prewrapper">
-				<header class="snippet-header">
-					<div class="page-wrapper clearfix">
-						<h1 class="js-snippet-name">Snippet Name</h1>
-						<div class="pull-right">
-							<button class="snippet-control-btn js-snippet-settings-btn" type="button"><i class="fa fa-cog"></i></button>
-							<button class="snippet-control-btn js-snippet-code-btn" type="button"><i class="fa fa-code"></i></button>
-						</div>
-						<input type="text" class="snippet-size js-snippet-size" value="1200px"></input>
-					</div>
-				</header>
-				<div class="snippet-code page-prewrapper js-snippet-code" style="display: none;">
-					<div class="page-wrapper">
-						<div class="row">
-							<button class="medium-12 columns js-copy-code">Copy code to clipboard</button>
-							<code class="medium-6 columns code-preview js-snippet-code-preview">
-								code preview
-							</code>
-							<div class="medium-6 columns end code-description js-snippet-description">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda alias, voluptatibus quasi ipsam quas ipsa tenetur pariatur velit cum reprehenderit optio perferendis ad labore ea, porro?
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="snippet-preview js-snippet-preview" style="width: 1200px;">
-					<div class="snippet-source js-snippet-source">
-						<div class="made-up-snippet-example">
-							<h2>Example snippet with long heading Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores unde eveniet, non.</h2>
-							<div style="border: 1px solid #bada55;">
-								Some sort of content here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eaque deleniti qui perspiciatis tempora.
-							</div>
-						</div>
-					</div>
-					<div class="snippet-resize-handle snippet-resize-handle-left js-snippet-resize-handle-left" draggable="true"></div>
-					<div class="snippet-resize-handle snippet-resize-handle-right js-snippet-resize-handle-right" draggable="true"></div>
-				</div>
-				<div class="snippet-settings js-snippet-settings" style="display: none;">
-					<section class="snippet-form page-prewrapper">
-						<div class="page-wrapper">
-							<form class="row js-edit-snippet">
-								<div class="medium-2 columns">
-									<h1>Edit Snippet</h1>
-								</div>
-								<div class="medium-4 columns">
-									<div class="form-item">
-										<label for="form-new-name">* Name:</label>
-										<input type="text" id="form-new-name" class="js-form-submit-field" data-js-field-name="name" required>
-									</div>
+<footer class="footer page-prewrapper">
+    <div class="page-wrapper">
+        Powered by Devbridge
+    </div>
+</footer>
 
-									<div class="form-item">
-										<label for="form-new-category">* Category:</label>
-										<select id="form-new-category" required class="js-form-submit-field js-form-select" data-js-field-name="category" required>
-										</select>
-									</div>
+<script type="text/html" id="snippet">
+    <section class="snippet js-snippet page-prewrapper">
+        <header class="snippet-header">
+            <div class="page-wrapper clearfix">
+                <h1 class="js-snippet-name">Snippet Name</h1>
 
-									<div class="form-item">
-										<label for="form-new-code">* Code:</label>
-										<button class="js-toggle-code-full-screen">Toogle Full Screen</button>
-										<div class="editor-view js-edit-code"></div>
-									</div>
-									<div class="form-item">
-										<label for="form-new-include-js">Include JavaScripts:</label>
-										<input type="checkbox" id="form-new-include-js">
-									</div>
-								</div>
+                <div class="pull-right">
+                    <button class="snippet-control-btn js-snippet-settings-btn" type="button"><i class="fa fa-cog"></i>
+                    </button>
+                    <button class="snippet-control-btn js-snippet-code-btn" type="button"><i class="fa fa-code"></i>
+                    </button>
+                </div>
+                <input type="text" class="snippet-size js-snippet-size" value="1200px"></input>
+            </div>
+        </header>
+        <div class="snippet-code page-prewrapper js-snippet-code" style="display: none;">
+            <div class="page-wrapper">
+                <div class="row">
+                    <button class="medium-12 columns js-copy-code">Copy code to clipboard</button>
+                    <code class="medium-6 columns code-preview js-snippet-code-preview">
+                        code preview
+                    </code>
 
-								<div class="medium-4 columns end">
-									<div class="form-item form-item">
-										<label for="form-new-description">Description:</label>
-										<textarea id="form-new-description" class="js-form-submit-field" data-js-field-name="description"></textarea>
-									</div>
+                    <div class="medium-6 columns end code-description js-snippet-description">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda alias, voluptatibus quasi
+                        ipsam quas ipsa tenetur pariatur velit cum reprehenderit optio perferendis ad labore ea, porro?
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="snippet-preview js-snippet-preview" style="width: 1200px;">
+            <div class="snippet-source js-snippet-source">
+                <div class="made-up-snippet-example">
+                    <h2>Example snippet with long heading Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Asperiores unde eveniet, non.</h2>
 
-									<div class="form-item">
-										<label for="form-new-inlinecss">Inline CSS: <i class="fa fa-info-circle"></i></label>
-										<button class="js-toggle-css-full-screen">Toogle Full Screen</button>
-										<div class="editor-view js-edit-css"></div>
-									</div>
-								</div>
-								<div class="row controls-row">
-									<div class="medium-4 columns medium-offset-2">
-										<button class="btn-primary" type="submit">Update</button>
-										<button class="btn-blank" type="button">Cancel</button>
-									</div>
-									<div class="medium-4 columns end text-right">
-										<button class="btn-primary btn-primary--white js-delete-snippet" type="button"><i class="fa fa-trash-o"></i>Delete Snippet</button>
-									</div>
-							</div>
-							</form>
-						</div>
-					</section>
-				</div>
-			</section>
-	</script>
+                    <div style="border: 1px solid #bada55;">
+                        Some sort of content here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eaque
+                        deleniti qui perspiciatis tempora.
+                    </div>
+                </div>
+            </div>
+            <div class="snippet-resize-handle snippet-resize-handle-left js-snippet-resize-handle-left"
+                 draggable="true"></div>
+            <div class="snippet-resize-handle snippet-resize-handle-right js-snippet-resize-handle-right"
+                 draggable="true"></div>
+        </div>
+        <div class="snippet-settings js-snippet-settings" style="display: none;">
+            <section class="snippet-form page-prewrapper">
+                <div class="page-wrapper">
+                    <form class="row js-edit-snippet">
+                        <div class="medium-2 columns">
+                            <h1>Edit Snippet</h1>
+                        </div>
+                        <div class="medium-4 columns">
+                            <div class="form-item">
+                                <label for="form-new-name">* Name:</label>
+                                <input type="text" id="form-new-name" class="js-form-submit-field"
+                                       data-js-field-name="name" required>
+                            </div>
 
-	<script type="text/html" id="sass-page">
-		<section class="snippet page-prewrapper">
-					<header class="snippet-header">
-						<div class="page-wrapper clearfix">
-							<h1>Colors</h1>
-						</div>
-					</header>
-					<div class="snippet-preview" style="width: 1200px;">
-						<div class="snippet-source">
-							<ul class="snippet-colors js-snippet-colors">
-								<li class="js-color-box">
-									<i style="background: #000;"></i> <br>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</section>
+                            <div class="form-item">
+                                <label for="form-new-category">* Category:</label>
+                                <select id="form-new-category" required class="js-form-submit-field js-form-select"
+                                        data-js-field-name="category" required>
+                                </select>
+                            </div>
 
-			<section class="snippet page-prewrapper">
-				<header class="snippet-header">
-					<div class="page-wrapper clearfix">
-						<h1>Fonts</h1>
-					</div>
-				</header>
-				<div class="snippet-preview" style="width: 1200px;">
-					<div class="snippet-source">
-						<ul class="snippet-fonts js-fonts-container">
-							<li class="row js-font-tpl">
-								<div class="medium-2 columns medium-offset-2 snippet-fonts-big js-set-font" style="font-family: Lato, Arial, sans-serif;">
-									Aa
-								</div>
-								<div class="medium-8 columns js-small-fonts-container">
-									<div class="snippet-fonts-variable js-variable">$font-main: Lato, Arial, sans-serif;</div>
-									<div class="snippet-fonts-small js-set-font" style="font-family: Lato, Arial, sans-serif;">
-										a b c d e f g h i j k l m n o p q r s t u v w x y z <br>
-										A B C D E F G H I J K L M N O P Q R S T U V W X Y Z <br>
-										1 2 3 4 5 6 7 8 9 0
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</section>
+                            <div class="form-item">
+                                <label for="form-new-code">* Code:</label>
+                                <button class="js-toggle-code-full-screen">Toogle Full Screen</button>
+                                <div class="editor-view js-edit-code"></div>
+                            </div>
+                            <div class="form-item">
+                                <label for="form-new-include-js">Include JavaScripts:</label>
+                                <input type="checkbox" id="form-new-include-js">
+                            </div>
+                        </div>
 
-			<section class="snippet page-prewrapper">
-				<header class="snippet-header">
-					<div class="page-wrapper clearfix">
-						<h1>Typography</h1>
-					</div>
-				</header>
-				<div class="snippet-preview" style="width: 1200px;">
-					<div class="snippet-source">
-						<ul class="snippet-type-headings">
-							<li class="row">
-								<div class="medium-1 columns medium-offset-1"><h1>&lt;h1&gt;</h1></div>
-								<div class="medium-10 columns"><h1>The quick brown fox jumps over the lazy dog</h1></div>
-							</li>
-							<li class="row">
-								<div class="medium-1 columns medium-offset-1"><h2>&lt;h2&gt;</h2></div>
-								<div class="medium-10 columns"><h2>The quick brown fox jumps over the lazy dog</h2></div>
-							</li>
-							<li class="row">
-								<div class="medium-1 columns medium-offset-1"><h3>&lt;h3&gt;</h3></div>
-								<div class="medium-10 columns"><h3>The quick brown fox jumps over the lazy dog</h3></div>
-							</li>
-							<li class="row">
-								<div class="medium-1 columns medium-offset-1"><h4>&lt;h4&gt;</h4></div>
-								<div class="medium-10 columns"><h4>The quick brown fox jumps over the lazy dog</h4></div>
-							</li>
-							<li class="row">
-								<div class="medium-1 columns medium-offset-1"><h5>&lt;h5&gt;</h5></div>
-								<div class="medium-10 columns"><h5>The quick brown fox jumps over the lazy dog</h5></div>
-							</li>
-							<li class="row">
-								<div class="medium-1 columns medium-offset-1"><h6>&lt;h6&gt;</h6></div>
-								<div class="medium-10 columns"><h6>The quick brown fox jumps over the lazy dog</h6></div>
-							</li>
-						</ul>
+                        <div class="medium-4 columns end">
+                            <div class="form-item form-item">
+                                <label for="form-new-description">Description:</label>
+                                <textarea id="form-new-description" class="js-form-submit-field"
+                                          data-js-field-name="description"></textarea>
+                            </div>
 
-						<div class="snippet-type-text js-examples-container">
-							<div class="row js-font-example">
-								<div class="medium-4 columns">
-									<h1>Regular</h1>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit sint! Quibusdam est, quae nulla.
-									</p>
-									<ul>
-										<li>Lorem ipsum dolor sit.</li>
-										<li>Lorem ipsum dolor sit.</li>
-										<li>Lorem ipsum dolor sit.</li>
-									</ul>
-								</div>
-								<div class="medium-4 columns">
-									<h1>Bold</h1>
-									<p style="font-weight: bold;">
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit sint! Quibusdam est, quae nulla.
-									</p>
-									<ul style="font-weight: bold;">
-										<li>Lorem ipsum dolor sit.</li>
-										<li>Lorem ipsum dolor sit.</li>
-										<li>Lorem ipsum dolor sit.</li>
-									</ul>
-								</div>
-								<div class="medium-4 columns">
-									<h1>Italic</h1>
-									<p style="font-style: italic;">
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit sint! Quibusdam est, quae nulla.
-									</p>
-									<ul style="font-style: italic;">
-										<li>Lorem ipsum dolor sit.</li>
-										<li>Lorem ipsum dolor sit.</li>
-										<li>Lorem ipsum dolor sit.</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-	</script>
+                            <div class="form-item">
+                                <label for="form-new-inlinecss">Inline CSS: <i class="fa fa-info-circle"></i></label>
+                                <button class="js-toggle-css-full-screen">Toogle Full Screen</button>
+                                <div class="editor-view js-edit-css"></div>
+                            </div>
+                        </div>
+                        <div class="row controls-row">
+                            <div class="medium-4 columns medium-offset-2">
+                                <button class="btn-primary" type="submit">Update</button>
+                                <button class="btn-blank" type="button">Cancel</button>
+                            </div>
+                            <div class="medium-4 columns end text-right">
+                                <button class="btn-primary btn-primary--white js-delete-snippet" type="button"><i
+                                        class="fa fa-trash-o"></i>Delete Snippet
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </section>
+</script>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/interact-1.2.4.min.js"></script>
-	<script src="js/ZeroClipboard.min.js" type="text/javascript"></script>
-	<script src="js/jquery.modal.js" type="text/javascript"></script>
-	<script src="js/categories.js" type="text/javascript"></script>
-	<script src="js/snippets.js" type="text/javascript"></script>
-	<script src="js/iframes.js" type="text/javascript"></script>
-	<script src="js/editor.js" type="text/javascript"></script>
-	<script src="js/sass.js" type="text/javascript"></script>
-	<script src="js/views.js" type="text/javascript"></script>
-	<script src="js/snippetActions.js" type="text/javascript"></script>
-	<script src="js/main.js"></script>
+<script type="text/html" id="sass-page">
+    <section class="snippet page-prewrapper">
+        <header class="snippet-header">
+            <div class="page-wrapper clearfix">
+                <h1>Colors</h1>
+            </div>
+        </header>
+        <div class="snippet-preview" style="width: 1200px;">
+            <div class="snippet-source">
+                <ul class="snippet-colors js-snippet-colors">
+                    <li class="js-color-box">
+                        <i style="background: #000;"></i> <br>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="snippet page-prewrapper">
+        <header class="snippet-header">
+            <div class="page-wrapper clearfix">
+                <h1>Fonts</h1>
+            </div>
+        </header>
+        <div class="snippet-preview" style="width: 1200px;">
+            <div class="snippet-source">
+                <ul class="snippet-fonts js-fonts-container">
+                    <li class="row js-font-tpl">
+                        <div class="medium-2 columns medium-offset-2 snippet-fonts-big js-set-font"
+                             style="font-family: Lato, Arial, sans-serif;">
+                            Aa
+                        </div>
+                        <div class="medium-8 columns js-small-fonts-container">
+                            <div class="snippet-fonts-variable js-variable">$font-main: Lato, Arial, sans-serif;</div>
+                            <div class="snippet-fonts-small js-set-font" style="font-family: Lato, Arial, sans-serif;">
+                                a b c d e f g h i j k l m n o p q r s t u v w x y z <br>
+                                A B C D E F G H I J K L M N O P Q R S T U V W X Y Z <br>
+                                1 2 3 4 5 6 7 8 9 0
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="snippet page-prewrapper">
+        <header class="snippet-header">
+            <div class="page-wrapper clearfix">
+                <h1>Typography</h1>
+            </div>
+        </header>
+        <div class="snippet-preview" style="width: 1200px;">
+            <div class="snippet-source">
+                <ul class="snippet-type-headings">
+                    <li class="row">
+                        <div class="medium-1 columns medium-offset-1"><h1>&lt;h1&gt;</h1></div>
+                        <div class="medium-10 columns"><h1>The quick brown fox jumps over the lazy dog</h1></div>
+                    </li>
+                    <li class="row">
+                        <div class="medium-1 columns medium-offset-1"><h2>&lt;h2&gt;</h2></div>
+                        <div class="medium-10 columns"><h2>The quick brown fox jumps over the lazy dog</h2></div>
+                    </li>
+                    <li class="row">
+                        <div class="medium-1 columns medium-offset-1"><h3>&lt;h3&gt;</h3></div>
+                        <div class="medium-10 columns"><h3>The quick brown fox jumps over the lazy dog</h3></div>
+                    </li>
+                    <li class="row">
+                        <div class="medium-1 columns medium-offset-1"><h4>&lt;h4&gt;</h4></div>
+                        <div class="medium-10 columns"><h4>The quick brown fox jumps over the lazy dog</h4></div>
+                    </li>
+                    <li class="row">
+                        <div class="medium-1 columns medium-offset-1"><h5>&lt;h5&gt;</h5></div>
+                        <div class="medium-10 columns"><h5>The quick brown fox jumps over the lazy dog</h5></div>
+                    </li>
+                    <li class="row">
+                        <div class="medium-1 columns medium-offset-1"><h6>&lt;h6&gt;</h6></div>
+                        <div class="medium-10 columns"><h6>The quick brown fox jumps over the lazy dog</h6></div>
+                    </li>
+                </ul>
+
+                <div class="snippet-type-text js-examples-container">
+                    <div class="row js-font-example">
+                        <div class="medium-4 columns">
+                            <h1>Regular</h1>
+
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt
+                                recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit
+                                sint! Quibusdam est, quae nulla.
+                            </p>
+                            <ul>
+                                <li>Lorem ipsum dolor sit.</li>
+                                <li>Lorem ipsum dolor sit.</li>
+                                <li>Lorem ipsum dolor sit.</li>
+                            </ul>
+                        </div>
+                        <div class="medium-4 columns">
+                            <h1>Bold</h1>
+
+                            <p style="font-weight: bold;">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt
+                                recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit
+                                sint! Quibusdam est, quae nulla.
+                            </p>
+                            <ul style="font-weight: bold;">
+                                <li>Lorem ipsum dolor sit.</li>
+                                <li>Lorem ipsum dolor sit.</li>
+                                <li>Lorem ipsum dolor sit.</li>
+                            </ul>
+                        </div>
+                        <div class="medium-4 columns">
+                            <h1>Italic</h1>
+
+                            <p style="font-style: italic;">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt
+                                recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit
+                                sint! Quibusdam est, quae nulla.
+                            </p>
+                            <ul style="font-style: italic;">
+                                <li>Lorem ipsum dolor sit.</li>
+                                <li>Lorem ipsum dolor sit.</li>
+                                <li>Lorem ipsum dolor sit.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/interact-1.2.4.min.js"></script>
+<script src="js/ZeroClipboard.min.js" type="text/javascript"></script>
+<script src="js/jquery.modal.js" type="text/javascript"></script>
+<script src="js/categories.js" type="text/javascript"></script>
+<script src="js/snippets.js" type="text/javascript"></script>
+<script src="js/iframes.js" type="text/javascript"></script>
+<script src="js/editor.js" type="text/javascript"></script>
+<script src="js/sass.js" type="text/javascript"></script>
+<script src="js/views.js" type="text/javascript"></script>
+<script src="js/snippetActions.js" type="text/javascript"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

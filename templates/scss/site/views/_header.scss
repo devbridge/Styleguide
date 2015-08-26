@@ -1,81 +1,234 @@
-.header {
-	@extend .clearfix;
-	background: $color-black;
-	color: $color-white;
-	padding: 16px 0;
-	
-	h1,
-	h2 {
-		height: 28px;
-		line-height: 1;
-	}
-	
-	h1 {
-		float: left;
-		margin-right: 24px;
-	}
+.sg-header {
+    @extend .clearfix;
+    background: $color-black;
+    color: $color-white;
+    padding: 14px 0 13px;
+
+    h1 {
+        float: left;
+        margin-right: 10px;
+        font: {
+            weight: $weight-bold;
+            size: 20px;
+        }
+        color: $color-blue;
+        line-height: 1.4;
+    }
 }
 
-.header-nav {
-	float: left;
-	position: relative;
-	
-	h2 {
-		border-left: 1px solid $color-white;
-		display: inline-block;
-		font-weight: 300;
-		margin: 0 24px 0 0;
-		opacity: .6;
-		padding: 0 0 0 12px;
-		vertical-align: middle;
-		
-		&:hover + .dropdown {
-			display: block;
-		}
-	}
-	
-	.dropdown {
-		@extend .layer-6;
-		background: $color-black;
-		border: 1px solid $color-white;
-		border-radius: $border-radius;
-		display: none;
-		left: -2px;
-		padding: 6px 8px;
-		position: absolute;
-		top: 0;
-		width: 154px;
-		
-		a {
-			color: $color-white;
-			display: block;
-			text-decoration: none;
-		}
-		
-		a:hover {
-			text-decoration: underline;
-		}
-		
-		&:hover {
-			display: block;
-		}
-	}
+.sg-header-nav {
+    float: left;
+    position: relative;
+
+    .subtitle {
+        position: relative;
+        display: inline-block;
+        height: 26px;
+        margin: -6px 30px 0 0;
+        padding: 0 24px 0 10px;
+        vertical-align: middle;
+        border: solid #999999;
+        border-width: 0 0 0 1px;
+        background: transparent;
+        font: {
+            weight: $weight-light;
+            size: 20px;
+        }
+        line-height: 1;
+        color: $color-white;
+
+        &:before {
+            content: '\f107';
+            @include position(absolute, 5px 0 null null);
+            font-size: 20px;
+            @extend %font-icon-style;
+        }
+    }
 }
 
+// module Navigation buttons
+.btn-nav-group {
+    display: inline-block;
+    height: 32px;
+    border: 1px solid #4d4d4d;
+    border-radius: 20px;
+
+    .btn-nav {
+        height: 29px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font-size: 0;
+
+        &:before {
+            display: inline-block;
+            padding: 0 10px;
+            font-size: 20px;
+            line-height: 1.3;
+            @extend %font-icon-style;
+        }
+
+        &:hover,
+        &:focus {
+            color: #A9A9A9;
+        }
+
+        &:first-child {
+            &:before {
+                content: '\f104';
+            }
+        }
+
+        + .btn-nav {
+            &:before {
+                content: '\f105';
+            }
+        }
+    }
+}
+
+// module Size controls
 .header-size-controls {
-	margin: 0 auto;
-	text-align: center;
-	width: 200px;
-	
-	.btn-ghost {
-		min-width: 42px;
-		
-		&[type=text] {
-			width: 56px;
-		}
-	}
+    float: right;
+    margin: 0 70px 0 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+        display: inline-block;
+        position: relative;
+
+        + li {
+            margin-left: 13px;
+
+            &:before {
+                content: '';
+                @include position(absolute, 0 null 0 0);
+                width: 14px;
+                height: 1px;
+                margin: auto 0 auto -14px;
+                background-color: $color-grey-dark;
+            }
+        }
+
+        &:last-child {
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    button {
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        padding: 0;
+        background: transparent;
+        border: 1px solid $color-grey-dark;
+        border-radius: 50%;
+        color: #666666;
+        font-size: 13px;
+        text-align: center;
+
+        &.active,
+        &:hover {
+            border-color: $color-blue;
+            color: $color-blue;
+        }
+    }
+
+    .input-new-size {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        border: 1px solid $color-grey-dark;
+        color: transparent;
+        border-radius: 50%;
+        background-color: transparent;
+        text-align: center;
+        @include transition(width .3s ease);
+        z-index: 1;
+
+        &:focus {
+            width: 60px;
+            border-radius: 20px;
+            border-color: $color-blue;
+            color: $color-blue;
+            text-align: left;
+            padding: 0 7px;
+
+            ~ .dots {
+                opacity: 0;
+            }
+        }
+    }
+
+    .dots {
+        @include position(absolute, 0 0 0 null);
+        width: 32px;
+        height: 32px;
+        line-height: 2.2;
+        text-align: center;
+        color: #666666;
+        opacity: 1;
+        @include transition(all .2s ease);
+        z-index: 0;
+    }
 }
 
-.header-snippets-controls {
-	float: right;
+.sg-snippets-controls {
+    float: right;
+    position: relative;
+
+    .dropdown-list {
+        right: 0;
+
+        ul {
+            &:before {
+                left: auto;
+                right: 10px;
+                margin: 0;
+            }
+        }
+    }
+}
+
+// module Dropdown list
+.dropdown-list {
+    max-height: 0;
+    overflow: hidden;
+    @include position(absolute, 44px null null null);
+    background-color: $bg-dropdown;
+    z-index: 1;
+    @include transition(all .4s ease-out);
+
+    &.active {
+        max-height: 400px;
+        overflow: visible;
+    }
+
+    ul {
+        position: relative;
+        margin: 0;
+        padding: 20px 0;
+        list-style: none;
+        border-top: 2px solid $color-blue;
+
+        &:before {
+            content: '';
+            @include position(absolute, -6px 0 null 0);
+            margin: 0 auto;
+            @include triangle(10px 4px, $color-blue, up);
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 0 25px;
+        background-color: transparent;
+        border: none;
+        white-space: nowrap;
+        color: $text-secondary;
+        text-align: left;
+    }
 }

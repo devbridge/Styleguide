@@ -15,7 +15,7 @@
 			position: relative;
 
 			&:after {
-				@include triangle("top", 26px, 12px, $color-grey);
+				//@include triangle("top", 26px, 12px, $color-grey);
 				right: 66px;
 				top: -82px;
 			}

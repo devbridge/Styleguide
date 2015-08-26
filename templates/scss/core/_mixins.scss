@@ -1,34 +1,11 @@
-@mixin triangle($direction, $width, $height, $color) {
-	content: '';
-	display: block;
-	position: absolute;
-	height: 0;
-	width: 0;
-	border-style: solid;
-	
-	@if $direction == 'top' {
-		border-color: transparent transparent $color;
-		border-width: 0 $width/2 $height;
-	} @else if $direction == 'right' {
-		border-color: transparent transparent transparent $color;
-		border-width: $height/2 0 $height/2 $width;
-	} @else if $direction == 'bottom' {
-		border-color: $color transparent transparent;
-		border-width: $height $width/2 0;
-	} @else if $direction == 'left' {
-		border-color: transparent $color transparent transparent;
-		border-width: $height/2 $width $height/2 0;
-	} @else if $direction == 'top right' {
-		border-color: transparent $color transparent transparent;
-		border-width: 0 $width $height 0;
-	} @else if $direction == 'bottom right' {
-		border-color: transparent transparent $color;
-		border-width: 0 0 $height $width;
-	} @else if $direction == 'top left' {
-		border-color: $color transparent transparent;
-		border-width: $height $width 0 0;
-	} @else if $direction == 'bottom left' {
-		border-color: transparent transparent transparent $color;
-		border-width: $height 0 0 $width;
+%font-icon-style {
+	font-family: 'FontAwesome';
+	font: {
+		family: 'FontAwesome';
+		weight: normal;
+		style: normal;
 	}
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }

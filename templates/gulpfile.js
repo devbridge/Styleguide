@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
 	sass = require('gulp-sass'),
-	autoprefixer = require('gulp-autoprefixer');
+	autoprefixer = require('gulp-autoprefixer'),
+	styleguide = require('devbridge-styleguide');
 function showError(error) {
 	console.log(error.toString());
 	this.emit('end');
@@ -20,4 +21,8 @@ gulp.task('default', function() {
 
 gulp.task('watch', function() {
 	gulp.watch('scss/**/*.scss', ['sass']);
+});
+
+gulp.task('start-styleguide', function () {
+	styleguide.startServer();
 });

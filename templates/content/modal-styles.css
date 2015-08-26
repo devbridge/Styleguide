@@ -1,5 +1,5 @@
 ﻿html, body { min-height: 100%; font-size: 14px; }
-body { font-family: sans-serif; line-height: 1.6em; margin: 0; padding: 0; }
+body { margin: 0; padding: 0; }
 .application { width: 800px; margin: 10px auto; }
 pre { line-height: 1.4em; font-size: 12px; padding: 10px; background: #f3f3f3; color: #666; }
 

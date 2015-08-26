@@ -101,13 +101,13 @@ var viewService = (function($, editorService, sassService, categoryService, snip
         iteratingPage = pages[index];
         snippetService.getCategoryItemsCount(iteratingPage, function(count, category) {
           if (typeof count === 'number') {
-            pageElement = $('<a href="#" data-id="' + category.id + '">' + category.name + ' (' + count + ')</a>');
+            pageElement = $('<li><button type="button" data-id="' + category.id + '">' + category.name + ' (' + count + ')</button></li>');
             pageElement.on('click', bindNavClick);
             if (category.name === 'undefined') {
               pageElement.addClass('snippet-undefined-category');
             }
           } else {
-            pageElement = $('<a href="#" data-id="' + category.id + '">' + category.name + '</a>');
+            pageElement = $('<li><button type="button" data-id="' + category.id + '">' + category.name + '</button></li>');
             pageElement.on('click', bindNavClick);
           }
           navLinksArr.push({
@@ -267,10 +267,29 @@ var viewService = (function($, editorService, sassService, categoryService, snip
     redrawPage(event.state.id);
   };
 
+  var openDropdown = function() {
+    var trigger = $('.js-open-dropdown'),
+        dropdown = $('.js-dropdown-list'),
+        self;
+
+    trigger.on('click', function(event) {
+      event.stopPropagation();
+      self = $(this);
+
+      dropdown.removeClass('active');
+      self.next(dropdown).toggleClass('active');
+    });
+
+    $(document).click(function() {
+      dropdown.removeClass('active');
+    })
+  };
+
   module.init = function() {
     editorService.init();
     bindResolutionActions();
     buildNavigation();
+    openDropdown();
     categoryService.bindCategoriesToForm($('.js-form-select').first());
 
     snippetService.init(function(data) {

@@ -16,10 +16,16 @@ $weight-bold: 700;
 
 // Colors
 $color-black: #000;
+$color-black-secondary: #333333;
 $color-white: #fff;
 $color-grey: #e6e6e6;
+$color-grey-dark: #4d4d4d;
 $color-grey-light: #f2f2f2;
-$color-grey-dark: #ccc;
+$color-blue: #29abe2;
+
+$text-secondary: $color-black-secondary;
+
+$bg-dropdown: $color-grey;
 
 // Etc
 $border-radius: 4px;

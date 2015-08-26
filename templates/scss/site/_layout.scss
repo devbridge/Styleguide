@@ -9,6 +9,7 @@ body {
     font: {
         family: $font-main;
         size: 16px;
+        weight: $weight-regular;
     }
     line-height: 1.6;
     text-rendering: optimizeLegibility;
@@ -67,10 +68,4 @@ h5,
 h6,
 p {
     margin: 0;
-}
-
-h1,
-.h1 {
-    font-size: 24px;
-    font-weight: normal;
 }
