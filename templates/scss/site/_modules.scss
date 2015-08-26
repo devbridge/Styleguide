@@ -1,0 +1,91 @@
+// module buttons
+%btn-template {
+    border: 1px solid transparent;
+    display: inline-block;
+    font-size: 14px;
+    height: 28px;
+    line-height: 26px;
+    padding: 0 10px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+$btn-ghost-radius: $border-radius;
+
+.btn-ghost {
+    @extend %btn-template;
+    background-color: transparent;
+    border: 1px solid rgba($color-white, .6);
+    border-radius: $btn-ghost-radius;
+    color: $color-white;
+
+    .fa-angle-left,
+    .fa-angle-right {
+        font-size: 21px;
+    }
+
+    .fa-desktop,
+    .fa-tablet,
+    .fa-mobile {
+        font-size: 17px;
+    }
+
+    .fa-plus,
+    .fa-list {
+        font-size: 15px;
+    }
+}
+
+.btn-ghost-group {
+    @extend .clearfix;
+    display: inline-block;
+    vertical-align: middle;
+
+    .btn-ghost {
+        border-radius: 0;
+        float: left;
+        margin-left: -1px;
+
+        &:first-child {
+            border-radius: $btn-ghost-radius 0 0 $btn-ghost-radius;
+            margin-left: 0;
+        }
+
+        &:last-child {
+            border-radius: 0 $btn-ghost-radius $btn-ghost-radius 0;
+        }
+    }
+}
+
+.btn-primary {
+    @extend %btn-template;
+    background-color: $color-black;
+    border-radius: $btn-ghost-radius;
+    color: $color-white;
+    min-width: 90px;
+
+    .fa {
+        margin-right: 8px;
+    }
+
+    &--white {
+        background-color: $color-white;
+        border: 1px solid $color-black;
+        color: $color-black;
+    }
+}
+
+.btn-blank {
+    @extend %btn-template;
+    background-color: transparent;
+    color: $color-black;
+    min-width: 90px;
+}
+
+//module Icons
+@include font-face('FontAwesome', './fonts/fontawesome-webfont');

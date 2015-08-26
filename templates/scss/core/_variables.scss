@@ -8,7 +8,11 @@ $grid-gutter: 20px;
 $grid-responsive: false;
 
 // Fonts
-$font-main: Lato, Arial, sans-serif;
+$font-main: Lato, Arial, sans-serif; // 300, 400, 700, 300 italic, 400 italic, 700 italic
+
+$weight-light: 300;
+$weight-regular: 400;
+$weight-bold: 700;
 
 // Colors
 $color-black: #000;

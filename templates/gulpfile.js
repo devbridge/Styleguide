@@ -7,11 +7,11 @@ function showError(error) {
 }
 
 gulp.task('sass', function() {
-	return gulp.src('css/src/main.scss')
-		.pipe(sass({outputStyle: 'compressed'}))
+	return gulp.src('scss/main.scss')
+		.pipe(sass({outputStyle: 'compressed', includePaths: require('node-bourbon').includePaths}))
 		.on('error', showError)
 		.pipe(autoprefixer('last 2 version', 'ios 6', 'android 4'))
-		.pipe(gulp.dest('css'));
+		.pipe(gulp.dest('content'));
 });
 
 gulp.task('default', function() {
@@ -19,5 +19,5 @@ gulp.task('default', function() {
 });
 
 gulp.task('watch', function() {
-	gulp.watch('css/src/**/*.scss', ['sass']);
+	gulp.watch('scss/**/*.scss', ['sass']);
 });
