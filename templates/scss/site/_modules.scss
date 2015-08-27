@@ -2,30 +2,28 @@
 %btn-template {
     border: 1px solid transparent;
     display: inline-block;
-    font-size: 14px;
-    height: 28px;
-    line-height: 26px;
-    padding: 0 10px;
+    font-size: 16px;
+    height: 32px;
+    line-height: 30px;
+    padding: 0 18px;
     text-align: center;
     text-decoration: none;
     vertical-align: middle;
-
-    &:hover {
-        text-decoration: none;
-    }
 }
 
 $btn-ghost-radius: $border-radius;
 
 .btn-primary {
     @extend %btn-template;
-    background-color: $color-black;
-    border-radius: $btn-ghost-radius;
+    background-color: $color-blue;
+    border-radius: 20px;
     color: $color-white;
-    min-width: 90px;
+    @include transition(all .3s ease);
 
-    .fa {
-        margin-right: 8px;
+    &:hover {
+        border: 1px solid $color-blue;
+        background-color: transparent;
+        color: $color-blue;
     }
 
     &--white {
@@ -64,11 +62,150 @@ $btn-ghost-radius: $border-radius;
 }
 
 .btn-blank {
+    position: relative;
     @extend %btn-template;
     background-color: transparent;
-    color: $color-black;
-    min-width: 90px;
+    color: $color-blue;
+
+    &:before {
+        content: '';
+        @include position(absolute, null 18px 4px 18px);
+        height: 1px;
+        background-color: $color-blue;
+        visibility: hidden;
+        @include transform(scaleX(0));
+        @include transition(.15s linear);
+    }
+
+    &:hover {
+        &:before {
+            visibility: visible;
+            @include transform(scaleX(1));
+        }
+    }
+}
+
+.btn-full-screen {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background-color: $color-white;
+    border-color: transparent;
+    font-size: 0;
+    text-align: center;
+    color: $color-blue;
+
+    &:before {
+        content: '\f065';
+        display: inline-block;
+        text-align: center;
+        font-size: 12px;
+        @extend %font-icon-style;
+    }
 }
 
 //module Icons
 @include font-face('FontAwesome', './fonts/fontawesome-webfont');
+
+//module Tooltip
+.tooltip-wrapper {
+    label {
+        display: inline-block;
+    }
+
+    .tooltip {
+        margin-left: 15px;
+    }
+}
+
+.tooltip-pos-right {
+    label {
+        display: inline-block;
+    }
+
+    .tooltip {
+        float: right;
+    }
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    border: 1px solid $color-blue;
+    border-radius: 50%;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:before {
+        content: '\f128';
+        display: block;
+        margin: -1px 0 0 -2px;
+        text-align: center;
+        font-size: 12px;
+        color: $color-blue;
+        @extend %font-icon-style;
+    }
+
+    &:hover {
+        background-color: $color-blue;
+
+        &:before {
+            color: $color-white;
+        }
+
+        .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+            @include transform(translateY(-12px));
+        }
+    }
+
+    &.pos-right {
+        &:before {
+            margin-left: -1px;
+        }
+
+        .tooltip-text {
+            left: auto;
+            right: 6px;
+            margin: 0;
+
+            &:after {
+                left: auto;
+                right: 0;
+                margin: 0;
+                border-left: 0;
+                border-top: 0;
+                border-bottom: 8px solid transparent;
+                border-right-color: $color-grey-dark;
+            }
+        }
+    }
+
+    .tooltip-text {
+        @include position(absolute, null null 100% 50%);
+        display: block;
+        width: 180px;
+        padding: 8px 10px;
+        font-size: 12px;
+        line-height: 1.4;
+        margin-left: -90px;
+        text-align: left;
+        background-color: $color-grey-dark;
+        color: $color-white;
+        visibility: hidden;
+        opacity: 0;
+        @include transition(opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s cubic-bezier(.71, 1.7, .77, 1.24));
+        @include transform(translate3d(0, 0, 0));
+
+        &:after {
+            content: '';
+            @include position(absolute, null 0 -8px 0);
+            margin: 0 auto;
+            @include triangle(20px 8px, $color-grey-dark, down);
+        }
+    }
+}

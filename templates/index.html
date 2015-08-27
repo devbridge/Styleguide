@@ -94,58 +94,95 @@
         </div>
     </header>
 
-    <section class="snippet-form snippet-form--new-snippet page-prewrapper js-new-snippet-form" style="display: none;">
+    <section class="sg-snippet-form js-new-snippet-form" style="display: none;">
         <div class="page-wrapper">
             <form class="row js-create-snippet" action="/snippets">
-                <div class="medium-2 columns">
-                    <h1>New Snippet</h1>
+                <div class="clearfix sg-form-title">
+                    <h2>New Snippet</h2>
                 </div>
-                <div class="medium-4 columns">
-                    <div class="form-item">
-                        <label for="form-new-name">* Name:</label>
-                        <input type="text" id="form-new-name" class="js-form-submit-field" data-js-field-name="name"
-                               required>
-                    </div>
 
-                    <div class="form-item">
-                        <label for="form-new-category">* Category:</label>
-                        <select id="form-new-category" required class="js-form-submit-field js-form-select"
-                                data-js-field-name="category" required>
-                        </select>
-                    </div>
-
-                    <div class="form-item">
-                        <label for="form-new-code">* Code:</label>
-                        <button class="js-toggle-code-editor-full-screen">Toogle Full Screen</button>
-                        <div id="jsNewCode" class="editor-view"></div>
-                        <label id="form-new-code-error" style="display: none;">This field is required.</label>
-                    </div>
-                    <div class="form-item">
-                        <label for="form-new-include-js">Include JavaScripts:</label>
-                        <input type="checkbox" id="form-new-include-js">
+                <div class="row">
+                    <div class="medium-4 columns">
+                        <div class="form-row">
+                            <label for="form-new-name">Name: <sub>*</sub></label>
+                            <input type="text" id="form-new-name" class="field-text js-form-submit-field"
+                                   data-js-field-name="name"
+                                   required>
+                        </div>
                     </div>
                 </div>
 
-                <div class="medium-4 columns end">
-                    <div class="form-item form-item">
-                        <label for="form-new-desciption">Desciption:</label>
-                        <textarea id="form-new-desciption" class="js-form-submit-field"
+                <div class="row">
+                    <div class="medium-4 columns">
+                        <div class="form-row">
+                            <label for="form-new-category">Category: <sub>*</sub></label>
+                            <select id="form-new-category" required
+                                    class="field-select js-form-submit-field js-form-select"
+                                    data-js-field-name="category" required>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="medium-4 columns">
+                        <div class="form-row">
+                            <label for="form-new-desciption">Desciption:</label>
+                        <textarea id="form-new-desciption" class="field-textarea js-form-submit-field"
                                   data-js-field-name="description"></textarea>
+                        </div>
+
+                        <div class="checkbox-wrapper tooltip-wrapper">
+                            <label for="form-new-include-js">
+                                <input type="checkbox" id="form-new-include-js" class="field-checkbox">
+                                <span class="fake-box"></span>
+                                Include Javascript
+                            </label>
+                            <span class="tooltip">
+                                <span class="tooltip-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non turpis in neque molestie consequat eu ac mi.</span>
+                            </span>
+                        </div>
                     </div>
 
-                    <div class="form-item">
-                        <label>Inline CSS: <i class="fa fa-info-circle"></i></label>
-                        <button class="js-toggle-css-editor-full-screen">Toogle Full Screen</button>
-                        <div id="jsNewCss" class="editor-view"></div>
+                    <div class="medium-4 columns">
+                        <div class="form-row ">
+                            <label>Code: <sub>*</sub></label>
+
+                            <div class="sg-editor-holder">
+                                <div id="jsNewCode" class="editor-view"></div>
+                                <button class="btn-full-screen js-toggle-code-editor-full-screen" title="Toggle full screen">Toggle full screen
+                                </button>
+                            </div>
+
+                            <label id="form-new-code-error" style="display: none;">This field is required.</label>
+                        </div>
+                    </div>
+
+                    <div class="medium-4 columns end">
+                        <div class="form-row">
+                            <div class="tooltip-pos-right clearfix">
+                                <label>Inline CSS:</label>
+                                <span class="tooltip pos-right">
+                                    <span class="tooltip-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non turpis in neque molestie consequat eu ac mi.</span>
+                                </span>
+                            </div>
+
+                            <div class="sg-editor-holder">
+                                <div id="jsNewCss" class="editor-view"></div>
+                                <button class="btn-full-screen js-toggle-css-editor-full-screen" title="Toggle full screen">Toggle full screen
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row controls-row">
-                    <div class="medium-4 columns medium-offset-2">
+
+                <div class="row sg-controls-row">
+                    <div class="medium-6 columns">
                         <button class="btn-primary" type="submit">Create</button>
                         <button class="btn-blank" type="button">Cancel</button>
                     </div>
-                    <div class="medium-4 columns end text-right">
-                        * - Mandatory fields
+                    <div class="medium-6 columns text-right">
+                        <sub>*</sub> Mandatory fields
                     </div>
                 </div>
             </form>

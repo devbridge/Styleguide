@@ -1,24 +1,163 @@
-.snippet-form {
-	background: $color-grey;
-	padding: 70px 0;
+%subscript-text-style {
+    color: $color-pink;
+    font-size: 15px;
+    vertical-align: top;
+    bottom: -8px;
+}
 
-	.inline-css {
-		height: 100px;
-	}
+.sg-snippet-form {
+    position: relative;
+    background: $color-grey;
+    padding: 45px 0 80px;
+    border-top: 2px solid $color-blue;
 
-	.controls-row {
-		padding: 20px 0 0;
-	}
+    &:before {
+        content: '';
+        @include triangle(10px 5px, $color-blue, up);
+        @include position(absolute, -6px 77px null null);
+    }
 
-	&--new-snippet {
-		.page-wrapper {
-			position: relative;
+    .sg-controls-row {
+        padding: 20px 0 0;
 
-			&:after {
-				//@include triangle("top", 26px, 12px, $color-grey);
-				right: 66px;
-				top: -82px;
-			}
-		}
-	}
+        .text-right {
+            color: $color-pink;
+        }
+
+        sub {
+            @extend %subscript-text-style;
+        }
+    }
+}
+
+.sg-form-title {
+    text-align: right;
+
+    h2 {
+        padding-right: 20px;
+        font: {
+            size: 36px;
+            weight: $weight-bold;
+        }
+    }
+}
+
+.sg-editor-holder {
+    position: relative;
+
+    .btn-full-screen {
+        @include position(absolute, null 3px 3px null);
+        opacity: 0;
+        pointer-events: none;
+        @include transition(opacity .3s ease);
+        z-index: 1000;
+    }
+
+    &:hover {
+        .btn-full-screen {
+            opacity: 1;
+            pointer-events: all;
+        }
+    }
+}
+
+%form-item-style {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    color: $color-black-secondary;
+    background-color: $color-grey-light;
+    border: 1px solid #666666;
+    border-radius: 0;
+    padding: 8px 14px;
+}
+
+.form-row {
+    margin: 0 0 10px;
+
+    .editor-view {
+        height: 200px;
+        width: 100%;
+    }
+
+    .ace_editor {
+        background-color: $color-grey-light;
+        border: solid 1px $border-color-primary;
+        color: $color-black-secondary;
+    }
+
+    .ace-chrome {
+        .ace_gutter {
+            background-color: $color-white;
+            color: #999999;
+        }
+    }
+}
+
+.field-text {
+    @extend %form-item-style;
+    height: 37px;
+}
+
+.field-select {
+    @extend %form-item-style;
+    height: 37px;
+}
+
+.field-textarea {
+    @extend %form-item-style;
+    height: 200px;
+    resize: none;
+}
+
+.checkbox-wrapper {
+    position: relative;
+
+    .fake-box {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin: -2px 10px 0 0;
+        vertical-align: middle;
+        background-color: $color-grey-light;
+        border: 1px solid #666666;
+    }
+}
+
+.field-checkbox {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    opacity: 0;
+
+    &:checked {
+        ~ .fake-box {
+            border-color: $color-blue;
+
+            &:before {
+                content: '\f00c';
+                @include position(absolute, 0 null null 0);
+                width: 16px;
+                margin-top: 2px;
+                text-align: center;
+                font-size: 12px;
+                color: $color-blue;
+                @extend %font-icon-style;
+            }
+        }
+    }
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: $color-black-secondary;
+
+    sub {
+        @extend %subscript-text-style;
+    }
+
+    &[for] {
+        cursor: pointer;
+    }
 }

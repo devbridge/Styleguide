@@ -37,8 +37,8 @@ var editorService = (function($) {
     cssEditor = ace.edit('jsNewCss');
     cssEditor.setValue('#snippet { \n  \n}');
 
-    codeEditor.setTheme('ace/theme/monokai');
-    cssEditor.setTheme('ace/theme/monokai');
+    codeEditor.setTheme('ace/theme/chrome');
+    cssEditor.setTheme('ace/theme/chrome');
 
     codeEditor.getSession().setMode('ace/mode/html');
     cssEditor.getSession().setMode('ace/mode/css');
