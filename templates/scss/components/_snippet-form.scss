@@ -100,8 +100,10 @@
 }
 
 .field-select {
+    background: url($src-select-arrow) no-repeat 100% 50%, -webkit-linear-gradient(bottom, $color-grey-light 0%, $color-grey-light 100%);
     @extend %form-item-style;
     height: 37px;
+    -webkit-appearance: none;
 }
 
 .field-textarea {
