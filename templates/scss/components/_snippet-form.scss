@@ -14,7 +14,7 @@
     &:before {
         content: '';
         @include triangle(10px 5px, $color-blue, up);
-        @include position(absolute, -6px 77px null null);
+        @include position(absolute, -7px 77px null null);
     }
 
     .sg-controls-row {

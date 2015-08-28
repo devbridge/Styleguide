@@ -105,6 +105,46 @@ $btn-ghost-radius: $border-radius;
     }
 }
 
+.btn-with-icon {
+    position: relative;
+    @extend %btn-template;
+    color: $color-black-secondary;
+    background: transparent;
+
+    &:before {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+
+    &:after {
+        content: '';
+        @include position(absolute, null 18px 4px 43px);
+        height: 1px;
+        background-color: #c1272d;
+        visibility: hidden;
+        @include transform(scaleX(0));
+        @include transition(.15s linear);
+    }
+
+    &.icon-delete {
+        &:before {
+            content: '\f014';
+            margin-top: -2px;
+            font-size: 18px;
+            color: #c1272d;
+            @extend %font-icon-style;
+        }
+    }
+
+    &:hover {
+        &:after {
+            visibility: visible;
+            @include transform(scaleX(1));
+        }
+    }
+}
+
 //module Icons
 @include font-face('FontAwesome', './fonts/fontawesome-webfont');
 
