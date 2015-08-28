@@ -145,6 +145,63 @@ $btn-ghost-radius: $border-radius;
     }
 }
 
+.btn-show-code {
+    display: inline-block;
+    height: 48px;
+    background-color: transparent;
+    border: solid $border-snippet;
+    border-width: 0 1px;
+    font-size: 13px;
+    padding: 0 16px;
+    color: #999999;
+
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 17px;
+        height: 12px;
+        margin-left: 10px;
+        vertical-align: middle;
+        background: url($src-icon-code) no-repeat;
+    }
+
+    &:hover,
+    &:focus,
+    &.active {
+        color: $color-black;
+
+        &:after {
+            background-image: url($src-icon-code-active);
+        }
+    }
+}
+
+.btn-edit {
+    display: inline-block;
+    padding: 0 12px;
+    background-color: transparent;
+    border: solid $border-snippet;
+    border-width: 0 1px 0 0;
+    height: 48px;
+    font-size: 0;
+
+    &:before {
+        content: '\f040';
+        display: inline-block;
+        font-size: 18px;
+        @extend %font-icon-style;
+        color: #999999;
+    }
+
+    &:hover,
+    &:focus,
+    &.active {
+        &:before {
+            color: $color-blue;
+        }
+    }
+}
+
 //module Icons
 @include font-face('FontAwesome', './fonts/fontawesome-webfont');
 

@@ -16,6 +16,20 @@ $snippet-header-height: 46px - 2px;
 		}
 		line-height: 1.2;
 	}
+
+	.page-wrapper {
+		position: relative;
+	}
+}
+
+.sg-snippet-size {
+	@include position(absolute, null 0 null 0);
+	text-align: center;
+	z-index: -1;
+}
+
+.sg-header-controls {
+	margin: -13px 0;
 }
 
 .sg-colors-container {
@@ -62,30 +76,6 @@ $snippet-header-height: 46px - 2px;
 	}
 }
 
-.snippet-control-btn {
-	background-color: transparent;
-	border: 0;
-	font-size: 24px;
-	height: $snippet-header-height;
-	padding: 0;
-	position: relative;
-	width: 58px;
-	
-	&.active {
-		background: $color-grey;
-		
-		&:after {
-			background: $color-grey;
-			bottom: -1px;
-			content: '';
-			height: 1px;
-			left: 0;
-			position: absolute;
-			right: 0;
-		}
-	}
-}
-
 .snippet-size {
 	border-left: 1px solid $color-grey-dark;
 	border-right: 1px solid $color-grey-dark;
@@ -118,29 +108,42 @@ $snippet-header-height: 46px - 2px;
 	}
 }
 
-.snippet-preview {
-	border: 1px solid $color-grey-dark;
-	border-top: 0;
+.sg-snippet-preview {
 	margin: 0 auto;
 	position: relative;
+	padding: 60px;
 }
 
-.snippet-resize-handle {
-	border-left: 1px solid $color-grey-dark;
-	border-right: 1px solid $color-grey-dark;
+.sg-snippet-resize-handle {
+	border-left: 1px solid $border-snippet;
 	cursor: w-resize;
-	height: 20px;
-	margin-top: -10px;
-	position: absolute;
-	top: 50%;
-	width: 4px;
-	
-	&-left {
-		left: -10px;
+	height: 100px;
+	margin-top: -50px;
+	@include position(absolute, 50% null null null);
+
+	&:before {
+		content: '';
+		@include position(absolute, 50% null null null);
+		width: 11px;
+		height: 17px;
+		margin-top: -8px;
+		background: url($src-icon-drag) no-repeat;
 	}
 	
-	&-right {
+	&.pos-right {
+		left: -10px;
+
+		&:before {
+			left: -20px;
+		}
+	}
+	
+	&.pos-left {
 		right: -10px;
+
+		&:before {
+			right: -20px;
+		}
 	}
 }
 
