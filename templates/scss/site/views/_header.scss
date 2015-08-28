@@ -4,15 +4,16 @@
     color: $color-white;
     padding: 14px 0 13px;
 
-    h1 {
-        float: left;
+    .sg-title {
+        display: block;
         margin-right: 10px;
+        float: left;
         font: {
             weight: $weight-bold;
             size: 20px;
         }
         color: $color-blue;
-        line-height: 1.4;
+        line-height: 1.5;
     }
 }
 

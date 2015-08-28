@@ -1,6 +1,6 @@
 var sassService = (function($) {
   var module = {},
-    cachedSassData;
+      cachedSassData;
 
   var getSassData = function(callback) {
     if (!cachedSassData) {
@@ -15,12 +15,12 @@ var sassService = (function($) {
 
   var parseHsv = function(rgb) {
     var hsv,
-      hue = 0,
-      sat = 0,
-      val,
-      chr,
-      max,
-      min;
+        hue = 0,
+        sat = 0,
+        val,
+        chr,
+        max,
+        min;
 
     rgb = rgb.replace(/[rgb()]/g, '').split(',').map(Number);
 
@@ -63,8 +63,8 @@ var sassService = (function($) {
   };
 
   var colorComparator = function(a, b) {
-    var aColor = a.find('i').css('background-color'),
-      bColor = b.find('i').css('background-color');
+    var aColor = a.find('span').css('background-color'),
+        bColor = b.find('span').css('background-color');
 
     aColor = parseHsv(aColor);
     bColor = parseHsv(bColor);
@@ -86,26 +86,26 @@ var sassService = (function($) {
 
   var parseColors = function(colors) {
     var colorsContainer = $('.js-snippet-colors').first(),
-      colorBoxTpl = $('.js-color-box').first(),
-      currentColorBox,
-      colorBoxes = [],
-      color,
-      len,
-      index,
-      varName;
+        colorBoxTpl = $('.js-color-box').first(),
+        currentColorBox,
+        colorBoxes = [],
+        color,
+        len,
+        index,
+        varName;
 
-    colorBoxTpl.find('p').remove();
+    colorBoxTpl.find('span.js-color-variable').remove();
 
     colorsContainer.empty();
 
     for (color in colors) {
       if (colors.hasOwnProperty(color)) {
         currentColorBox = colorBoxTpl.clone(true);
-        currentColorBox.find('i').css('background', color)
-          .text(color);
+        currentColorBox.find('span').css('background', color)
+            .attr('data-color-text', color);
 
         for (index = 0, len = colors[color].length; index < len; index++) {
-          varName = $('<p>' + colors[color][index] + '</p>');
+          varName = $('<span class="sg-color-variable js-color-variable">' + colors[color][index] + '</span>');
           currentColorBox.append(varName);
         }
 
@@ -122,17 +122,17 @@ var sassService = (function($) {
 
   var parseFonts = function(typography) {
     var fontsContainer = $('.js-fonts-container'),
-      fontTpl = $('.js-font-tpl'),
-      examplesContainer = $('.js-examples-container'),
-      exampleTpl = $('.js-font-example'),
-      currentFontView,
-      currentExampleView,
-      currentFont,
-      index,
-      len = typography.length,
-      weightsInd,
-      weightsLen,
-      fontDescription;
+        fontTpl = $('.js-font-tpl'),
+        examplesContainer = $('.js-examples-container'),
+        exampleTpl = $('.js-font-example'),
+        currentFontView,
+        currentExampleView,
+        currentFont,
+        index,
+        len = typography.length,
+        weightsInd,
+        weightsLen,
+        fontDescription;
 
     fontsContainer.empty();
     examplesContainer.empty();
@@ -146,7 +146,7 @@ var sassService = (function($) {
       });
 
       fontDescription = currentFont.variable + ': ' + currentFont.value + ';';
-      currentExampleView.prepend($('<p>' + fontDescription + '</p>'));
+      //currentExampleView.prepend($('<p>' + fontDescription + '</p>'));
 
       examplesContainer.append(currentExampleView);
 
@@ -186,7 +186,7 @@ var sassService = (function($) {
   module.loadSass = function() {
     getSassData(function(data) {
       var sassContent = $($('#sass-page').html()),
-        errorMessage = 'Sass variables has not been scraped yet or markers were not found in file!';
+          errorMessage = 'Sass variables has not been scraped yet or markers were not found in file!';
 
       $('.main').append(sassContent);
 

@@ -47,7 +47,7 @@
 <div class="page-container">
     <header class="sg-header page-prewrapper">
         <div class="page-wrapper clearfix">
-            <h1>Styleguide</h1>
+            <span class="sg-title">Styleguide</span>
             <nav class="sg-header-nav js-navigation">
                 <button class="subtitle js-current-page js-open-dropdown">Components</button>
 
@@ -145,7 +145,7 @@
                     </div>
 
                     <div class="medium-4 columns">
-                        <div class="form-row ">
+                        <div class="form-row">
                             <label>Code: <sub>*</sub></label>
 
                             <div class="sg-editor-holder">
@@ -192,7 +192,6 @@
     </section>
 
     <main class="main">
-
     </main>
 </div>
 
@@ -346,7 +345,9 @@
                                 <button class="btn-blank" type="button">Cancel</button>
                             </div>
                             <div class="medium-6 columns text-right">
-                                <button class="btn-with-icon icon-delete js-delete-snippet" type="button">Delete Snippet</button>
+                                <button class="btn-with-icon icon-delete js-delete-snippet" type="button">Delete
+                                    Snippet
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -357,130 +358,173 @@
 </script>
 
 <script type="text/html" id="sass-page">
-    <section class="snippet page-prewrapper">
-        <header class="snippet-header">
-            <div class="page-wrapper clearfix">
-                <h1>Colors</h1>
-            </div>
-        </header>
-        <div class="snippet-preview" style="width: 1200px;">
-            <div class="snippet-source">
-                <ul class="snippet-colors js-snippet-colors">
-                    <li class="js-color-box">
-                        <i style="background: #000;"></i> <br>
-                    </li>
-                </ul>
+    <nav class="sg-home-navigation">
+        <div class="page-wrapper">
+            <ul class="clearfix">
+                <li>
+                    <a class="active" href="#nolink">General</a>
+                </li>
+                <li>
+                    <a href="#nolink">Components</a>
+                </li>
+                <li>
+                    <a href="#nolink">Modules</a>
+                </li>
+                <li>
+                    <a href="#nolink">Form elements</a>
+                </li>
+                <li>
+                    <a href="#nolink">Icons</a>
+                </li>
+                <li>
+                    <a href="#nolink">Headings</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="sg-intro-container">
+        <div class="page-wrapper">
+            <div class="sg-intro-row">
+                <div class="sg-intro-box">
+                    <span class="sg-intro-title">Styleguide</span>
+
+                    <p class="sg-intro-description">
+                        A set of visual elements and guidelines <br>
+                        for <a href="#nolink">project name</a> project.
+                    </p>
+                </div>
+
+                <div class="sg-intro-box">
+                    <figure>
+                        <img src="content/logo-myus.svg" alt="MyUS">
+                    </figure>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="snippet page-prewrapper">
-        <header class="snippet-header">
-            <div class="page-wrapper clearfix">
-                <h1>Fonts</h1>
+        <header class="sg-snippet-header">
+            <div class="page-wrapper">
+                <span class="sg-snippet-title">Colors</span>
             </div>
         </header>
-        <div class="snippet-preview" style="width: 1200px;">
-            <div class="snippet-source">
-                <ul class="snippet-fonts js-fonts-container">
-                    <li class="row js-font-tpl">
-                        <div class="medium-2 columns medium-offset-2 snippet-fonts-big js-set-font"
-                             style="font-family: Lato, Arial, sans-serif;">
-                            Aa
-                        </div>
-                        <div class="medium-8 columns js-small-fonts-container">
-                            <div class="snippet-fonts-variable js-variable">$font-main: Lato, Arial, sans-serif;</div>
-                            <div class="snippet-fonts-small js-set-font" style="font-family: Lato, Arial, sans-serif;">
-                                a b c d e f g h i j k l m n o p q r s t u v w x y z <br>
-                                A B C D E F G H I J K L M N O P Q R S T U V W X Y Z <br>
-                                1 2 3 4 5 6 7 8 9 0
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <div class="sg-colors-container">
+            <ul class="sg-colors-holder js-snippet-colors">
+                <li class="js-color-box">
+                    <span class="sg-color-box" style="background: #000;"></span>
+                </li>
+            </ul>
         </div>
     </section>
 
     <section class="snippet page-prewrapper">
-        <header class="snippet-header">
-            <div class="page-wrapper clearfix">
-                <h1>Typography</h1>
+        <header class="sg-snippet-header">
+            <div class="page-wrapper">
+                <span class="sg-snippet-title">Fonts</span>
             </div>
         </header>
-        <div class="snippet-preview" style="width: 1200px;">
-            <div class="snippet-source">
-                <ul class="snippet-type-headings">
-                    <li class="row">
-                        <div class="medium-1 columns medium-offset-1"><h1>&lt;h1&gt;</h1></div>
-                        <div class="medium-10 columns"><h1>The quick brown fox jumps over the lazy dog</h1></div>
-                    </li>
-                    <li class="row">
-                        <div class="medium-1 columns medium-offset-1"><h2>&lt;h2&gt;</h2></div>
-                        <div class="medium-10 columns"><h2>The quick brown fox jumps over the lazy dog</h2></div>
-                    </li>
-                    <li class="row">
-                        <div class="medium-1 columns medium-offset-1"><h3>&lt;h3&gt;</h3></div>
-                        <div class="medium-10 columns"><h3>The quick brown fox jumps over the lazy dog</h3></div>
-                    </li>
-                    <li class="row">
-                        <div class="medium-1 columns medium-offset-1"><h4>&lt;h4&gt;</h4></div>
-                        <div class="medium-10 columns"><h4>The quick brown fox jumps over the lazy dog</h4></div>
-                    </li>
-                    <li class="row">
-                        <div class="medium-1 columns medium-offset-1"><h5>&lt;h5&gt;</h5></div>
-                        <div class="medium-10 columns"><h5>The quick brown fox jumps over the lazy dog</h5></div>
-                    </li>
-                    <li class="row">
-                        <div class="medium-1 columns medium-offset-1"><h6>&lt;h6&gt;</h6></div>
-                        <div class="medium-10 columns"><h6>The quick brown fox jumps over the lazy dog</h6></div>
-                    </li>
-                </ul>
-
-                <div class="snippet-type-text js-examples-container">
-                    <div class="row js-font-example">
-                        <div class="medium-4 columns">
-                            <h1>Regular</h1>
-
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt
-                                recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit
-                                sint! Quibusdam est, quae nulla.
-                            </p>
-                            <ul>
-                                <li>Lorem ipsum dolor sit.</li>
-                                <li>Lorem ipsum dolor sit.</li>
-                                <li>Lorem ipsum dolor sit.</li>
-                            </ul>
+        <div class="page-wrapper">
+            <ul class="sg-snippet-fonts-holder js-fonts-container">
+                <li class="row js-font-tpl">
+                    <div class="medium-2 columns medium-offset-2 sg-snippet-fonts-big js-set-font"
+                         style="font-family: Lato, Arial, sans-serif;">
+                        Aa
+                    </div>
+                    <div class="medium-8 columns js-small-fonts-container">
+                        <div class="sg-snippet-fonts-variable js-variable">$font-main: Lato, Arial, sans-serif;</div>
+                        <div class="sg-snippet-fonts-small js-set-font" style="font-family: Lato, Arial, sans-serif;">
+                            a b c d e f g h i j k l m n o p q r s t u v w x y z <br>
+                            A B C D E F G H I J K L M N O P Q R S T U V W X Y Z <br>
+                            1 2 3 4 5 6 7 8 9 0
                         </div>
-                        <div class="medium-4 columns">
-                            <h1>Bold</h1>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
 
-                            <p style="font-weight: bold;">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt
-                                recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit
-                                sint! Quibusdam est, quae nulla.
-                            </p>
-                            <ul style="font-weight: bold;">
-                                <li>Lorem ipsum dolor sit.</li>
-                                <li>Lorem ipsum dolor sit.</li>
-                                <li>Lorem ipsum dolor sit.</li>
-                            </ul>
-                        </div>
-                        <div class="medium-4 columns">
-                            <h1>Italic</h1>
+    <section class="snippet page-prewrapper">
+        <header class="sg-snippet-header">
+            <div class="page-wrapper">
+                <span class="sg-snippet-title">Typography</span>
+            </div>
+        </header>
+        <div class="page-wrapper">
+            <ul class="sg-snippet-headings-holder">
+                <li class="row">
+                    <div class="medium-1 columns medium-offset-1"><h1>&lt;h1&gt;</h1></div>
+                    <div class="medium-10 columns"><h1>The quick brown fox jumps over the lazy dog</h1></div>
+                </li>
+                <li class="row">
+                    <div class="medium-1 columns medium-offset-1"><h2>&lt;h2&gt;</h2></div>
+                    <div class="medium-10 columns"><h2>The quick brown fox jumps over the lazy dog</h2></div>
+                </li>
+                <li class="row">
+                    <div class="medium-1 columns medium-offset-1"><h3>&lt;h3&gt;</h3></div>
+                    <div class="medium-10 columns"><h3>The quick brown fox jumps over the lazy dog</h3></div>
+                </li>
+                <li class="row">
+                    <div class="medium-1 columns medium-offset-1"><h4>&lt;h4&gt;</h4></div>
+                    <div class="medium-10 columns"><h4>The quick brown fox jumps over the lazy dog</h4></div>
+                </li>
+                <li class="row">
+                    <div class="medium-1 columns medium-offset-1"><h5>&lt;h5&gt;</h5></div>
+                    <div class="medium-10 columns"><h5>The quick brown fox jumps over the lazy dog</h5></div>
+                </li>
+                <li class="row">
+                    <div class="medium-1 columns medium-offset-1"><h6>&lt;h6&gt;</h6></div>
+                    <div class="medium-10 columns"><h6>The quick brown fox jumps over the lazy dog</h6></div>
+                </li>
+            </ul>
 
-                            <p style="font-style: italic;">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae deserunt sunt
-                                recusandae delectus, laborum dolorem totam veniam, atque iure praesentium reprehenderit
-                                sint! Quibusdam est, quae nulla.
-                            </p>
-                            <ul style="font-style: italic;">
-                                <li>Lorem ipsum dolor sit.</li>
-                                <li>Lorem ipsum dolor sit.</li>
-                                <li>Lorem ipsum dolor sit.</li>
-                            </ul>
-                        </div>
+            <div class="sg-snippet-text-example js-examples-container">
+                <div class="row js-font-example">
+                    <div class="medium-4 columns">
+                        <span class="sg-text-example-title">Regular</span>
+
+                        <p>
+                            The quick brown fox jumps over the lazy dog. One morning, when Gregor Samsa woke
+                            from troubled dreams, he found himself transformed in his bed into a horrible
+                            vermin. He lay on his armour-like back, and if he lifted his head a little he could
+                            see his brown belly, slightly domed and divided by arches into stiff sections.
+                        </p>
+                        <ul>
+                            <li>Lorem ipsum dolor sit amet, consectetuer.</li>
+                            <li>Aliquam tincidunt mauris eu risus.</li>
+                            <li>Vestibulum auctor dapibus neque.</li>
+                        </ul>
+                    </div>
+                    <div class="medium-4 columns">
+                        <span class="sg-text-example-title">Bold</span>
+
+                        <p style="font-weight: bold;">
+                            The quick brown fox jumps over the lazy dog. One morning, when Gregor Samsa woke
+                            from troubled dreams, he found himself transformed in his bed into a horrible
+                            vermin. He lay on his armour-like back, and if he lifted his head a little he could
+                            see his brown belly, slightly domed and divided by arches into stiff sections.
+                        </p>
+                        <ul style="font-weight: bold;">
+                            <li>Lorem ipsum dolor sit amet, consectetuer.</li>
+                            <li>Aliquam tincidunt mauris eu risus.</li>
+                            <li>Vestibulum auctor dapibus neque.</li>
+                        </ul>
+                    </div>
+                    <div class="medium-4 columns">
+                        <span class="sg-text-example-title">Bold</span>
+
+                        <p style="font-style: italic;">
+                            The quick brown fox jumps over the lazy dog. One morning, when Gregor Samsa woke
+                            from troubled dreams, he found himself transformed in his bed into a horrible
+                            vermin. He lay on his armour-like back, and if he lifted his head a little he could
+                            see his brown belly, slightly domed and divided by arches into stiff sections.
+                        </p>
+                        <ul style="font-style: italic;">
+                            <li>Lorem ipsum dolor sit amet, consectetuer.</li>
+                            <li>Aliquam tincidunt mauris eu risus.</li>
+                            <li>Vestibulum auctor dapibus neque.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
