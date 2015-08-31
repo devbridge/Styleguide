@@ -1,11 +1,11 @@
-(function($, window, document, editorService, snippetActions, iframesService, undefined) {
+(function ($, window, document, editorService, snippetActions, iframesService, undefined) {
 	function Plugin(element) {
 		this.$element = $(element);
 		this.events();
 	}
 
 	Plugin.prototype = {
-		events: function() {
+		events: function () {
 			var $btnSettings = this.$element.find(".js-snippet-settings-btn"),
 				$btnCode = this.$element.find(".js-snippet-code-btn"),
 				$settings = this.$element.find(".js-snippet-settings"),
@@ -15,22 +15,32 @@
 				$handleLeft = this.$element.find(".js-snippet-resize-handle-left"),
 				$handleRight = this.$element.find(".js-snippet-resize-handle-right"),
 				$sizeIndicator = this.$element.find(".js-snippet-size"),
+				$btnCancel = this.$element.find(".js-btn-cancel"),
+				$newSnippetForm = $(".js-new-snippet-form"),
+				$newSnippetCancel = $(".js-new-snippet-cancel"),
 				$editors,
 				$originalValues = {};
 
-			$btnSettings.on("click", function() {
+			$btnSettings.on("click", function () {
 				$btnCode.removeClass("active");
 				$btnSettings.toggleClass("active");
-				iframesService.getTemplate(function(template) {
+
+				if ($(this).hasClass("active")) {
+					$preview.hide();
+				} else {
+					$preview.show();
+				}
+
+				iframesService.getTemplate(function (template) {
 					if ($btnSettings.hasClass("active")) {
 						$editors = editorService.addToEditForm($code.parent());
 						$originalValues.code = $editors.code.getValue();
 						$originalValues.css = $editors.css.getValue();
-						$editors.code.on('change', function() {
+						$editors.code.on('change', function () {
 							snippetActions.appendIframeContent($previewSource, template, $editors.code.getValue(), $editors.css.getValue());
 							$previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, $editors.code.getValue(), $editors.css.getValue()));
 						});
-						$editors.css.on('change', function() {
+						$editors.css.on('change', function () {
 							snippetActions.appendIframeContent($previewSource, template, $editors.code.getValue(), $editors.css.getValue());
 							$previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, $editors.code.getValue(), $editors.css.getValue()));
 						});
@@ -49,20 +59,36 @@
 						editorService.removeFromEditForm($code.parent());
 					}
 					$code.hide();
-					$preview.show();
+
 					$settings.toggle();
 				});
 			});
 
-			$btnCode.on("click", function() {
+			$btnCode.on("click", function () {
 				$btnSettings.removeClass("active");
 				$btnCode.toggleClass("active");
 				$settings.hide();
-				$preview.show();
+
+				if ($(this).hasClass("active")) {
+					$preview.hide();
+				} else {
+					$preview.show();
+				}
+
 				$code.toggle();
 			});
 
-			$sizeIndicator.on('keyup', function() {
+			$btnCancel.on("click", function () {
+				$btnSettings.removeClass("active");
+				$settings.hide();
+				$preview.show();
+			});
+
+			$newSnippetCancel.on("click", function () {
+				$newSnippetForm.hide();
+			});
+
+			$sizeIndicator.on('keyup', function () {
 				$preview.find('iframe').get(0).style.width = $sizeIndicator.text();
 			});
 
@@ -74,7 +100,7 @@
 						bottom: false,
 						top: false
 					},
-					onmove: function(e) {
+					onmove: function (e) {
 						var target = e.target,
 							iframe = $(target).find('iframe').get(0);
 
@@ -88,7 +114,7 @@
 							$sizeIndicator.text(e.rect.width + "px");
 						}
 					},
-					onend: function(e) {
+					onend: function (e) {
 						var target = e.target;
 
 						$(target).children(':first').children('div').removeClass('iframe-overlay');
@@ -97,8 +123,8 @@
 		}
 	};
 
-	$.fn.sgSnippet = function() {
-		return this.each(function() {
+	$.fn.sgSnippet = function () {
+		return this.each(function () {
 			if (!$.data(this, "sgSnippet")) {
 				$.data(this, "sgSnippet", new Plugin(this));
 			}
@@ -106,10 +132,10 @@
 	};
 })(jQuery, window, document, editorService, snippetActions, iframesService);
 
-$(".js-header-new-snippet").on("click", function() {
+$(".js-header-new-snippet").on("click", function () {
 	$(".js-new-snippet-form").toggle();
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 	viewService.init();
 });

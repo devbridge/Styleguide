@@ -91,32 +91,92 @@ $snippet-header-height: 46px - 2px;
 	width: 100px;
 }
 
-.snippet-code {
-	background: $color-grey;
-	border-bottom: 1px solid $color-grey-dark;
-	
-	.code-preview,
-	.code-description {
-		padding: 28px 0;
+.sg-snippet-code {
+	&-container {
+		padding: 35px 0 40px;
+		background: $color-grey;
+		border-bottom: 1px solid $border-snippet;
+		border-top: 2px solid $color-blue;
+		position: relative;
+
+		&:before {
+			content: '';
+			@include triangle(10px 5px, $color-blue, up);
+			@include position(absolute, -7px 210px null null);
+		}
 	}
-	
-	.code-preview {
-		border-right: 1px solid $color-grey-dark;
-		font-size: 12px;
+
+	&-holder {
+		display: table;
+		width: 100%;
+		table-layout: fixed;
+
+		.sg-snippet-code {
+			display: table-cell;
+			width: 50%;
+			vertical-align: top;
+			border-right: 35px solid $color-grey;
+		}
+
+		.sg-code-preview {
+			font: {
+				family: $font-main;
+				weight: $weight-light;
+				size: 14px;
+			}
+		}
+
+		.sg-code-description {
+			display: table-cell;
+			width: 50%;
+			padding-left: 35px;
+			vertical-align: top;
+
+			span {
+				display: block;
+				padding-bottom: 8px;
+				font: {
+					size: 18px;
+					weight: $weight-bold;
+				}
+				line-height: 1.1;
+			}
+
+			p {
+				font: {
+					size: 16px;
+					weight: $weight-light;
+				}
+				line-height: 1.5;
+			}
+		}
 	}
-	
-	.code-description {
-		border-left: 1px solid $color-grey-dark;
-		font-size: 14px;
-		margin-left: -1px;
-		padding-left: 28px;
+}
+
+.sg-snippet-code {
+	position: relative;
+	background-color: $color-grey-light;
+	padding: 30px 60px 30px 32px;
+
+	.btn-blank {
+		@include position(absolute, 3px 0 null null);
+		height: 22px;
+		padding: 0 15px;
+		font-size: 13px;
+		line-height: 1;
+
+		&:before {
+			bottom: 1px;
+			right: 15px;
+			left: 15px;
+		}
 	}
 }
 
 .sg-snippet-preview {
 	margin: 0 auto;
 	position: relative;
-	padding: 60px;
+	padding: 60px 10px;
 }
 
 .sg-snippet-resize-handle {
@@ -136,7 +196,7 @@ $snippet-header-height: 46px - 2px;
 	}
 	
 	&.pos-right {
-		left: -10px;
+		left: -1px;
 
 		&:before {
 			left: -20px;
@@ -144,7 +204,7 @@ $snippet-header-height: 46px - 2px;
 	}
 	
 	&.pos-left {
-		right: -10px;
+		right: -1px;
 
 		&:before {
 			right: -20px;

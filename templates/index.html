@@ -94,7 +94,7 @@
         </div>
     </header>
 
-    <section class="sg-snippet-form js-new-snippet-form" style="display: none;">
+    <section class="sg-snippet-form sg-new-snippet-form js-new-snippet-form" style="display: none;">
         <div class="page-wrapper">
             <form class="row js-create-snippet" action="/snippets">
                 <div class="clearfix sg-form-title">
@@ -181,7 +181,7 @@
                 <div class="row sg-controls-row">
                     <div class="medium-6 columns">
                         <button class="btn-primary" type="submit">Create</button>
-                        <button class="btn-blank" type="button">Cancel</button>
+                        <button class="btn-blank js-new-snippet-cancel" type="button">Cancel</button>
                     </div>
                     <div class="medium-6 columns text-right">
                         <sub>*</sub> Mandatory fields
@@ -218,43 +218,31 @@
             <div class="page-wrapper clearfix">
                 <span class="sg-snippet-title js-snippet-name">Snippet Name</span>
                 <span class="sg-snippet-size js-snippet-size">1200px</span>
+
                 <div class="sg-header-controls pull-right">
                     <button class="btn-show-code js-snippet-code-btn" type="button">Show code</button>
-                    <button class="btn-edit js-snippet-settings-btn" type="button" title="Edit snippet">Edit snippet</button>
+                    <button class="btn-edit js-snippet-settings-btn" type="button" title="Edit snippet">Edit snippet
+                    </button>
                 </div>
             </div>
         </header>
-        <div class="snippet-code page-prewrapper js-snippet-code" style="display: none;">
+        <div class="sg-snippet-code-container page-prewrapper js-snippet-code" style="display: none;">
             <div class="page-wrapper">
-                <div class="row">
-                    <button class="medium-12 columns js-copy-code">Copy code to clipboard</button>
-                    <code class="medium-6 columns code-preview js-snippet-code-preview">
-                        code preview
-                    </code>
+                <div class="sg-snippet-code-holder">
+                    <div class="sg-snippet-code">
+                        <button class="btn-blank js-copy-code">Copy</button>
+                        <code class="sg-code-preview js-snippet-code-preview">code preview</code>
+                    </div>
 
-                    <div class="medium-6 columns end code-description js-snippet-description">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda alias, voluptatibus quasi
-                        ipsam quas ipsa tenetur pariatur velit cum reprehenderit optio perferendis ad labore ea, porro?
+                    <div class="sg-code-description">
+                        <span>Description:</span>
+                        <p class="js-snippet-description">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda alias, voluptatibus quasi
+                            ipsam quas ipsa tenetur pariatur velit cum reprehenderit optio perferendis ad labore ea, porro?
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="sg-snippet-preview js-snippet-preview" style="width: 1200px;">
-            <div class="snippet-source js-snippet-source">
-                <div class="made-up-snippet-example">
-                    <h2>Example snippet with long heading Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Asperiores unde eveniet, non.</h2>
-
-                    <div style="border: 1px solid #bada55;">
-                        Some sort of content here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eaque
-                        deleniti qui perspiciatis tempora.
-                    </div>
-                </div>
-            </div>
-            <div class="sg-snippet-resize-handle pos-left js-snippet-resize-handle-left"
-                 draggable="true"></div>
-            <div class="sg-snippet-resize-handle pos-right js-snippet-resize-handle-right"
-                 draggable="true"></div>
         </div>
         <div class="snippet-settings js-snippet-settings" style="display: none;">
             <section class="sg-snippet-form page-prewrapper">
@@ -340,7 +328,7 @@
                         <div class="row sg-controls-row">
                             <div class="medium-6 columns">
                                 <button class="btn-primary" type="submit">Update</button>
-                                <button class="btn-blank" type="button">Cancel</button>
+                                <button class="btn-blank js-btn-cancel" type="button">Cancel</button>
                             </div>
                             <div class="medium-6 columns text-right">
                                 <button class="btn-with-icon icon-delete js-delete-snippet" type="button">Delete
@@ -351,6 +339,23 @@
                     </form>
                 </div>
             </section>
+        </div>
+        <div class="sg-snippet-preview js-snippet-preview" style="width: 1200px;">
+            <div class="snippet-source js-snippet-source">
+                <div class="made-up-snippet-example">
+                    <h2>Example snippet with long heading Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Asperiores unde eveniet, non.</h2>
+
+                    <div style="border: 1px solid #bada55;">
+                        Some sort of content here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eaque
+                        deleniti qui perspiciatis tempora.
+                    </div>
+                </div>
+            </div>
+            <div class="sg-snippet-resize-handle pos-left js-snippet-resize-handle-left"
+                 draggable="true"></div>
+            <div class="sg-snippet-resize-handle pos-right js-snippet-resize-handle-right"
+                 draggable="true"></div>
         </div>
     </section>
 </script>
