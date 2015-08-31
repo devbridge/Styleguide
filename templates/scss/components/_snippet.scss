@@ -97,12 +97,15 @@ $snippet-header-height: 46px - 2px;
 		background: $color-grey;
 		border-bottom: 1px solid $border-snippet;
 		border-top: 2px solid $color-blue;
-		position: relative;
 
-		&:before {
-			content: '';
-			@include triangle(10px 5px, $color-blue, up);
-			@include position(absolute, -7px 210px null null);
+		.page-wrapper {
+			position: relative;
+
+			&:before {
+				content: '';
+				@include triangle(10px 5px, $color-blue, up);
+				@include position(absolute, -42px 105px null null);
+			}
 		}
 	}
 

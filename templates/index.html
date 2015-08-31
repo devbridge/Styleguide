@@ -6,7 +6,6 @@
     <link rel="icon" type="image/ico" href="favicon.ico">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
     <link rel="stylesheet" href="content/main.css">
-    <link rel="stylesheet" type="text/css" href="content/modal-styles.css">
     <style type="text/css" media="screen">
         .editor-view {
             position: relative;
@@ -94,9 +93,9 @@
         </div>
     </header>
 
-    <section class="sg-snippet-form sg-new-snippet-form js-new-snippet-form" style="display: none;">
+    <section class="sg-snippet-form js-new-snippet-form" style="display: none;">
         <div class="page-wrapper">
-            <form class="row js-create-snippet" action="/snippets">
+            <form class="js-create-snippet" action="/snippets">
                 <div class="clearfix sg-form-title">
                     <h2>New Snippet</h2>
                 </div>
@@ -245,9 +244,9 @@
             </div>
         </div>
         <div class="snippet-settings js-snippet-settings" style="display: none;">
-            <section class="sg-snippet-form page-prewrapper">
+            <section class="sg-snippet-form sg-edit-snippet-form page-prewrapper">
                 <div class="page-wrapper">
-                    <form class="row js-edit-snippet">
+                    <form class="js-edit-snippet">
                         <div class="clearfix sg-form-title">
                             <h2>Edit Snippet</h2>
                         </div>

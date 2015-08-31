@@ -17,8 +17,8 @@ var snippetActions = (function($, snippetService, iframesService, editorService,
       modal;
 
     modalContent = '<p>Are you sure you want to delete this snippet?</p>';
-    modalContent += '<button class="btn-primary btn-primary--white js-confirm-delete">Yes!</button>';
-    modalContent += '<button class="btn-primary btn-primary--white" data-modal-control="close">No!</button>';
+    modalContent += '<div class="btn-holder"><button class="btn-primary js-confirm-delete">Yes</button>';
+    modalContent += '<button class="btn-blank" data-modal-control="close">No</button></div>';
 
     modal = $.openModal({
       title: 'Snippet Deletion',

@@ -12,15 +12,21 @@
     border-top: 2px solid $color-blue;
     border-bottom: 1px solid $border-snippet;
 
-    &:before {
-        content: '';
-        @include triangle(10px 5px, $color-blue, up);
-        @include position(absolute, -7px 125px null null);
+    .page-wrapper {
+        position: relative;
+
+        &:before {
+            content: '';
+            @include triangle(10px 5px, $color-blue, up);
+            @include position(absolute, -52px 20px null null);
+        }
     }
 
-    &.sg-new-snippet-form {
-        &:before {
-            right: 118px;
+    &.sg-edit-snippet-form {
+        .page-wrapper {
+            &:before {
+                right: 28px;
+            }
         }
     }
 
