@@ -200,7 +200,7 @@
     overflow: hidden;
     @include position(absolute, 44px null null null);
     background-color: $bg-dropdown;
-    z-index: 1;
+    z-index: 10;
     @include transition(all .4s ease-out);
 
     &.active {

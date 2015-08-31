@@ -63,7 +63,7 @@
 			});
 
 			$sizeIndicator.on('keyup', function() {
-				$preview.find('iframe').get(0).style.width = $sizeIndicator.val();
+				$preview.find('iframe').get(0).style.width = $sizeIndicator.text();
 			});
 
 			interact($preview[0])
@@ -85,7 +85,7 @@
 						if (e.rect.width > 150) {
 							iframe.style.width = e.rect.width + 'px';
 							target.style.width = e.rect.width + 'px';
-							$sizeIndicator.val(e.rect.width + "px");
+							$sizeIndicator.text(e.rect.width + "px");
 						}
 					},
 					onend: function(e) {

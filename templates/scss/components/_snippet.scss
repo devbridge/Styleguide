@@ -5,16 +5,20 @@ $snippet-header-height: 46px - 2px;
 }
 
 .sg-snippet-header {
+	height: 45px;
+	padding: 8px 0;
 	border: solid $border-snippet;
 	border-width: 1px 0;
-	padding: 12px 0;
 
 	.sg-snippet-title {
+		position: relative;
+		width: 40%;
+		@include ellipsis();
 		font: {
 			size: 18px;
 			weight: $weight-bold;
 		}
-		line-height: 1.2;
+		z-index: 1;
 	}
 
 	.page-wrapper {
@@ -25,11 +29,12 @@ $snippet-header-height: 46px - 2px;
 .sg-snippet-size {
 	@include position(absolute, null 0 null 0);
 	text-align: center;
-	z-index: -1;
 }
 
 .sg-header-controls {
-	margin: -13px 0;
+	position: relative;
+	margin: -9px 0;
+	z-index: 1;
 }
 
 .sg-colors-container {
