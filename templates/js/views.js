@@ -1,9 +1,9 @@
 var viewService = (function($, editorService, sassService, categoryService, snippetService) {
   var module = {},
-    views,
-    currentView,
-    defaultResolution,
-    isServerOn;
+      views,
+      currentView,
+      defaultResolution,
+      isServerOn;
 
   var bindNavClick = function(e) {
     var id = $(this).data('id');
@@ -16,8 +16,8 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
   var bindCategoryButtons = function() {
     var currentViewIndex = $.inArray(currentView, views),
-      next,
-      prev;
+        next,
+        prev;
 
     if (currentViewIndex === 0) {
       prev = currentViewIndex;
@@ -46,9 +46,9 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
   var sortAndAppendLinks = function(navList, navLinksArr) {
     var sass,
-      undefCat,
-      index,
-      len = navLinksArr.length;
+        undefCat,
+        index,
+        len = navLinksArr.length;
 
     sass = navLinksArr.map(function(el) {
       return el.category.id;
@@ -69,23 +69,26 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
     for (index = 0; index < len; index++) {
       navList.append(navLinksArr[index].element);
+      navLinksArr[index].element.wrap("<li></li>");
     }
   };
 
   var buildNavigation = function() {
     var navigation = $('.js-navigation'),
-      currentPage = navigation.find('.js-current-page'),
-      navList = navigation.find('.js-navigation-list'),
-      pages = [{
-        name: 'Colors, Typography',
-        id: 'sass'
-      }],
-      iteratingPage,
-      route = window.location.hash,
-      pageElement,
-      navLinksArr = [],
-      index,
-      len;
+        currentPage = navigation.find('.js-current-page'),
+        navList = navigation.find('.js-navigation-list'),
+        pages = [{
+          name: 'Colors, Typography',
+          id: 'sass'
+        }],
+        iteratingPage,
+        route = window.location.hash,
+        pageElement,
+        menuItem,
+        buttonText,
+        navLinksArr = [],
+        index,
+        len;
 
     route = route.replace('#', '');
     currentPage.text(pages[0].name);
@@ -101,13 +104,13 @@ var viewService = (function($, editorService, sassService, categoryService, snip
         iteratingPage = pages[index];
         snippetService.getCategoryItemsCount(iteratingPage, function(count, category) {
           if (typeof count === 'number') {
-            pageElement = $('<li><button type="button" data-id="' + category.id + '">' + category.name + ' (' + count + ')</button></li>');
+            pageElement = $('<button type="button" data-id="' + category.id + '">' + category.name + ' (' + count + ')</button>');
             pageElement.on('click', bindNavClick);
             if (category.name === 'undefined') {
               pageElement.addClass('snippet-undefined-category');
             }
           } else {
-            pageElement = $('<li><button type="button" data-id="' + category.id + '">' + category.name + '</button></li>');
+            pageElement = $('<button type="button" data-id="' + category.id + '">' + category.name + '</button>');
             pageElement.on('click', bindNavClick);
           }
           navLinksArr.push({
@@ -185,8 +188,8 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
   var defaultResolutionsHandler = function(width, button) {
     var iframe = $('iframe').get(),
-      len = iframe.length,
-      index;
+        len = iframe.length,
+        index;
 
     $('.header-size-controls').find('.btn-ghost').removeClass('active');
     $(button).addClass('active');
@@ -205,12 +208,12 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
   var bindResolutionActions = function() {
     var desktop,
-      tablet,
-      mobile,
-      desktopButton = $('.js-desktop'),
-      tabletButton = $('.js-tablet'),
-      mobileButton = $('.js-mobile'),
-      customInput = $('.js-custom');
+        tablet,
+        mobile,
+        desktopButton = $('.js-desktop'),
+        tabletButton = $('.js-tablet'),
+        mobileButton = $('.js-mobile'),
+        customInput = $('.js-custom');
     $.getJSON('../styleguide_config.txt', function(data) {
       defaultResolution = desktop = data.resolutions.desktop ? data.resolutions.desktop + 'px' : '1200px';
       tablet = data.resolutions.tablet ? data.resolutions.tablet + 'px' : '768px';
@@ -276,13 +279,20 @@ var viewService = (function($, editorService, sassService, categoryService, snip
       event.stopPropagation();
       self = $(this);
 
-      dropdown.removeClass('active');
-      self.next(dropdown).toggleClass('active');
+      if(!self.hasClass('active')) {
+        self.addClass('active');
+        dropdown.removeClass('active');
+        self.next(dropdown).addClass('active');
+      } else {
+        self.removeClass('active');
+        self.next(dropdown).removeClass('active');
+      }
     });
 
-    $(document).click(function() {
+    $(window).on('click', function() {
+      trigger.removeClass('active');
       dropdown.removeClass('active');
-    })
+    });
   };
 
   module.init = function() {

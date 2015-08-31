@@ -207,6 +207,10 @@ $btn-ghost-radius: $border-radius;
 
     .tooltip {
         margin-left: 15px;
+
+        &:before {
+            margin-left: -1px;
+        }
     }
 }
 

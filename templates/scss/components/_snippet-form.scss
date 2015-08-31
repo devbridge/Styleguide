@@ -140,7 +140,7 @@
 }
 
 .field-checkbox {
-    position: absolute;
+    @include position(absolute, 7px null null null);
     height: 16px;
     width: 16px;
     opacity: 0;
@@ -151,9 +151,8 @@
 
             &:before {
                 content: '\f00c';
-                @include position(absolute, 0 null null 0);
+                @include position(absolute, 5px null null 0);
                 width: 16px;
-                margin-top: 2px;
                 text-align: center;
                 font-size: 12px;
                 color: $color-blue;
