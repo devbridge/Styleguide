@@ -84,8 +84,6 @@ var viewService = (function($, editorService, sassService, categoryService, snip
         iteratingPage,
         route = window.location.hash,
         pageElement,
-        menuItem,
-        buttonText,
         navLinksArr = [],
         index,
         len;
@@ -99,6 +97,12 @@ var viewService = (function($, editorService, sassService, categoryService, snip
         id: 'deleted'
       });
       len = pages.length;
+
+      navList.on('added:element', function() {
+        if (navLinksArr.length === pages.length) {
+          sortAndAppendLinks(navList, navLinksArr);
+        }
+      });
 
       for (index = 0; len > index; index++) {
         iteratingPage = pages[index];
@@ -120,12 +124,6 @@ var viewService = (function($, editorService, sassService, categoryService, snip
           navList.trigger('added:element');
         });
       }
-
-      navList.on('added:element', function() {
-        if (navLinksArr.length === pages.length) {
-          sortAndAppendLinks(navList, navLinksArr);
-        }
-      });
 
       if (route.length) {
         currentView = $.grep(views, function(el) {
@@ -191,7 +189,7 @@ var viewService = (function($, editorService, sassService, categoryService, snip
         len = iframe.length,
         index;
 
-    $('.header-size-controls').find('.btn-ghost').removeClass('active');
+    $('.js-snippet-resize-controls').find('button').removeClass('active');
     $(button).addClass('active');
 
     for (index = 0; index < len; index++) {

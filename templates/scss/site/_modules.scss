@@ -229,16 +229,16 @@ $btn-ghost-radius: $border-radius;
     display: inline-block;
     width: 17px;
     height: 17px;
+    line-height: .8;
     border: 1px solid $color-blue;
     border-radius: 50%;
     text-decoration: none;
     cursor: pointer;
+    text-align: center;
 
     &:before {
         content: '\f128';
-        display: block;
-        margin: -1px 0 0 -2px;
-        text-align: center;
+        display: inline-block;
         font-size: 12px;
         color: $color-blue;
         @extend %font-icon-style;

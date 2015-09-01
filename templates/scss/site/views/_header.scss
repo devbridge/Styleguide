@@ -104,8 +104,8 @@
 
             &:before {
                 content: '';
-                @include position(absolute, 0 null 0 0);
-                width: 14px;
+                @include position(absolute, 0 null 0 -2px);
+                width: 16px;
                 height: 1px;
                 margin: auto 0 auto -14px;
                 background-color: $color-grey-dark;
@@ -120,16 +120,18 @@
     }
 
     button {
+        position: relative;
         width: 32px;
         height: 32px;
         line-height: 32px;
         padding: 0;
-        background: transparent;
+        background: $color-black;
         border: 1px solid $color-grey-dark;
         border-radius: 50%;
         color: #666666;
         font-size: 13px;
         text-align: center;
+        z-index: 1;
 
         &.active,
         &:hover {
@@ -198,7 +200,7 @@
 .dropdown-list {
     max-height: 0;
     overflow: hidden;
-    @include position(absolute, 44px null null null);
+    @include position(absolute, 45px null null null);
     background-color: $bg-dropdown;
     z-index: 10;
     @include transition(all .4s ease-out);
@@ -224,12 +226,17 @@
     }
 
     button {
-        width: 100%;
+        display: block;
+        min-width: 100%;
         padding: 0 25px;
         background-color: transparent;
         border: none;
         white-space: nowrap;
         color: $text-secondary;
         text-align: left;
+
+        &:hover {
+            color: $color-blue;
+        }
     }
 }
