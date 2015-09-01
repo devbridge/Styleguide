@@ -92,6 +92,24 @@ $snippet-header-height: 46px - 2px;
 }
 
 .sg-snippet-code {
+	position: relative;
+	background-color: $color-grey-light;
+	padding: 20px 60px 20px 32px;
+
+	.btn-blank {
+		@include position(absolute, 3px 0 null null);
+		height: 22px;
+		padding: 0 15px;
+		font-size: 13px;
+		line-height: 1;
+
+		&:before {
+			bottom: 1px;
+			right: 15px;
+			left: 15px;
+		}
+	}
+
 	&-container {
 		padding: 35px 0 40px;
 		background: $color-grey;
@@ -122,11 +140,15 @@ $snippet-header-height: 46px - 2px;
 		}
 
 		.sg-code-preview {
+			display: block;
+			overflow: auto;
+			padding: 10px 0;
 			font: {
 				family: $font-main;
 				weight: $weight-light;
 				size: 14px;
 			}
+			white-space: pre;
 		}
 
 		.sg-code-description {
@@ -152,26 +174,6 @@ $snippet-header-height: 46px - 2px;
 				}
 				line-height: 1.5;
 			}
-		}
-	}
-}
-
-.sg-snippet-code {
-	position: relative;
-	background-color: $color-grey-light;
-	padding: 30px 60px 30px 32px;
-
-	.btn-blank {
-		@include position(absolute, 3px 0 null null);
-		height: 22px;
-		padding: 0 15px;
-		font-size: 13px;
-		line-height: 1;
-
-		&:before {
-			bottom: 1px;
-			right: 15px;
-			left: 15px;
 		}
 	}
 }
@@ -271,5 +273,19 @@ $snippet-header-height: 46px - 2px;
 		padding-bottom: 10px;
 		line-height: 1.2;
 		font-size: 30px;
+	}
+}
+
+// module Full screen code editor view
+.fullScreen {
+	overflow: hidden;
+
+	.fullScreen-editor {
+		height: auto !important;
+		width: auto !important;
+		@include position(fixed, 0 0 0 0);
+		border: 0;
+		margin: 0;
+		z-index: 10000;
 	}
 }
