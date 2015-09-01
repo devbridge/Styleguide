@@ -16,28 +16,37 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
   var bindCategoryButtons = function() {
     var currentViewIndex = $.inArray(currentView, views),
+        btnNext = $('.js-next-cat'),
+        btnPrev = $('.js-prev-cat'),
         next,
         prev;
 
     if (currentViewIndex === 0) {
       prev = currentViewIndex;
       next = currentViewIndex + 1;
+
+      btnPrev.attr('disabled', true);
     } else if (currentViewIndex === views.length - 1) {
       prev = currentViewIndex - 1;
       next = currentViewIndex;
+
+      btnNext.attr('disabled', true);
     } else {
       prev = currentViewIndex - 1;
       next = currentViewIndex + 1;
+
+      btnNext.removeAttr('disabled');
+      btnPrev.removeAttr('disabled');
     }
 
-    $('.js-next-cat').data('id', views[next].id);
-    $('.js-prev-cat').data('id', views[prev].id);
+    btnNext.data('id', views[next].id);
+    btnPrev.data('id', views[prev].id);
 
-    $('.js-next-cat').off('click');
-    $('.js-prev-cat').off('click');
+    btnNext.off('click');
+    btnPrev.off('click');
 
-    $('.js-next-cat').on('click', bindNavClick);
-    $('.js-prev-cat').on('click', bindNavClick);
+    btnNext.on('click', bindNavClick);
+    btnPrev.on('click', bindNavClick);
   };
 
   var categoriesComparator = function(a, b) {
@@ -156,7 +165,7 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
       bindCategoryButtons();
 
-      $('.header-size-controls').show();
+      $('.js-snippet-resize-controls').show();
       return;
     }
 
@@ -170,7 +179,7 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
       bindCategoryButtons();
 
-      $('.header-size-controls').show();
+      $('.js-snippet-resize-controls').show();
       return;
     }
 
@@ -178,7 +187,7 @@ var viewService = (function($, editorService, sassService, categoryService, snip
 
     bindCategoryButtons();
 
-    $('.header-size-controls').hide();
+    $('.js-snippet-resize-controls').hide();
 
     $('.js-current-page').text(currentView.name);
     sassService.loadSass();
