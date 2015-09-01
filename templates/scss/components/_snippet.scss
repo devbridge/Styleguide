@@ -4,6 +4,21 @@ $snippet-header-height: 46px - 2px;
 	margin-top: -1px;
 }
 
+.sg-snippet-source {
+	&.resize-overlay {
+		position: relative;
+		pointer-events: none;
+
+		&:before {
+			content: '';
+			@include position(absolute, 0 0 0 0);
+			background-color: $color-white;
+			opacity: .8;
+			z-index: 1000;
+		}
+	}
+}
+
 .sg-snippet-header {
 	height: 45px;
 	padding: 8px 0;
