@@ -45,13 +45,10 @@
 
 .sg-form-title {
     text-align: right;
-
-    h2 {
-        padding-right: 20px;
-        font: {
-            size: 36px;
-            weight: $weight-bold;
-        }
+    padding-right: 20px;
+    font: {
+        size: 36px;
+        weight: $weight-bold;
     }
 }
 

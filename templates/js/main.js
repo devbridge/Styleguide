@@ -18,6 +18,7 @@
 				$btnCancel = this.$element.find(".js-btn-cancel"),
 				$newSnippetForm = $(".js-new-snippet-form"),
 				$newSnippetCancel = $(".js-new-snippet-cancel"),
+				$snippetSource = ".js-snippet-source",
 				$editors,
 				$originalValues = {};
 
@@ -104,7 +105,7 @@
 						var target = e.target,
 							iframe = $(target).find('iframe').get(0);
 
-						$(target).children(':first').children('div').addClass('iframe-overlay');
+						$(target).find($snippetSource).addClass('resize-overlay');
 
 						snippetActions.handleHeights($(target).find('iframe'));
 
@@ -117,7 +118,7 @@
 					onend: function (e) {
 						var target = e.target;
 
-						$(target).children(':first').children('div').removeClass('iframe-overlay');
+						$(target).find($snippetSource).removeClass('resize-overlay');
 					}
 				});
 		}

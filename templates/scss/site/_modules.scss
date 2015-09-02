@@ -320,9 +320,10 @@ $btn-ghost-radius: $border-radius;
     &-box {
         display: table-cell;
         width: 50%;
+        vertical-align: middle;
 
         figure {
-            width: 250px;
+            width: 200px;
             margin: 0;
             float: right;
 
@@ -332,7 +333,6 @@ $btn-ghost-radius: $border-radius;
         }
 
         &:last-child {
-            vertical-align: middle;
             text-align: right;
         }
     }
@@ -396,13 +396,16 @@ $btn-ghost-radius: $border-radius;
     li {
         float: left;
 
-        a {
+        button {
             text-decoration: none;
             color: $color-blue;
             font: {
                 size: 16px;
                 weight: $weight-bold;
             }
+            background: none;
+            border: 0;
+            padding: 0;
 
             &:hover,
             &.active {

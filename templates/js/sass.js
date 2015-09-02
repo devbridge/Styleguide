@@ -94,7 +94,7 @@ var sassService = (function($) {
         index,
         varName;
 
-    colorBoxTpl.find('span.js-color-variable').remove();
+    //colorBoxTpl.find('span.js-color-variable').remove();
 
     colorsContainer.empty();
 
@@ -104,10 +104,10 @@ var sassService = (function($) {
         currentColorBox.find('span').css('background', color)
             .attr('data-color-text', color);
 
-        for (index = 0, len = colors[color].length; index < len; index++) {
-          varName = $('<span class="sg-color-variable js-color-variable">' + colors[color][index] + '</span>');
-          currentColorBox.append(varName);
-        }
+        //for (index = 0, len = colors[color].length; index < len; index++) {
+        //  varName = $('<span class="sg-color-variable js-color-variable">' + colors[color][index] + '</span>');
+        //  currentColorBox.append(varName);
+        //}
 
         colorBoxes.push(currentColorBox);
       }

@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>Styleguide</title>
     <link rel="icon" type="image/ico" href="favicon.ico">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type='text/css'>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="content/main.css">
 </head>
 <body>
 <div class="page-container">
-    <header class="sg-header page-prewrapper">
+    <div class="sg-header">
         <div class="page-wrapper clearfix">
             <span class="sg-title">Styleguide</span>
             <nav class="sg-header-nav js-navigation">
@@ -43,27 +44,26 @@
 
             <ul class="header-size-controls js-snippet-resize-controls">
                 <li>
-                    <button class="btn-ghost js-mobile" type="button" title="Mobile">480</button>
+                    <button class="js-mobile" type="button" title="Mobile">480</button>
                 <li>
-                    <button class="btn-ghost js-tablet" type="button" title="Tablet">768</button>
+                    <button class="js-tablet" type="button" title="Tablet">768</button>
                 </li>
                 <li>
-                    <button class="btn-ghost js-desktop" type="button" title="Desktop">1200</button>
+                    <button class="js-desktop" type="button" title="Desktop">1200</button>
                 </li>
                 <li>
                     <input class="input-new-size js-custom" type="text" title="Custom" value="">
+                    <span class="label-new-size">px</span>
                     <span class="dots">...</span>
                 </li>
             </ul>
         </div>
-    </header>
+    </div>
 
-    <section class="sg-snippet-form js-new-snippet-form" style="display: none;">
+    <div class="sg-snippet-form js-new-snippet-form" style="display: none;">
         <div class="page-wrapper">
             <form class="js-create-snippet" action="/snippets">
-                <div class="clearfix sg-form-title">
-                    <h2>New Snippet</h2>
-                </div>
+                <div class="clearfix sg-form-title">New Snippet</div>
 
                 <div class="row">
                     <div class="medium-4 columns">
@@ -118,8 +118,6 @@
                                         title="Toggle full screen">Toggle full screen
                                 </button>
                             </div>
-
-                            <label id="form-new-code-error" style="display: none;">This field is required.</label>
                         </div>
                     </div>
 
@@ -153,14 +151,20 @@
                 </div>
             </form>
         </div>
-    </section>
+    </div>
 
-    <main class="main">
+    <nav class="sg-home-navigation js-home-navigation">
+        <div class="page-wrapper">
+            <ul class="js-navigation-list clearfix"></ul>
+        </div>
+    </nav>
 
-    </main>
+    <div class="main">
+
+    </div>
 </div>
 
-<footer class="sg-footer page-prewrapper">
+<div class="sg-footer">
     <div class="page-wrapper clearfix">
         <div class="pull-left sg-footer-info-box">
             <a href="https://github.com/devbridge/Styleguide" target="_blank">
@@ -174,11 +178,11 @@
             <a href="http://www.devbridge.com/" target="_blank" class="sg-powered-by">Powered by Devbridge</a>
         </div>
     </div>
-</footer>
+</div>
 
 <script type="text/html" id="snippet">
-    <section class="snippet js-snippet page-prewrapper">
-        <header class="sg-snippet-header">
+    <div class="snippet js-snippet">
+        <div class="sg-snippet-header">
             <div class="page-wrapper clearfix">
                 <span class="sg-snippet-title js-snippet-name">Snippet Name</span>
                 <span class="sg-snippet-size js-snippet-size">1200px</span>
@@ -189,8 +193,8 @@
                     </button>
                 </div>
             </div>
-        </header>
-        <div class="sg-snippet-code-container page-prewrapper js-snippet-code" style="display: none;">
+        </div>
+        <div class="sg-snippet-code-container js-snippet-code" style="display: none;">
             <div class="page-wrapper">
                 <div class="sg-snippet-code-holder">
                     <div class="sg-snippet-code">
@@ -209,12 +213,10 @@
             </div>
         </div>
         <div class="snippet-settings js-snippet-settings" style="display: none;">
-            <section class="sg-snippet-form sg-edit-snippet-form page-prewrapper">
+            <section class="sg-snippet-form sg-edit-snippet-form">
                 <div class="page-wrapper">
                     <form class="js-edit-snippet">
-                        <div class="clearfix sg-form-title">
-                            <h2>Edit Snippet</h2>
-                        </div>
+                        <div class="clearfix sg-form-title">Edit Snippet</div>
                         <div class="row">
                             <div class="medium-4 columns">
                                 <div class="form-row">
@@ -321,36 +323,11 @@
             <div class="sg-snippet-resize-handle pos-right js-snippet-resize-handle-right"
                  draggable="true"></div>
         </div>
-    </section>
+    </div>
 </script>
 
 <script type="text/html" id="sass-page">
-    <nav class="sg-home-navigation">
-        <div class="page-wrapper">
-            <ul class="clearfix">
-                <li>
-                    <a class="active" href="#nolink">General</a>
-                </li>
-                <li>
-                    <a href="#nolink">Components</a>
-                </li>
-                <li>
-                    <a href="#nolink">Modules</a>
-                </li>
-                <li>
-                    <a href="#nolink">Form elements</a>
-                </li>
-                <li>
-                    <a href="#nolink">Icons</a>
-                </li>
-                <li>
-                    <a href="#nolink">Headings</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="sg-intro-container">
+    <div class="sg-intro-container">
         <div class="page-wrapper">
             <div class="sg-intro-row">
                 <div class="sg-intro-box">
@@ -364,14 +341,14 @@
 
                 <div class="sg-intro-box">
                     <figure>
-                        <img src="content/logo-myus.svg" alt="MyUS">
+                        <img src="content/your-logo.png" alt="Your logo">
                     </figure>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="snippet page-prewrapper">
+    <div class="snippet">
         <header class="sg-snippet-header">
             <div class="page-wrapper">
                 <span class="sg-snippet-title">Colors</span>
@@ -384,14 +361,14 @@
                 </li>
             </ul>
         </div>
-    </section>
+    </div>
 
-    <section class="snippet page-prewrapper">
-        <header class="sg-snippet-header">
+    <div class="snippet">
+        <div class="sg-snippet-header">
             <div class="page-wrapper">
                 <span class="sg-snippet-title">Fonts</span>
             </div>
-        </header>
+        </div>
         <div class="page-wrapper">
             <ul class="sg-snippet-fonts-holder js-fonts-container">
                 <li class="row js-font-tpl">
@@ -410,14 +387,14 @@
                 </li>
             </ul>
         </div>
-    </section>
+    </div>
 
-    <section class="snippet page-prewrapper">
-        <header class="sg-snippet-header">
+    <div class="snippet">
+        <div class="sg-snippet-header">
             <div class="page-wrapper">
                 <span class="sg-snippet-title">Typography</span>
             </div>
-        </header>
+        </div>
         <div class="page-wrapper">
             <ul class="sg-snippet-headings-holder">
                 <li class="row">
@@ -496,7 +473,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </script>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

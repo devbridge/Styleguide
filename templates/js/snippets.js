@@ -1,7 +1,7 @@
 var snippetService = (function($, categoryService) {
   var module = {},
-    scrapePath,
-    apiPath;
+      scrapePath,
+      apiPath;
 
   module.getCategoryItemsCount = function(category, callback) {
     if (typeof category.id === 'number') {
@@ -23,7 +23,7 @@ var snippetService = (function($, categoryService) {
 
   module.init = function(callback) {
     var path = '../styleguide_config.txt',
-      request;
+        request;
 
     $.getJSON(path, function(data) {
       apiPath = '//' + window.location.hostname + ':' + data.serverPort + '/snippets/';
@@ -49,10 +49,10 @@ var snippetService = (function($, categoryService) {
   module.getDeletedSnippets = function(callback) {
     categoryService.getCategories(function(categories) {
       var len = categories.length,
-        index,
-        deletedSnippets = [],
-        path,
-        cacheBust = '?t=' + Date.now();
+          index,
+          deletedSnippets = [],
+          path,
+          cacheBust = '?t=' + Date.now();
 
       $.ajaxSetup({
         async: false
@@ -86,9 +86,9 @@ var snippetService = (function($, categoryService) {
   module.getByCategoryId = function(categoryId, callback) {
     categoryService.getCategories(function(categories) {
       var len = categories.length,
-        index,
-        path,
-        cacheBust = '?t=' + Date.now();
+          index,
+          path,
+          cacheBust = '?t=' + Date.now();
 
       for (index = 0; index < len; index++) {
         if (categories[index].id === categoryId) {
@@ -116,10 +116,10 @@ var snippetService = (function($, categoryService) {
   module.getById = function(snippetId, callback) {
     categoryService.getCategories(function(categories) {
       var len = categories.length,
-        index,
-        desireableSnippet,
-        path,
-        cacheBust = '?t=' + Date.now();
+          index,
+          desireableSnippet,
+          path,
+          cacheBust = '?t=' + Date.now();
 
       $.ajaxSetup({
         async: false

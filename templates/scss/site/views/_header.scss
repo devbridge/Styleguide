@@ -128,13 +128,17 @@
         position: relative;
         width: 32px;
         height: 32px;
-        line-height: 32px;
+        line-height: 1.2;
         padding: 0;
         background: $color-black;
         border: 1px solid $color-grey-dark;
         border-radius: 50%;
         color: #666666;
-        font-size: 13px;
+        font: {
+            family: $font-secondary;
+            weight: $weight-light;
+            size: 14px;
+        }
         text-align: center;
         z-index: 1;
 
@@ -151,6 +155,7 @@
         height: 32px;
         border: 1px solid $color-grey-dark;
         color: transparent;
+        font-size: 14px;
         border-radius: 50%;
         background-color: transparent;
         text-align: center;
@@ -158,26 +163,37 @@
         z-index: 1;
 
         &:focus {
-            width: 60px;
+            width: 64px;
             border-radius: 20px;
             border-color: $color-blue;
             color: $color-blue;
             text-align: left;
-            padding: 0 7px;
+            padding: 0 22px 0 7px;
 
             ~ .dots {
                 opacity: 0;
             }
+
+            ~ .label-new-size {
+                display: block;
+            }
         }
+    }
+
+    .label-new-size {
+        display: none;
+        font-size: 14px;
+        color: $color-blue;
+        @include position(absolute, 5px 7px null null);
     }
 
     .dots {
         @include position(absolute, 0 0 0 null);
         width: 32px;
         height: 32px;
-        line-height: 2.2;
+        line-height: 2;
         text-align: center;
-        color: #666666;
+        color: $color-grey-dark-secondary;
         opacity: 1;
         @include transition(all .2s ease);
         z-index: 0;

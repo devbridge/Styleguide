@@ -17,6 +17,10 @@ $snippet-header-height: 46px - 2px;
 			z-index: 1000;
 		}
 	}
+
+	iframe {
+		width: 100% !important;
+	}
 }
 
 .sg-snippet-header {
@@ -54,20 +58,19 @@ $snippet-header-height: 46px - 2px;
 
 .sg-colors-container {
 	margin-bottom: 1px;
+	overflow-x: auto;
 }
 
 .sg-colors-holder {
+	display: table;
 	width: 100%;
-	overflow-x: auto;
-	overflow-y: hidden;
+	table-layout: fixed;
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	font-size: 0;
-	white-space: nowrap;
 
 	li {
-		display: inline-block;
+		display: table-cell;
 		font-size: 14px;
 		width: 109px;
 		height: 150px;
@@ -86,13 +89,8 @@ $snippet-header-height: 46px - 2px;
 			padding: 0 5px;
 			color: $color-white;
 			text-align: center;
-			overflow: hidden;
-			text-overflow: ellipsis;
+			@include ellipsis();
 		}
-	}
-
-	.sg-color-variable {
-		display: none;
 	}
 }
 
@@ -172,7 +170,7 @@ $snippet-header-height: 46px - 2px;
 			padding-left: 35px;
 			vertical-align: top;
 
-			span {
+			> span {
 				display: block;
 				padding-bottom: 8px;
 				font: {
@@ -188,6 +186,13 @@ $snippet-header-height: 46px - 2px;
 					weight: $weight-light;
 				}
 				line-height: 1.5;
+
+				span {
+					padding: 0 2px 2px;
+					background-color: #FBFBFB;
+					border: 1px solid #C5C5C5;
+					border-radius: 4px;
+				}
 			}
 		}
 	}

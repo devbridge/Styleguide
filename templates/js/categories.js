@@ -1,6 +1,6 @@
 var categoryService = (function($) {
   var module = {},
-    cachedCategories;
+      cachedCategories;
 
   module.getCategories = function(callback) {
     if (!cachedCategories) {
