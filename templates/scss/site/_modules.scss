@@ -21,32 +21,33 @@ $btn-ghost-radius: $border-radius;
     @include transition(all .3s ease);
 
     &:hover {
-        border: 1px solid $color-blue;
         background-color: transparent;
+        border: 1px solid $color-blue;
         color: $color-blue;
     }
 }
 
 .btn-menu {
-    position: relative;
-    width: 32px;
-    height: 32px;
     background: transparent;
     border: 1px solid $color-blue;
     border-radius: 50%;
+    box-sizing: border-box;
     font-size: 0;
+    height: 32px;
+    position: relative;
+    width: 32px;
 
     &:before,
     &:after {
-        content: '';
-        @include position(absolute, 0 0 0 0);
-        margin: auto;
         background-color: $color-blue;
+        @include position(absolute, 0 0 0 0);
+        content: '';
+        margin: auto;
     }
 
     &:before {
-        width: 13px;
         height: 1px;
+        width: 13px;
     }
 
     &:after {
@@ -56,16 +57,16 @@ $btn-ghost-radius: $border-radius;
 }
 
 .btn-blank {
-    position: relative;
-    @extend %btn-template;
     background-color: transparent;
+    @extend %btn-template;
     color: $color-blue;
+    position: relative;
 
     &:before {
-        content: '';
-        @include position(absolute, null 18px 4px 18px);
-        height: 1px;
         background-color: $color-blue;
+        @include position(absolute, null 18px 4px 18px);
+        content: '';
+        height: 1px;
         visibility: hidden;
         @include transform(scaleX(0));
         @include transition(.15s linear);
@@ -80,42 +81,42 @@ $btn-ghost-radius: $border-radius;
 }
 
 .btn-full-screen {
-    position: relative;
-    width: 24px;
-    height: 24px;
-    padding: 0;
     background-color: $color-white;
     border-color: transparent;
-    font-size: 0;
-    text-align: center;
     color: $color-blue;
+    font-size: 0;
+    height: 24px;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    width: 24px;
 
     &:before {
         content: '\f065';
         display: inline-block;
-        text-align: center;
         font-size: 12px;
+        text-align: center;
         @extend %font-icon-style;
     }
 }
 
 .btn-with-icon {
-    position: relative;
+    background: transparent;
     @extend %btn-template;
     color: $color-black-secondary;
-    background: transparent;
+    position: relative;
 
     &:before {
         display: inline-block;
-        vertical-align: middle;
         margin-right: 10px;
+        vertical-align: middle;
     }
 
     &:after {
-        content: '';
-        @include position(absolute, null 18px 4px 43px);
-        height: 1px;
         background-color: #c1272d;
+        @include position(absolute, null 18px 4px 43px);
+        content: '';
+        height: 1px;
         visibility: hidden;
         @include transform(scaleX(0));
         @include transition(.15s linear);
@@ -123,10 +124,10 @@ $btn-ghost-radius: $border-radius;
 
     &.icon-delete {
         &:before {
-            content: '\f014';
-            margin-top: -2px;
-            font-size: 18px;
             color: #c1272d;
+            content: '\f014';
+            font-size: 18px;
+            margin-top: -2px;
             @extend %font-icon-style;
         }
     }
@@ -140,23 +141,23 @@ $btn-ghost-radius: $border-radius;
 }
 
 .btn-show-code {
-    display: inline-block;
-    height: 44px;
     background-color: transparent;
     border: solid $border-snippet;
     border-width: 0 1px;
-    font-size: 13px;
-    padding: 0 16px;
     color: #999999;
+    display: inline-block;
+    font-size: 13px;
+    height: 44px;
+    padding: 0 16px;
 
     &:after {
+        background: url($src-icon-code) no-repeat;
         content: '';
         display: inline-block;
-        width: 17px;
         height: 12px;
         margin-left: 10px;
         vertical-align: middle;
-        background: url($src-icon-code) no-repeat;
+        width: 17px;
     }
 
     &:hover,
@@ -171,20 +172,20 @@ $btn-ghost-radius: $border-radius;
 }
 
 .btn-edit {
-    display: inline-block;
-    padding: 0 12px;
     background-color: transparent;
     border: solid $border-snippet;
     border-width: 0 1px 0 0;
-    height: 44px;
+    display: inline-block;
     font-size: 0;
+    height: 44px;
+    padding: 0 12px;
 
     &:before {
+        color: #999999;
         content: '\f040';
         display: inline-block;
-        font-size: 18px;
         @extend %font-icon-style;
-        color: #999999;
+        font-size: 18px;
     }
 
     &:hover,
@@ -225,22 +226,23 @@ $btn-ghost-radius: $border-radius;
 }
 
 .tooltip {
-    position: relative;
-    display: inline-block;
-    width: 17px;
-    height: 17px;
-    line-height: .8;
     border: 1px solid $color-blue;
     border-radius: 50%;
-    text-decoration: none;
+    box-sizing: border-box;
     cursor: pointer;
+    display: inline-block;
+    height: 17px;
+    line-height: .8;
+    position: relative;
     text-align: center;
+    text-decoration: none;
+    width: 17px;
 
     &:before {
+        color: $color-blue;
         content: '\f128';
         display: inline-block;
         font-size: 12px;
-        color: $color-blue;
         @extend %font-icon-style;
     }
 
@@ -252,8 +254,8 @@ $btn-ghost-radius: $border-radius;
         }
 
         .tooltip-text {
-            visibility: visible;
             opacity: 1;
+            visibility: visible;
             @include transform(translateY(-12px));
         }
     }
@@ -265,34 +267,35 @@ $btn-ghost-radius: $border-radius;
 
         .tooltip-text {
             left: auto;
-            right: 6px;
             margin: 0;
+            right: 6px;
 
             &:after {
-                left: auto;
-                right: 0;
-                margin: 0;
-                border-left: 0;
-                border-top: 0;
                 border-bottom: 8px solid transparent;
+                border-left: 0;
                 border-right-color: $color-grey-dark;
+                border-top: 0;
+                left: auto;
+                margin: 0;
+                right: 0;
             }
         }
     }
 
-    .tooltip-text {
+    &-text {
         @include position(absolute, null null 100% 50%);
+        background-color: $color-grey-dark;
+        box-sizing: border-box;
+        color: $color-white;
         display: block;
-        width: 180px;
-        padding: 8px 10px;
         font-size: 12px;
         line-height: 1.4;
         margin-left: -90px;
-        text-align: left;
-        background-color: $color-grey-dark;
-        color: $color-white;
-        visibility: hidden;
         opacity: 0;
+        padding: 8px 10px;
+        text-align: left;
+        visibility: hidden;
+        width: 180px;
         @include transition(opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s cubic-bezier(.71, 1.7, .77, 1.24));
         @include transform(translate3d(0, 0, 0));
 
@@ -313,19 +316,19 @@ $btn-ghost-radius: $border-radius;
 
     &-row {
         display: table;
-        width: 100%;
         table-layout: fixed;
+        width: 100%;
     }
 
     &-box {
         display: table-cell;
-        width: 50%;
         vertical-align: middle;
+        width: 50%;
 
         figure {
-            width: 200px;
-            margin: 0;
             float: right;
+            margin: 0;
+            width: 200px;
 
             img {
                 width: 100%;
@@ -339,12 +342,12 @@ $btn-ghost-radius: $border-radius;
 
     &-title {
         display: block;
-        padding-bottom: 15px;
+        line-height: 1.2;
         font: {
             size: 48px;
             weight: $weight-bold;
         }
-        line-height: 1.2;
+        padding-bottom: 15px;
     }
 
     &-description {
@@ -360,15 +363,15 @@ $btn-ghost-radius: $border-radius;
                 weight: $weight-bold;
                 style: italic;
             }
-            position: relative;
             color: $color-black;
+            position: relative;
             text-decoration: none;
 
             &:after {
-                content: '';
-                @include position(absolute, null 0 -2px 0);
-                height: 1px;
                 background-color: $color-grey-dark;
+                @include position(absolute, null 0 -2px 0);
+                content: '';
+                height: 1px;
                 @include transform(scaleX(1));
                 @include transition(.15s linear);
             }
@@ -384,8 +387,8 @@ $btn-ghost-radius: $border-radius;
 
 // module Home secondary navigation
 .sg-home-navigation {
-    padding: 11px 0;
     border-bottom: 1px solid $border-snippet;
+    padding: 11px 0;
 
     ul {
         list-style: none;
@@ -397,15 +400,15 @@ $btn-ghost-radius: $border-radius;
         float: left;
 
         button {
-            text-decoration: none;
-            color: $color-blue;
+            background: none;
+            border: 0;
             font: {
                 size: 16px;
                 weight: $weight-bold;
             }
-            background: none;
-            border: 0;
+            color: $color-blue;
             padding: 0;
+            text-decoration: none;
 
             &:hover,
             &.active {

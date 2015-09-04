@@ -28,6 +28,7 @@ $snippet-header-height: 46px - 2px;
 	padding: 8px 0;
 	border: solid $border-snippet;
 	border-width: 1px 0;
+	box-sizing: border-box;
 
 	.sg-snippet-title {
 		position: relative;

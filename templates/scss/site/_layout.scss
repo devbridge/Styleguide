@@ -1,6 +1,5 @@
 // module Global
 html {
-    box-sizing: border-box;
     height: 100%;
 }
 
@@ -15,12 +14,6 @@ body {
     color: $color-black;
     line-height: 1.5;
     text-rendering: optimizeLegibility;
-}
-
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
 }
 
 .main {

@@ -7,6 +7,7 @@
 .columns {
 	float: left;
 	padding: 0 $grid-gutter/2;
+	box-sizing: border-box;
 	
 	& + &:last-child {
 		float: right;
