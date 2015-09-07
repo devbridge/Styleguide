@@ -5,55 +5,53 @@
 }
 
 .modal-context {
+    @include position(fixed, 0 null null 0);
+    -webkit-overflow-scrolling: touch;
     background-color: rgba(0, 0, 0, .8);
     height: 100%;
-    left: 0;
-    -webkit-overflow-scrolling: touch;
     overflow-y: scroll;
-    position: fixed;
-    top: 0;
     width: 100%;
     z-index: 500;
 }
 
 .modal-container {
+    border-top: 2px solid $color-blue;
     margin: 130px auto;
     max-width: 100%;
     position: relative;
     width: 660px;
-    border-top: 2px solid $color-blue;
 }
 
 .modal-title {
     background: $color-white;
-    padding: 12px 60px 12px 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.1;
+    border-bottom: 1px solid $border-snippet;
+    box-sizing: border-box;
     font: {
         size: 18px;
         weight: $weight-bold;
     }
-    box-sizing: border-box;
-    border-bottom: 1px solid $border-snippet;
+    line-height: 1.1;
+    overflow: hidden;
+    padding: 12px 60px 12px 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .modal-content {
     background: $color-white;
-    padding: 15px 20px 25px;
     box-sizing: border-box;
     color: $color-black-secondary;
+    padding: 15px 20px 25px;
 
     pre {
-        margin: 6px 0 0;
-        padding: 12px 10px;
         background-color: $color-grey-light;
         border: 1px solid $color-grey-dark-secondary;
         font: {
             family: $font-main;
             size: 12px;
         }
+        margin: 6px 0 0;
+        padding: 12px 10px;
     }
 
     .btn-holder {
@@ -62,6 +60,7 @@
 }
 
 .modal-close {
+    @include position(absolute, 0 1px null null);
     background: none;
     border: solid $border-snippet;
     border-width: 0 0 0 1px;
@@ -69,21 +68,18 @@
     height: 44px;
     overflow: hidden;
     padding: 0;
-    position: absolute;
-    right: 1px;
     text-align: center;
     text-indent: 99px;
-    top: 0;
     width: 45px;
 
     &:after,
     &:before {
-        content: '';
         @include position(absolute, 0 0 0 0);
+        background-color: $color-black;
+        content: '';
+        height: 1px;
         margin: auto;
         width: 25px;
-        height: 1px;
-        background-color: $color-black;
     }
 
     &:before {

@@ -4,15 +4,15 @@ html {
 }
 
 body {
-    height: 100%;
-    min-width: $media-medium + $grid-gutter * 2;
+    color: $color-black;
     font: {
         family: $font-main;
         size: 16px;
         weight: $weight-regular;
     }
-    color: $color-black;
+    height: 100%;
     line-height: 1.5;
+    min-width: $media-medium + $grid-gutter * 2;
     text-rendering: optimizeLegibility;
 }
 
@@ -61,7 +61,7 @@ p {
 
 // etc
 iframe {
-    width: 100%;
-    height: auto;
     border: 0;
+    height: auto;
+    width: 100%;
 }

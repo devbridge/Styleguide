@@ -57,8 +57,8 @@ $btn-ghost-radius: $border-radius;
 }
 
 .btn-blank {
-    background-color: transparent;
     @extend %btn-template;
+    background-color: transparent;
     color: $color-blue;
     position: relative;
 
@@ -92,17 +92,17 @@ $btn-ghost-radius: $border-radius;
     width: 24px;
 
     &:before {
+        @extend %font-icon-style;
         content: '\f065';
         display: inline-block;
         font-size: 12px;
         text-align: center;
-        @extend %font-icon-style;
     }
 }
 
 .btn-with-icon {
-    background: transparent;
     @extend %btn-template;
+    background: transparent;
     color: $color-black-secondary;
     position: relative;
 
@@ -124,11 +124,11 @@ $btn-ghost-radius: $border-radius;
 
     &.icon-delete {
         &:before {
+            @extend %font-icon-style;
             color: #c1272d;
             content: '\f014';
             font-size: 18px;
             margin-top: -2px;
-            @extend %font-icon-style;
         }
     }
 
@@ -144,7 +144,7 @@ $btn-ghost-radius: $border-radius;
     background-color: transparent;
     border: solid $border-snippet;
     border-width: 0 1px;
-    color: #999999;
+    color: #999;
     display: inline-block;
     font-size: 13px;
     height: 44px;
@@ -181,7 +181,7 @@ $btn-ghost-radius: $border-radius;
     padding: 0 12px;
 
     &:before {
-        color: #999999;
+        color: #999;
         content: '\f040';
         display: inline-block;
         @extend %font-icon-style;
@@ -239,11 +239,11 @@ $btn-ghost-radius: $border-radius;
     width: 17px;
 
     &:before {
+        @extend %font-icon-style;
         color: $color-blue;
         content: '\f128';
         display: inline-block;
         font-size: 12px;
-        @extend %font-icon-style;
     }
 
     &:hover {
@@ -342,11 +342,11 @@ $btn-ghost-radius: $border-radius;
 
     &-title {
         display: block;
-        line-height: 1.2;
         font: {
             size: 48px;
             weight: $weight-bold;
         }
+        line-height: 1.2;
         padding-bottom: 15px;
     }
 
@@ -359,11 +359,11 @@ $btn-ghost-radius: $border-radius;
         line-height: 1.2;
 
         a {
+            color: $color-black;
             font: {
                 weight: $weight-bold;
                 style: italic;
             }
-            color: $color-black;
             position: relative;
             text-decoration: none;
 
@@ -400,13 +400,13 @@ $btn-ghost-radius: $border-radius;
         float: left;
 
         button {
+            color: $color-blue;
             background: none;
             border: 0;
             font: {
                 size: 16px;
                 weight: $weight-bold;
             }
-            color: $color-blue;
             padding: 0;
             text-decoration: none;
 
