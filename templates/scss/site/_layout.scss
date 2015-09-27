@@ -1,0 +1,67 @@
+// module Global
+html {
+    height: 100%;
+}
+
+body {
+    color: $color-black;
+    font: {
+        family: $font-main;
+        size: 16px;
+        weight: $weight-regular;
+    }
+    height: 100%;
+    line-height: 1.5;
+    min-width: $media-medium + $grid-gutter * 2;
+    text-rendering: optimizeLegibility;
+}
+
+.main {
+    padding-bottom: 100px;
+}
+
+.page-container {
+    margin-bottom: -$footer-height;
+    min-height: 100%;
+
+    &:after {
+        content: '';
+        display: block;
+        height: $footer-height;
+    }
+}
+
+.page-wrapper {
+    margin: 0 auto;
+    padding: 0 $grid-gutter/2;
+
+    @if $grid-responsive == true {
+        max-width: $media-medium + $grid-gutter;
+    } @else {
+        width: $media-medium + $grid-gutter;
+    }
+}
+
+@for $i from 1 through 9 {
+    .layer-#{$i} {
+        z-index: $i * 100;
+    }
+}
+
+// module Typography
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+// etc
+iframe {
+    border: 0;
+    height: auto;
+    width: 100%;
+}

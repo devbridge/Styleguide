@@ -1,0 +1,41 @@
+.row {
+    @extend .clearfix;
+    margin: 0 $grid-gutter/-2;
+}
+
+.column,
+.columns {
+    box-sizing: border-box;
+    float: left;
+    padding: 0 $grid-gutter/2;
+
+    & + &:last-child {
+        float: right;
+    }
+
+    & + &.end {
+        float: left;
+    }
+}
+
+@for $i from 1 through $grid-columns {
+    .medium-#{$i} {
+        width: 100% * ($i / $grid-columns);
+    }
+
+    .medium-offset-#{$i} {
+        margin-left: 100% * ($i / $grid-columns);
+    }
+}
+
+@media (max-width: $media-small) {
+    @for $i from 1 through $grid-columns {
+        .small-#{$i} {
+            width: 100% * ($i / $grid-columns);
+        }
+
+        .small-offset-#{$i} {
+            margin-left: 100% * ($i / $grid-columns);
+        }
+    }
+}

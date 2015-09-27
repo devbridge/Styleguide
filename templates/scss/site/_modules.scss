@@ -1,0 +1,423 @@
+// module buttons
+%btn-template {
+    border: 1px solid transparent;
+    display: inline-block;
+    font-size: 16px;
+    height: 32px;
+    line-height: 30px;
+    padding: 0 18px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+$btn-ghost-radius: $border-radius;
+
+.btn-primary {
+    @extend %btn-template;
+    background-color: $color-blue;
+    border-radius: 20px;
+    color: $color-white;
+    @include transition(all .3s ease);
+
+    &:hover {
+        background-color: transparent;
+        border: 1px solid $color-blue;
+        color: $color-blue;
+    }
+}
+
+.btn-menu {
+    background: transparent;
+    border: 1px solid $color-blue;
+    border-radius: 50%;
+    box-sizing: border-box;
+    font-size: 0;
+    height: 32px;
+    position: relative;
+    width: 32px;
+
+    &:before,
+    &:after {
+        background-color: $color-blue;
+        @include position(absolute, 0 0 0 0);
+        content: '';
+        margin: auto;
+    }
+
+    &:before {
+        height: 1px;
+        width: 13px;
+    }
+
+    &:after {
+        height: 13px;
+        width: 1px;
+    }
+}
+
+.btn-blank {
+    @extend %btn-template;
+    background-color: transparent;
+    color: $color-blue;
+    position: relative;
+
+    &:before {
+        background-color: $color-blue;
+        @include position(absolute, null 18px 4px 18px);
+        content: '';
+        height: 1px;
+        visibility: hidden;
+        @include transform(scaleX(0));
+        @include transition(.15s linear);
+    }
+
+    &:hover {
+        &:before {
+            visibility: visible;
+            @include transform(scaleX(1));
+        }
+    }
+}
+
+.btn-full-screen {
+    background-color: $color-white;
+    border-color: transparent;
+    color: $color-blue;
+    font-size: 0;
+    height: 24px;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    width: 24px;
+
+    &:before {
+        @extend %font-icon-style;
+        content: '\f065';
+        display: inline-block;
+        font-size: 12px;
+        text-align: center;
+    }
+}
+
+.btn-with-icon {
+    @extend %btn-template;
+    background: transparent;
+    color: $color-black-secondary;
+    position: relative;
+
+    &:before {
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    &:after {
+        background-color: #c1272d;
+        @include position(absolute, null 18px 4px 43px);
+        content: '';
+        height: 1px;
+        visibility: hidden;
+        @include transform(scaleX(0));
+        @include transition(.15s linear);
+    }
+
+    &.icon-delete {
+        &:before {
+            @extend %font-icon-style;
+            color: #c1272d;
+            content: '\f014';
+            font-size: 18px;
+            margin-top: -2px;
+        }
+    }
+
+    &:hover {
+        &:after {
+            visibility: visible;
+            @include transform(scaleX(1));
+        }
+    }
+}
+
+.btn-show-code {
+    background-color: transparent;
+    border: solid $border-snippet;
+    border-width: 0 1px;
+    color: #999;
+    display: inline-block;
+    font-size: 13px;
+    height: 44px;
+    padding: 0 16px;
+
+    &:after {
+        background: url($src-icon-code) no-repeat;
+        content: '';
+        display: inline-block;
+        height: 12px;
+        margin-left: 10px;
+        vertical-align: middle;
+        width: 17px;
+    }
+
+    &:hover,
+    &:focus,
+    &.active {
+        color: $color-black;
+
+        &:after {
+            background-image: url($src-icon-code-active);
+        }
+    }
+}
+
+.btn-edit {
+    background-color: transparent;
+    border: solid $border-snippet;
+    border-width: 0 1px 0 0;
+    display: inline-block;
+    font-size: 0;
+    height: 44px;
+    padding: 0 12px;
+
+    &:before {
+        color: #999;
+        content: '\f040';
+        display: inline-block;
+        @extend %font-icon-style;
+        font-size: 18px;
+    }
+
+    &:hover,
+    &:focus,
+    &.active {
+        &:before {
+            color: $color-blue;
+        }
+    }
+}
+
+//module Icons
+@include font-face('FontAwesome', './fonts/fontawesome-webfont');
+
+//module Tooltip
+.tooltip-wrapper {
+    label {
+        display: inline-block;
+    }
+
+    .tooltip {
+        margin-left: 15px;
+
+        &:before {
+            margin-left: -1px;
+        }
+    }
+}
+
+.tooltip-pos-right {
+    label {
+        display: inline-block;
+    }
+
+    .tooltip {
+        float: right;
+    }
+}
+
+.tooltip {
+    border: 1px solid $color-blue;
+    border-radius: 50%;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    height: 17px;
+    line-height: .8;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    width: 17px;
+
+    &:before {
+        @extend %font-icon-style;
+        color: $color-blue;
+        content: '\f128';
+        display: inline-block;
+        font-size: 12px;
+    }
+
+    &:hover {
+        background-color: $color-blue;
+
+        &:before {
+            color: $color-white;
+        }
+
+        .tooltip-text {
+            opacity: 1;
+            visibility: visible;
+            @include transform(translateY(-12px));
+        }
+    }
+
+    &.pos-right {
+        &:before {
+            margin-left: -1px;
+        }
+
+        .tooltip-text {
+            left: auto;
+            margin: 0;
+            right: 6px;
+
+            &:after {
+                border-bottom: 8px solid transparent;
+                border-left: 0;
+                border-right-color: $color-grey-dark;
+                border-top: 0;
+                left: auto;
+                margin: 0;
+                right: 0;
+            }
+        }
+    }
+
+    &-text {
+        @include position(absolute, null null 100% 50%);
+        background-color: $color-grey-dark;
+        box-sizing: border-box;
+        color: $color-white;
+        display: block;
+        font-size: 12px;
+        line-height: 1.4;
+        margin-left: -90px;
+        opacity: 0;
+        padding: 8px 10px;
+        text-align: left;
+        visibility: hidden;
+        width: 180px;
+        @include transition(opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s cubic-bezier(.71, 1.7, .77, 1.24));
+        @include transform(translate3d(0, 0, 0));
+
+        &:after {
+            content: '';
+            @include position(absolute, null 0 -8px 0);
+            margin: 0 auto;
+            @include triangle(20px 8px, $color-grey-dark, down);
+        }
+    }
+}
+
+// module Intro header
+.sg-intro {
+    &-container {
+        padding: 50px 0 75px;
+    }
+
+    &-row {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    &-box {
+        display: table-cell;
+        vertical-align: middle;
+        width: 50%;
+
+        figure {
+            float: right;
+            margin: 0;
+            width: 200px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        &:last-child {
+            text-align: right;
+        }
+    }
+
+    &-title {
+        display: block;
+        font: {
+            size: 48px;
+            weight: $weight-bold;
+        }
+        line-height: 1.2;
+        padding-bottom: 15px;
+    }
+
+    &-description {
+        color: $color-grey-dark;
+        font: {
+            size: 24px;
+            weight: $weight-light;
+        }
+        line-height: 1.2;
+
+        a {
+            color: $color-black;
+            font: {
+                weight: $weight-bold;
+                style: italic;
+            }
+            position: relative;
+            text-decoration: none;
+
+            &:after {
+                background-color: $color-grey-dark;
+                @include position(absolute, null 0 -2px 0);
+                content: '';
+                height: 1px;
+                @include transform(scaleX(1));
+                @include transition(.15s linear);
+            }
+
+            &:hover {
+                &:after {
+                    @include transform(scaleX(0));
+                }
+            }
+        }
+    }
+}
+
+// module Home secondary navigation
+.sg-home-navigation {
+    border-bottom: 1px solid $border-snippet;
+    padding: 11px 0;
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        float: left;
+
+        button {
+            color: $color-blue;
+            background: none;
+            border: 0;
+            font: {
+                size: 16px;
+                weight: $weight-bold;
+            }
+            padding: 0;
+            text-decoration: none;
+
+            &:hover,
+            &.active {
+                color: $color-black-secondary
+            }
+        }
+
+        + li {
+            padding-left: 40px;
+        }
+    }
+}

@@ -5,6 +5,7 @@
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.3.0",
-    "gulp-sass": "^2.0.1"
+    "gulp-sass": "^2.0.1",
+    "node-bourbon": "^4.2.2"
   }
 }

@@ -8,9 +8,9 @@ var editorService = (function($) {
 
   var addToNewForm = function() {
     var dom = require('ace/lib/dom'),
-      codeEditor,
-      cssEditor,
-      commands = require('ace/commands/default_commands').commands;
+        codeEditor,
+        cssEditor,
+        commands = require('ace/commands/default_commands').commands;
 
 
     commands.push({
@@ -37,8 +37,8 @@ var editorService = (function($) {
     cssEditor = ace.edit('jsNewCss');
     cssEditor.setValue('#snippet { \n  \n}');
 
-    codeEditor.setTheme('ace/theme/monokai');
-    cssEditor.setTheme('ace/theme/monokai');
+    codeEditor.setTheme('ace/theme/chrome');
+    cssEditor.setTheme('ace/theme/chrome');
 
     codeEditor.getSession().setMode('ace/mode/html');
     cssEditor.getSession().setMode('ace/mode/css');
@@ -49,13 +49,13 @@ var editorService = (function($) {
 
   module.addToEditForm = function(snippetContainer) {
     var currentEditor = snippetContainer.find('.js-edit-code'),
-      snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
-      currentId = snippetId + '-code',
-      editors = {};
+        snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
+        currentId = snippetId + '-code',
+        editors = {};
 
     currentEditor.attr('id', currentId);
     currentEditor = ace.edit(currentId);
-    currentEditor.setTheme('ace/theme/monokai');
+    currentEditor.setTheme('ace/theme/chrome');
     currentEditor.getSession().setMode('ace/mode/html');
 
     editors.code = currentEditor;
@@ -67,7 +67,7 @@ var editorService = (function($) {
 
     currentEditor.attr('id', currentId);
     currentEditor = ace.edit(currentId);
-    currentEditor.setTheme('ace/theme/monokai');
+    currentEditor.setTheme('ace/theme/chrome');
     currentEditor.getSession().setMode('ace/mode/css');
 
     editors.css = currentEditor;
@@ -79,10 +79,10 @@ var editorService = (function($) {
 
   module.removeFromEditForm = function(snippetContainer) {
     var currentEditor = snippetContainer.find('.js-edit-code'),
-      snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
-      currentId = snippetId + '-code',
-      code,
-      css;
+        snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
+        currentId = snippetId + '-code',
+        code,
+        css;
 
     currentEditor = ace.edit(currentId);
     code = currentEditor.getValue();

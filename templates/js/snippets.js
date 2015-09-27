@@ -1,211 +1,211 @@
-var snippetService = (function($, categoryService) {
-  var module = {},
-    scrapePath,
-    apiPath;
+var snippetService = (function ($, categoryService) {
+    var module = {},
+        scrapePath,
+        apiPath;
 
-  module.getCategoryItemsCount = function(category, callback) {
-    if (typeof category.id === 'number') {
-      module.getByCategoryId(category.id, function(snippets) {
-        callback(snippets.length, category);
-      });
-    } else if (typeof category.id === 'string' && category.id === 'deleted') {
-      module.getDeletedSnippets(function(snippets) {
-        callback(snippets.length, category);
-      });
-    } else if (typeof category.id === 'string') {
-      callback(null, category);
-    }
-  };
-
-  module.getScrapePath = function(whatToScrape) {
-    return scrapePath + whatToScrape;
-  };
-
-  module.init = function(callback) {
-    var path = '../styleguide_config.txt',
-      request;
-
-    $.getJSON(path, function(data) {
-      apiPath = '//' + window.location.hostname + ':' + data.serverPort + '/snippets/';
-      scrapePath = '//' + window.location.hostname + ':' + data.serverPort + '/scrape/';
-      request = $.ajax({
-        method: 'GET',
-        url: apiPath + 'duplicates',
-        data: {},
-        dataType: 'json'
-      });
-
-      request.done(function(data) {
-        callback(data);
-      });
-
-      request.fail(function() {
-        callback('Server is down!');
-      });
-
-    });
-  };
-
-  module.getDeletedSnippets = function(callback) {
-    categoryService.getCategories(function(categories) {
-      var len = categories.length,
-        index,
-        deletedSnippets = [],
-        path,
-        cacheBust = '?t=' + Date.now();
-
-      $.ajaxSetup({
-        async: false
-      });
-
-      for (index = 0; index < len; index++) {
-        path = './db/' + categories[index].name + '.txt' + cacheBust;
-
-        $.getJSON(path, function(data) {
-          var filteredSnippets = data.filter(function(obj) {
-            return obj.isDeleted;
-          });
-
-          filteredSnippets = filteredSnippets.map(function(obj) {
-            obj.category = categories[index].id;
-            return obj;
-          });
-
-          deletedSnippets = deletedSnippets.concat(filteredSnippets);
-        });
-      }
-
-      $.ajaxSetup({
-        async: true
-      });
-
-      callback(deletedSnippets);
-    });
-  };
-
-  module.getByCategoryId = function(categoryId, callback) {
-    categoryService.getCategories(function(categories) {
-      var len = categories.length,
-        index,
-        path,
-        cacheBust = '?t=' + Date.now();
-
-      for (index = 0; index < len; index++) {
-        if (categories[index].id === categoryId) {
-          break;
+    module.getCategoryItemsCount = function (category, callback) {
+        if (typeof category.id === 'number') {
+            module.getByCategoryId(category.id, function (snippets) {
+                callback(snippets.length, category);
+            });
+        } else if (typeof category.id === 'string' && category.id === 'deleted') {
+            module.getDeletedSnippets(function (snippets) {
+                callback(snippets.length, category);
+            });
+        } else if (typeof category.id === 'string') {
+            callback(null, category);
         }
-      }
+    };
 
-      path = './db/' + categories[index].name + '.txt' + cacheBust;
+    module.getScrapePath = function (whatToScrape) {
+        return scrapePath + whatToScrape;
+    };
 
-      $.getJSON(path, function(data) {
-        data = data.filter(function(obj) {
-          return !obj.isDeleted;
+    module.init = function (callback) {
+        var path = '../styleguide_config.txt',
+            request;
+
+        $.getJSON(path, function (data) {
+            apiPath = '//' + window.location.hostname + ':' + data.serverPort + '/snippets/';
+            scrapePath = '//' + window.location.hostname + ':' + data.serverPort + '/scrape/';
+            request = $.ajax({
+                method: 'GET',
+                url: apiPath + 'duplicates',
+                data: {},
+                dataType: 'json'
+            });
+
+            request.done(function (data) {
+                callback(data);
+            });
+
+            request.fail(function () {
+                callback('Server is down!');
+            });
+
         });
+    };
 
-        data = data.map(function(obj) {
-          obj.category = categoryId;
-          return obj;
-        });
+    module.getDeletedSnippets = function (callback) {
+        categoryService.getCategories(function (categories) {
+            var len = categories.length,
+                index,
+                deletedSnippets = [],
+                path,
+                cacheBust = '?t=' + Date.now();
 
-        callback(data);
-      });
-    });
-  };
+            $.ajaxSetup({
+                async: false
+            });
 
-  module.getById = function(snippetId, callback) {
-    categoryService.getCategories(function(categories) {
-      var len = categories.length,
-        index,
-        desireableSnippet,
-        path,
-        cacheBust = '?t=' + Date.now();
+            for (index = 0; index < len; index++) {
+                path = './db/' + categories[index].name + '.txt' + cacheBust;
 
-      $.ajaxSetup({
-        async: false
-      });
+                $.getJSON(path, function (data) {
+                    var filteredSnippets = data.filter(function (obj) {
+                        return obj.isDeleted;
+                    });
 
-      for (index = 0; index < len; index++) {
-        path = './db/' + categories[index].name + '.txt' + cacheBust;
+                    filteredSnippets = filteredSnippets.map(function (obj) {
+                        obj.category = categories[index].id;
+                        return obj;
+                    });
 
-        $.getJSON(path, function(data) {
-          desireableSnippet = data.filter(function(obj) {
-            if (obj.id === snippetId) {
-              return obj;
+                    deletedSnippets = deletedSnippets.concat(filteredSnippets);
+                });
             }
-          })[0];
 
-          if (desireableSnippet) {
-            desireableSnippet.category = categories[index].id;
-            callback(desireableSnippet);
-          }
+            $.ajaxSetup({
+                async: true
+            });
+
+            callback(deletedSnippets);
+        });
+    };
+
+    module.getByCategoryId = function (categoryId, callback) {
+        categoryService.getCategories(function (categories) {
+            var len = categories.length,
+                index,
+                path,
+                cacheBust = '?t=' + Date.now();
+
+            for (index = 0; index < len; index++) {
+                if (categories[index].id === categoryId) {
+                    break;
+                }
+            }
+
+            path = './db/' + categories[index].name + '.txt' + cacheBust;
+
+            $.getJSON(path, function (data) {
+                data = data.filter(function (obj) {
+                    return !obj.isDeleted;
+                });
+
+                data = data.map(function (obj) {
+                    obj.category = categoryId;
+                    return obj;
+                });
+
+                callback(data);
+            });
+        });
+    };
+
+    module.getById = function (snippetId, callback) {
+        categoryService.getCategories(function (categories) {
+            var len = categories.length,
+                index,
+                desireableSnippet,
+                path,
+                cacheBust = '?t=' + Date.now();
+
+            $.ajaxSetup({
+                async: false
+            });
+
+            for (index = 0; index < len; index++) {
+                path = './db/' + categories[index].name + '.txt' + cacheBust;
+
+                $.getJSON(path, function (data) {
+                    desireableSnippet = data.filter(function (obj) {
+                        if (obj.id === snippetId) {
+                            return obj;
+                        }
+                    })[0];
+
+                    if (desireableSnippet) {
+                        desireableSnippet.category = categories[index].id;
+                        callback(desireableSnippet);
+                    }
+
+                });
+            }
+
+            $.ajaxSetup({
+                async: true
+            });
+
+            if (!desireableSnippet) {
+                callback(desireableSnippet);
+            }
 
         });
-      }
+    };
 
-      $.ajaxSetup({
-        async: true
-      });
+    module.postNew = function (snippet, callback) {
+        var request = $.ajax({
+            method: 'POST',
+            url: apiPath,
+            data: snippet,
+            dataType: 'json'
+        });
 
-      if (!desireableSnippet) {
-        callback(desireableSnippet);
-      }
+        request.done(function (data) {
+            callback(data);
+        });
 
-    });
-  };
+        request.fail(function () {
+            callback('Failed to create new snippet! Maybe your styleguide server is down?');
+        });
 
-  module.postNew = function(snippet, callback) {
-    var request = $.ajax({
-      method: 'POST',
-      url: apiPath,
-      data: snippet,
-      dataType: 'json'
-    });
+    };
 
-    request.done(function(data) {
-      callback(data);
-    });
+    module.putEdited = function (snippet, id, callback) {
+        var request = $.ajax({
+            method: 'PUT',
+            url: apiPath + id,
+            data: snippet,
+            dataType: 'json'
+        });
 
-    request.fail(function() {
-      callback('Failed to create new snippet! Maybe your styleguide server is down?');
-    });
+        request.done(function (data) {
+            callback(data);
+        });
 
-  };
+        request.fail(function () {
+            callback('Failed to edit snippet! Maybe your styleguide server is down?');
+        });
+    };
 
-  module.putEdited = function(snippet, id, callback) {
-    var request = $.ajax({
-      method: 'PUT',
-      url: apiPath + id,
-      data: snippet,
-      dataType: 'json'
-    });
+    module.deleteById = function (snippetId, callback) {
+        var request = $.ajax({
+            method: 'DELETE',
+            url: apiPath + snippetId,
+            data: {},
+            dataType: 'json'
+        });
 
-    request.done(function(data) {
-      callback(data);
-    });
+        request.done(function (data) {
+            callback(data);
+        });
 
-    request.fail(function() {
-      callback('Failed to edit snippet! Maybe your styleguide server is down?');
-    });
-  };
-
-  module.deleteById = function(snippetId, callback) {
-    var request = $.ajax({
-      method: 'DELETE',
-      url: apiPath + snippetId,
-      data: {},
-      dataType: 'json'
-    });
-
-    request.done(function(data) {
-      callback(data);
-    });
-
-    request.fail(function() {
-      callback('Failed to delete snippet! Maybe your styleguide server is down?');
-    });
-  };
+        request.fail(function () {
+            callback('Failed to delete snippet! Maybe your styleguide server is down?');
+        });
+    };
 
 
-  return module;
+    return module;
 })(jQuery || {}, categoryService);

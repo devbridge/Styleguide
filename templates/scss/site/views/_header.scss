@@ -1,0 +1,265 @@
+.sg-header {
+    @extend .clearfix;
+    background: $color-black;
+    color: $color-white;
+    padding: 14px 0 13px;
+
+    .sg-title {
+        color: $color-blue;
+        display: block;
+        float: left;
+        font: {
+            weight: $weight-bold;
+            size: 20px;
+        }
+        line-height: 1.5;
+        margin-right: 10px;
+    }
+}
+
+.sg-header-nav {
+    float: left;
+    position: relative;
+
+    .subtitle {
+        background: transparent;
+        border: solid #999;
+        border-width: 0 0 0 1px;
+        color: $color-white;
+        display: inline-block;
+        font: {
+            weight: $weight-light;
+            size: 20px;
+        }
+        height: 26px;
+        line-height: 1;
+        margin: -6px 30px 0 0;
+        padding: 0 24px 0 10px;
+        position: relative;
+        vertical-align: middle;
+
+        &:before {
+            @include position(absolute, 5px 0 null null);
+            @extend %font-icon-style;
+            content: '\f107';
+            font-size: 20px;
+        }
+    }
+}
+
+// module Navigation buttons
+.btn-nav-group {
+    border: 1px solid #4d4d4d;
+    border-radius: 20px;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 32px;
+
+    .btn-nav {
+        background: transparent;
+        border: 0;
+        font-size: 0;
+        height: 29px;
+        padding: 0;
+
+        &:before {
+            @extend %font-icon-style;
+            display: inline-block;
+            font-size: 20px;
+            line-height: 1.3;
+            padding: 0 10px;
+        }
+
+        &:disabled,
+        &:disabled:hover {
+            color: #4d4d4d;
+        }
+
+        &:hover,
+        &:focus {
+            color: #a9a9a9;
+        }
+
+        &:first-child {
+            &:before {
+                content: '\f104';
+            }
+        }
+
+        + .btn-nav {
+            &:before {
+                content: '\f105';
+            }
+        }
+    }
+}
+
+// module Size controls
+.header-size-controls {
+    float: right;
+    list-style: none;
+    margin: 0 70px 0 0;
+    padding: 0;
+
+    li {
+        display: inline-block;
+        position: relative;
+
+        + li {
+            margin-left: 13px;
+
+            &:before {
+                @include position(absolute, 0 null 0 -2px);
+                background-color: $color-grey-dark;
+                content: '';
+                height: 1px;
+                margin: auto 0 auto -14px;
+                width: 16px;
+            }
+        }
+
+        &:last-child {
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    button {
+        background: $color-black;
+        border: 1px solid $color-grey-dark;
+        border-radius: 50%;
+        color: #666;
+        font: {
+            family: $font-secondary;
+            weight: $weight-light;
+            size: 14px;
+        }
+        height: 32px;
+        line-height: 1.2;
+        padding: 0;
+        position: relative;
+        text-align: center;
+        width: 32px;
+        z-index: 1;
+
+        &.active,
+        &:hover {
+            border-color: $color-blue;
+            color: $color-blue;
+        }
+    }
+
+    .input-new-size {
+        @include transition(width .3s ease);
+        background-color: transparent;
+        border: 1px solid $color-grey-dark;
+        border-radius: 50%;
+        box-sizing: border-box;
+        color: transparent;
+        font-size: 14px;
+        height: 32px;
+        position: relative;
+        text-align: center;
+        width: 32px;
+        z-index: 1;
+
+        &:focus {
+            border-color: $color-blue;
+            border-radius: 20px;
+            color: $color-blue;
+            padding: 0 22px 0 7px;
+            text-align: left;
+            width: 64px;
+
+            ~ .dots {
+                opacity: 0;
+            }
+
+            ~ .label-new-size {
+                display: block;
+            }
+        }
+    }
+
+    .label-new-size {
+        @include position(absolute, 5px 7px null null);
+        color: $color-blue;
+        display: none;
+        font-size: 14px;
+    }
+
+    .dots {
+        @include position(absolute, 0 0 0 null);
+        @include transition(all .2s ease);
+        color: $color-grey-dark-secondary;
+        height: 32px;
+        line-height: 2;
+        opacity: 1;
+        text-align: center;
+        width: 32px;
+        z-index: 0;
+    }
+}
+
+.sg-snippets-controls {
+    float: right;
+    position: relative;
+
+    .dropdown-list {
+        right: 0;
+
+        ul {
+            &:before {
+                left: auto;
+                margin: 0;
+                right: 10px;
+            }
+        }
+    }
+}
+
+// module Dropdown list
+.dropdown-list {
+    @include position(absolute, 45px null null null);
+    @include transition(all .4s ease-out);
+    background-color: $bg-dropdown;
+    max-height: 0;
+    overflow: hidden;
+    z-index: 10;
+
+    &.active {
+        max-height: 400px;
+        overflow: visible;
+    }
+
+    ul {
+        border-top: 2px solid $color-blue;
+        list-style: none;
+        margin: 0;
+        padding: 20px 0;
+        position: relative;
+
+        &:before {
+            @include position(absolute, -6px 0 null 0);
+            @include triangle(10px 4px, $color-blue, up);
+            content: '';
+            margin: 0 auto;
+        }
+    }
+
+    button {
+        background-color: transparent;
+        border: 0;
+        color: $text-secondary;
+        display: block;
+        min-width: 100%;
+        padding: 0 25px;
+        text-align: left;
+        white-space: nowrap;
+
+        &:hover {
+            color: $color-blue;
+        }
+    }
+}

@@ -1,17 +1,18 @@
 var gulp = require('gulp'),
 	sass = require('gulp-sass'),
-	autoprefixer = require('gulp-autoprefixer');
+	autoprefixer = require('gulp-autoprefixer'),
+	styleguide = require('devbridge-styleguide');
 function showError(error) {
 	console.log(error.toString());
 	this.emit('end');
 }
 
 gulp.task('sass', function() {
-	return gulp.src('css/src/main.scss')
-		.pipe(sass({outputStyle: 'compressed'}))
+	return gulp.src('scss/main.scss')
+		.pipe(sass({outputStyle: 'compressed', includePaths: require('node-bourbon').includePaths}))
 		.on('error', showError)
 		.pipe(autoprefixer('last 2 version', 'ios 6', 'android 4'))
-		.pipe(gulp.dest('css'));
+		.pipe(gulp.dest('content'));
 });
 
 gulp.task('default', function() {
@@ -19,5 +20,9 @@ gulp.task('default', function() {
 });
 
 gulp.task('watch', function() {
-	gulp.watch('css/src/**/*.scss', ['sass']);
+	gulp.watch('scss/**/*.scss', ['sass']);
+});
+
+gulp.task('start-styleguide', function () {
+	styleguide.startServer();
 });
