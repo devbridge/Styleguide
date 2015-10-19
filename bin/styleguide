@@ -233,7 +233,8 @@ var generate = function() {
   if (!fs.existsSync(rootFolder)) {
     fs.mkdirSync(rootFolder);
     fs.mkdirSync(dbFolder);
-    fs.mkdirSync(path.join(rootFolder, 'css'));
+    fs.mkdirSync(path.join(rootFolder, 'content'));
+    fs.mkdirSync(path.join(rootFolder, 'content', 'fonts'));
     fs.mkdirSync(path.join(rootFolder, 'js'));
 
     currentContents = fs.readFileSync(path.join(templateFolder, 'index.html'), 'utf-8');
