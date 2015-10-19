@@ -271,13 +271,13 @@ var generate = function() {
 
     fs.writeFileSync(path.join(rootFolder, 'content', 'icon-drag.svg'), currentContents);
 
-    currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-github.svg'), 'utf-8');
+    currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'logo-github.svg'), 'utf-8');
 
-    fs.writeFileSync(path.join(rootFolder, 'content', 'icon-github.svg'), currentContents);
+    fs.writeFileSync(path.join(rootFolder, 'content', 'logo-github.svg'), currentContents);
 
-    currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-npm.svg'), 'utf-8');
+    currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'logo-npm.svg'), 'utf-8');
 
-    fs.writeFileSync(path.join(rootFolder, 'content', 'icon-npm.svg'), currentContents);
+    fs.writeFileSync(path.join(rootFolder, 'content', 'logo-npm.svg'), currentContents);
 
     //-----------SVGs---------------
 
