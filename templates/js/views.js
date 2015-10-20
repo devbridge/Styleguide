@@ -216,7 +216,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
         $('.js-snippet-preview').css('width', width);
 
-        $('.js-snippet-size').val(width);
+        $('.js-snippet-size').text(width);
         $('.js-custom').val(width);
 
         snippetActions.handleHeights($('iframe'));

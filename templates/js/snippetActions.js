@@ -377,7 +377,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 currentSnippetElement.find('.js-snippet-code-preview').text(currentCode);
                 currentSnippetElement.find('.js-snippet-source').html(frames[index]);
                 currentSnippetElement.find('.js-snippet-source').append('<div></div>');
-                currentSnippetElement.find('.js-snippet-size').val(resolution);
+                currentSnippetElement.find('.js-snippet-size').text(resolution);
                 currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', currentCode);
                 currentSnippetElement.find('#form-new-include-js').prop('checked', snippets[index].includeJs);
                 currentSnippetElement.addClass(snippetId);
