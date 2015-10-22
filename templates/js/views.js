@@ -83,7 +83,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         var currentPage = navigation.find('.js-current-page'),
             navList = navigation.find(list),
             pages = [{
-                name: 'Colors, Typography',
+                name: 'General',
                 id: 'sass'
             }],
             iteratingPage,
