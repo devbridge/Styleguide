@@ -44,6 +44,12 @@
             content: '\f107';
             font-size: 20px;
         }
+
+        &:active,
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
     }
 }
 
@@ -90,6 +96,12 @@
             &:before {
                 content: '\f105';
             }
+        }
+
+        &:active,
+        &:focus {
+            outline: none;
+            box-shadow: none;
         }
     }
 }

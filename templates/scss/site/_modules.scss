@@ -9,6 +9,12 @@
     text-align: center;
     text-decoration: none;
     vertical-align: middle;
+
+    &:active,
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
 }
 
 $btn-ghost-radius: $border-radius;
@@ -53,6 +59,12 @@ $btn-ghost-radius: $border-radius;
     &:after {
         height: 13px;
         width: 1px;
+    }
+
+    &:active,
+    &:focus {
+        outline: none;
+        box-shadow: none;
     }
 }
 
@@ -164,6 +176,8 @@ $btn-ghost-radius: $border-radius;
     &:focus,
     &.active {
         color: $color-black;
+        outline: none;
+        box-shadow: none;
 
         &:after {
             background-image: url($src-icon-code-active);
@@ -191,6 +205,9 @@ $btn-ghost-radius: $border-radius;
     &:hover,
     &:focus,
     &.active {
+        outline: none;
+        box-shadow: none;
+
         &:before {
             color: $color-blue;
         }

@@ -26,12 +26,6 @@
                 $btnCode.removeClass("active");
                 $btnSettings.toggleClass("active");
 
-                if ($(this).hasClass("active")) {
-                    $preview.hide();
-                } else {
-                    $preview.show();
-                }
-
                 iframesService.getTemplate(function (template) {
                     if ($btnSettings.hasClass("active")) {
                         $editors = editorService.addToEditForm($code.parent());
@@ -68,13 +62,6 @@
                 $btnSettings.removeClass("active");
                 $btnCode.toggleClass("active");
                 $settings.hide();
-
-                if ($(this).hasClass("active")) {
-                    $preview.hide();
-                } else {
-                    $preview.show();
-                }
-
                 $code.toggle();
             });
 
