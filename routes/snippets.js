@@ -133,7 +133,11 @@ router.post('/', function(req, res) {
 
   uniques.sort();
 
-  id = uniques[uniques.length - 1] + 1;
+  if (uniques.length) {
+    id = uniques[uniques.length - 1] + 1;
+  } else {
+    id = 1;
+  }
 
   newSnippet = {
     id: id,
