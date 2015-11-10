@@ -35,13 +35,15 @@ $btn-ghost-radius: $border-radius;
 
 .btn-menu {
     background: transparent;
-    border: 1px solid $color-blue;
+    border: 2px solid $color-blue;
     border-radius: 50%;
     box-sizing: border-box;
     font-size: 0;
     height: 32px;
     position: relative;
     width: 32px;
+    @include transition(all 0.3s);
+    @include transform(rotate(0deg));
 
     &:before,
     &:after {
@@ -59,6 +61,52 @@ $btn-ghost-radius: $border-radius;
     &:after {
         height: 13px;
         width: 1px;
+    }
+
+    &:active,
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    &.active {
+        @include transform(rotate(270deg));
+
+        &:before {
+            display: none;
+        }
+    }
+}
+
+.btn-dropdown {
+    background: transparent;
+    border: none;
+    box-sizing: border-box;
+    height: 32px;
+    position: relative;
+    padding: 0 10px;
+    font-size: 16px;
+    vertical-align: middle;
+    line-height: 30px;
+    @include transition(all 0.3s);
+
+    &:after {
+        @extend %font-icon-style;
+        content: '\f107';
+        font-size: 20px;
+        margin-left: 10px;
+        vertical-align: middle;
+        line-height: 32px;
+        display: inline-block;
+        @include transition(all 0.15s);
+        @include transform(scaleY(1));
+    }
+
+    &.active {
+
+        &:after {
+            @include transform(scaleY(-1));
+        }
     }
 
     &:active,
