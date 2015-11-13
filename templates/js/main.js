@@ -11,6 +11,7 @@
                 $settings = this.$element.find(".js-snippet-settings"),
                 $code = this.$element.find(".js-snippet-code"),
                 $preview = this.$element.find(".js-snippet-preview"),
+                $resizeLength = this.$element.find(".js-resize-length"),
                 $previewSource = $preview.find("iframe"),
                 $handleLeft = this.$element.find(".js-snippet-resize-handle-left"),
                 $handleRight = this.$element.find(".js-snippet-resize-handle-right"),
@@ -79,11 +80,11 @@
                 $preview.find('iframe').get(0).style.width = $sizeIndicator.val();
             });
 
-            interact($preview[0])
+            interact($resizeLength[0])
                 .resizable({
                     edges: {
-                        left: $handleLeft[0],
-                        right: $handleRight[0],
+                        left: $handleRight[0],
+                        right: $handleLeft[0],
                         bottom: false,
                         top: false
                     },
@@ -91,22 +92,18 @@
                         var target = e.target,
                             iframe = $(target).find('iframe').get(0);
 
-                        $(target).find($snippetSource).addClass('resize-overlay');
-
-                        snippetActions.handleHeights($(target).find('iframe'));
-
-                        if (e.rect.width > 150) {
-                            iframe.style.width = e.rect.width + 'px';
-                            target.style.width = e.rect.width + 'px';
-                            $sizeIndicator.text(e.rect.width + "px");
+                        if (e.rect.width > 155 && e.rect.width < 605) {
+                            $preview.find($snippetSource).addClass('resize-overlay');
+                            $preview[0].style.width = (e.rect.width * 2) + 'px';
+                            $resizeLength[0].style.width = e.rect.width + 'px';
+                            $sizeIndicator.text((e.rect.width * 2) + "px");
                         }
                     },
                     onend: function (e) {
-                        var target = e.target;
-
-                        $(target).find($snippetSource).removeClass('resize-overlay');
+                        $preview.find($snippetSource).removeClass('resize-overlay');
                     }
                 });
+
         }
     };
 

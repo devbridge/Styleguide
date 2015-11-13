@@ -1,17 +1,40 @@
 $snippet-header-height: 46px - 2px;
 
-.snippet {
+.sg-snippet {
     margin-top: -1px;
+
+    .sg-snippet-resize-handle {
+        @include transition(all 0.4s);
+        visibility: hidden;
+        opacity: 0;
+
+        &.pos-left {
+            @include transform(translateX(10px));
+        }
+
+        &.pos-right {
+            @include transform(translateX(-10px));
+        }
+    }
+
+    &:hover {
+
+        .sg-snippet-resize-handle {
+            visibility: visible;
+            opacity: 1;
+            @include transform(translateX(0));
+        }
+    }
 }
 
 .sg-snippet-source {
+
     &.resize-overlay {
         pointer-events: none;
         position: relative;
 
         &:before {
             @include position(absolute, 0 0 0 0);
-            background-color: $color-white;
             content: '';
             opacity: .8;
             z-index: 1000;
@@ -41,7 +64,7 @@ $snippet-header-height: 46px - 2px;
         z-index: 1;
     }
 
-    .page-wrapper {
+    .sg-page-wrapper {
         position: relative;
     }
 }
@@ -55,6 +78,15 @@ $snippet-header-height: 46px - 2px;
     margin: -9px 0;
     position: relative;
     z-index: 1;
+}
+
+.drawer-tip {
+    &:before {
+        content: '';
+        @include triangle(10px 5px, $color-blue, up);
+        @include position(absolute, null 50% 100% null);
+        margin-bottom: 2px;
+    }
 }
 
 .sg-colors-container {
@@ -130,7 +162,7 @@ $snippet-header-height: 46px - 2px;
         border-top: 2px solid $color-blue;
         padding: 35px 0 40px;
 
-        .page-wrapper {
+        .sg-page-wrapper {
             position: relative;
 
             &:before {
@@ -206,9 +238,8 @@ $snippet-header-height: 46px - 2px;
 }
 
 .sg-snippet-resize-handle {
-    border-left: 1px solid $border-snippet;
-    cursor: w-resize;
     height: 100px;
+    width: 30px;
     margin-top: -50px;
     @include position(absolute, 50% null null null);
 
@@ -222,18 +253,22 @@ $snippet-header-height: 46px - 2px;
     }
 
     &.pos-right {
-        left: -1px;
+        border-right: 1px solid $border-snippet;
+        left: -30px;
+        cursor: e-resize;
 
         &:before {
-            left: -20px;
+            left: 10px;
         }
     }
 
     &.pos-left {
-        right: -1px;
+        border-left: 1px solid $border-snippet;
+        right: -30px;
+        cursor: w-resize;
 
         &:before {
-            right: -20px;
+            right: 10px;
         }
     }
 }

@@ -31,10 +31,11 @@ body {
     }
 }
 
-.page-wrapper {
+.page-wrapper,
+.sg-page-wrapper {
+
     margin: 0 auto;
     padding: 0 $grid-gutter/2;
-    //outline: #006600 solid 1px;
 
     @if $grid-responsive == true {
         max-width: $media-medium + $grid-gutter;
@@ -65,4 +66,8 @@ iframe {
     border: 0;
     height: auto;
     width: 100%;
+}
+
+.sg-no-margin {
+    margin: 0;
 }

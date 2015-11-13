@@ -55,7 +55,7 @@ var editorService = (function($) {
 
     currentEditor.attr('id', currentId);
     currentEditor = ace.edit(currentId);
-    currentEditor.setTheme('ace/theme/chrome');
+    currentEditor.setTheme('ace/theme/github');
     currentEditor.getSession().setMode('ace/mode/html');
 
     editors.code = currentEditor;
@@ -67,7 +67,7 @@ var editorService = (function($) {
 
     currentEditor.attr('id', currentId);
     currentEditor = ace.edit(currentId);
-    currentEditor.setTheme('ace/theme/chrome');
+    currentEditor.setTheme('ace/theme/github');
     currentEditor.getSession().setMode('ace/mode/css');
 
     editors.css = currentEditor;

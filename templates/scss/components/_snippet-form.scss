@@ -5,40 +5,120 @@
     vertical-align: top;
 }
 
-.sg-snippet-form {
-    background: $color-grey;
-    border-bottom: 1px solid $border-snippet;
-    border-top: 2px solid $color-blue;
-    padding: 45px 0 80px;
-    position: relative;
+.snippet-settings {
+    display: none;
 
-    .page-wrapper {
-        position: relative;
-
-        &:before {
-            content: '';
-            @include triangle(10px 5px, $color-blue, up);
-            @include position(absolute, -52px 20px null null);
-        }
+    &.opened {
+        display: block;
     }
 
-    &.sg-edit-snippet-form {
-        .page-wrapper {
-            &:before {
-                right: 28px;
-            }
+    .drawer-tip {
+        &:before {
+            right: 27px;
+        }
+    }
+}
+
+.field-wrapper {
+    margin: 0 0 15px;
+}
+
+.sg-snippet-form {
+    background: $color-grey;
+    border-top: 2px solid $color-blue;
+    position: relative;
+    z-index: 10;
+    margin-top: -1px;
+
+    .sg-form-wrapper {
+        @extend .row;
+        padding: 60px 0;
+        position: relative;
+    }
+
+    .sg-page-wrapper {
+        position: relative;
+        //max-height: 0;
+        //overflow: hidden;
+        //@include transition(max-height 0.8s);
+
+        .opened & {
+            //max-height: 450px;
         }
     }
 
     .sg-controls-row {
-        padding: 20px 0 0;
+        background: $color-blue;
+        color: $color-white;
 
-        .text-right {
-            color: $color-pink;
+        .sg-page-wrapper {
+            padding: {
+                top: 15px;
+                bottom: 15px;
+            };
         }
 
-        sub {
-            @extend %subscript-text-style;
+        .btn-primary {
+            background: $color-white;
+            color: $color-blue;
+        }
+
+        .btn-blank {
+            color: $color-white;
+        }
+
+        .sg-snippet-title {
+            float: right;
+        }
+    }
+
+    .editor-view {
+        height: 255px;
+        width: 100%;
+        font-size: 11px;
+        line-height: 22px;
+        box-sizing: border-box;
+    }
+
+    .ace_editor {
+        background-color: $color-white;
+        border: transparent solid 2px;
+        border-radius: 4px;
+        color: $color-black-secondary;
+
+        &.ace_focus {
+            box-shadow: none;
+            border-color: $color-blue;
+            outline: none;
+        }
+    }
+
+    .columns {
+        position: relative;
+    }
+
+    .field-label {
+        @include position(absolute, null null 100% 10px);
+        font-size: 14px;
+    }
+
+    .tooltip.pos-right {
+        @include position(absolute, null 10px 100% null);
+        margin-bottom: 5px;
+    }
+
+    .checkbox-wrapper {
+        @include position(absolute, 100% null null 10px);
+        margin-top: 10px;
+        z-index: 10;
+    }
+
+    .sg-link-delete {
+        @include position(absolute, 100% 0 null null);
+
+        .btn-with-icon {
+            padding-left: 0;
+            padding-right: 0;
         }
     }
 }
@@ -72,36 +152,21 @@
 }
 
 %form-item-style {
-    background-color: $color-grey-light;
-    border: 1px solid $border-color-primary;
-    border-radius: 0;
+    background-color: $color-white;
+    border: transparent solid 2px;
+    border-radius: 4px;
     box-sizing: border-box;
     color: $color-black-secondary;
     display: block;
     font-size: 14px;
     padding: 8px 14px;
     width: 100%;
-}
 
-.form-row {
-    margin: 0 0 10px;
-
-    .editor-view {
-        height: 200px;
-        width: 100%;
-    }
-
-    .ace_editor {
-        background-color: $color-grey-light;
-        border: solid 1px $border-color-primary;
-        color: $color-black-secondary;
-    }
-
-    .ace-chrome {
-        .ace_gutter {
-            background-color: $color-white;
-            color: #999;
-        }
+    &:active,
+    &:focus {
+        box-shadow: none;
+        border-color: $color-blue;
+        outline: none;
     }
 }
 
@@ -113,13 +178,13 @@
 .field-select {
     @extend %form-item-style;
     -webkit-appearance: none;
-    background: url($src-select-arrow) no-repeat 100% 50%, -webkit-linear-gradient(bottom, $color-grey-light 0%, $color-grey-light 100%);
+    background: url($src-select-arrow) no-repeat 100% 50%, -webkit-linear-gradient(bottom, $color-white 0%, $color-white 100%);
     height: 37px;
 }
 
 .field-textarea {
     @extend %form-item-style;
-    height: 200px;
+    height: 150px;
     resize: none;
 }
 
@@ -127,13 +192,14 @@
     position: relative;
 
     .fake-box {
-        background-color: $color-grey-light;
-        border: 1px solid $border-color-primary;
+        background-color: $color-white;
+        border: 1px solid transparent;
         display: inline-block;
         height: 16px;
         margin: -2px 10px 0 0;
         vertical-align: middle;
         width: 16px;
+        border-radius: 4px;
     }
 }
 
@@ -145,7 +211,7 @@
 
     &:checked {
         ~ .fake-box {
-            border-color: $color-blue;
+            border-color: transparent;
 
             &:before {
                 @extend %font-icon-style;
@@ -173,3 +239,71 @@ label {
         cursor: pointer;
     }
 }
+
+// Ace editor modifications
+.sg-snippet-form {
+    .ace_info {
+        display: none;
+    }
+
+    .ace-github .ace_gutter {
+        background-color: transparent;
+        color: #999;
+    }
+
+    .ace_scroller.ace_scroll-left {
+        box-shadow: none;
+        border-left: #d3d3d3 solid 1px;
+    }
+
+    .ace_gutter-layer {
+        width: 36px;
+    }
+
+    .ace_warning {
+        display: none;
+    }
+
+    .ace_gutter-cell {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .ace-github .ace_marker-layer .ace_active-line,
+    .ace-github .ace_gutter-active-line {
+        background: none;
+    }
+
+    .ace-github.ace_focus .ace_marker-layer .ace_active-line,
+    .ace-github.ace_focus .ace_gutter-active-line{
+        background: rgba(#999999, 0.20);
+    }
+
+    .ace_gutter-cell.ace_error {
+        background: none;
+    }
+
+    .ace-github .ace_marker-layer .ace_bracket {
+        border: none;
+        outline: none;
+    }
+
+    .ace-github.ace_focus .ace_marker-layer .ace_bracket {
+        background: rgba(#999999, 0.20);
+    }
+
+    .ace_cursor {
+        display: none;
+    }
+
+    .ace-github.ace_focus .ace_cursor {
+        display: block;
+        z-index: 4;
+        position: absolute;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-left: 2px solid;
+    }
+}
+

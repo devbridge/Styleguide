@@ -5,7 +5,7 @@
     position: relative;
     z-index: 999;
 
-    .page-wrapper {
+    .sg-page-wrapper {
         @extend .clearfix;
         position: relative;
     }
@@ -100,25 +100,19 @@
     @include position(absolute, 44px null null 50%);
     @include transition(all .2s ease-out);
     @include transform(translateY(-15px) translateX(-50%));
+    visibility: hidden;
     opacity: 0;
-    background-color: $bg-dropdown;
+    background-color: $color-blue;
     z-index: 10;
 
     &.active {
         @include transform(translateY(0) translateX(-50%));
         opacity: 1;
-
-        .sg-inner {
-            display: block;
-        }
-    }
-
-    .sg-inner {
-        display: none;
+        visibility: visible;
     }
 
     ul {
-        border-top: 3px solid $color-blue;
+        border-top: 3px solid #005D96;
         list-style: none;
         margin: 0;
         padding: 20px 0;
@@ -127,7 +121,7 @@
 
         &:before {
             @include position(absolute, auto 0 100% 0);
-            @include triangle(10px 4px, $color-blue, up);
+            @include triangle(10px 4px, #005D96, up);
             content: '';
             margin: 0 auto 3px;
         }
@@ -140,15 +134,22 @@
     button {
         background-color: transparent;
         border: 0;
-        color: $text-secondary;
+        color: $color-white;
         display: block;
         min-width: 100%;
         padding: 0 25px;
         text-align: left;
         white-space: nowrap;
+        font: {
+            family: $font-main;
+            weight: 400;
+        };
+
+        letter-spacing: 1px;
 
         &:hover {
-            color: $color-blue;
+            color: #00446D;
         }
+
     }
 }
