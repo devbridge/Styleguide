@@ -23,7 +23,7 @@
     @include transform(translateX(-50%));
 }
 
-// module Size controls
+// Size Controls
 .sg-snippets-resize {
     float: right;
     position: relative;
@@ -95,7 +95,7 @@
     }
 }
 
-// module Dropdown list
+// Dropdown List
 .dropdown-list {
     @include position(absolute, 44px null null 50%);
     @include transition(all .2s ease-out);
@@ -144,8 +144,8 @@
             family: $font-main;
             weight: 400;
         };
-
         letter-spacing: 1px;
+        @extend %remove-outline;
 
         &:hover {
             color: #00446D;

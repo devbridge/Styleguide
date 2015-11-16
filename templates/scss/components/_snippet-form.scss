@@ -38,18 +38,12 @@
 
     .sg-page-wrapper {
         position: relative;
-        //max-height: 0;
-        //overflow: hidden;
-        //@include transition(max-height 0.8s);
-
-        .opened & {
-            //max-height: 450px;
-        }
     }
 
     .sg-controls-row {
         background: $color-blue;
         color: $color-white;
+        margin: 0;
 
         .sg-page-wrapper {
             padding: {

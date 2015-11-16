@@ -1,16 +1,16 @@
 @import "bourbon";
 
-@import 'core/_normalize';
-@import 'core/_variables';
-@import 'core/_mixins';
+@import 'core/normalize';
+@import 'core/variables';
+@import 'core/mixins';
 
-@import 'components/_helpers';
-@import 'components/_grid';
-@import 'components/_snippet-form';
-@import 'components/_snippet';
-@import 'components/_modal';
+@import 'components/helpers';
+@import 'components/grid';
+@import 'components/snippet';
+@import 'components/modal';
 
 @import 'site/_layout';
 @import 'site/_modules';
-@import 'site/views/_header';
-@import 'site/views/_footer';
+@import 'site/views/header';
+@import 'site/views/footer';
+@import "site/views/general-page";

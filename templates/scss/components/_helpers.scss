@@ -1,3 +1,61 @@
+// Extenders
+@mixin clearfix($extend: true) {
+    @if $extend {
+        @extend %clearfix;
+    }
+    @else {
+        &:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+    }
+}
+
+%clearfix {
+    @include clearfix($extend: false);
+}
+
+%remove-outline {
+    &:focus,
+    &:active {
+        outline: none;
+        box-shadow: none;
+    }
+}
+
+%form-item-style {
+    background-color: $color-white;
+    border: transparent solid 2px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: $color-black-secondary;
+    display: block;
+    font-size: 14px;
+    padding: 8px 14px;
+    width: 100%;
+
+    &:active,
+    &:focus {
+        box-shadow: none;
+        border-color: $color-blue;
+        outline: none;
+    }
+}
+
+%form-style {
+    background: $color-white;
+    border-radius: 4px;
+    border: transparent solid 2px;
+    padding: 10px;
+
+    &::selection{
+        background: $color-black;
+        color: $color-white;
+    }
+}
+
+// Helper Classes
 .clearfix:after {
     clear: both;
     content: '';

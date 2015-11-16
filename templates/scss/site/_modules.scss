@@ -200,68 +200,6 @@ $btn-ghost-radius: $border-radius;
     }
 }
 
-.btn-show-code {
-    background-color: transparent;
-    border: solid $border-snippet;
-    border-width: 0 1px;
-    color: #999;
-    display: inline-block;
-    font-size: 13px;
-    height: 44px;
-    padding: 0 16px;
-
-    &:after {
-        background: url($src-icon-code) no-repeat;
-        content: '';
-        display: inline-block;
-        height: 12px;
-        margin-left: 10px;
-        vertical-align: middle;
-        width: 17px;
-    }
-
-    &:hover,
-    &:focus,
-    &.active {
-        color: $color-black;
-        outline: none;
-        box-shadow: none;
-
-        &:after {
-            background-image: url($src-icon-code-active);
-        }
-    }
-}
-
-.btn-edit {
-    background-color: transparent;
-    border: solid $border-snippet;
-    border-width: 0 1px 0 0;
-    display: inline-block;
-    font-size: 0;
-    height: 44px;
-    padding: 0 12px;
-
-    &:before {
-        color: #999;
-        content: '\f040';
-        display: inline-block;
-        @extend %font-icon-style;
-        font-size: 18px;
-    }
-
-    &:hover,
-    &:focus,
-    &.active {
-        outline: none;
-        box-shadow: none;
-
-        &:before {
-            color: $color-blue;
-        }
-    }
-}
-
 //module Icons
 @include font-face('FontAwesome', './fonts/fontawesome-webfont');
 
