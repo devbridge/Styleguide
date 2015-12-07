@@ -79,71 +79,48 @@
 
         </div>
     </div>
-    <div class="sg-snippet-form js-new-snippet-form" style="display: none;">
-        <div class="sg-page-wrapper">
+    <div class="snippet-settings js-new-snippet-form" style="display: none;">
+        <div class="sg-snippet-form sg-edit-snippet-form">
+
             <form class="js-create-snippet" action="/snippets">
-                <div class="clearfix sg-form-title">New Snippet</div>
-
-                <div class="row">
-                    <div class="medium-4 columns">
-                        <div class="form-row">
-                            <label for="new-name">Name: <sub>*</sub></label>
-                            <input type="text" id="new-name" class="field-text js-form-submit-field"
-                                   data-js-field-name="name"
-                                   required>
+                <div class="sg-page-wrapper drawer-tip">
+                    <div class="sg-form-wrapper">
+                        <div class="medium-3 columns">
+                            <div class="field-wrapper">
+                                <input type="text" id="new-name" class="field-text js-form-submit-field" data-js-field-name="name" required placeholder="Snippet name">
+                            </div>
+                            <div class="field-wrapper">
+                                <select id="new-category" required class="field-select js-form-submit-field js-form-select"
+                                        data-js-field-name="category" required>
+                                </select>
+                            </div>
+                            <div class="field-wrapper sg-no-margin">
+                                <textarea id="new-description" class="field-textarea js-form-submit-field" data-js-field-name="description"></textarea>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="medium-4 columns">
-                        <div class="form-row">
-                            <label for="new-category">Category: <sub>*</sub></label>
-                            <select id="new-category" required
-                                    class="field-select js-form-submit-field js-form-select"
-                                    data-js-field-name="category" required>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="medium-4 columns">
-                        <div class="form-row">
-                            <label for="new-description">Desciption:</label>
-                        <textarea id="new-description" class="field-textarea js-form-submit-field"
-                                  data-js-field-name="description"></textarea>
-                        </div>
-
-                        <div class="checkbox-wrapper tooltip-wrapper">
-                            <label for="new-include-js">
-                                <input type="checkbox" id="new-include-js" class="field-checkbox">
-                                <span class="fake-box"></span>
-                                Include Javascript
-                            </label>
-                            <span class="tooltip">
-                                <span class="tooltip-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non turpis in neque molestie consequat eu ac mi.</span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="medium-4 columns">
-                        <div class="form-row">
-                            <label>Code: <sub>*</sub></label>
-
+                        <div class="medium-5 columns">
+                            <label class="field-label">Code:</label>
                             <div class="sg-editor-holder">
                                 <div id="jsNewCode" class="editor-view"></div>
                                 <button class="btn-full-screen js-toggle-code-editor-full-screen"
                                         title="Toggle full screen">Toggle full screen
                                 </button>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="medium-4 columns end">
-                        <div class="form-row">
+                            <div class="checkbox-wrapper tooltip-wrapper">
+                                <label for="new-include-js">
+                                    <input type="checkbox" id="new-include-js" class="field-checkbox">
+                                    <span class="fake-box"></span>
+                                    Include Javascript
+                                </label>
+                                <span class="tooltip">
+                                    <span class="tooltip-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non turpis in neque molestie consequat eu ac mi.</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="medium-4 columns">
                             <div class="tooltip-pos-right clearfix">
-                                <label>Inline CSS:</label>
+                                <label class="field-label">Inline CSS:</label>
                                 <span class="tooltip pos-right">
                                     <span class="tooltip-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non turpis in neque molestie consequat eu ac mi.</span>
                                 </span>
@@ -158,14 +135,11 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row sg-controls-row">
-                    <div class="medium-6 columns">
+                    <div class="sg-page-wrapper">
                         <button class="btn-primary" type="submit">Create</button>
                         <button class="btn-blank js-new-snippet-cancel" type="button">Cancel</button>
-                    </div>
-                    <div class="medium-6 columns text-right">
-                        <sub>*</sub> Mandatory fields
+                        <h3 class="sg-snippet-title">New Snippet</h3>
                     </div>
                 </div>
             </form>
@@ -252,7 +226,7 @@
                                 <div class="sg-editor-holder">
                                     <div class="editor-view js-edit-code"></div>
                                     <button class="btn-full-screen js-toggle-code-full-screen" type="button">Toggle
-                                        Full Screen
+                                                                                                             Full Screen
                                     </button>
                                 </div>
 
@@ -278,12 +252,12 @@
                                 <div class="sg-editor-holder">
                                     <div class="editor-view js-edit-css"></div>
                                     <button class="btn-full-screen js-toggle-css-full-screen" type="button">Toggle
-                                        Full Screen
+                                                                                                            Full Screen
                                     </button>
 
                                     <div class="sg-link-delete">
                                         <button class="btn-with-icon icon-delete js-delete-snippet" type="button">Delete
-                                            Snippet
+                                                                                                                  Snippet
                                         </button>
                                     </div>
                                 </div>
@@ -372,7 +346,7 @@
             <ul class="sg-snippet-fonts-holder js-fonts-container">
                 <li class="row js-font-tpl">
                     <div class="medium-2 columns medium-offset-2 sg-snippet-fonts-big js-set-font"
-                         style="font-family: Lato, Arial, sans-serif;">
+                            style="font-family: Lato, Arial, sans-serif;">
                         Aa
                     </div>
                     <div class="medium-8 columns js-small-fonts-container">
