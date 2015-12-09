@@ -1,4 +1,4 @@
-(function ($, window, document, editorService, snippetActions, iframesService, undefined) {
+(function ($, window, document, editorService, snippetActions, iframesService) {
     function Plugin(element) {
         this.$element = $(element);
         this.events();
@@ -17,8 +17,6 @@
                 $handleRight = this.$element.find(".js-snippet-resize-handle-right"),
                 $sizeIndicator = this.$element.find(".js-snippet-size"),
                 $btnCancel = this.$element.find(".js-btn-cancel"),
-                $newSnippetForm = $(".js-new-snippet-form"),
-                $newSnippetCancel = $(".js-new-snippet-cancel"),
                 $snippetSource = ".js-snippet-source",
                 $editors,
                 $originalValues = {};
@@ -32,23 +30,36 @@
                         $editors = editorService.addToEditForm($code.parent());
                         $originalValues.code = $editors.code.getValue();
                         $originalValues.css = $editors.css.getValue();
-                        $editors.code.on('change', function () {
+
+                        function onSourceChange () {
                             snippetActions.appendIframeContent($previewSource, template, $editors.code.getValue(), $editors.css.getValue());
                             $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, $editors.code.getValue(), $editors.css.getValue()));
-                        });
-                        $editors.css.on('change', function () {
-                            snippetActions.appendIframeContent($previewSource, template, $editors.code.getValue(), $editors.css.getValue());
-                            $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, $editors.code.getValue(), $editors.css.getValue()));
-                        });
+                        }
+
+                        $editors
+                            .code
+                            .on('change', onSourceChange);
+                        $editors
+                            .css
+                            .on('change', onSourceChange);
                     } else {
-                        $editors.code.off('change');
-                        $editors.css.off('change');
+                        $editors
+                            .code
+                            .off('change');
+                        $editors
+                            .css
+                            .off('change');
 
                         if (!$previewSource.hasClass('updated')) {
                             snippetActions.appendIframeContent($previewSource, template, $originalValues.code, $originalValues.css);
                             $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, $editors.code.getValue(), $editors.css.getValue()));
-                            $editors.code.setValue($originalValues.code);
-                            $editors.css.setValue($originalValues.css);
+
+                            $editors
+                                .code
+                                .setValue($originalValues.code);
+                            $editors
+                                .css
+                                .setValue($originalValues.css);
                         }
 
                         $previewSource.removeClass('updated');
@@ -59,27 +70,31 @@
                 });
             });
 
+            //module 'show code' button for snippet editing
+            //TODO improvement: 'hide code' text?
             $btnCode.on("click", function () {
+                //hide settings
                 $btnSettings.removeClass("active");
-                $btnCode.toggleClass("active");
                 $settings.hide();
+
+                //toggle code
+                $btnCode.toggleClass("active");
                 $code.toggle();
             });
 
+            //module 'cancel' button for snippet editing
             $btnCancel.on("click", function () {
                 $btnSettings.removeClass("active");
                 $settings.hide();
                 $preview.show();
             });
 
-            $newSnippetCancel.on("click", function () {
-                $newSnippetForm.hide();
-            });
-
+            //TODO clarify: check if used
             $sizeIndicator.on('keyup', function () {
                 $preview.find('iframe').get(0).style.width = $sizeIndicator.val();
             });
 
+            //module draggable snippet sizer
             interact($resizeLength[0])
                 .resizable({
                     edges: {
@@ -93,14 +108,18 @@
                             iframe = $(target).find('iframe').get(0);
 
                         if (e.rect.width > 155 && e.rect.width < 605) {
-                            $preview.find($snippetSource).addClass('resize-overlay');
+                            $preview
+                                .find($snippetSource)
+                                .addClass('resize-overlay');
                             $preview[0].style.width = (e.rect.width * 2) + 'px';
                             $resizeLength[0].style.width = e.rect.width + 'px';
                             $sizeIndicator.text((e.rect.width * 2) + "px");
                         }
                     },
-                    onend: function (e) {
-                        $preview.find($snippetSource).removeClass('resize-overlay');
+                    onend: function () {
+                        $preview
+                            .find($snippetSource)
+                            .removeClass('resize-overlay');
                     }
                 });
 
@@ -115,10 +134,6 @@
         });
     };
 })(jQuery, window, document, editorService, snippetActions, iframesService);
-
-$(".js-header-new-snippet").on("click", function () {
-    $(".js-new-snippet-form").toggle();
-});
 
 $(document).ready(function () {
     viewService.init();

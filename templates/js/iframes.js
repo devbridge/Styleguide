@@ -14,16 +14,17 @@ var iframesService = (function ($, snippetService) {
     };
 
     var getDefaultTemplate = function () {
-        return '<head lang="en">' +
-            ' <meta charset="UTF-8">' +
-            ' <title>Snippet Iframe</title>' +
-            ' <style type="text/css">' +
-            '   body, html{margin: 0; height: 100%}' +
-            '   body > div{ height: 100%}' +
-            ' </style>' +
+        return '' +
+            '<head lang="en">' +
+                '<meta charset="UTF-8">' +
+                '<title>Snippet Iframe</title>' +
+                '<style type="text/css">' +
+                    'body, html{margin: 0; height: 100%}' +
+                    'body > div{ height: 100%}' +
+                '</style>' +
             '</head>' +
             '<body>' +
-            ' <div id="snippet"></div>' +
+                '<div id="snippet"></div>' +
             '</body>';
     };
 

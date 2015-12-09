@@ -8,7 +8,11 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         scriptTag.src = source;
         scriptTag.async = false;
 
-        iframe.contentWindow.document.body.appendChild(scriptTag);
+        iframe
+            .contentWindow
+            .document
+            .body
+            .appendChild(scriptTag);
     };
 
     var deleteHandler = function () {
@@ -16,9 +20,12 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             modalContent,
             modal;
 
-        modalContent = '<p>Are you sure you want to delete this snippet?</p>';
-        modalContent += '<div class="btn-holder"><button class="btn-primary js-confirm-delete">Yes</button>';
-        modalContent += '<button class="btn-blank" data-modal-control="close">No</button></div>';
+        modalContent = '' +
+            '<p>Are you sure you want to delete this snippet?</p>' +
+            '<div class="btn-holder">' +
+                '<button class="btn-primary js-confirm-delete">Yes</button>' +
+                '<button class="btn-blank" data-modal-control="close">No</button>' +
+            '</div>';
 
         modal = $.openModal({
             title: 'Snippet Deletion',
@@ -59,10 +66,16 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             frameHTML.innerHTML = template;
         }
 
-        frame.find('style').empty();
-        frame.find('style').append(css);
-        frame.find('#snippet').html(content);
-        frame.find('script').remove();
+        frame
+            .find('style')
+            .empty()
+            .append(css)
+            .end()
+            .find('#snippet')
+            .html(content)
+            .end()
+            .find('script')
+            .remove();
 
         if (includeJs) {
             rawJsFrame = document.getElementById(frameId.attr('id'));
@@ -86,8 +99,12 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             $(fields[index]).val('');
         }
 
-        ace.edit('jsNewCss').setValue('#snippet { \n  \n}');
-        ace.edit('jsNewCode').setValue('');
+        ace
+            .edit('jsNewCss')
+            .setValue('#snippet { \n  \n}');
+        ace
+            .edit('jsNewCode')
+            .setValue('');
     };
 
     var submitSnippet = function (data, form) {
@@ -106,31 +123,51 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                         snippetContents;
 
                     iframesService.getTemplate(function (template) {
+                        var snippetPreview = currentSnippetElement.find('.js-snippet-preview'),
+                            snippetDelete = currentSnippetElement.find('.js-delete-snippet');
+
                         currentId = snippet.id;
                         formFields = currentSnippetElement.find('.js-edit-snippet').find('.js-form-submit-field');
                         currentSnippetElement.attr('id', currentId);
                         snippetId = frame.attr('id');
 
-                        currentSnippetElement.find('.js-snippet-name').html(snippet.name);
-                        currentSnippetElement.find('.js-snippet-description').html(snippet.description);
-                        currentSnippetElement.find('.js-edit-code').text(snippet.code);
-                        currentSnippetElement.find('.js-edit-css').text(snippet.inlineCss);
-                        currentSnippetElement.find('.js-snippet-code-preview').text(snippet.code);
-                        currentSnippetElement.find('.js-snippet-source').html(frame);
-                        currentSnippetElement.find('.js-snippet-source').append('<div></div>');
-                        currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', snippet.code);
-                        currentSnippetElement.find('#form-new-include-js').prop('checked', snippet.includeJs);
+                        currentSnippetElement
+                            .find('.js-snippet-name')
+                            .html(snippet.name);
+                        currentSnippetElement
+                            .find('.js-snippet-description')
+                            .html(snippet.description);
+                        currentSnippetElement
+                            .find('.js-edit-code')
+                            .text(snippet.code)
+                            .attr('data-clipboard-text', snippet.code);
+                        currentSnippetElement
+                            .find('.js-edit-css')
+                            .text(snippet.inlineCss);
+                        currentSnippetElement
+                            .find('.js-snippet-code-preview')
+                            .text(snippet.code);
+                        currentSnippetElement
+                            .find('.js-snippet-source')
+                            .html(frame)
+                            .append('<div></div>');
+                        currentSnippetElement
+                            .find('#form-new-include-js')
+                            .prop('checked', snippet.includeJs);
+
                         currentSnippetElement.addClass(snippetId);
 
-                        iframeWindow = currentSnippetElement.find('.js-snippet-preview').find('iframe').get(0);
+                        iframeWindow = snippetPreview.find('iframe').get(0);
                         iframeWindow.style.width = viewService.getDefaultResolution();
 
-                        currentSnippetElement.find('.js-snippet-preview').css('width', viewService.getDefaultResolution());
+                        snippetPreview.css('width', viewService.getDefaultResolution());
 
                         if (!snippet.isDeleted) {
-                            currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
+                            snippetDelete
+                                .attr('data-id', currentId)
+                                .on('click', deleteHandler);
                         } else {
-                            currentSnippetElement.find('.js-delete-snippet').addClass('hidden');
+                            snippetDelete.addClass('hidden');
                         }
 
                         categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
@@ -141,15 +178,15 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                         }
 
                         currentSnippetElement.sgSnippet();
-
                         currentSnippetElement.appendTo('.main');
-
                         snippetContents = $('#' + snippetId);
 
                         module.appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss, snippet.includeJs);
                         snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, snippet.includeJs));
 
-                        currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
+                        currentSnippetElement
+                            .find('.js-edit-snippet')
+                            .submit(snippetActions.editSnippet);
 
                         new ZeroClipboard(currentSnippetElement.find('.js-copy-code').get());
 
@@ -188,10 +225,18 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                     return;
                 }
 
-                snippetContainer.find('.js-snippet-name').html(snippet.name);
-                snippetContainer.find('.js-snippet-description').html(snippet.description);
-                snippetContainer.find('.js-snippet-code-preview').text(snippet.code);
-                snippetContainer.find('.js-copy-code').attr('data-clipboard-text', snippet.code);
+                snippetContainer
+                    .find('.js-snippet-name')
+                    .html(snippet.name);
+                snippetContainer
+                    .find('.js-snippet-description')
+                    .html(snippet.description);
+                snippetContainer
+                    .find('.js-snippet-code-preview')
+                    .text(snippet.code);
+                snippetContainer
+                    .find('.js-copy-code')
+                    .attr('data-clipboard-text', snippet.code);
 
                 snippetContainer.addClass('edited-snippet');
 
@@ -217,6 +262,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     };
 
     module.createSnippet = function (e) {
+        e.preventDefault();
+
         var form = $(this),
             fields = form.find('.js-form-submit-field'),
             currentField,
@@ -231,8 +278,6 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             modal;
 
         form.addClass('preloading');
-
-        e.preventDefault();
 
         for (index = 0; len > index; index++) {
             currentField = $(fields[index]);
@@ -261,9 +306,12 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         }
 
         if (errors.length > 0) {
-            errorText = '<p>Your HTML or CSS syntax contains errors!</p><p>Are you sure you to submit your snippet?</p>';
-            errorText += '<div class="btn-holder"><button class="btn-primary js-confirm-create">Yes</button>';
-            errorText += '<button class="btn-blank" data-modal-control="close">No</button></div>';
+            errorText = '<p>Your HTML or CSS syntax contains errors!</p>' +
+                '<p>Are you sure you to submit your snippet?</p>' +
+                '<div class="btn-holder">' +
+                    '<button class="btn-primary js-confirm-create">Yes</button>' +
+                    '<button class="btn-blank" data-modal-control="close">No</button>' +
+                '</div>';
 
             modal = $.openModal({
                 title: 'Snippet Creation',
@@ -288,6 +336,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     };
 
     module.editSnippet = function (e) {
+        e.preventDefault();
+
         var form = $(this),
             fields = form.find('.js-form-submit-field'),
             snippetId = form.closest('.js-snippet').attr('id'),
@@ -302,8 +352,6 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             css;
 
         form.addClass('preloading');
-
-        e.preventDefault();
 
         for (index = 0; len > index; index++) {
             currentField = $(fields[index]);
@@ -363,38 +411,59 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         snippetContainer = $($('#snippet').html());
         iframesService.getTemplate(function (template) {
             for (index = 0; len > index; index++) {
-                currentId = snippets[index].id;
                 currentSnippetElement = snippetContainer.clone(true);
-                formFields = currentSnippetElement.find('.js-edit-snippet').find('.js-form-submit-field');
+                var snippetPreview = currentSnippetElement.find('.js-snippet-preview'),
+                    snippetDelete = currentSnippetElement.find('.js-delete-snippet'),
+                    snippetEdit = currentSnippetElement.find('.js-edit-snippet');
+                currentId = snippets[index].id;
+                formFields = snippetEdit.find('.js-form-submit-field');
                 currentSnippetElement.attr('id', currentId);
                 snippetId = frames[index].attr('id');
                 currentCode = snippets[index].code;
 
-                currentSnippetElement.find('.js-snippet-name').html(snippets[index].name);
-                currentSnippetElement.find('.js-snippet-description').html(snippets[index].description);
-                currentSnippetElement.find('.js-edit-code').text(currentCode);
-                currentSnippetElement.find('.js-edit-css').text(snippets[index].inlineCss);
-                currentSnippetElement.find('.js-snippet-code-preview').text(currentCode);
-                currentSnippetElement.find('.js-snippet-source').html(frames[index]);
-                currentSnippetElement.find('.js-snippet-source').append('<div></div>');
-                currentSnippetElement.find('.js-snippet-size').text(resolution);
-                currentSnippetElement.find('.js-copy-code').attr('data-clipboard-text', currentCode);
-                currentSnippetElement.find('#form-new-include-js').prop('checked', snippets[index].includeJs);
+                currentSnippetElement
+                    .find('.js-snippet-name')
+                    .html(snippets[index].name);
+                currentSnippetElement
+                    .find('.js-snippet-description')
+                    .html(snippets[index].description);
+                currentSnippetElement
+                    .find('.js-edit-code')
+                    .text(currentCode)
+                    .attr('data-clipboard-text', currentCode);
+                currentSnippetElement
+                    .find('.js-edit-css')
+                    .text(snippets[index].inlineCss);
+                currentSnippetElement
+                    .find('.js-snippet-code-preview')
+                    .text(currentCode);
+                currentSnippetElement
+                    .find('.js-snippet-source')
+                    .html(frames[index])
+                    .append('<div></div>');
+                currentSnippetElement
+                    .find('.js-snippet-size')
+                    .text(resolution);
+                currentSnippetElement
+                    .find('#form-new-include-js')
+                    .prop('checked', snippets[index].includeJs);
                 currentSnippetElement.addClass(snippetId);
 
-                iframeWindow = currentSnippetElement.find('.js-snippet-preview').find('iframe').get(0);
+                iframeWindow = snippetPreview.find('iframe').get(0);
                 iframeWindow.style.width = resolution;
 
-                currentSnippetElement.find('.js-snippet-preview').css('width', resolution);
+                snippetPreview.css('width', resolution);
 
                 if (snippets[index].isEdited) {
                     currentSnippetElement.addClass('edited-snippet');
                 }
 
                 if (!snippets[index].isDeleted) {
-                    currentSnippetElement.find('.js-delete-snippet').attr('data-id', currentId).on('click', deleteHandler);
+                    snippetDelete
+                        .attr('data-id', currentId)
+                        .on('click', deleteHandler);
                 } else {
-                    currentSnippetElement.find('.js-delete-snippet').addClass('hidden');
+                    snippetDelete.addClass('hidden');
                 }
 
                 categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
@@ -405,15 +474,13 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 }
 
                 currentSnippetElement.sgSnippet();
-
                 currentSnippetElement.appendTo('.main');
-
                 snippetIframe = $('#' + snippetId);
 
                 module.appendIframeContent(snippetIframe, template, currentCode, snippets[index].inlineCss, snippets[index].includeJs);
                 snippetIframe.load($.proxy(module.appendIframeContent, null, snippetIframe, template, currentCode, snippets[index].inlineCss, snippets[index].includeJs));
 
-                currentSnippetElement.find('.js-edit-snippet').submit(snippetActions.editSnippet);
+                snippetEdit.submit(snippetActions.editSnippet);
             }
             //TODO: redo that the content would be appended with iframe, so that timeout could be removed
             setTimeout($.proxy(module.handleHeights, null, $('iframe')), 1000);
@@ -489,7 +556,9 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 width: 500,
                 content: content,
                 onClose: function () {
-                    window.location.reload(true);
+                    window
+                        .location
+                        .reload(true);
                 }
             });
         });

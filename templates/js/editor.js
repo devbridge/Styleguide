@@ -1,111 +1,114 @@
-var editorService = (function($) {
-  var module = {};
+var editorService = (function ($) {
+    var module = {};
 
-  var toggleFullScreen = function(editor, e) {
-    e.preventDefault();
-    editor.keyBinding.$handlers[0].commands['Toggle Fullscreen'].exec(editor);
-  };
+    var toggleFullScreen = function (editor, e) {
+        e.preventDefault();
+        editor
+            .keyBinding
+            .$handlers[0]
+            .commands['Toggle Fullscreen']
+            .exec(editor);
+    };
 
-  var addToNewForm = function() {
-    var dom = require('ace/lib/dom'),
-        codeEditor,
-        cssEditor,
-        commands = require('ace/commands/default_commands').commands;
+    var addToNewForm = function () {
+        var dom = require('ace/lib/dom'),
+            codeEditor,
+            cssEditor,
+            commands = require('ace/commands/default_commands').commands;
 
+        commands.push({
+            name: 'Toggle Fullscreen',
+            bindKey: 'F11',
+            exec: function (editor) {
+                dom.toggleCssClass(document.body, 'fullScreen');
+                dom.toggleCssClass(editor.container, 'fullScreen-editor');
+                editor.resize();
+            }
+        });
 
-    commands.push({
-      name: 'Toggle Fullscreen',
-      bindKey: 'F11',
-      exec: function(editor) {
-        dom.toggleCssClass(document.body, 'fullScreen');
-        dom.toggleCssClass(editor.container, 'fullScreen-editor');
-        editor.resize();
-      }
-    });
+        commands.push({
+            name: 'Exit Fullscreen',
+            bindKey: 'ESC',
+            exec: function (editor) {
+                dom.removeCssClass(document.body, 'fullScreen');
+                dom.removeCssClass(editor.container, 'fullScreen-editor');
+                editor.resize();
+            }
+        });
 
-    commands.push({
-      name: 'Exit Fullscreen',
-      bindKey: 'ESC',
-      exec: function(editor) {
-        dom.removeCssClass(document.body, 'fullScreen');
-        dom.removeCssClass(editor.container, 'fullScreen-editor');
-        editor.resize();
-      }
-    });
+        codeEditor = ace.edit('jsNewCode');
+        codeEditor.setTheme('ace/theme/chrome');
+        codeEditor
+            .getSession()
+            .setMode('ace/mode/html');
 
-    codeEditor = ace.edit('jsNewCode');
-    cssEditor = ace.edit('jsNewCss');
-    cssEditor.setValue('#snippet { \n  \n}');
+        cssEditor = ace.edit('jsNewCss');
+        cssEditor.setValue('#snippet { \n  \n}');
+        cssEditor.setTheme('ace/theme/chrome');
+        cssEditor
+            .getSession()
+            .setMode('ace/mode/css');
 
-    codeEditor.setTheme('ace/theme/chrome');
-    cssEditor.setTheme('ace/theme/chrome');
+        $('.js-toggle-code-editor-full-screen').on('click', $.proxy(toggleFullScreen, null, codeEditor));
+        $('.js-toggle-css-editor-full-screen').on('click', $.proxy(toggleFullScreen, null, cssEditor));
+    };
 
-    codeEditor.getSession().setMode('ace/mode/html');
-    cssEditor.getSession().setMode('ace/mode/css');
+    module.addToEditForm = function (snippetContainer) {
+        var snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
+            codeId = snippetId + '-code',
+            cssId = snippetId + '-css',
+            codeEditor = snippetContainer.find('.js-edit-code'),
+            cssEditor = snippetContainer.find('.js-edit-css'),
+            editors = {};
 
-    $('.js-toggle-code-editor-full-screen').on('click', $.proxy(toggleFullScreen, null, codeEditor));
-    $('.js-toggle-css-editor-full-screen').on('click', $.proxy(toggleFullScreen, null, cssEditor));
-  };
+        function defineEditor (currentEditor, currentId, mode, type) {
+            currentEditor.attr('id', currentId);
+            currentEditor = ace.edit(currentId);
+            currentEditor.setTheme('ace/theme/github');
+            currentEditor
+                .getSession()
+                .setMode('ace/mode/' + mode);
 
-  module.addToEditForm = function(snippetContainer) {
-    var currentEditor = snippetContainer.find('.js-edit-code'),
-        snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
-        currentId = snippetId + '-code',
-        editors = {};
+            snippetContainer
+                .find('.js-toggle-' + type + '-full-screen')
+                .on('click', $.proxy(toggleFullScreen, null, currentEditor));
 
-    currentEditor.attr('id', currentId);
-    currentEditor = ace.edit(currentId);
-    currentEditor.setTheme('ace/theme/github');
-    currentEditor.getSession().setMode('ace/mode/html');
+            return currentEditor;
+        }
 
-    editors.code = currentEditor;
+        editors.code = defineEditor(codeEditor, codeId, 'html', 'code');
+        editors.css = defineEditor(cssEditor, cssId, 'css', 'css');
 
-    snippetContainer.find('.js-toggle-code-full-screen').on('click', $.proxy(toggleFullScreen, null, currentEditor));
+        return editors;
+    };
 
-    currentEditor = snippetContainer.find('.js-edit-css');
-    currentId = snippetId + '-css';
+    module.removeFromEditForm = function (snippetContainer) {
+        var snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
+            codeId = snippetId + '-code',
+            cssId = snippetId + '-css';
 
-    currentEditor.attr('id', currentId);
-    currentEditor = ace.edit(currentId);
-    currentEditor.setTheme('ace/theme/github');
-    currentEditor.getSession().setMode('ace/mode/css');
+        function removeFromEditor(currentId, type) {
+            var currentEditor = ace.edit(currentId),
+                tempText = currentEditor.getValue();
 
-    editors.css = currentEditor;
+            currentEditor.destroy();
+            $(currentEditor.container)
+                .children()
+                .remove();
+            $(currentEditor.container).text(tempText);
 
-    snippetContainer.find('.js-toggle-css-full-screen').on('click', $.proxy(toggleFullScreen, null, currentEditor));
+            snippetContainer
+                .find('.js-toggle-' + type + '-full-screen')
+                .off('click');
+        }
 
-    return editors;
-  };
+        removeFromEditor(codeId, 'code');
+        removeFromEditor(cssId, 'css');
+    };
 
-  module.removeFromEditForm = function(snippetContainer) {
-    var currentEditor = snippetContainer.find('.js-edit-code'),
-        snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
-        currentId = snippetId + '-code',
-        code,
-        css;
+    module.init = function () {
+        addToNewForm();
+    };
 
-    currentEditor = ace.edit(currentId);
-    code = currentEditor.getValue();
-    currentEditor.destroy();
-    $(currentEditor.container).children().remove()
-    $(currentEditor.container).text(code);
-
-    snippetContainer.find('.js-toggle-code-full-screen').off('click');
-
-    currentId = snippetId + '-css';
-
-    currentEditor = ace.edit(currentId);
-    css = currentEditor.getValue();
-    currentEditor.destroy();
-    $(currentEditor.container).children().remove();
-    $(currentEditor.container).text(css);
-
-    snippetContainer.find('.js-toggle-css-full-screen').off('click');
-  };
-
-  module.init = function() {
-    addToNewForm();
-  };
-
-  return module;
+    return module;
 })(jQuery || {});

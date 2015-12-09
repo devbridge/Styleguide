@@ -16,7 +16,7 @@ var sassService = (function ($) {
     var parseHsv = function (rgb) {
         var hsv,
             hue = 0,
-            sat = 0,
+            sat,
             val,
             chr,
             max,
@@ -91,8 +91,9 @@ var sassService = (function ($) {
             colorBoxes = [],
             color,
             len,
-            index,
-            varName;
+            index;
+            //varName;
+        //TODO improvement: color variable names
 
         //colorBoxTpl.find('p').remove();
 
@@ -101,7 +102,9 @@ var sassService = (function ($) {
         for (color in colors) {
             if (colors.hasOwnProperty(color)) {
                 currentColorBox = colorBoxTpl.clone(true);
-                currentColorBox.find('span').css('background', color)
+                currentColorBox
+                    .find('span')
+                    .css('background', color)
                     .attr('data-color-text', color);
 
                 //for (index = 0, len = colors[color].length; index < len; index++) {
@@ -142,7 +145,7 @@ var sassService = (function ($) {
             currentExampleView = exampleTpl.clone(true);
 
             currentExampleView.css({
-                'font-family': currentFont.value,
+                'font-family': currentFont.value
             });
 
             fontDescription = currentFont.variable + ': ' + currentFont.value + ';';
@@ -156,11 +159,13 @@ var sassService = (function ($) {
                 for (weightsInd = 0; weightsInd < weightsLen; weightsInd++) {
                     currentFontView = fontTpl.clone(true);
 
-                    currentFontView.find('.js-set-font').css({
-                        'font-family': currentFont.value,
-                        'font-weight': currentFont.weights[weightsInd].weight,
-                        'font-style': currentFont.weights[weightsInd].italic ? 'italic' : 'normal'
-                    });
+                    currentFontView
+                        .find('.js-set-font')
+                        .css({
+                            'font-family': currentFont.value,
+                            'font-weight': currentFont.weights[weightsInd].weight,
+                            'font-style': currentFont.weights[weightsInd].italic ? 'italic' : 'normal'
+                        });
 
                     fontDescription = currentFont.variable + ': ' + currentFont.value + '; ' + 'font-weight: ' + currentFont.weights[weightsInd].weight + ';';
 
@@ -168,10 +173,13 @@ var sassService = (function ($) {
                         fontDescription += ' font-style: italic;';
                     }
 
-                    currentFontView.find('.js-variable').text(fontDescription);
+                    currentFontView
+                        .find('.js-variable')
+                        .text(fontDescription);
 
                     fontsContainer.append(currentFontView);
                 }
+
                 if (index < len - 1) {
                     fontsContainer.append('<li><hr></li>');
                 }
@@ -179,7 +187,6 @@ var sassService = (function ($) {
                 fontsContainer.append('Weights were not defined for ' + currentFont.variable + '.<br>');
                 examplesContainer.append('Weights were not defined for ' + currentFont.variable + '.<br>');
             }
-
         }
     };
 

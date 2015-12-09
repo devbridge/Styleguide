@@ -1,518 +1,537 @@
 %snippet-btn-style {
-	background-color: transparent;
-	border: solid $border-snippet;
-	border-width: 0 1px;
-	color: #999;
-	display: block;
-	font-size: 13px;
-	height: 45px;
-	padding: 0 15px;
-	float: left;
+    background-color: transparent;
+    border: solid $border-snippet;
+    border-width: 0 1px;
+    color: #999;
+    display: block;
+    font-size: 13px;
+    height: 45px;
+    padding: 0 15px;
+    float: left;
 }
 
 %drawer-style {
-	background: $color-grey;
-	border-top: 2px solid $color-blue;
-	margin-top: -1px;
-	position: relative;
+    background: $color-grey;
+    border-top: 2px solid $color-blue;
+    margin-top: -1px;
+    position: relative;
 }
 
 .drawer-tip {
-	&:before {
-		content: '';
-		@include triangle(10px 5px, $color-blue, up);
-		@include position(absolute, null 50% 100% null);
-		margin-bottom: 2px;
-	}
+    &:before {
+        content: '';
+        @include triangle(10px 5px, $color-blue, up);
+        @include position(absolute, null 50% 100% null);
+        margin-bottom: 2px;
+    }
 }
 
 .sg-snippet {
-	margin-top: -1px;
+    margin-top: -1px;
 }
 
 // Snippet Header
 .sg-snippet-header {
-	border: solid $border-snippet;
-	border-width: 1px 0;
-	box-sizing: border-box;
-	vertical-align: middle;
+    border: solid $border-snippet;
+    border-width: 1px 0;
+    box-sizing: border-box;
+    vertical-align: middle;
 
-	.sg-page-wrapper {
-		@extend %clearfix;
-		position: relative;
-		height: 45px;
-		line-height: 45px;
-	}
+    .sg-page-wrapper {
+        @extend %clearfix;
+        position: relative;
+        height: 45px;
+        line-height: 45px;
+    }
 
-	.sg-snippet-title {
-		@include ellipsis();
-		font: {
-			size: 18px;
-			weight: $weight-bold;
-		}
-		float: left;
-		width: 45%;
-	}
+    .sg-snippet-title {
+        @include ellipsis();
+        font: {
+            size: 18px;
+            weight: $weight-bold;
+        }
+        float: left;
+        width: 45%;
+    }
 
-	.sg-snippet-size {
-		float: left;
-		width: 10%;
-		text-align: center;
-	}
+    .sg-snippet-size {
+        float: left;
+        width: 10%;
+        text-align: center;
+    }
 
-	.sg-header-controls {
-		float: right;
+    .sg-header-controls {
+        float: right;
 
-		.btn-show-code {
-			@extend %snippet-btn-style;
-			@extend %remove-outline;
+        .btn-show-code {
+            @extend %snippet-btn-style;
+            @extend %remove-outline;
 
-			&:after {
-				background: url($src-icon-code) no-repeat;
-				content: '';
-				display: inline-block;
-				height: 12px;
-				margin-left: 10px;
-				vertical-align: middle;
-				width: 17px;
-			}
+            &:after {
+                background: url($src-icon-code) no-repeat;
+                content: '';
+                display: inline-block;
+                height: 12px;
+                margin-left: 10px;
+                vertical-align: middle;
+                width: 17px;
+            }
 
-			&:hover,
-			&.active {
-				color: $color-black;
+            &:hover,
+            &.active {
+                color: $color-black;
 
-				&:after {
-					background-image: url($src-icon-code-active);
-				}
-			}
-		}
+                &:after {
+                    background-image: url($src-icon-code-active);
+                }
+            }
+        }
 
-		.btn-edit {
-			@extend %snippet-btn-style;
-			@extend %remove-outline;
-			margin-left: -1px;
-			font-size: 0;
+        .btn-edit {
+            @extend %snippet-btn-style;
+            @extend %remove-outline;
+            margin-left: -1px;
+            font-size: 0;
 
-			&:before {
-				color: #999;
-				content: '\f040';
-				display: inline-block;
-				@extend %font-icon-style;
-				font-size: 18px;
-			}
+            &:before {
+                color: #999;
+                content: '\f040';
+                display: inline-block;
+                @extend %font-icon-style;
+                font-size: 18px;
+            }
 
-			&:hover,
-			&.active {
+            &:hover,
+            &.active {
 
-				&:before {
-					color: $color-blue;
-				}
-			}
-		}
-	}
+                &:before {
+                    color: $color-blue;
+                }
+            }
+        }
+    }
 }
 
 // Snippet Info
 .sg-snippet-info {
-	@extend %drawer-style;
+    @extend %drawer-style;
 
-	.sg-page-wrapper {
-		position: relative;
-		padding: 60px 0;
-	}
+    .sg-page-wrapper {
+        position: relative;
+        padding: 60px 0;
+    }
 
-	.drawer-tip {
-		&:before {
-			right: 100px;
-		}
-	}
+    .drawer-tip {
+        &:before {
+            right: 100px;
+        }
+    }
 
-	.sg-page-wrapper	 {
-		@extend %clearfix;
-	}
+    .sg-page-wrapper {
+        @extend %clearfix;
+    }
 
-	.sg-snippet-code {
-		float: left;
-		width: 67%;
-		position: relative;
-		box-sizing: border-box;
-		padding-right: 10px;
+    .sg-snippet-code {
+        float: left;
+        width: 67%;
+        position: relative;
+        box-sizing: border-box;
+        padding-right: 10px;
 
-		.sg-snippet-code-preview {
-			@extend %form-style;
-			white-space: pre;
-			word-wrap: normal;
-			display: block;
-			overflow: auto;
-			line-height: (22 / 11);
-			max-height: 322px;
-			font: {
-				family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
-				size: 11px;
-				weight: normal;
-			};
-		}
+        .sg-snippet-code-preview {
+            @extend %form-style;
+            white-space: pre;
+            word-wrap: normal;
+            display: block;
+            overflow: auto;
+            line-height: (22 / 11);
+            max-height: 322px;
+            font: {
+                family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+                size: 11px;
+                weight: normal;
+            }
+        ;
+        }
 
-		.btn-blank {
-			@include position(absolute, 5px 30px null null);
-			font-size: 13px;
-			height: 22px;
-			line-height: 1;
-			padding: 0 15px;
-		}
-	}
+        .btn-blank {
+            @include position(absolute, 5px 30px null null);
+            font-size: 13px;
+            height: 22px;
+            line-height: 1;
+            padding: 0 15px;
+        }
+    }
 
-	.sg-snippet-description {
-		float: right;
-		width: 33%;
-		box-sizing: border-box;
-		padding-left: 10px;
-		max-height: 350px;
-		overflow-y: auto;
-		font-size: 14px;
-		line-height: 1.6;
+    .sg-snippet-description {
+        float: right;
+        width: 33%;
+        box-sizing: border-box;
+        padding-left: 10px;
+        max-height: 350px;
+        overflow-y: auto;
+        font-size: 14px;
+        line-height: 1.6;
 
-		.sg-title {
-			font: {
-				size: 16px;
-				weight: $weight-bold;
-			}
-			line-height: 1.1;
-			padding-bottom: 8px;
-		}
-	}
+        .sg-title {
+            font: {
+                size: 16px;
+                weight: $weight-bold;
+            }
+            line-height: 1.1;
+            padding-bottom: 8px;
+        }
+    }
 }
 
 // Snippet Settings (Edit form)
 .snippet-settings {
-	@extend %drawer-style;
+    @extend %drawer-style;
 
-	.sg-page-wrapper {
-		position: relative;
-	}
+    .sg-page-wrapper {
+        position: relative;
+    }
 
-	.sg-form-wrapper {
-		@extend .row;
-		padding: 60px 0;
-		position: relative;
+    .sg-form-wrapper {
+        @extend .row;
+        padding: 60px 0;
+        position: relative;
 
-		.checkbox-wrapper {
-			@include position(absolute, 100% null null 10px);
-			margin-top: 10px;
-			z-index: 10;
-		}
-	}
+        .checkbox-wrapper {
+            @include position(absolute, 100% null null 10px);
+            margin-top: 10px;
+            z-index: 10;
+        }
+    }
 
-	.drawer-tip {
-		&:before {
-			right: 28px;
-		}
-	}
+    .drawer-tip {
+        &:before {
+            right: 28px;
+        }
+    }
 
-	.columns {
-		position: relative;
-		padding-top: 15px;
-	}
+    .columns {
+        position: relative;
+        padding-top: 15px;
+    }
 
-	.editor-view {
-		height: 255px;
-		width: 100%;
-		font-size: 11px;
-		line-height: 22px;
-		box-sizing: border-box;
-	}
+    .editor-view {
+        height: 255px;
+        width: 100%;
+        font-size: 11px;
+        line-height: 22px;
+        box-sizing: border-box;
+    }
 
-	.field-wrapper {
-		margin: 0 0 15px;
-	}
+    .field-wrapper {
+        margin: 0 0 15px;
+    }
 
-	.field-label {
-		@include position(absolute, null null 100% 10px);
-		font-size: 14px;
-		margin: 0 0 -10px 0;
-	}
+    .field-label {
+        @include position(absolute, null null 100% 10px);
+        font-size: 14px;
+        margin: 0 0 -10px 0;
+    }
 
-	.tooltip.pos-right {
-		@include position(absolute, null 10px 100% null);
-		margin-bottom: -5px;
-	}
+    .tooltip.pos-right {
+        @include position(absolute, null 10px 100% null);
+        margin-bottom: -5px;
+    }
 
-	.sg-link-delete {
-		@include position(absolute, 100% 0 null null);
-		margin-top: 5px;
+    .sg-link-delete {
+        @include position(absolute, 100% 0 null null);
+        margin-top: 5px;
 
-		.btn-with-icon {
-			padding-left: 0;
-			padding-right: 0;
-			font-size: 14px;
-		}
-	}
+        .btn-with-icon {
+            padding-left: 0;
+            padding-right: 0;
+            font-size: 14px;
+        }
+    }
 
-	.ace_editor {
-		background-color: $color-white;
-		border: transparent solid 2px;
-		border-radius: 4px;
-		color: $color-black-secondary;
+    .ace_editor {
+        background-color: $color-white;
+        border: transparent solid 2px;
+        border-radius: 4px;
+        color: $color-black-secondary;
 
-		&.ace_focus {
-			box-shadow: none;
-			border-color: $color-blue;
-			outline: none;
-		}
-	}
+        &.ace_focus {
+            box-shadow: none;
+            border-color: $color-blue;
+            outline: none;
+        }
+    }
 
-	.sg-editor-holder {
-		position: relative;
+    .sg-editor-holder {
+        position: relative;
 
-		.btn-full-screen {
-			@include position(absolute, null 3px 3px null);
-			opacity: 0;
-			pointer-events: none;
-			@include transition(opacity .3s ease);
-			z-index: 1000;
-		}
+        .btn-full-screen {
+            @include position(absolute, null 3px 3px null);
+            opacity: 0;
+            pointer-events: none;
+            @include transition(opacity .3s ease);
+            z-index: 1000;
+        }
 
-		&:hover {
-			.btn-full-screen {
-				opacity: 1;
-				pointer-events: all;
-			}
-		}
-	}
+        &:hover {
+            .btn-full-screen {
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
 
-	.sg-controls-row {
-		background: $color-blue;
-		color: $color-white;
-		margin: 0;
+    .sg-controls-row {
+        background: $color-blue;
+        color: $color-white;
+        margin: 0;
 
-		.sg-page-wrapper {
-			padding: {
-				top: 15px;
-				bottom: 15px;
-			};
-		}
+        .sg-page-wrapper {
+            padding: {
+                bottom: 15px;
+                top: 15px;
+            }
+        }
 
-		.btn-primary {
-			background: $color-white;
-			color: $color-blue;
-		}
+        .btn-primary {
+            background: $color-white;
+            color: $color-blue;
+        }
 
-		.btn-blank {
-			color: $color-white;
-		}
+        .btn-blank {
+            color: $color-white;
+        }
 
-		.sg-snippet-title {
-			float: right;
-		}
-	}
+        .sg-snippet-title {
+            float: right;
+        }
+    }
 
-	.field-text {
-		@extend %form-item-style;
-		height: 37px;
-	}
+    .field-text {
+        @extend %form-item-style;
+        height: 37px;
+    }
 
-	.field-select {
-		@extend %form-item-style;
-		-webkit-appearance: none;
-		background: url($src-select-arrow) no-repeat 100% 50%, -webkit-linear-gradient(bottom, $color-white 0%, $color-white 100%);
-		height: 37px;
-	}
+    .field-select {
+        @extend %form-item-style;
+        -webkit-appearance: none;
+        background: url($src-select-arrow) no-repeat 100% 50%, -webkit-linear-gradient(bottom, $color-white 0%, $color-white 100%);
+        height: 37px;
+    }
 
-	.field-textarea {
-		@extend %form-item-style;
-		height: 150px;
-		resize: none;
-	}
+    .field-textarea {
+        @extend %form-item-style;
+        height: 150px;
+        resize: none;
+    }
 
-	.checkbox-wrapper {
-		position: relative;
-		font-size: 14px;
+    .checkbox-wrapper {
+        position: relative;
+        font-size: 14px;
 
-		.fake-box {
-			background-color: $color-white;
-			border: 1px solid transparent;
-			display: inline-block;
-			height: 16px;
-			margin: -2px 10px 0 0;
-			vertical-align: middle;
-			width: 16px;
-			border-radius: 4px;
-		}
-	}
+        .fake-box {
+            background-color: $color-white;
+            border: 1px solid transparent;
+            display: inline-block;
+            height: 16px;
+            margin: -2px 10px 0 0;
+            vertical-align: middle;
+            width: 16px;
+            border-radius: 4px;
+        }
+    }
 
-	.field-checkbox {
-		@include position(absolute, 7px null null null);
-		height: 16px;
-		opacity: 0;
-		width: 16px;
+    .field-checkbox {
+        @include position(absolute, 7px null null null);
+        height: 16px;
+        opacity: 0;
+        width: 16px;
 
-		&:checked {
-			~ .fake-box {
-				border-color: transparent;
+        &:checked {
+            ~ .fake-box {
+                border-color: transparent;
 
-				&:before {
-					@extend %font-icon-style;
-					@include position(absolute, 5px null null 0);
-					color: $color-blue;
-					content: '\f00c';
-					font-size: 12px;
-					text-align: center;
-					width: 19px;
-				}
-			}
-		}
-	}
+                &:before {
+                    @extend %font-icon-style;
+                    @include position(absolute, 5px null null 0);
+                    color: $color-blue;
+                    content: '\f00c';
+                    font-size: 12px;
+                    text-align: center;
+                    width: 19px;
+                }
+            }
+        }
+    }
 
-	label {
-		color: $color-black-secondary;
-		display: block;
-		margin-bottom: 5px;
+    label {
+        color: $color-black-secondary;
+        display: block;
+        margin-bottom: 5px;
 
-		sub {
-			@extend %subscript-text-style;
-		}
+        sub {
+            @extend %subscript-text-style;
+        }
 
-		&[for] {
-			cursor: pointer;
-		}
-	}
+        &[for] {
+            cursor: pointer;
+        }
+    }
 }
 
 .fullScreen {
-	overflow: hidden;
+    overflow: hidden;
 
-	.fullScreen-editor {
-		border: 0;
-		height: auto !important;
-		@include position(fixed, 0 0 0 0);
-		margin: 0;
-		width: auto !important;
-		z-index: 10000;
-	}
+    .fullScreen-editor {
+        border: 0;
+        height: auto !important;
+        @include position(fixed, 0 0 0 0);
+        margin: 0;
+        width: auto !important;
+        z-index: 10000;
+    }
 }
 
 // Ace editor modifications
 .sg-snippet-form {
-	.ace_info {
-		display: none;
-	}
+    .ace_info {
+        display: none;
+    }
 
-	.ace-github .ace_gutter {
-		background-color: transparent;
-		color: #999;
-	}
+    .ace-github .ace_gutter {
+        background-color: transparent;
+        color: #999;
+    }
 
-	.ace_scroller.ace_scroll-left {
-		box-shadow: none;
-		border-left: #d3d3d3 solid 1px;
-	}
+    .ace_scroller.ace_scroll-left {
+        box-shadow: none;
+        border-left: #d3d3d3 solid 1px;
+    }
 
-	.ace_gutter-layer {
-		width: 36px;
-	}
+    .ace_gutter-layer {
+        width: 36px;
+    }
 
-	.ace_warning {
-		display: none;
-	}
+    .ace_warning {
+        display: none;
+    }
 
-	.ace_gutter-cell {
-		padding-left: 10px;
-		padding-right: 10px;
-	}
+    .ace_gutter-cell {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 
-	.ace-github .ace_marker-layer .ace_active-line,
-	.ace-github .ace_gutter-active-line {
-		background: none;
-	}
+    .ace-github .ace_marker-layer .ace_active-line,
+    .ace-github .ace_gutter-active-line {
+        background: none;
+    }
 
-	.ace-github.ace_focus .ace_marker-layer .ace_active-line,
-	.ace-github.ace_focus .ace_gutter-active-line{
-		background: rgba(#999999, 0.20);
-	}
+    .ace-github.ace_focus .ace_marker-layer .ace_active-line,
+    .ace-github.ace_focus .ace_gutter-active-line {
+        background: rgba(#999999, 0.20);
+    }
 
-	.ace_gutter-cell.ace_error {
-		background: none;
-	}
+    .ace_gutter-cell.ace_error {
+        background: none;
+    }
 
-	.ace-github .ace_marker-layer .ace_bracket {
-		border: none;
-		outline: none;
-	}
+    .ace-github .ace_marker-layer .ace_bracket {
+        border: none;
+        outline: none;
+    }
 
-	.ace-github.ace_focus .ace_marker-layer .ace_bracket {
-		background: rgba(#999999, 0.20);
-	}
+    .ace-github.ace_focus .ace_marker-layer .ace_bracket {
+        background: rgba(#999999, 0.20);
+    }
 
-	.ace_cursor {
-		display: none;
-	}
+    .ace_cursor {
+        display: none;
+    }
 
-	.ace-github.ace_focus .ace_cursor {
-		display: block;
-		z-index: 4;
-		position: absolute;
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		border-left: 2px solid;
-	}
+    .ace-github.ace_focus .ace_cursor {
+        display: block;
+        z-index: 4;
+        position: absolute;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-left: 2px solid;
+    }
 }
 
 // Snippet Preview
 .sg-snippet-preview {
-	margin: 0 auto;
-	padding: 60px 10px;
-	position: relative;
+    margin: 0 auto;
+    padding: 60px 10px;
+    position: relative;
 
-	.sg-snippet-resize-handle {
-		height: 100px;
-		width: 30px;
-		margin-top: -50px;
-		@include position(absolute, 50% null null null);
-		@include transition(all 0.4s);
-		visibility: hidden;
-		opacity: 0;
+    .sg-snippet-resize-handle {
+        height: 100px;
+        width: 30px;
+        margin-top: -50px;
+        @include position(absolute, 50% null null null);
+        @include transition(all 0.4s);
+        visibility: hidden;
+        opacity: 0;
 
-		&:before {
-			background: url($src-icon-drag) no-repeat;
-			@include position(absolute, 50% null null null);
-			content: '';
-			height: 17px;
-			margin-top: -8px;
-			width: 11px;
-		}
+        &:before {
+            background: url($src-icon-drag) no-repeat;
+            @include position(absolute, 50% null null null);
+            content: '';
+            height: 17px;
+            margin-top: -8px;
+            width: 11px;
+        }
 
-		&.pos-right {
-			@include transform(translateX(-10px));
-			border-right: 1px solid $border-snippet;
-			left: -30px;
-			cursor: e-resize;
+        &.pos-right {
+            @include transform(translateX(-10px));
+            border-right: 1px solid $border-snippet;
+            left: -30px;
+            cursor: e-resize;
 
-			&:before {
-				left: 10px;
-			}
-		}
+            &:before {
+                left: 10px;
+            }
+        }
 
-		&.pos-left {
-			@include transform(translateX(10px));
-			border-left: 1px solid $border-snippet;
-			right: -30px;
-			cursor: w-resize;
+        &.pos-left {
+            @include transform(translateX(10px));
+            border-left: 1px solid $border-snippet;
+            cursor: w-resize;
+            right: -30px;
 
-			&:before {
-				right: 10px;
-			}
-		}
-	}
+            &:before {
+                right: 10px;
+            }
+        }
+    }
 }
 
 .sg-snippet {
-	&:hover {
+    &:hover {
 
-		.sg-snippet-resize-handle {
-			visibility: visible;
-			opacity: 1;
-			@include transform(translateX(0));
-		}
-	}
+        .sg-snippet-resize-handle {
+            @include transform(translateX(0));
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+.sg-snippet-source {
+    &.resize-overlay {
+        pointer-events: none;
+        position: relative;
+
+        &:before {
+            @include position(absolute, 0 0 0 0);
+            content: '';
+            opacity: .8;
+            z-index: 1000;
+        }
+    }
+
+    iframe {
+        width: 100% !important;
+    }
 }

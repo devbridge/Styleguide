@@ -6,12 +6,18 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         isServerOn;
 
     var bindNavClick = function (e) {
-        var id = $(this).data('id');
         e.preventDefault();
+        var id = $(this).data('id');
         redrawPage(id);
-        window.history.pushState({
-            id: id
-        }, '', '#' + id);
+        window
+            .history
+            .pushState(
+                {
+                    id: id
+                },
+                '',
+                '#' + id
+            );
     };
 
     var bindCategoryButtons = function () {
@@ -36,14 +42,15 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             btnPrev.removeAttr('disabled');
         }
 
-        btnNext.data('id', views[next].id);
-        btnPrev.data('id', views[prev].id);
+        btnNext
+            .data('id', views[next].id)
+            .off('click')
+            .on('click', bindNavClick);
 
-        btnNext.off('click');
-        btnPrev.off('click');
-
-        btnNext.on('click', bindNavClick);
-        btnPrev.on('click', bindNavClick);
+        btnPrev
+            .data('id', views[prev].id)
+            .off('click')
+            .on('click', bindNavClick);
     };
 
     var categoriesComparator = function (a, b) {
@@ -69,13 +76,14 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         undefCat = navLinksArr.splice(undefCat, 1);
 
         navLinksArr.sort(categoriesComparator);
-
         navLinksArr.unshift(sass[0]);
         navLinksArr.push(undefCat[0]);
 
         for (index = 0; index < len; index++) {
             navList.append(navLinksArr[index].element);
-            navLinksArr[index].element.wrap("<li></li>");
+            navLinksArr[index]
+                .element
+                .wrap("<li></li>");
         }
     };
 
@@ -117,7 +125,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                     if(category.name === pages[0].name) {
                         pageElement = $('<button class="active" type="button" data-id="' + category.id + '">' + category.name + '</button>');
                     } else {
-                        pageElement = $('<button type="button" data-id="' + category.id + '">' + category.name + '</button>')
+                        pageElement = $('<button type="button" data-id="' + category.id + '">' + category.name + '</button>');
                     }
 
                     pageElement.on('click', bindNavClick);
@@ -141,9 +149,15 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 }).pop();
             } else {
                 currentView = views[0];
-                window.history.replaceState({
-                    id: currentView.id
-                }, '', '');
+                window
+                    .history
+                    .replaceState(
+                        {
+                            id: currentView.id
+                        },
+                        '',
+                        ''
+                    );
             }
 
             if(refreshContent === true) {
@@ -154,82 +168,78 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
     var redrawPage = function (categoryId) {
         var snippetResizeControls = $('.js-snippet-resize-controls'),
-            homeNavigation = $('.js-home-navigation');
+            homeNavigation = $('.js-home-navigation'),
+            currentPage = $('.js-current-page');
 
         $('.main').empty();
+
+        function snippetsPage() {
+            currentPage.text(currentView.name);
+            bindCategoryButtons();
+            snippetResizeControls.show();
+            homeNavigation.hide();
+        }
 
         if (typeof categoryId === 'number') {
             currentView = $.grep(views, function (el) {
                 return el.id === categoryId;
             }).pop();
 
-            $('.js-current-page').text(currentView.name);
-
             iframesService.formFramesForCategory(categoryId, function (frames, snippets) {
                 snippetActions.drawSnippets(frames, snippets, defaultResolution);
             });
 
-            bindCategoryButtons();
-            snippetResizeControls.show();
-            homeNavigation.hide();
-
-            return;
-        }
-
-        if (typeof categoryId === 'string' && categoryId === 'deleted') {
+            snippetsPage();
+        } else if (typeof categoryId === 'string' && categoryId === 'deleted') {
             currentView = views[views.length - 1];
-            $('.js-current-page').text(currentView.name);
 
             iframesService.formFramesForDeleted(function (frames, snippets) {
                 snippetActions.drawSnippets(frames, snippets, defaultResolution);
             });
 
+            snippetsPage();
+        } else {
+            currentView = views[0];
+
+            //home page
             bindCategoryButtons();
-            snippetResizeControls.show();
-            homeNavigation.hide();
-
-            return;
+            snippetResizeControls.hide();
+            homeNavigation.show();
+            currentPage.text(currentView.name);
+            sassService.loadSass();
         }
-
-        currentView = views[0];
-
-        bindCategoryButtons();
-
-        snippetResizeControls.hide();
-        homeNavigation.show();
-
-        $('.js-current-page').text(currentView.name);
-        sassService.loadSass();
     };
 
     var defaultResolutionsHandler = function (width, button) {
-        var iframe = $('iframe').get(),
-            len = iframe.length,
+        var iFrames = $('iframe'),
+            iFramesArray = iFrames.get(),
+            len = iFramesArray.length,
             index;
 
-        $('.header-size-controls').find('.btn-ghost').removeClass('active');
+        $('.header-size-controls')
+            .find('.btn-ghost')
+            .removeClass('active');
         $(button).addClass('active');
 
         for (index = 0; index < len; index++) {
-            iframe[index].style.width = width;
+            iFramesArray[index].style.width = width;
         }
 
         $('.js-snippet-preview').css('width', width);
-
         $('.js-snippet-size').text(width);
         $('.js-custom').val(width);
 
-        snippetActions.handleHeights($('iframe'));
+        snippetActions.handleHeights(iFrames);
     };
 
     var bindResolutionActions = function () {
         var desktop,
             tablet,
             mobile,
-            desktopButton = $('.js-desktop'),
+            desktopButton = $('.js-desktop'),//TODO improve: need dynamic media query changer(count, sizes, names)
             tabletButton = $('.js-tablet'),
             mobileButton = $('.js-mobile'),
-            customInput = $('.js-custom');
+            customInput = $('.js-custom-media');
         $.getJSON('../styleguide_config.txt', function (data) {
             defaultResolution = desktop = data.resolutions.desktop ? data.resolutions.desktop : '1200';
             tablet = data.resolutions.tablet ? data.resolutions.tablet : '768';
@@ -241,7 +251,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 defaultResolutionsHandler(desktop, desktopButton);
             });
 
-
             tabletButton.on('click', function () {
                 defaultResolutionsHandler(tablet, tabletButton);
             });
@@ -252,31 +261,24 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
         });
 
-        customInput.on('keyup', function (event) {
+        //TODO improvement: on hold
+        function customInputEvent (event) {
             var width = $(this).val();
             width = parseInt(width);
 
             if (event.keyCode === 38) {
                 width += 1;
-                defaultResolutionsHandler(width, event.target);
+                $(this).val(width)
             } else if (event.keyCode === 40) {
                 width -= 1;
-                defaultResolutionsHandler(width, event.target);
-            }
-        });
-
-        customInput.on('change', function (event) {
-            var width = $(this).val();
-            width = parseInt(width);
-
-            if (event.keyCode === 38) {
-                width += 1;
-            } else if (event.keyCode === 40) {
-                width -= 1;
+                $(this).val(width)
             }
 
             defaultResolutionsHandler(width, event.target);
-        });
+        }
+
+        customInput.on('keyup', customInputEvent);
+        customInput.on('change', customInputEvent);
     };
 
     window.onpopstate = function (event) {
@@ -293,18 +295,39 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             self = $(this);
 
             if (!self.hasClass('active')) {
-                self.addClass('active');
                 dropdown.removeClass('active');
-                self.next(dropdown).addClass('active');
+                self
+                    .addClass('active')
+                    .next(dropdown)
+                    .addClass('active');
             } else {
-                self.removeClass('active');
-                self.next(dropdown).removeClass('active');
+                self
+                    .removeClass('active')
+                    .next(dropdown)
+                    .removeClass('active');
             }
         });
 
+        //TODO revisit: event is always available
         $(window).on('click', function () {
             trigger.removeClass('active');
             dropdown.removeClass('active');
+        });
+    };
+
+    var newSnippetControls = function () {
+        var $newSnippetForm = $(".js-new-snippet-form"),
+            $newSnippetBtnOpen = $(".js-header-new-snippet"),
+            $newSnippetCancel = $(".js-new-snippet-cancel");
+
+        //module 'new snippet' button
+        $newSnippetBtnOpen.on("click", function () {
+            $newSnippetForm.toggle();
+        });
+
+        //module 'cancel' button for new snippet creation
+        $newSnippetCancel.on("click", function () {
+            $newSnippetForm.hide();
         });
     };
 
@@ -315,6 +338,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         buildNavigation($('.js-home-navigation'), '.js-navigation-list', false);
         categoryService.bindCategoriesToForm($('.js-form-select').first());
         openDropdown();
+        newSnippetControls();
 
         snippetService.init(function (data) {
             if (typeof data === 'string') {
