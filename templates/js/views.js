@@ -210,11 +210,16 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         }
     };
 
-    var defaultResolutionsHandler = function (width, button) {
+    var defaultResolutionsHandler = function (width, button, fromInput) {
         var iFrames = $('iframe'),
             iFramesArray = iFrames.get(),
             len = iFramesArray.length,
-            index;
+            index,
+            updateField = fromInput ? false : true;
+
+        if(width < 280 || width === "" || isNaN(width)) {
+            width = 280;
+        }
 
         $('.header-size-controls')
             .find('.btn-ghost')
@@ -226,40 +231,34 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         }
 
         $('.js-snippet-preview').css('width', width);
-        $('.js-snippet-size').text(width);
-        $('.js-custom').val(width);
+        $('.js-snippet-size').text(width + 'px');
+        if (updateField === true) {
+            $('.js-custom-media').val(width);
+        }
 
         snippetActions.handleHeights(iFrames);
     };
 
     var bindResolutionActions = function () {
-        var desktop,
-            tablet,
-            mobile,
-            desktopButton = $('.js-desktop'),//TODO improve: need dynamic media query changer(count, sizes, names)
-            tabletButton = $('.js-tablet'),
-            mobileButton = $('.js-mobile'),
-            customInput = $('.js-custom-media');
+        var customInput = $('.js-custom-media'),
+            mediaList = $('.js-media-list'),
+            tempLi,
+            tempButton;
+
         $.getJSON('../styleguide_config.txt', function (data) {
-            defaultResolution = desktop = data.resolutions.desktop ? data.resolutions.desktop : '1200';
-            tablet = data.resolutions.tablet ? data.resolutions.tablet : '768';
-            mobile = data.resolutions.mobile ? data.resolutions.mobile : '480';
-
-            customInput.val(defaultResolution);
-
-            desktopButton.on('click', function () {
-                defaultResolutionsHandler(desktop, desktopButton);
+            $.each(data.resolutions, function (index, value) {
+                tempLi = $('<li></li>');
+                tempButton = $('<button type="button" data-size="' + value + '">' + value + ' px</button>');
+                tempLi
+                    .append(tempButton)
+                    .appendTo(mediaList);
+                tempButton.on('click', function () {
+                    defaultResolutionsHandler(value, tempButton);
+                });
             });
-
-            tabletButton.on('click', function () {
-                defaultResolutionsHandler(tablet, tabletButton);
-            });
-
-            mobileButton.on('click', function () {
-                defaultResolutionsHandler(mobile, mobileButton);
-            });
-
         });
+
+        customInput.val(1200);
 
         //TODO improvement: on hold
         function customInputEvent (event) {
@@ -274,7 +273,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 $(this).val(width)
             }
 
-            defaultResolutionsHandler(width, event.target);
+            defaultResolutionsHandler(width, event.target, true);
         }
 
         customInput.on('keyup', customInputEvent);

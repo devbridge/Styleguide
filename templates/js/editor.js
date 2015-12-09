@@ -23,6 +23,7 @@ var editorService = (function ($) {
                 dom.toggleCssClass(document.body, 'fullScreen');
                 dom.toggleCssClass(editor.container, 'fullScreen-editor');
                 editor.resize();
+                editor.focus();
             }
         });
 
@@ -37,17 +38,24 @@ var editorService = (function ($) {
         });
 
         codeEditor = ace.edit('jsNewCode');
-        codeEditor.setTheme('ace/theme/chrome');
+        codeEditor.setTheme('ace/theme/github');
         codeEditor
             .getSession()
             .setMode('ace/mode/html');
+        codeEditor
+            .getSession()
+            .setUseWorker(false);
+
 
         cssEditor = ace.edit('jsNewCss');
         cssEditor.setValue('#snippet { \n  \n}');
-        cssEditor.setTheme('ace/theme/chrome');
+        cssEditor.setTheme('ace/theme/github');
         cssEditor
             .getSession()
             .setMode('ace/mode/css');
+        cssEditor
+            .getSession()
+            .setUseWorker(false);
 
         $('.js-toggle-code-editor-full-screen').on('click', $.proxy(toggleFullScreen, null, codeEditor));
         $('.js-toggle-css-editor-full-screen').on('click', $.proxy(toggleFullScreen, null, cssEditor));
@@ -68,6 +76,9 @@ var editorService = (function ($) {
             currentEditor
                 .getSession()
                 .setMode('ace/mode/' + mode);
+            currentEditor
+                .getSession()
+                .setUseWorker(false);
 
             snippetContainer
                 .find('.js-toggle-' + type + '-full-screen')

@@ -95,6 +95,7 @@
             });
 
             //module draggable snippet sizer
+            //TODO fix: mismatch after changing media size in input or dropdown
             interact($resizeLength[0])
                 .resizable({
                     edges: {
