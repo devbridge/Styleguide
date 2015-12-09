@@ -51,29 +51,12 @@
             <div class="sg-snippets-resize">
                 <button class="btn-dropdown js-open-dropdown" type="button" title="Menu"></button>
                 <div class="dropdown-list js-dropdown-list">
-                    <ul>
-                        <li>
-                            <button type="button" data-size="1200">1200</button>
-                        </li>
-                        <li>
-                            <button type="button" data-size="1024">1024</button>
-                        </li>
-                        <li>
-                            <button type="button" data-size="768">768</button>
-                        </li>
-                        <li>
-                            <button type="button" data-size="600">600</button>
-                        </li>
-                        <li>
-                            <button  type="button" data-size="480">480</button>
-                        </li>
-                        <li>
-                            <button type="button"  data-size="320">320</button>
-                        </li>
+                    <ul class="js-media-list">
+
                     </ul>
                 </div>
 
-                <input type="text" class="input-new-size" id="input-new-size" value="1200" maxlength="4">
+                <input type="text" class="input-new-size js-custom-media" id="input-new-size" value="1200" maxlength="4">
                 <label class="label-new-size" for="input-new-size">px</label>
             </div>
 
@@ -101,9 +84,9 @@
                         <div class="medium-5 columns">
                             <label class="field-label">Code:</label>
                             <div class="sg-editor-holder">
-                                <div id="jsNewCode" class="editor-view"></div>
-                                <button class="btn-full-screen js-toggle-code-editor-full-screen"
-                                        title="Toggle full screen">Toggle full screen
+                                <div class="editor-view" id="jsNewCode"></div>
+                                <button class="btn-full-screen js-toggle-code-editor-full-screen" title="Toggle full screen">
+                                    Toggle full Screen
                                 </button>
                             </div>
 
