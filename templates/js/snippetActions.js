@@ -139,7 +139,9 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                             .html(snippet.description);
                         currentSnippetElement
                             .find('.js-edit-code')
-                            .text(snippet.code)
+                            .text(snippet.code);
+                        currentSnippetElement
+                            .find('.js-copy-code')
                             .attr('data-clipboard-text', snippet.code);
                         currentSnippetElement
                             .find('.js-edit-css')
@@ -429,7 +431,9 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                     .html(snippets[index].description);
                 currentSnippetElement
                     .find('.js-edit-code')
-                    .text(currentCode)
+                    .text(currentCode);
+                currentSnippetElement
+                    .find('.js-copy-code')
                     .attr('data-clipboard-text', currentCode);
                 currentSnippetElement
                     .find('.js-edit-css')

@@ -293,12 +293,12 @@ $btn-ghost-radius: $border-radius;
         display: block;
         font-size: 12px;
         line-height: 1.4;
-        margin-left: -90px;
+        margin-left: -110px;
         opacity: 0;
         padding: 8px 10px;
         text-align: left;
         visibility: hidden;
-        width: 180px;
+        width: 220px;
         @include transition(opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s cubic-bezier(.71, 1.7, .77, 1.24));
         @include transform(translate3d(0, 0, 0));
 

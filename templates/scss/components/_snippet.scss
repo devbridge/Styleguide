@@ -151,11 +151,10 @@
                 size: 11px;
                 weight: normal;
             }
-        ;
         }
 
         .btn-blank {
-            @include position(absolute, 5px 30px null null);
+            @include position(absolute, 10px 30px null null);
             font-size: 13px;
             height: 22px;
             line-height: 1;
@@ -358,7 +357,7 @@
 
                 &:before {
                     @extend %font-icon-style;
-                    @include position(absolute, 5px null null 0);
+                    @include position(absolute, 3px null null 0);
                     color: $color-blue;
                     content: '\f00c';
                     font-size: 12px;
