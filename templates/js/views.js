@@ -237,6 +237,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             $('.js-custom-media').val(width);
         }
         document.cookie = "styleguideMedia=" + width + "; path=/";
+        defaultResolution = width;
 
         snippetActions.handleHeights(iFrames);
     };
