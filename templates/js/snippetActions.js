@@ -77,7 +77,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             .find('script')
             .remove();
 
-        if (includeJs) {
+        if (includeJs === true || includeJs === "true") {
             rawJsFrame = document.getElementById(frameId.attr('id'));
 
             iframesService.getJavaScripts(function (jsResources) {
@@ -124,12 +124,18 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
                     iframesService.getTemplate(function (template) {
                         var snippetPreview = currentSnippetElement.find('.js-snippet-preview'),
-                            snippetDelete = currentSnippetElement.find('.js-delete-snippet');
+                            snippetDelete = currentSnippetElement.find('.js-delete-snippet'),
+                            includeJs = snippet.includeJs;
 
                         currentId = snippet.id;
                         formFields = currentSnippetElement.find('.js-edit-snippet').find('.js-form-submit-field');
                         currentSnippetElement.attr('id', currentId);
                         snippetId = frame.attr('id');
+                        if(includeJs === "true" || includeJs === true) {
+                            includeJs = true;
+                        } else if (includeJs === "false" || includeJs === false) {
+                            includeJs = false;
+                        }
 
                         currentSnippetElement
                             .find('.js-snippet-name')
@@ -154,8 +160,14 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                             .html(frame)
                             .append('<div></div>');
                         currentSnippetElement
-                            .find('#form-new-include-js')
-                            .prop('checked', snippet.includeJs);
+                            .find('.js-snippet-size')
+                            .text(viewService.getDefaultResolution() + "px");
+                        currentSnippetElement
+                            .find(".js-resize-length")
+                            .css("width", parseInt(viewService.getDefaultResolution() / 2, 10));
+                        currentSnippetElement
+                            .find('.form-include-js')
+                            .prop('checked', includeJs);
 
                         currentSnippetElement.addClass(snippetId);
 
@@ -183,8 +195,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                         currentSnippetElement.appendTo('.main');
                         snippetContents = $('#' + snippetId);
 
-                        module.appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss, snippet.includeJs);
-                        snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, snippet.includeJs));
+                        module.appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss, includeJs);
+                        snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, includeJs));
 
                         currentSnippetElement
                             .find('.js-edit-snippet')
@@ -218,7 +230,14 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
     var submitUpdatedSnippet = function (data, snippetId, snippetContainer, form) {
         snippetService.putEdited(data, snippetId, function (snippet) {
-            var modalContent;
+            var modalContent,
+                includeJs = snippet.includeJs;
+            if(includeJs === "true" || includeJs === true) {
+                includeJs = true;
+            } else if (includeJs === "false" || includeJs === false) {
+                includeJs = false;
+            }
+
             if (typeof snippet === 'object') {
                 var snippetContents;
 
@@ -244,8 +263,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
                 snippetContents = snippetContainer.find('iframe');
 
-                module.appendIframeContent(snippetContents, null, snippet.code, snippet.inlineCss, snippet.includeJs);
-                snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, null, snippet.code, snippet.inlineCss, snippet.includeJs));
+                module.appendIframeContent(snippetContents, null, snippet.code, snippet.inlineCss, includeJs);
+                snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, null, snippet.code, snippet.inlineCss, includeJs));
 
                 form.removeClass('preloading');
                 snippetContents.addClass('updated');
@@ -286,7 +305,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             data[currentField.data('js-field-name')] = currentField.val();
         }
 
-        data.includeJs = form.find('#form-new-include-js').is(':checked');
+        data.includeJs = form.find('.form-include-js').is(':checked');
 
         code = ace.edit('jsNewCode');
         css = ace.edit('jsNewCss');
@@ -360,7 +379,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             data[currentField.data('js-field-name')] = currentField.val();
         }
 
-        data.includeJs = form.find('#form-new-include-js').is(':checked');
+        data.includeJs = form.find('.form-include-js').is(':checked');
 
         code = ace.edit('snippet-' + snippetId + '-code');
         css = ace.edit('snippet-' + snippetId + '-css');
@@ -416,12 +435,18 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 currentSnippetElement = snippetContainer.clone(true);
                 var snippetPreview = currentSnippetElement.find('.js-snippet-preview'),
                     snippetDelete = currentSnippetElement.find('.js-delete-snippet'),
-                    snippetEdit = currentSnippetElement.find('.js-edit-snippet');
+                    snippetEdit = currentSnippetElement.find('.js-edit-snippet'),
+                    includeJs = snippets[index].includeJs;
                 currentId = snippets[index].id;
                 formFields = snippetEdit.find('.js-form-submit-field');
                 currentSnippetElement.attr('id', currentId);
                 snippetId = frames[index].attr('id');
                 currentCode = snippets[index].code;
+                if(includeJs === "true" || includeJs === true) {
+                    includeJs = true;
+                } else if (includeJs === "false" || includeJs === false) {
+                    includeJs = false;
+                }
 
                 currentSnippetElement
                     .find('.js-snippet-name')
@@ -447,10 +472,13 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                     .append('<div></div>');
                 currentSnippetElement
                     .find('.js-snippet-size')
-                    .text(resolution);
+                    .text(resolution + "px");
                 currentSnippetElement
-                    .find('#form-new-include-js')
-                    .prop('checked', snippets[index].includeJs);
+                    .find(".js-resize-length")
+                    .css("width", parseInt(resolution / 2, 10));
+                currentSnippetElement
+                    .find('.form-include-js')
+                    .prop('checked', includeJs);
                 currentSnippetElement.addClass(snippetId);
 
                 iframeWindow = snippetPreview.find('iframe').get(0);
@@ -481,8 +509,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 currentSnippetElement.appendTo('.main');
                 snippetIframe = $('#' + snippetId);
 
-                module.appendIframeContent(snippetIframe, template, currentCode, snippets[index].inlineCss, snippets[index].includeJs);
-                snippetIframe.load($.proxy(module.appendIframeContent, null, snippetIframe, template, currentCode, snippets[index].inlineCss, snippets[index].includeJs));
+                module.appendIframeContent(snippetIframe, template, currentCode, snippets[index].inlineCss, includeJs);
+                snippetIframe.load($.proxy(module.appendIframeContent, null, snippetIframe, template, currentCode, snippets[index].inlineCss, includeJs));
 
                 snippetEdit.submit(snippetActions.editSnippet);
             }

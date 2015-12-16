@@ -217,8 +217,8 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             index,
             updateField = fromInput ? false : true;
 
-        if(width < 280 || width === "" || isNaN(width)) {
-            width = 280;
+        if(width < 320 || width === "" || isNaN(width)) {
+            width = 320;
         }
 
         $('.header-size-controls')
@@ -232,9 +232,11 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
         $('.js-snippet-preview').css('width', width);
         $('.js-snippet-size').text(width + 'px');
+        $('.js-resize-length').css('width', parseInt(width / 2, 10));
         if (updateField === true) {
             $('.js-custom-media').val(width);
         }
+        document.cookie = "styleguideMedia=" + width + "; path=/";
 
         snippetActions.handleHeights(iFrames);
     };
@@ -243,10 +245,15 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         var customInput = $('.js-custom-media'),
             mediaList = $('.js-media-list'),
             tempLi,
-            tempButton;
+            tempButton,
+            mediaCookie = document.cookie.replace(/(?:(?:^|.*;\s*)styleguideMedia\s*\=\s*([^;]*).*$)|^.*$/, "$1"), //session cookie
+            firstValue = false; //assumed default viewport
 
         $.getJSON('../styleguide_config.txt', function (data) {
             $.each(data.resolutions, function (index, value) {
+                if (firstValue === false) {
+                    firstValue = value;
+                }
                 tempLi = $('<li></li>');
                 tempButton = $('<button type="button" data-size="' + value + '">' + value + ' px</button>');
                 tempLi
@@ -256,28 +263,39 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                     defaultResolutionsHandler(value, tempButton);
                 });
             });
+
+            if(firstValue < 320 || firstValue === "" || isNaN(firstValue)) {
+                firstValue = 320;
+            }
+
+            if (mediaCookie === "") {
+                document.cookie = "styleguideMedia=" + firstValue + "; path=/";
+                customInput.val(firstValue);
+                defaultResolution = firstValue;
+            } else {
+                customInput.val(mediaCookie);
+                defaultResolution = mediaCookie;
+            }
         });
 
-        customInput.val(1200);
-
-        //TODO improvement: on hold
         function customInputEvent (event) {
             var width = $(this).val();
             width = parseInt(width);
 
-            if (event.keyCode === 38) {
-                width += 1;
-                $(this).val(width)
-            } else if (event.keyCode === 40) {
-                width -= 1;
-                $(this).val(width)
+            if (event.keyCode === 38 && event.type === "keydown") {
+                event.preventDefault(); //prevents caret jumping when at the end
+                width++;
+                customInput.val(width);
+            } else if (event.keyCode === 40 && event.type === "keydown") {
+                event.preventDefault(); //prevents caret jumping when at the end
+                width--;
+                customInput.val(width);
             }
 
             defaultResolutionsHandler(width, event.target, true);
         }
 
-        customInput.on('keyup', customInputEvent);
-        customInput.on('change', customInputEvent);
+        customInput.on('keydown change keyup', customInputEvent);
     };
 
     window.onpopstate = function (event) {

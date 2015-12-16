@@ -95,7 +95,6 @@
             });
 
             //module draggable snippet sizer
-            //TODO fix: mismatch after changing media size in input or dropdown
             interact($resizeLength[0])
                 .resizable({
                     edges: {
@@ -106,16 +105,22 @@
                     },
                     onmove: function (e) {
                         var target = e.target,
-                            iframe = $(target).find('iframe').get(0);
+                            iframe = $(target).find('iframe').get(0),
+                            width = e.rect.width;
 
-                        if (e.rect.width > 155 && e.rect.width < 605) {
-                            $preview
-                                .find($snippetSource)
-                                .addClass('resize-overlay');
-                            $preview[0].style.width = (e.rect.width * 2) + 'px';
-                            $resizeLength[0].style.width = e.rect.width + 'px';
-                            $sizeIndicator.text((e.rect.width * 2) + "px");
+                        if (width < 160) {
+                            width = 160;
+                        } else if (width > 600) {
+                            width = 600;
                         }
+
+                        $preview
+                            .find($snippetSource)
+                            .addClass('resize-overlay');
+                        $preview[0].style.width = (width * 2) + 'px';
+                        $resizeLength[0].style.width = width + 'px';
+                        $sizeIndicator.text((width * 2) + "px");
+
                     },
                     onend: function () {
                         $preview

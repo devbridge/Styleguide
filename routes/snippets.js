@@ -131,7 +131,11 @@ router.post('/', function(req, res) {
 
   dataStore = jf.readFileSync(dataPath);
 
-  uniques.sort();
+  function sortNumber(a, b) {
+    return a - b;
+  }
+
+  uniques.sort(sortNumber);
 
   if (uniques.length) {
     id = uniques[uniques.length - 1] + 1;
