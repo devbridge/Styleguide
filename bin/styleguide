@@ -301,7 +301,7 @@ var generate = function() {
       fs.writeFileSync(path.join(rootFolder, 'js', javascripts[index]), currentContents);
     }
 
-    currentContents = fs.readFileSync(path.join(templateFolder, 'ZeroClipboard.swf'));
+    currentContents = fs.readFileSync(path.join(templateFolder, 'js', 'ZeroClipboard.swf'));
 
     fs.writeFileSync(path.join(rootFolder, 'js', 'ZeroClipboard.swf'), currentContents);
   }
