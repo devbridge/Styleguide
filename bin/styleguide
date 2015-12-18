@@ -116,14 +116,18 @@ var parseJsResources = function() {
 var parseMaxIterations = function() {
   var deferred = q.defer();
 
-  stdout.write('Enter maximum iterations through SASS variables before exiting: ');
+  stdout.write('Enter maximum iterations through SASS variables before exiting (if left blank will be set to 2000): ');
 
   stdin.once('data', function(data) {
     data = data.toString().trim();
 
-    config.maxSassIterations = Number(data);
-    deferred.resolve();
+    if (data.length > 0) {
+      config.maxSassIterations = Number(data);
+    } else {
+      config.maxSassIterations = 2000;
+    }
 
+    deferred.resolve();
   });
 
   return deferred.promise;
