@@ -1,0 +1,27 @@
+// Global Variables
+$disable-warnings: true;
+$border-box-sizing: false !default;
+
+//module TYPOGRAPHY
+$base-line-height: (30/18);
+$base-font-size: 18px;
+
+// Fonts
+$font-proxima-nova: 'Proxima Nova W01', sans-serif; // 300, 400, 500
+$font-trump-gothic: 'Trump Gothic W01 East', sans-serif; // 700
+$font-playfair-display: 'Playfair Display', serif; // 400
+
+$weight-light: 300;
+$weight-regular: 400;
+$weight-medium: 500;
+$weight-semibold: 600;
+
+//module MAIN COLOR PALETTE
+$color-black: #292929;
+
+//module TEXT COLORS
+$text-primary: $color-black;
+
+//module LINK COLORS
+
+//module SELECTION COLORS

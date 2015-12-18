@@ -1,0 +1,50 @@
+$icons: (
+	sprite: (
+		width: 99px,
+		height: 93px,
+		pngPath: 'images/sprite.png',
+		svgPath: 'images/sprite.svg'
+	),
+	icon-chat: (
+		width: 28px,
+		height: 21px,
+		backgroundX: 0px,
+		backgroundY: -48px
+	),
+	icon-download: (
+		width: 24px,
+		height: 24px,
+		backgroundX: 0px,
+		backgroundY: -69px
+	),
+	icon-element: (
+		width: 22px,
+		height: 22px,
+		backgroundX: -24px,
+		backgroundY: -69px
+	),
+	icon-flag: (
+		width: 29px,
+		height: 29px,
+		backgroundX: -43px,
+		backgroundY: 0px
+	),
+	icon-folder: (
+		width: 26px,
+		height: 23px,
+		backgroundX: -72px,
+		backgroundY: -26px
+	),
+	icon-github: (
+		width: 27px,
+		height: 26px,
+		backgroundX: -72px,
+		backgroundY: 0px
+	),
+	icon-nodejs: (
+		width: 43px,
+		height: 48px,
+		backgroundX: 0px,
+		backgroundY: 0px
+	)
+);

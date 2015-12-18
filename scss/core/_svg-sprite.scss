@@ -1,0 +1,132 @@
+@import 'variables';
+@import 'svg-sprite-map';
+
+// @author Mike Street
+// modified by Devbridge
+
+// Usage:
+// @include svg-sprite('file-name');
+// @include svg-sprite('file-name', 'size in px or em');
+
+$base-font-size: 16px !default;
+$ie-sprite: '.ie8' !default;
+
+$sprite: map-get($icons, sprite) !default;
+
+// Retrieve an attributes value for a specific icon in the sprite map
+@function sprite-attr($icon, $attr) {
+    $new-icon: map-get($icons, $icon);
+    @if $new-icon == null {
+        @warn "Can't find an icon with the name #{$icon}";
+    }
+    @return map-get($new-icon, $attr);
+}
+
+// Create a map with the specified icon of attributes
+@function icon-attr($icon) {
+    $attr: (
+            width: sprite-attr($icon, width),
+            height: sprite-attr($icon, height),
+            x: sprite-attr($icon, backgroundX),
+            y: sprite-attr($icon, backgroundY)
+    );
+
+    @return $attr;
+}
+
+@function parse-int($n) {
+    @return $n / ($n * 0 + 1);
+}
+
+@function px-to-em($px, $base: $base-font-size) {
+    @if not unitless($px) {
+        $px: parse-int($px);
+    }
+    @if not unitless($base) {
+        $base: parse-int($base);
+    }
+    @return ($px / $base) * 1em;
+}
+
+@function get-ratio($width, $height) {
+    @return parse-int($width / $height);
+}
+
+@function get-scale($width, $new-width) {
+    @return parse-int($new-width / $width);
+}
+
+%sprite {
+    background-image: url(map-get($sprite, svgPath));
+    background-repeat: no-repeat;
+    background-size: map-get($sprite, width) map-get($sprite, height);
+    display: inline-block;
+}
+
+%ie-sprite {
+    background-image: url(map-get($sprite, pngPath));
+}
+
+@mixin svg-sprite($icon, $size: null) {
+
+    $sprite-width: map-get($sprite, width);
+    $sprite-height: map-get($sprite, height);
+
+    $icon-map: icon-attr($icon);
+    $icon-width: map-get($icon-map, width);
+    $icon-height: map-get($icon-map, height);
+    $icon-pos-x: map-get($icon-map, x);
+    $icon-pos-y: map-get($icon-map, y);
+
+    @if($size){
+
+        $unit: unit($size);
+        $ratio: get-ratio($icon-width, $icon-height);
+
+        @if($unit == 'px'){
+
+            $scale: get-scale($icon-width, $size);
+
+            $icon-height: ($size / $ratio);
+            $icon-width: $size;
+
+            $icon-pos-x: ($icon-pos-x * $scale);
+            $icon-pos-y: ($icon-pos-y * $scale);
+
+            background-size: ($sprite-width * $scale) ($sprite-height * $scale);
+        }
+
+        @if($unit == 'em'){
+
+            $icon-width: parse-int(px-to-em($icon-width)) * parse-int($size) + em;
+            $icon-height: parse-int(px-to-em($icon-height)) * parse-int($size) + em;
+
+            $sprite-width: parse-int(px-to-em($sprite-width)) * parse-int($size) + em;
+            $sprite-height: parse-int(px-to-em($sprite-height)) * parse-int($size) + em;
+
+            $icon-pos-x: parse-int(px-to-em($icon-pos-x)) * parse-int($size) + em;
+            $icon-pos-y: parse-int(px-to-em($icon-pos-y)) * parse-int($size) + em;
+
+            background-size: $sprite-width $sprite-height;
+
+        }
+
+        @if($unit == '%'){
+            @warn 'SVG Icons - values in percentages are not supported';
+        }
+
+    }
+
+    @extend %sprite;
+    width: $icon-width;
+    height: $icon-height;
+    background-position: $icon-pos-x $icon-pos-y;
+
+    // Add IE fallback
+    // Works with icons with default size ONLY
+    @if $ie-sprite {
+        #{$ie-sprite} & {
+            @extend %ie-sprite;
+        }
+    }
+}

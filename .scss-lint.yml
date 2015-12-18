@@ -1,0 +1,3 @@
+linters:
+  Indentation:
+    width: 4

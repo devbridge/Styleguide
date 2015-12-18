@@ -1,0 +1,93 @@
+//
+// Modal rules
+//
+// Layout styles for Modal window plugin
+// Url: https://github.com/tkirda/modal-box
+
+.modal-on {
+    body {
+        overflow: hidden;
+    }
+
+    //mobile viewport freezing to prevent body scrolling
+    @include respond-to(1024, 'max') {
+        overflow: hidden;
+
+        body {
+            left: 0;
+            position: fixed;
+            top: 0;
+        }
+    }
+}
+
+.modal-context {
+    background-color: rgba(211, 211, 211, .8);
+    height: 100%;
+    left: 0;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: scroll;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 500;
+}
+
+.modal-container {
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 20px 0;
+    position: relative;
+    width: 1160px;
+
+    @include respond-to(1200, 'max') {
+        margin: 0 20px;
+        width: auto;
+    }
+}
+
+.modal-title {
+    background-color: #fff;
+    box-sizing: border-box;
+    font-weight: 700;
+    padding: 20px;
+}
+
+.modal-content {
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.modal-close {
+    background: none;
+    border: 0;
+    color: #333;
+    cursor: pointer;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 20px;
+    width: 30px;
+
+    &:after {
+        content: '\00d7';
+        display: inline-block;
+        font: {
+            family: 'helvetica', sans-serif;
+            size: 30px;
+            weight: 400;
+        }
+        height: 30px;
+        line-height: 30px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 30px;
+    }
+
+    &:hover {
+        color: #000;
+    }
+}

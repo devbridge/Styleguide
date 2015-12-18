@@ -1,0 +1,18 @@
+@mixin respond-to($size, $dir) {
+    @if ($size == retina) {
+        @media only screen and (min-resolution: 2dppx), (-webkit-min-device-pixel-ratio: 2.0) {
+            @content;
+        }
+    } @else if ($size and $dir) {
+        @media screen and (#{$dir}-width: ($size + px)) {
+            @content;
+        }
+    }
+}
+
+@mixin vertical-align($block: inline-block, $align: middle) {
+    display: $block;
+    vertical-align: $align;
+}
+
+
