@@ -20,39 +20,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             );
     };
 
-    var bindCategoryButtons = function () {
-        var currentViewIndex = $.inArray(currentView, views),
-            btnNext = $('.js-next-cat'),
-            btnPrev = $('.js-prev-cat'),
-            next,
-            prev;
-
-        if (currentViewIndex === 0) {
-            prev = currentViewIndex;
-            next = currentViewIndex + 1;
-            btnPrev.attr('disabled', true);
-        } else if (currentViewIndex === views.length - 1) {
-            prev = currentViewIndex - 1;
-            next = currentViewIndex;
-            btnNext.attr('disabled', true);
-        } else {
-            prev = currentViewIndex - 1;
-            next = currentViewIndex + 1;
-            btnNext.removeAttr('disabled');
-            btnPrev.removeAttr('disabled');
-        }
-
-        btnNext
-            .data('id', views[next].id)
-            .off('click')
-            .on('click', bindNavClick);
-
-        btnPrev
-            .data('id', views[prev].id)
-            .off('click')
-            .on('click', bindNavClick);
-    };
-
     var categoriesComparator = function (a, b) {
         return a.category.name > b.category.name;
     };
@@ -66,13 +33,11 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         sass = navLinksArr.map(function (el) {
             return el.category.id;
         }).indexOf('sass');
-
         sass = navLinksArr.splice(sass, 1);
 
         undefCat = navLinksArr.map(function (el) {
             return el.category.name;
         }).indexOf('undefined');
-
         undefCat = navLinksArr.splice(undefCat, 1);
 
         navLinksArr.sort(categoriesComparator);
@@ -94,10 +59,12 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 name: 'General',
                 id: 'sass'
             }],
-            iteratingPage,
             route = window.location.hash,
-            pageElement,
             navLinksArr = [],
+
+            //temp array variables
+            iteratingPage,
+            pageElement,
             index,
             len;
 
@@ -122,23 +89,13 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             for (index = 0; len > index; index++) {
                 iteratingPage = pages[index];
                 snippetService.getCategoryItemsCount(iteratingPage, function (count, category) {
-                    if(category.name === pages[0].name) {
-                        pageElement = $('<button class="active" type="button" data-id="' + category.id + '">' + category.name + '</button>');
-                    } else {
-                        pageElement = $('<button type="button" data-id="' + category.id + '">' + category.name + '</button>');
-                    }
-
+                    pageElement = $('<button type="button" data-id="' + category.id + '">' + category.name + '</button>');
                     pageElement.on('click', bindNavClick);
-
-                    if (category.name === 'undefined') {
-                        pageElement.addClass('snippet-undefined-category');
-                    }
 
                     navLinksArr.push({
                         element: pageElement,
                         category: category
                     });
-
                     navList.trigger('added:element');
                 });
             }
@@ -175,7 +132,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
         function snippetsPage() {
             currentPage.text(currentView.name);
-            bindCategoryButtons();
             snippetResizeControls.show();
             homeNavigation.hide();
         }
@@ -202,7 +158,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             currentView = views[0];
 
             //home page
-            bindCategoryButtons();
             snippetResizeControls.hide();
             homeNavigation.show();
             currentPage.text(currentView.name);
@@ -210,35 +165,36 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         }
     };
 
-    var defaultResolutionsHandler = function (width, button, fromInput) {
+    var defaultResolutionsHandler = function (width, fromInput) {
         var iFrames = $('iframe'),
             iFramesArray = iFrames.get(),
             len = iFramesArray.length,
             index,
             updateField = fromInput ? false : true;
 
+        //in case of invalid input
         if(width < 320 || width === "" || isNaN(width)) {
             width = 320;
         }
 
-        $('.header-size-controls')
-            .find('.btn-ghost')
-            .removeClass('active');
-        $(button).addClass('active');
-
+        //snippets elements
         for (index = 0; index < len; index++) {
             iFramesArray[index].style.width = width;
         }
-
         $('.js-snippet-preview').css('width', width);
         $('.js-snippet-size').text(width + 'px');
         $('.js-resize-length').css('width', parseInt(width / 2, 10));
+
+        //input
         if (updateField === true) {
             $('.js-custom-media').val(width);
         }
+
+        //variables
         document.cookie = "styleguideMedia=" + width + "; path=/";
         defaultResolution = width;
 
+        //update iFrames heights to avoid scrollbars
         snippetActions.handleHeights(iFrames);
     };
 
@@ -251,6 +207,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             firstValue = false; //assumed default viewport
 
         $.getJSON('../styleguide_config.txt', function (data) {
+            //viewport dropdown buttons generator
             $.each(data.resolutions, function (index, value) {
                 if (firstValue === false) {
                     firstValue = value;
@@ -261,10 +218,11 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                     .append(tempButton)
                     .appendTo(mediaList);
                 tempButton.on('click', function () {
-                    defaultResolutionsHandler(value, tempButton);
+                    defaultResolutionsHandler(value);
                 });
             });
 
+            //init value
             if(firstValue < 320 || firstValue === "" || isNaN(firstValue)) {
                 firstValue = 320;
             }
@@ -279,7 +237,8 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             }
         });
 
-        function customInputEvent (event) {
+        //viewport input field events
+        function customInputEvents (event) {
             var width = $(this).val();
             width = parseInt(width);
 
@@ -293,10 +252,10 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 customInput.val(width);
             }
 
-            defaultResolutionsHandler(width, event.target, true);
+            defaultResolutionsHandler(width, true);
         }
 
-        customInput.on('keydown change keyup', customInputEvent);
+        customInput.on('keydown change keyup', customInputEvents);
     };
 
     window.onpopstate = function (event) {
@@ -305,31 +264,32 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
     var openDropdown = function () {
         var trigger = $('.js-open-dropdown'),
-            dropdown = $('.js-dropdown-list'),
-            self;
+            dropdown = $('.js-dropdown-list');
 
-        trigger.on('click', function (event) {
-            event.stopPropagation();
-            self = $(this);
+        trigger.on('click', function () {
+            var self = $(this);
 
-            if (!self.hasClass('active')) {
-                dropdown.removeClass('active');
-                self
-                    .addClass('active')
-                    .next(dropdown)
-                    .addClass('active');
-            } else {
+            function eventOff () {
                 self
                     .removeClass('active')
                     .next(dropdown)
                     .removeClass('active');
+                $(window).off('click.notButton');
             }
-        });
 
-        //TODO revisit: event is always available
-        $(window).on('click', function () {
-            trigger.removeClass('active');
-            dropdown.removeClass('active');
+            if (!self.hasClass('active')) {
+                self
+                    .addClass('active')
+                    .next(dropdown)
+                    .addClass('active');
+                setTimeout(function () {
+                    $(window).on('click.notButton', function () {
+                        eventOff();
+                    });
+                }, 5);
+            } else {
+                eventOff();
+            }
         });
     };
 
@@ -341,6 +301,13 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         //module 'new snippet' button
         $newSnippetBtnOpen.on("click", function () {
             $newSnippetForm.toggle();
+
+            ace
+                .edit('jsNewCss')
+                .resize();
+            ace
+                .edit('jsNewCode')
+                .resize();
         });
 
         //module 'cancel' button for new snippet creation
@@ -349,15 +316,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         });
     };
 
-    module.init = function () {
-        editorService.init();
-        bindResolutionActions();
-        buildNavigation($('.js-navigation'), '.js-navigation-list', true);
-        buildNavigation($('.js-home-navigation'), '.js-navigation-list', false);
-        categoryService.bindCategoriesToForm($('.js-form-select').first());
-        openDropdown();
-        newSnippetControls();
-
+    var initSnippetService = function () {
         snippetService.init(function (data) {
             if (typeof data === 'string') {
                 isServerOn = false;
@@ -376,8 +335,18 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 }
             }
         });
+    };
 
-        $('.js-create-snippet').submit(snippetActions.createSnippet);
+    module.init = function () {
+        editorService.init();
+        bindResolutionActions();
+        buildNavigation($('.js-navigation'), '.js-navigation-list', true);
+        buildNavigation($('.js-home-navigation'), '.js-navigation-list', false);
+        categoryService.bindCategoriesToForm($('.js-form-select').first());
+        openDropdown();
+        newSnippetControls();
+        initSnippetService();
+        $('.js-create-snippet').submit({isNew: true}, snippetActions.createEditSnippet);
     };
 
     module.getCurrentView = function () {

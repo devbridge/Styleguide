@@ -1,6 +1,7 @@
 var editorService = (function ($) {
     var module = {};
 
+    //module editor controls: toggle full screen by html button
     var toggleFullScreen = function (editor, e) {
         e.preventDefault();
         editor
@@ -10,12 +11,12 @@ var editorService = (function ($) {
             .exec(editor);
     };
 
-    var addToNewForm = function () {
+    //module global editor controls
+    var editorCommands = function () {
         var dom = require('ace/lib/dom'),
-            codeEditor,
-            cssEditor,
             commands = require('ace/commands/default_commands').commands;
 
+        //editor controls: toggle screen function by keyboard
         commands.push({
             name: 'Toggle Fullscreen',
             bindKey: 'F11',
@@ -27,6 +28,7 @@ var editorService = (function ($) {
             }
         });
 
+        //editor controls: exit screen function by keyboard
         commands.push({
             name: 'Exit Fullscreen',
             bindKey: 'ESC',
@@ -36,7 +38,14 @@ var editorService = (function ($) {
                 editor.resize();
             }
         });
+    };
 
+    //module editors configuration for new snippet
+    var addToNewForm = function () {
+        var codeEditor,
+            cssEditor;
+
+        //html
         codeEditor = ace.edit('jsNewCode');
         codeEditor.setTheme('ace/theme/github');
         codeEditor
@@ -46,7 +55,7 @@ var editorService = (function ($) {
             .getSession()
             .setUseWorker(false);
 
-
+        //css
         cssEditor = ace.edit('jsNewCss');
         cssEditor.setValue('#snippet { \n  \n}');
         cssEditor.setTheme('ace/theme/github');
@@ -57,10 +66,12 @@ var editorService = (function ($) {
             .getSession()
             .setUseWorker(false);
 
+        //events binding - editor full screen buttons
         $('.js-toggle-code-editor-full-screen').on('click', $.proxy(toggleFullScreen, null, codeEditor));
         $('.js-toggle-css-editor-full-screen').on('click', $.proxy(toggleFullScreen, null, cssEditor));
     };
 
+    //module editors configuration for editable snippets
     module.addToEditForm = function (snippetContainer) {
         var snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
             codeId = snippetId + '-code',
@@ -93,6 +104,7 @@ var editorService = (function ($) {
         return editors;
     };
 
+    //module destroy editors when edit mode is closed
     module.removeFromEditForm = function (snippetContainer) {
         var snippetId = snippetContainer.attr('class').match(/(^|\s)snippet-\S+(\s|$)/).shift().trim(),
             codeId = snippetId + '-code',
@@ -105,8 +117,9 @@ var editorService = (function ($) {
             currentEditor.destroy();
             $(currentEditor.container)
                 .children()
-                .remove();
-            $(currentEditor.container).text(tempText);
+                .remove()
+                .end()
+                .text(tempText);
 
             snippetContainer
                 .find('.js-toggle-' + type + '-full-screen')
@@ -118,6 +131,7 @@ var editorService = (function ($) {
     };
 
     module.init = function () {
+        editorCommands();
         addToNewForm();
     };
 

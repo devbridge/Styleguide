@@ -93,7 +93,6 @@ var sassService = (function ($) {
             len,
             index;
             //varName;
-        //TODO improvement: color variable names
 
         //colorBoxTpl.find('p').remove();
 

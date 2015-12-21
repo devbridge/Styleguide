@@ -67,7 +67,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         }
 
         frame
-            .find('style')
+            .find('style') //TODO fix: it should not remove template style
             .empty()
             .append(css)
             .end()
@@ -107,119 +107,136 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             .setValue('');
     };
 
+    var drawSnippet = function (template, snippet, frame) {
+        var snippetId = frame.attr('id'),
+            snippetContents,
+            currentSnippetElement = $($('#snippet').html()).clone(true),
+
+            //array iterators
+            currentField,
+            fieldIndex,
+            fieldLen,
+
+            //text
+            snippetName = currentSnippetElement.find('.js-snippet-name'),
+            snippetDescription =  currentSnippetElement.find('.js-snippet-description'), //inside code view
+
+            //form
+            snippetEdit = currentSnippetElement.find('.js-edit-snippet'), //panel
+            snippetEditCode =  currentSnippetElement.find('.js-edit-code'),
+            snippetEditCss =  currentSnippetElement.find('.js-edit-css'),
+            snippetIncludeJs = currentSnippetElement.find('.form-include-js'),
+            snippetDelete = currentSnippetElement.find('.js-delete-snippet'),
+            snippetCategorySelect = currentSnippetElement.find('.js-form-select'),
+
+            //copy
+            snippetCopyCode = currentSnippetElement.find('.js-copy-code'),
+            snippetCodePreview = currentSnippetElement.find('.js-snippet-code-preview'),
+
+            //view
+            snippetSource = currentSnippetElement.find('.js-snippet-source'),
+            snippetPreview = currentSnippetElement.find('.js-snippet-preview'),
+
+            //snippet viewport text
+            snippetSize = currentSnippetElement.find('.js-snippet-size'),
+
+            //resizing functionality
+            snippetResizeLength = currentSnippetElement.find(".js-resize-length"),
+
+            includeJs = snippet.includeJs,
+            formFields = snippetEdit.find('.js-form-submit-field'),
+            resolution = viewService.getDefaultResolution(),
+            iframeWindow;
+
+        currentSnippetElement.attr('id', snippet.id);
+
+        if(includeJs === "true" || includeJs === true) {
+            includeJs = true;
+        } else if (includeJs === "false" || includeJs === false) {
+            includeJs = false;
+        }
+
+        //text
+        snippetName.html(snippet.name);
+        snippetDescription.html(snippet.description);
+
+        //form
+        snippetEditCode.text(snippet.code);
+        snippetEditCss.text(snippet.inlineCss);
+        snippetIncludeJs.prop('checked', includeJs);
+        categoryService.bindCategoriesToForm(snippetCategorySelect);
+        snippetEdit.submit({isNew: false}, snippetActions.createEditSnippet);
+
+        if (!snippet.isDeleted) {
+            snippetDelete
+                .attr('data-id', snippet.id)
+                .on('click', deleteHandler);
+        } else {
+            snippetDelete.addClass('hidden');
+        }
+
+        //copy
+        snippetCopyCode.attr('data-clipboard-text', snippet.code);
+        snippetCodePreview.text(snippet.code);
+
+        //view
+        snippetSource
+            .html(frame)
+            .append('<div></div>');
+
+        //viewport size
+        snippetSize.text(resolution + "px");
+        snippetResizeLength.css("width", parseInt(resolution / 2, 10));
+
+        currentSnippetElement.addClass(snippetId);
+
+        iframeWindow = snippetPreview.find('iframe').get(0);
+        iframeWindow.style.width = resolution;
+        snippetPreview.css('width', resolution);
+
+        //TODO used?
+        if (snippet.isEdited) {
+            currentSnippetElement.addClass('edited-snippet');
+        }
+
+        for (fieldIndex = 0, fieldLen = formFields.length; fieldIndex < fieldLen; fieldIndex++) {
+            currentField = $(formFields[fieldIndex]);
+            currentField.val(snippet[currentField.data('js-field-name')]);
+        }
+
+        currentSnippetElement.sgSnippet();
+        currentSnippetElement.appendTo('.main');
+        snippetContents = $('#' + snippetId);
+
+        module.appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss, includeJs);
+        snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, includeJs));
+
+        //init copy button
+        new ZeroClipboard(currentSnippetElement.find('.js-copy-code').get());
+    };
+
     var submitSnippet = function (data, form) {
         snippetService.postNew(data, function (snippet) {
             var modalContent;
-            if (typeof snippet === 'object' && snippet.category === viewService.getCurrentView().id) {
-                iframesService.constructFrame(snippet, function (frame) {
-                    var currentSnippetElement = $($('#snippet').html()).clone(true),
-                        formFields,
-                        snippetId,
-                        currentId,
-                        fieldIndex,
-                        fieldLen,
-                        currentField,
-                        iframeWindow,
-                        snippetContents;
-
-                    iframesService.getTemplate(function (template) {
-                        var snippetPreview = currentSnippetElement.find('.js-snippet-preview'),
-                            snippetDelete = currentSnippetElement.find('.js-delete-snippet'),
-                            includeJs = snippet.includeJs;
-
-                        currentId = snippet.id;
-                        formFields = currentSnippetElement.find('.js-edit-snippet').find('.js-form-submit-field');
-                        currentSnippetElement.attr('id', currentId);
-                        snippetId = frame.attr('id');
-                        if(includeJs === "true" || includeJs === true) {
-                            includeJs = true;
-                        } else if (includeJs === "false" || includeJs === false) {
-                            includeJs = false;
-                        }
-
-                        currentSnippetElement
-                            .find('.js-snippet-name')
-                            .html(snippet.name);
-                        currentSnippetElement
-                            .find('.js-snippet-description')
-                            .html(snippet.description);
-                        currentSnippetElement
-                            .find('.js-edit-code')
-                            .text(snippet.code);
-                        currentSnippetElement
-                            .find('.js-copy-code')
-                            .attr('data-clipboard-text', snippet.code);
-                        currentSnippetElement
-                            .find('.js-edit-css')
-                            .text(snippet.inlineCss);
-                        currentSnippetElement
-                            .find('.js-snippet-code-preview')
-                            .text(snippet.code);
-                        currentSnippetElement
-                            .find('.js-snippet-source')
-                            .html(frame)
-                            .append('<div></div>');
-                        currentSnippetElement
-                            .find('.js-snippet-size')
-                            .text(viewService.getDefaultResolution() + "px");
-                        currentSnippetElement
-                            .find(".js-resize-length")
-                            .css("width", parseInt(viewService.getDefaultResolution() / 2, 10));
-                        currentSnippetElement
-                            .find('.form-include-js')
-                            .prop('checked', includeJs);
-
-                        currentSnippetElement.addClass(snippetId);
-
-                        iframeWindow = snippetPreview.find('iframe').get(0);
-                        iframeWindow.style.width = viewService.getDefaultResolution();
-
-                        snippetPreview.css('width', viewService.getDefaultResolution());
-
-                        if (!snippet.isDeleted) {
-                            snippetDelete
-                                .attr('data-id', currentId)
-                                .on('click', deleteHandler);
-                        } else {
-                            snippetDelete.addClass('hidden');
-                        }
-
-                        categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
-
-                        for (fieldIndex = 0, fieldLen = formFields.length; fieldIndex < fieldLen; fieldIndex++) {
-                            currentField = $(formFields[fieldIndex]);
-                            currentField.val(snippet[currentField.data('js-field-name')]);
-                        }
-
-                        currentSnippetElement.sgSnippet();
-                        currentSnippetElement.appendTo('.main');
-                        snippetContents = $('#' + snippetId);
-
-                        module.appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss, includeJs);
-                        snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, includeJs));
-
-                        currentSnippetElement
-                            .find('.js-edit-snippet')
-                            .submit(snippetActions.editSnippet);
-
-                        new ZeroClipboard(currentSnippetElement.find('.js-copy-code').get());
-
-                        modalContent = '<p>Snippet Created successfully!</p>';
-                        clearOutForm(form);
-                        form.removeClass('preloading');
-                        $(".js-new-snippet-form").toggle();
-                    });
-                });
-            } else if (typeof snippet === 'string') {
+            if (typeof snippet === 'string') {
+                //error
                 modalContent = '<p>' + snippet + '</p>';
-                form.removeClass('preloading');
             } else if (typeof snippet === 'object') {
+                //snippet creation in current category
+                if(snippet.category === viewService.getCurrentView().id) {
+                    iframesService.constructFrame(snippet, function (frame) {
+                        iframesService.getTemplate(function (template) {
+                            drawSnippet(template, snippet, frame);
+                        });
+                    });
+                }
+
                 modalContent = '<p>Snippet Created successfully!</p>';
                 clearOutForm(form);
-                form.removeClass('preloading');
                 $(".js-new-snippet-form").toggle();
             }
 
+            form.removeClass('preloading');
             $.openModal({
                 title: 'Snippet Creation',
                 width: 500,
@@ -230,20 +247,23 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
     var submitUpdatedSnippet = function (data, snippetId, snippetContainer, form) {
         snippetService.putEdited(data, snippetId, function (snippet) {
-            var modalContent,
-                includeJs = snippet.includeJs;
-            if(includeJs === "true" || includeJs === true) {
-                includeJs = true;
-            } else if (includeJs === "false" || includeJs === false) {
-                includeJs = false;
-            }
+            var modalContent;
 
             if (typeof snippet === 'object') {
-                var snippetContents;
+                //edit update
+                var snippetContents,
+                    includeJs = snippet.includeJs;
 
+                //if id changed
                 if (snippet.category !== viewService.getCurrentView().id) {
                     snippetContainer.remove();
                     return;
+                }
+
+                if(includeJs === "true" || includeJs === true) {
+                    includeJs = true;
+                } else if (includeJs === "false" || includeJs === false) {
+                    includeJs = false;
                 }
 
                 snippetContainer
@@ -266,14 +286,14 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 module.appendIframeContent(snippetContents, null, snippet.code, snippet.inlineCss, includeJs);
                 snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, null, snippet.code, snippet.inlineCss, includeJs));
 
-                form.removeClass('preloading');
                 snippetContents.addClass('updated');
                 modalContent = '<p>Snippet updated successfully!</p>';
             } else {
+                //edit error
                 modalContent = '<p>' + snippet + '</p>';
-                form.removeClass('preloading');
             }
 
+            form.removeClass('preloading');
             $.openModal({
                 title: 'Update Snippet',
                 width: 500,
@@ -282,23 +302,47 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         });
     };
 
-    module.createSnippet = function (e) {
+    module.createEditSnippet = function(e) {
         e.preventDefault();
 
-        var form = $(this),
+        var isNew = e.data.isNew,
+            form = $(this),
+            data = {},
+
+            //fields
             fields = form.find('.js-form-submit-field'),
             currentField,
+
+            //errors
+            annotations,
+            errors = [],
+            errorText,
+
+            //arrays
+            len = fields.length,
+            index,
+
+            //editors
+            snippetId,
             code,
             css,
-            annotations,
-            errorText,
-            errors = [],
-            len = fields.length,
-            data = {},
-            index,
-            modal;
+
+            //modal
+            modal,
+            modalTitle;
 
         form.addClass('preloading');
+
+        if (isNew) {
+            modalTitle = 'Snippet Creation';
+            code = ace.edit('jsNewCode');
+            css = ace.edit('jsNewCss');
+        } else {
+            modalTitle = 'Snippet Update';
+            snippetId = form.closest('.js-snippet').attr('id');
+            code = ace.edit('snippet-' + snippetId + '-code');
+            css = ace.edit('snippet-' + snippetId + '-css');
+        }
 
         for (index = 0; len > index; index++) {
             currentField = $(fields[index]);
@@ -307,11 +351,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         data.includeJs = form.find('.form-include-js').is(':checked');
 
-        code = ace.edit('jsNewCode');
-        css = ace.edit('jsNewCss');
-
         annotations = code.getSession().getAnnotations();
-
         for (index = 0, len = annotations.length; index < len; index++) {
             if (annotations[index].type === 'error') {
                 errors.push(annotations[index]);
@@ -319,15 +359,25 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         }
 
         annotations = css.getSession().getAnnotations();
-
         for (index = 0, len = annotations.length; index < len; index++) {
             if (annotations[index].type === 'error') {
                 errors.push(annotations[index]);
             }
         }
 
+        function submitFunction () {
+            data.code = code.getValue();
+            data.inlineCss = css.getValue();
+            if (isNew) {
+                submitSnippet(data, form);
+            } else {
+                submitUpdatedSnippet(data, snippetId, form.closest('.js-snippet'), form);
+            }
+        }
+
         if (errors.length > 0) {
-            errorText = '<p>Your HTML or CSS syntax contains errors!</p>' +
+            errorText = '' +
+                '<p>Your HTML or CSS syntax contains errors!</p>' +
                 '<p>Are you sure you to submit your snippet?</p>' +
                 '<div class="btn-holder">' +
                     '<button class="btn-primary js-confirm-create">Yes</button>' +
@@ -335,189 +385,32 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 '</div>';
 
             modal = $.openModal({
-                title: 'Snippet Creation',
+                title: modalTitle,
                 width: 500,
                 content: errorText,
                 onLoad: function () {
                     $('.js-confirm-create').on('click', function (e) {
                         e.preventDefault();
                         modal.close();
-
-                        data.code = code.getValue();
-                        data.inlineCss = css.getValue();
-                        submitSnippet(data, form);
+                        submitFunction();
                     });
                 }
             });
         } else {
-            data.code = code.getValue();
-            data.inlineCss = css.getValue();
-            submitSnippet(data, form);
+            submitFunction();
         }
     };
 
-    module.editSnippet = function (e) {
-        e.preventDefault();
+    module.drawSnippets = function (frames, snippets) {
+        var index,
+            len = frames.length;
 
-        var form = $(this),
-            fields = form.find('.js-form-submit-field'),
-            snippetId = form.closest('.js-snippet').attr('id'),
-            currentField,
-            len = fields.length,
-            data = {},
-            annotations,
-            errors = [],
-            index,
-            errorText,
-            code,
-            css;
-
-        form.addClass('preloading');
-
-        for (index = 0; len > index; index++) {
-            currentField = $(fields[index]);
-            data[currentField.data('js-field-name')] = currentField.val();
-        }
-
-        data.includeJs = form.find('.form-include-js').is(':checked');
-
-        code = ace.edit('snippet-' + snippetId + '-code');
-        css = ace.edit('snippet-' + snippetId + '-css');
-
-        annotations = code.getSession().getAnnotations();
-
-        for (index = 0, len = annotations.length; index < len; index++) {
-            if (annotations[index].type === 'error') {
-                errors.push(annotations[index]);
-            }
-        }
-
-        annotations = css.getSession().getAnnotations();
-
-        for (index = 0, len = annotations.length; index < len; index++) {
-            if (annotations[index].type === 'error') {
-                errors.push(annotations[index]);
-            }
-        }
-
-        if (errors.length > 0) {
-            errorText = 'Your HTML or CSS syntax contains errors!\n' + 'Are you sure you to submit your snippet?';
-            if (window.confirm(errorText)) {
-                data.code = code.getValue();
-                data.inlineCss = css.getValue();
-                submitUpdatedSnippet(data, snippetId, form.closest('.js-snippet'), form);
-            }
-        } else {
-            data.code = code.getValue();
-            data.inlineCss = css.getValue();
-            submitUpdatedSnippet(data, snippetId, form.closest('.js-snippet'), form);
-        }
-    };
-
-    module.drawSnippets = function (frames, snippets, resolution) {
-        var snippetId,
-            snippetContainer,
-            snippetIframe,
-            currentSnippetElement,
-            currentCode,
-            currentId,
-            index,
-            len = frames.length,
-            formFields,
-            fieldIndex,
-            fieldLen,
-            iframeWindow,
-            currentField;
-
-        snippetContainer = $($('#snippet').html());
         iframesService.getTemplate(function (template) {
             for (index = 0; len > index; index++) {
-                currentSnippetElement = snippetContainer.clone(true);
-                var snippetPreview = currentSnippetElement.find('.js-snippet-preview'),
-                    snippetDelete = currentSnippetElement.find('.js-delete-snippet'),
-                    snippetEdit = currentSnippetElement.find('.js-edit-snippet'),
-                    includeJs = snippets[index].includeJs;
-                currentId = snippets[index].id;
-                formFields = snippetEdit.find('.js-form-submit-field');
-                currentSnippetElement.attr('id', currentId);
-                snippetId = frames[index].attr('id');
-                currentCode = snippets[index].code;
-                if(includeJs === "true" || includeJs === true) {
-                    includeJs = true;
-                } else if (includeJs === "false" || includeJs === false) {
-                    includeJs = false;
-                }
-
-                currentSnippetElement
-                    .find('.js-snippet-name')
-                    .html(snippets[index].name);
-                currentSnippetElement
-                    .find('.js-snippet-description')
-                    .html(snippets[index].description);
-                currentSnippetElement
-                    .find('.js-edit-code')
-                    .text(currentCode);
-                currentSnippetElement
-                    .find('.js-copy-code')
-                    .attr('data-clipboard-text', currentCode);
-                currentSnippetElement
-                    .find('.js-edit-css')
-                    .text(snippets[index].inlineCss);
-                currentSnippetElement
-                    .find('.js-snippet-code-preview')
-                    .text(currentCode);
-                currentSnippetElement
-                    .find('.js-snippet-source')
-                    .html(frames[index])
-                    .append('<div></div>');
-                currentSnippetElement
-                    .find('.js-snippet-size')
-                    .text(resolution + "px");
-                currentSnippetElement
-                    .find(".js-resize-length")
-                    .css("width", parseInt(resolution / 2, 10));
-                currentSnippetElement
-                    .find('.form-include-js')
-                    .prop('checked', includeJs);
-                currentSnippetElement.addClass(snippetId);
-
-                iframeWindow = snippetPreview.find('iframe').get(0);
-                iframeWindow.style.width = resolution;
-
-                snippetPreview.css('width', resolution);
-
-                if (snippets[index].isEdited) {
-                    currentSnippetElement.addClass('edited-snippet');
-                }
-
-                if (!snippets[index].isDeleted) {
-                    snippetDelete
-                        .attr('data-id', currentId)
-                        .on('click', deleteHandler);
-                } else {
-                    snippetDelete.addClass('hidden');
-                }
-
-                categoryService.bindCategoriesToForm(currentSnippetElement.find('.js-form-select'));
-
-                for (fieldIndex = 0, fieldLen = formFields.length; fieldIndex < fieldLen; fieldIndex++) {
-                    currentField = $(formFields[fieldIndex]);
-                    currentField.val(snippets[index][currentField.data('js-field-name')]);
-                }
-
-                currentSnippetElement.sgSnippet();
-                currentSnippetElement.appendTo('.main');
-                snippetIframe = $('#' + snippetId);
-
-                module.appendIframeContent(snippetIframe, template, currentCode, snippets[index].inlineCss, includeJs);
-                snippetIframe.load($.proxy(module.appendIframeContent, null, snippetIframe, template, currentCode, snippets[index].inlineCss, includeJs));
-
-                snippetEdit.submit(snippetActions.editSnippet);
+                drawSnippet(template, snippets[index], frames[index]);
             }
             //TODO: redo that the content would be appended with iframe, so that timeout could be removed
             setTimeout($.proxy(module.handleHeights, null, $('iframe')), 1000);
-
-            new ZeroClipboard($('.js-copy-code').get());
         });
     };
 

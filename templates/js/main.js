@@ -6,67 +6,76 @@
 
     Plugin.prototype = {
         events: function () {
+                //buttons
             var $btnSettings = this.$element.find(".js-snippet-settings-btn"),
                 $btnCode = this.$element.find(".js-snippet-code-btn"),
+                $btnCancel = this.$element.find(".js-btn-cancel"),
+                //panels
                 $settings = this.$element.find(".js-snippet-settings"),
                 $code = this.$element.find(".js-snippet-code"),
+                //inside settings
                 $preview = this.$element.find(".js-snippet-preview"),
-                $resizeLength = this.$element.find(".js-resize-length"),
                 $previewSource = $preview.find("iframe"),
+                //viewport
                 $handleLeft = this.$element.find(".js-snippet-resize-handle-left"),
                 $handleRight = this.$element.find(".js-snippet-resize-handle-right"),
                 $sizeIndicator = this.$element.find(".js-snippet-size"),
-                $btnCancel = this.$element.find(".js-btn-cancel"),
-                $snippetSource = ".js-snippet-source",
-                $editors,
-                $originalValues = {};
+                $resizeLength = this.$element.find(".js-resize-length"),
+                //data
+                snippetSource = ".js-snippet-source",
+                editors,
+                originalValues = {};
 
+            //module snippet's edit button
             $btnSettings.on("click", function () {
+                //hide code
                 $btnCode.removeClass("active");
+                $code.hide();
+
+                //toggle settings
                 $btnSettings.toggleClass("active");
+                $settings.toggle();
 
                 iframesService.getTemplate(function (template) {
                     if ($btnSettings.hasClass("active")) {
-                        $editors = editorService.addToEditForm($code.parent());
-                        $originalValues.code = $editors.code.getValue();
-                        $originalValues.css = $editors.css.getValue();
+                        editors = editorService.addToEditForm($code.parent());
+                        originalValues.code = editors.code.getValue();
+                        originalValues.css = editors.css.getValue();
 
                         function onSourceChange () {
-                            snippetActions.appendIframeContent($previewSource, template, $editors.code.getValue(), $editors.css.getValue());
-                            $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, $editors.code.getValue(), $editors.css.getValue()));
+                            snippetActions.appendIframeContent($previewSource, template, editors.code.getValue(), editors.css.getValue());
+                            $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, editors.code.getValue(), editors.css.getValue()));
                         }
 
-                        $editors
+                        editors
                             .code
                             .on('change', onSourceChange);
-                        $editors
+                        editors
                             .css
                             .on('change', onSourceChange);
                     } else {
-                        $editors
+                        editors
                             .code
                             .off('change');
-                        $editors
+                        editors
                             .css
                             .off('change');
 
                         if (!$previewSource.hasClass('updated')) {
-                            snippetActions.appendIframeContent($previewSource, template, $originalValues.code, $originalValues.css);
-                            $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, $editors.code.getValue(), $editors.css.getValue()));
+                            snippetActions.appendIframeContent($previewSource, template, originalValues.code, originalValues.css);
+                            $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, editors.code.getValue(), editors.css.getValue()));
 
-                            $editors
+                            editors
                                 .code
-                                .setValue($originalValues.code);
-                            $editors
+                                .setValue(originalValues.code);
+                            editors
                                 .css
-                                .setValue($originalValues.css);
+                                .setValue(originalValues.css);
                         }
 
                         $previewSource.removeClass('updated');
                         editorService.removeFromEditForm($code.parent());
                     }
-                    $code.hide();
-                    $settings.toggle();
                 });
             });
 
@@ -115,7 +124,7 @@
                         }
 
                         $preview
-                            .find($snippetSource)
+                            .find(snippetSource)
                             .addClass('resize-overlay');
                         $preview[0].style.width = (width * 2) + 'px';
                         $resizeLength[0].style.width = width + 'px';
@@ -124,11 +133,10 @@
                     },
                     onend: function () {
                         $preview
-                            .find($snippetSource)
+                            .find(snippetSource)
                             .removeClass('resize-overlay');
                     }
                 });
-
         }
     };
 
