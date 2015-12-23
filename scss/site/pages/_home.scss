@@ -1,0 +1,289 @@
+// module Intro section
+.intro-section {
+    background: url('../styles/images/bg-intro.svg') left top;
+    color: $color-white;
+    text-align: center;
+    margin-bottom: 135px;
+
+    .subtitle {
+        font: {
+            size: 48px;
+            weight: $weight-light;
+        }
+        line-height: (58/48);
+        margin: 0;
+        padding: 35px 0 80px;
+    }
+
+    .img-holder {
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+    }
+}
+
+.intro-logo-holder {
+    margin: 0;
+    padding-top: 55px;
+}
+
+.text-section {
+    text-align: center;
+
+    &-holder {
+        margin: 50px auto 0;
+        max-width: 597px;
+        opacity: .5;
+
+        p {
+            font-weight: $weight-light;
+            margin: 0;
+        }
+    }
+}
+
+.section-title {
+    padding-bottom: 30px;
+    position: relative;
+
+    &:after {
+        @include position(absolute, null 0 0 0);
+        @include size(70px 3px);
+        background-color: $border-primary;
+        content: '';
+        margin: 0 auto;
+    }
+
+    h2 {
+        margin: 0;
+    }
+
+    &-number {
+        @include size(65px 72px);
+        color: $text-list-number;
+        display: inline-block;
+        font: {
+            family: $font-trump-gothic;
+            size: 24px;
+            weight: $weight-bold;
+        }
+        line-height: (72/24);
+        margin-bottom: 30px;
+        position: relative;
+        text-align: center;
+
+        &:before {
+            @include position(absolute, 0);
+            @include svg-sprite('icon-hexagon');
+            content: '';
+            margin: auto;
+        }
+    }
+}
+
+// Font example
+.example-section {
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+
+    &:after {
+        @include position(absolute, 0 0 0 40%);
+        background-color: $bg-secondary;
+        content: '';
+        z-index: -1;
+    }
+
+    &:before {
+        @include position(absolute, 0 70% 0 0);
+        background-color: $bg-primary;
+        content: '';
+        z-index: -1;
+    }
+
+    &-inner {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    &-box {
+        display: table-cell;
+        vertical-align: middle;
+
+        &:first-child {
+            background-color: $bg-primary;
+            width: 60%;
+        }
+
+        &:last-child {
+            background-color: $bg-secondary;
+            width: 40%;
+        }
+    }
+}
+
+.example-content {
+    font-family: $font-playfair-display;
+    padding-bottom: 60px;
+
+    p {
+        font-family: inherit;
+        line-height: (30/22);
+        margin: 0;
+    }
+
+    .family-example-title {
+        display: block;
+        font: {
+            family: inherit;
+            size: 150px;
+        }
+        line-height: (170/150);
+    }
+}
+
+.color-palette-holder {
+    padding: 100px 0 84px;
+}
+
+.color-box {
+    @include span-columns(2);
+    color: $color-white;
+    height: 200px;
+    position: relative;
+    text-align: center;
+
+    > span {
+        @include position(absolute, null 10px 12px 10px);
+        font-size: 14px;
+        line-height: (17/14);
+    }
+}
+
+// module Snippet section
+.snippet-box {
+    border: 1px solid #dedede;
+    border-radius: 15px 15px 0 0;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 25px 30px 35px;
+    width: 708px;
+}
+
+.title-row {
+    @include row();
+    padding-bottom: 30px;
+
+    &-box {
+        @include span-columns(6);
+    }
+}
+
+.snippet-title {
+    color: $text-snippet-title;
+    font-weight: $weight-medium;
+}
+
+.snippet-preview {
+    padding: 30px 25px;
+    position: relative;
+
+    .resize-control {
+        @include position(absolute, 0 null 0 0);
+        height: 100%;
+
+        &.pos-right {
+            left: auto;
+            right: 0;
+        }
+    }
+}
+
+.snippet-button-holder {
+    text-align: center;
+
+    button + button {
+        margin-left: 20px;
+    }
+}
+
+// module Features section
+.features-content {
+    @include row();
+    padding: 100px 0 20px;
+
+    &-box {
+        @include span-columns(4);
+        @include omega(3n);
+        padding-bottom: 80px;
+
+        p {
+            font-size: 16px;
+            line-height: (23/16);
+            margin: 0;
+            opacity: .5;
+        }
+    }
+}
+
+// module Installation section
+.installation-section {
+    background: url('../styles/images/bg-installation.jpg') no-repeat center top;
+    color: $color-white;
+    padding: 135px 0 170px;
+}
+
+.installation-intro-text {
+    margin: 0 auto;
+    max-width: 845px;
+    padding-bottom: 120px;
+    text-align: center;
+
+    h2 {
+        margin-top: 0;
+    }
+
+    p {
+        font-weight: 300;
+        margin-top: 0;
+    }
+}
+
+.installation-process {
+    list-style: none;
+    margin: 0 auto;
+    max-width: 545px;
+    padding: 0;
+
+    li {
+        padding-left: 40px;
+        position: relative;
+
+        &:before {
+            @include position(absolute, 7px null null 0);
+            @include size(14px);
+            border: $color-white solid 2px;
+            border-radius: 50%;
+            box-sizing: border-box;
+            content: '';
+        }
+    }
+
+    code {
+        color: #fecd08;
+        display: block;
+        font: {
+            family: $font-proxima-nova;
+            weight: $weight-light;
+            size: 15px;
+        }
+        line-height: (30/15);
+        margin-left: 30px;
+        overflow: auto;
+        white-space: pre;
+        word-wrap: normal;
+    }
+}

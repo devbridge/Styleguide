@@ -1,26 +1,38 @@
 @charset "utf-8";
 @import 'core/variables';
 
+// Neat settings
+$visual-grid: false;
+$border-box-sizing: false;
+
 // Dependencies
 @import 'bourbon';
 @import 'neat';
+
+//$tablet-1024: new-breakpoint(max-width 1024px);
+
+@import "neat-helpers";
+$tablet-1024-up: new-breakpoint(min-width 1024px);
 
 // Core
 @import 'core/normalize';
 @import 'core/extenders';
 @import 'core/mixins';
 @import 'core/functions';
+@import 'core/svg-sprite';
 
 // Base & Layout
 @import 'site/layout';
+@import 'site/views/header';
 
 // Modules
 @import 'modules/global';
-//@import 'modules/forms';
+@import 'modules/forms';
 //@import 'modules/modal';
 //@import 'modules/slider';
 //@import 'modules/tables';
 @import 'modules/typography';
+@import 'modules/icons';
 
 // Pages
 @import 'site/pages/home';

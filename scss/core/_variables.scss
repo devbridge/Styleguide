@@ -15,13 +15,32 @@ $weight-light: 300;
 $weight-regular: 400;
 $weight-medium: 500;
 $weight-semibold: 600;
+$weight-bold: 700;
 
 //module MAIN COLOR PALETTE
 $color-black: #292929;
+$color-black-100: #2d3335;
+$color-blue: #3381ff;
+$color-light-gray: #f4f4f5;
+$color-white: #fff;
 
 //module TEXT COLORS
 $text-primary: $color-black;
+$text-link: $color-black;
+$text-list-number: $color-blue;
+$text-snippet-title: $color-blue;
+$text-button-link: $color-blue;
+
+$border-primary: $color-black;
+$border-btn-secondary: $color-blue;
+
+$bg-primary: $color-light-gray;
+$bg-secondary: $color-black-100;
+$bg-primary-button: $color-blue;
 
 //module LINK COLORS
 
 //module SELECTION COLORS
+
+// module ETC
+$max-width-content: 1100px;

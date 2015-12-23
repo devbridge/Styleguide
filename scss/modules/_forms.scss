@@ -7,3 +7,87 @@
 [disabled] {
     cursor: not-allowed;
 }
+
+.btn-hide-code {
+    background: none;
+    border: 0;
+    display: inline-block;
+    font-size: 14px;
+    line-height: (30/14);
+    margin: 0;
+    padding: 0 30px 0 0;
+    position: relative;
+
+    &:after {
+        @include position(absolute, 0 0 0 null);
+        @include svg-sprite('icon-arrows');
+        content: '';
+        margin: auto 0;
+    }
+}
+
+.resize-control {
+    @include size(2px 50px);
+    background-color: #d8d8d8;
+    border: 0;
+    font-size: 0;
+    margin: 0 0 0 10px;
+    padding: 0;
+    position: relative;
+
+    &:before {
+        @include svg-sprite('icon-gripper');
+        @include position(absolute, 0 null 0 -10px);
+        content: '';
+        margin: auto 0;
+    }
+
+    &:focus {
+        outline: 0;
+    }
+
+    &.pos-right {
+        margin: {
+            left: 0;
+            right: 10px;
+        }
+
+        &:before {
+            left: auto;
+            right: -10px;
+        }
+    }
+}
+
+.btn-primary {
+    @include ellipsis();
+    background-color: $bg-primary-button;
+    border: 0;
+    border-radius: 30px;
+    box-sizing: border-box;
+    box-sizing: border-box;
+    color: $color-white;
+    display: inline-block;
+    font-size: 18px;
+    height: 48px;
+    line-height: (48/18);
+    padding: 0 40px;
+    text-align: center;
+
+    &.inverse {
+        background-color: $color-white;
+        border: $border-btn-secondary solid 2px;
+        color: $text-button-link;
+        padding: 0 20px;
+    }
+}
+
+.btn-blank {
+    background: none;
+    border: 0;
+    color: $text-button-link;
+    display: inline-block;
+    font-size: 18px;
+    line-height: (22/18);
+}
+

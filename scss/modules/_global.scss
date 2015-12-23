@@ -9,6 +9,14 @@
 .page-frame {
     box-sizing: border-box;
     margin: 0 auto;
-    max-width: 1440px;
+    max-width: $max-width-content;
     padding: 0 30px;
+
+    &.header {
+        max-width: 1440px;
+    }
+}
+
+.align-right {
+    text-align: right;
 }

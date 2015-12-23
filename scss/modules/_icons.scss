@@ -1,0 +1,11 @@
+$icon-list: ('icon-folder', 'icon-download', 'icon-flag', 'icon-chat', 'icon-element');
+
+@each $icon in $icon-list {
+    .#{$icon} {
+        &:before {
+            @include svg-sprite('#{$icon}');
+            content: '';
+            display: inline-block;
+        }
+    }
+}

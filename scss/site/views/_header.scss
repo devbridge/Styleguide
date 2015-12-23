@@ -1,0 +1,50 @@
+.page-header {
+    display: table;
+    width: 100%;
+
+    &-box {
+        display: table-cell;
+        height: 85px;
+        vertical-align: middle;
+
+        .links-group {
+            @extend %clearfix;
+
+            a {
+                display: block;
+                float: left;
+
+                + a {
+                    margin-left: 30px;
+                }
+            }
+        }
+    }
+}
+
+.logo-holder {
+    margin: 0;
+
+    img {
+        display: block;
+    }
+}
+
+.github-link {
+    display: inline-block;
+    min-height: 26px;
+    padding-left: 32px;
+
+    &:after {
+        @include svg-sprite('icon-github');
+        @include position(absolute, 0 null 0 0);
+        content: '';
+    }
+
+    @include media($tablet-1024-up) {
+        &:before {
+            left: 32px;
+            width: auto;
+        }
+    }
+}

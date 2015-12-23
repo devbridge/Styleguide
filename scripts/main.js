@@ -1,7 +1,7 @@
 ﻿/*jslint regexp: true, nomen: true, sloppy: true */
 /*global require, applicationConfig, window, applicationConfig */
 require.config({
-    baseUrl: '/scripts/',
+    baseUrl: 'scripts/',
     paths: {
         jquery: [
             '//cdn.jsdelivr.net/jquery/1.11.3/jquery.min',
@@ -16,6 +16,7 @@ require.config({
             'plugins/slick.min'
         ],
         modal: 'plugins/jquery.modal',
+        typed: 'plugins/typed',
         site: 'modules/site'
     },
     shim: {

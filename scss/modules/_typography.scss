@@ -3,7 +3,29 @@
 //
 
 a {
+    color: $text-link;
+    font-weight: $weight-medium;
+    position: relative;
+    text-decoration: none;
 
+    @include media($tablet-1024-up) {
+        &:before {
+            @include transform(scaleX(0));
+            @include position(absolute, null 0 0 0);
+            @include size(100% 2px);
+            @include transition(all .25s ease-in-out 0s);
+            background-color: $color-black;
+            content: '';
+            visibility: hidden;
+        }
+
+        &:hover {
+            &:before {
+                visibility: visible;
+                @include transform(scaleX(1));
+            }
+        }
+    }
 }
 
 h1,
@@ -13,12 +35,22 @@ h1,
 
 h2,
 .heading2 {
-
+    font: {
+        size: 40px;
+        weight: $weight-medium;
+    }
+    line-height: (48/40);
+    margin: 30px 0;
 }
 
 h3,
 .heading3 {
-
+    font: {
+        size: 20px;
+        weight: $weight-medium;
+    }
+    line-height: (32/20);
+    margin: 0 0 25px;
 }
 
 h4,
