@@ -1,57 +1,57 @@
 $icons: (
 	sprite: (
-		width: 132px,
-		height: 101px,
+		width: 137px,
+		height: 99px,
 		pngPath: 'images/sprite.png',
 		svgPath: 'images/sprite.svg'
 	),
 	icon-arrows: (
 		width: 19px,
 		height: 12px,
-		backgroundX: -112px,
-		backgroundY: -46px
+		backgroundX: -84px,
+		backgroundY: -72px
 	),
 	icon-chat: (
 		width: 28px,
 		height: 21px,
-		backgroundX: -65px,
-		backgroundY: -48px
+		backgroundX: -108px,
+		backgroundY: -29px
 	),
 	icon-download: (
 		width: 24px,
 		height: 24px,
-		backgroundX: -108px,
-		backgroundY: 0px
+		backgroundX: -38px,
+		backgroundY: -72px
 	),
 	icon-element: (
 		width: 22px,
 		height: 22px,
-		backgroundX: -108px,
-		backgroundY: -24px
+		backgroundX: -62px,
+		backgroundY: -72px
 	),
 	icon-flag: (
 		width: 29px,
 		height: 29px,
-		backgroundX: 0px,
-		backgroundY: -72px
+		backgroundX: -108px,
+		backgroundY: 0px
 	),
 	icon-folder: (
 		width: 26px,
 		height: 23px,
-		backgroundX: -56px,
-		backgroundY: -72px
+		backgroundX: -108px,
+		backgroundY: -76px
 	),
 	icon-github: (
 		width: 27px,
 		height: 26px,
-		backgroundX: -29px,
-		backgroundY: -72px
+		backgroundX: -108px,
+		backgroundY: -50px
 	),
 	icon-gripper: (
 		width: 4px,
 		height: 20px,
-		backgroundX: -108px,
-		backgroundY: -46px
+		backgroundX: -99px,
+		backgroundY: -48px
 	),
 	icon-hexagon: (
 		width: 65px,
@@ -64,5 +64,17 @@ $icons: (
 		height: 48px,
 		backgroundX: -65px,
 		backgroundY: 0px
+	),
+	icon-terminal: (
+		width: 38px,
+		height: 27px,
+		backgroundX: 0px,
+		backgroundY: -72px
+	),
+	icon-terminal-small: (
+		width: 34px,
+		height: 23px,
+		backgroundX: -65px,
+		backgroundY: -48px
 	)
 );

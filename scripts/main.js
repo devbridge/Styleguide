@@ -16,7 +16,8 @@ require.config({
             'plugins/slick.min'
         ],
         modal: 'plugins/jquery.modal',
-        typed: 'plugins/typed',
+        typing: 'plugins/typing-plugin',
+        prism: 'plugins/prism',
         site: 'modules/site'
     },
     shim: {

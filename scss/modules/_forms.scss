@@ -24,6 +24,10 @@
         content: '';
         margin: auto 0;
     }
+
+    &.active {
+        color: $color-blue;
+    }
 }
 
 .resize-control {
@@ -65,7 +69,6 @@
     border: 0;
     border-radius: 30px;
     box-sizing: border-box;
-    box-sizing: border-box;
     color: $color-white;
     display: inline-block;
     font-size: 18px;
@@ -73,16 +76,24 @@
     line-height: (48/18);
     padding: 0 40px;
     text-align: center;
-
-    &.inverse {
-        background-color: $color-white;
-        border: $border-btn-secondary solid 2px;
-        color: $text-button-link;
-        padding: 0 20px;
-    }
 }
 
-.btn-blank {
+.btn-secondary {
+    @include ellipsis();
+    background-color: $color-white;
+    border: $border-btn-secondary solid 2px;
+    border-radius: 30px;
+    box-sizing: border-box;
+    color: $text-button-link;
+    display: inline-block;
+    font-size: 18px;
+    height: 48px;
+    line-height: (48/18);
+    padding: 0 20px;
+    text-align: center;
+}
+
+.btn-link {
     background: none;
     border: 0;
     color: $text-button-link;
@@ -90,4 +101,3 @@
     font-size: 18px;
     line-height: (22/18);
 }
-

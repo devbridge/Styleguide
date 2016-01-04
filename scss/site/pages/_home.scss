@@ -1,9 +1,12 @@
 // module Intro section
 .intro-section {
-    background: url('../styles/images/bg-intro.svg') left top;
+    @include animation(animatedBackground 11s linear infinite);
+    @include animation-fill-mode(both);
+    background: url('../styles/images/bg-intro.jpg') 0 0;
     color: $color-white;
-    text-align: center;
     margin-bottom: 135px;
+    padding-top: 150px;
+    text-align: center;
 
     .subtitle {
         font: {
@@ -16,17 +19,44 @@
     }
 
     .img-holder {
+        margin: 0;
+
         img {
             display: block;
             margin: 0 auto;
             max-width: 100%;
         }
     }
+
+    .typing-text {
+        display: inline-block;
+        font-size: 22px;
+        margin-bottom: 140px;
+        min-height: 27px;
+        padding-left: 55px;
+
+        &:before {
+            @include svg-sprite('icon-terminal');
+        }
+    }
+
+    .blink-cursor {
+        height: 19px;
+    }
+}
+
+@include keyframes(animatedBackground) {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 100%;
+    }
 }
 
 .intro-logo-holder {
     margin: 0;
-    padding-top: 55px;
 }
 
 .text-section {
@@ -41,6 +71,11 @@
             font-weight: $weight-light;
             margin: 0;
         }
+    }
+
+    &.automate-work {
+        background-color: $bg-primary;
+        padding: 125px 0;
     }
 }
 
@@ -123,6 +158,14 @@
             width: 40%;
         }
     }
+
+    &.additional-space-top {
+        margin-top: 120px;
+    }
+
+    &.additional-space-bottom {
+        margin-bottom: 150px;
+    }
 }
 
 .example-content {
@@ -163,7 +206,96 @@
     }
 }
 
+.code-box {
+    pre[class*="language-"],
+    code[class*="language-"] {
+        font: {
+            family: $font-proxima-nova;
+            size: 15px;
+            weight: $weight-light;
+        }
+    }
+
+    pre[class*="language-"] {
+        background: none;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+    }
+
+    code[class*="language-"] {
+        color: #2dd1ff;
+        line-height: (30/15);
+        text-shadow: none;
+    }
+
+    .line-numbers {
+        .line-numbers-rows {
+            border-right: 0;
+            letter-spacing: 0;
+            top: -4px;
+        }
+    }
+
+    .line-numbers-rows {
+        > span:before {
+            color: $color-white;
+        }
+    }
+
+    .token {
+        &.variable {
+            color: #fea520;
+        }
+
+        &.string {
+            color: $color-yellow;
+        }
+
+        &.punctuation {
+            color: $color-white;
+        }
+
+        &.comment {
+            color: #35a8ff;
+        }
+    }
+
+    .language-markup {
+        code[class*="language-"] {
+            color: $color-white;
+        }
+
+        .token {
+            &.tag {
+                color: #a1b4c1;
+
+                .punctuation {
+                    color: inherit;
+                }
+            }
+
+            &.attr-name {
+                color: #5ed4ba;
+            }
+
+            &.attr-value {
+                color: $color-yellow;
+
+                .punctuation {
+                    color: inherit;
+                }
+            }
+        }
+    }
+}
+
 // module Snippet section
+.snippet-section {
+    padding: 97px 0 160px;
+}
+
 .snippet-box {
     border: 1px solid #dedede;
     border-radius: 15px 15px 0 0;
@@ -171,6 +303,20 @@
     margin: 0 auto;
     padding: 25px 30px 35px;
     width: 708px;
+}
+
+.snippet-code-holder {
+    @include transition(all .3s ease-out);
+    background-color: #2f3638;
+    border-radius: 0 0 15px 15px;
+    margin: 0 auto;
+    max-height: 0;
+    overflow: hidden;
+    width: 708px;
+
+    &.opened {
+        max-height: 350px;
+    }
 }
 
 .title-row {
@@ -231,9 +377,10 @@
 
 // module Installation section
 .installation-section {
-    background: url('../styles/images/bg-installation.jpg') no-repeat center top;
+    background: url('../styles/images/bg-installation.jpg') no-repeat left top fixed;
+    background-size: cover;
     color: $color-white;
-    padding: 135px 0 170px;
+    padding: 55px 0 150px;
 }
 
 .installation-intro-text {
@@ -252,6 +399,22 @@
     }
 }
 
+.installation-additional-text {
+    padding-bottom: 85px;
+    text-align: right;
+
+    > span {
+        display: inline-block;
+        font-weight: $weight-light;
+        vertical-align: middle;
+    }
+
+    .icon-nodejs {
+        margin-left: 15px;
+        vertical-align: middle;
+    }
+}
+
 .installation-process {
     list-style: none;
     margin: 0 auto;
@@ -259,6 +422,7 @@
     padding: 0;
 
     li {
+        @include transition(opacity .5s ease);
         padding-left: 40px;
         position: relative;
 
@@ -269,6 +433,36 @@
             border-radius: 50%;
             box-sizing: border-box;
             content: '';
+        }
+
+        + li {
+            margin-top: 40px;
+            opacity: 0;
+
+        }
+
+        &:after {
+            @include position(absolute, 25px null 100% 6px);
+            @include transition(bottom .5s ease);
+            background-color: $color-white;
+            content: '';
+            width: 2px;
+        }
+
+        &:last-child {
+            &:after {
+                display: none;
+            }
+        }
+
+        &.active {
+            opacity: 1;
+        }
+
+        &.animate {
+            &:after {
+                bottom: -43px;
+            }
         }
     }
 
@@ -285,5 +479,58 @@
         overflow: auto;
         white-space: pre;
         word-wrap: normal;
+    }
+
+    pre {
+        margin: 10px 0 0;
+    }
+
+    .typing-text {
+        margin: 25px 0 0 50px;
+    }
+}
+
+// module Typing text animation
+.blink-cursor {
+    @include animation(blink 1s linear infinite);
+    background-color: $color-blue;
+    display: inline-block;
+    font-size: 0;
+    height: 17px;
+    vertical-align: middle;
+    width: 6px;
+}
+
+@include keyframes(blink) {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.typing-text {
+    color: $color-blue;
+    line-height: (22/18);
+    min-height: 23px;
+    opacity: 0;
+    padding-left: 45px;
+    position: relative;
+    white-space: nowrap;
+
+    &:before {
+        @include svg-sprite('icon-terminal-small');
+        @include position(absolute, -1px null null 0);
+        content: '';
+    }
+
+    &.active {
+        opacity: 1;
     }
 }

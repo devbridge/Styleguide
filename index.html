@@ -16,24 +16,13 @@
     <link type="text/css" rel="stylesheet"
           href="http://fast.fonts.net/cssapi/0c372d69-dd8e-4054-ba17-c60a7f5ced97.css"/>
     <link href="content/styles/site-styles.css" rel="stylesheet" type="text/css"/>
+    <link href="content/styles/prism.css" rel="stylesheet" type="text/css"/>
 
     <!--[if lt IE 9]>
     <script src="scripts/html5shiv.js" type="text/javascript"></script>
     <![endif]-->
 
-    <script type="text/javascript">
-        (function () {
-            'use strict';
-            var el, head;
-            el = document.createElement('script');
-            el.type = 'text/javascript';
-            el.async = true;
-            el.setAttribute("data-main", "scripts/main");
-            el.src = 'scripts/require.js';
-            head = document.getElementsByTagName('script')[0];
-            head.parentNode.insertBefore(el, head);
-        }());
-    </script>
+    <script data-main="scripts/main" src="scripts/require.js"></script>
 </head>
 <body>
 <noscript>
@@ -43,12 +32,13 @@
 </noscript>
 
 <div class="page">
-    <div class="page-frame header">
+    <div class="page-header-holder js-header">
+        <div class="page-frame">
         <header class="page-header">
             <div class="page-header-box">
-                <div class="links-group">
-                    <a href="#nolink">Features</a>
-                    <a href="#nolink">Installation</a>
+                <div class="links-group js-scroll-nav">
+                    <a href="#features">Features</a>
+                    <a href="#installation">Installation</a>
                 </div>
             </div>
 
@@ -62,6 +52,7 @@
                 <a class="github-link" href="#nolink">Github</a>
             </div>
         </header>
+            </div>
     </div>
 
     <main>
@@ -70,12 +61,17 @@
                 <img src="content/images/styleguide-logo-white.svg" alt="Styleguide">
             </h1>
             <h2 class="subtitle">Living Styleguide Made Easy</h2>
-            <div class="img-holder">
-                <img src="content/images/img-styleguide.png" alt="Styleguide" />
+            <div data-tpr-letters="11" data-tpr-incorrect="styleguide"
+                 class="js-typing-install typing-text">
+                 <span>npm install devbridge-styleguide --save-dev</span>
+                 <span class="blink-cursor">|</span>
             </div>
+            <figure class="img-holder">
+                <img src="content/images/img-styleguide.png" alt="Styleguide"/>
+            </figure>
         </section>
 
-        <section class="text-section">
+        <section class="text-section" id="features">
             <div class="page-frame">
                 <div class="section-title">
                     <span class="section-title-number">01.</span>
@@ -90,10 +86,10 @@
             </div>
         </section>
 
-        <section class="example-section">
+        <section class="example-section additional-space-top">
             <div class="page-frame">
                 <div class="example-section-inner">
-                    <div class="example-section-box bg-light">
+                    <div class="example-section-box">
                         <div class="example-content">
                             <span class="family-example-title">Aa</span>
                             <p>a b c d e f g h i j k l m n o p q r s t u v w x y z <br>
@@ -103,16 +99,28 @@
                     </div>
                     <div class="example-section-box">
                         <div class="code-box">
+                            <pre class="line-numbers" data-start="49"><code class="language-scss">$color-yellow: #ffa960;
+$color-yellow-110: #de883f;
+$color-sky-d10: #538292;
+$color-sky: #70b1c7;
+//-- typo:start --//
+$font-avenir: 'Avenir W01', sans-serif;
+$font-chaparral: 'Chaparral W01', serif;
+//-- typo:end --//
+$src-icon-down: 'images/icon-down.svg';
+$weight-black: 900;
+$weight-heavy: 800;
+$weight-bold: 700;</code></pre>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="example-section">
+        <section class="example-section additional-space-bottom">
             <div class="page-frame">
                 <div class="example-section-inner">
-                    <div class="example-section-box bg-light">
+                    <div class="example-section-box">
                         <div class="color-palette-holder clearfix">
                             <div class="color-box" style="background-color: #F8533B;"><span>#F8533B</span></div>
                             <div class="color-box" style="background-color: #FDA400;"><span>#FDA400</span></div>
@@ -123,6 +131,18 @@
                     </div>
                     <div class="example-section-box">
                         <div class="code-box">
+                            <pre class="line-numbers" data-start="52"><code class="language-scss">$gutter-single: ($gutter / 2);
+$footer-height: 200px;
+//-- color:start --//
+$color-red: #f8533b;
+$color-yellow: #fda400;
+$color-blue: #205b67;
+$color-blue-120: #00a5bc;
+$color-green: #95bf15;
+//-- color:end --//
+$body-font: $font-chaparral;
+$heading-font: $font-avenir;
+$src-icon-down: 'images/icon-down.svg';</code></pre>
                         </div>
                     </div>
                 </div>
@@ -152,7 +172,7 @@
                             <span class="snippet-title">Snippet: Buttons</span>
                         </div>
                         <div class="title-row-box align-right">
-                            <button class="btn-hide-code">Hide Code</button>
+                            <button class="btn-hide-code js-toggle-button">Hide Code</button>
                         </div>
                     </div>
 
@@ -160,16 +180,28 @@
                         <button class="resize-control">Resize</button>
                         <div class="snippet-button-holder">
                             <button class="btn-primary" type="button">Save</button>
-                            <button class="btn-primary inverse" type="button">Save as draft</button>
-                            <button class="btn-blank" type="button">Cancel</button>
+                            <button class="btn-secondary" type="button">Save as draft</button>
+                            <button class="btn-link" type="button">Cancel</button>
                         </div>
                         <button class="resize-control pos-right">Resize</button>
                     </div>
                 </div>
+
+                <div class="snippet-code-holder opened js-toggle-container">
+                    <div class="code-box">
+                    <pre class="line-numbers" data-start="54"><code class="language-markup">&lt;!-- snippet:start include-js --&gt;
+&lt;div class="navigation"&gt;
+    &lt;button class="btn-primary"&gt;Save&lt;/button&gt;
+    &lt;button class="btn-secondary"&gt;Save as draft&lt;/button&gt;
+    &lt;button class="btn-link"&gt;Cancel&lt;/button&gt;
+&lt;/div&gt;
+&lt;!-- snippet:end --&gt;</code></pre>
+                </div>
+                </div>
             </div>
         </section>
 
-        <section class="text-section">
+        <section class="text-section automate-work">
             <div class="page-frame">
                 <div class="section-title">
                     <span class="section-title-number">03.</span>
@@ -225,9 +257,11 @@
             </div>
         </section>
 
-        <section class="installation-section">
+        <section class="installation-section" id="installation">
             <div class="page-frame">
                 <div class="installation-intro-text">
+                    <div class="installation-additional-text"><span>Required</span> node.js
+                        <span class="icon-nodejs">&nbsp;</span></div>
                     <h2>Installation</h2>
                     <p>We choose Node.js and developed the tool as npm package, because node packages can be easily
                         integrated with existing front-end workflows. Also integration with Gulp is essential if we want
@@ -238,25 +272,32 @@
                 <ul class="installation-process">
                     <li>
                         Install local package to your project directory
+                        <div data-tpr-letters="11" data-tpr-incorrect="styleguide"
+                             class="js-typing-install typing-text">
+                            <span>npm install devbridge-styleguide --save-dev</span>
+                            <span class="blink-cursor">|</span>
+                        </div>
                     </li>
                     <li>
                         Create Gulp task
-
-                        <code>var gulp = require('gulp'); var styleguide = require('devbridge-styleguide');
+                        <pre><code>var gulp = require('gulp'); var styleguide = require('devbridge-styleguide');
 gulp.task('start-styleguide', function () {
     styleguide.startServer();
-});
-                        </code>
+});</code></pre>
                     </li>
                     <li>
                         Start styleguide server <br>
-                        <span class="animated-text js-start-styleguide"></span>
+                        <div data-tpr-letters="4" data-tpr-incorrect="startstyluguide"
+                             class="js-typing-start typing-text">
+                            <span>gulp start-styleguide</span>
+                            <span class="blink-cursor">|</span>
+                        </div>
                     </li>
                 </ul>
             </div>
         </section>
     </main>
 </div>
-
+<script src="scripts/plugins/prism.js" type="text/javascript"></script>
 </body>
 </html>
