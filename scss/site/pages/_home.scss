@@ -4,18 +4,18 @@
     @include animation-fill-mode(both);
     background: url('../styles/images/bg-intro.jpg') 0 0;
     color: $color-white;
-    margin-bottom: 135px;
-    padding-top: 150px;
+    margin-bottom: 46px;
+    padding-top: 46px;
     text-align: center;
 
     .subtitle {
         font: {
-            size: 48px;
+            size: 20px;
             weight: $weight-light;
         }
         line-height: (58/48);
         margin: 0;
-        padding: 35px 0 80px;
+        padding: 20px 0 40px;
     }
 
     .img-holder {
@@ -30,8 +30,9 @@
 
     .typing-text {
         display: inline-block;
-        font-size: 22px;
-        margin-bottom: 140px;
+        font-size: 15px;
+        line-height: (25/15);
+        margin-bottom: 40px;
         min-height: 27px;
         padding-left: 55px;
 
@@ -42,6 +43,37 @@
 
     .blink-cursor {
         height: 19px;
+    }
+
+    @include media($tablet-600-up) {
+        margin-bottom: 135px;
+
+        .typing-text {
+            font-size: 22px;
+            line-height: (27/22);
+            margin-bottom: 140px;
+        }
+    }
+
+    @include media($tablet-768-up) {
+        padding-top: 140px;
+
+        .subtitle {
+            font-size: 48px;
+            padding: 35px 0 80px;
+        }
+    }
+
+    @include media(new-breakpoint(min-width 601px max-width 768px)) {
+        padding-top: 100px;
+
+        .subtitle {
+            font-size: 30px;
+        }
+
+        .typing-text {
+            margin-bottom: 110px;
+        }
     }
 }
 
@@ -56,14 +88,22 @@
 }
 
 .intro-logo-holder {
-    margin: 0;
+    margin: 0 auto;
+
+    @include media($tablet-600) {
+        max-width: 280px;
+    }
+
+    @include media(new-breakpoint(min-width 601px max-width 768px)) {
+        max-width: 400px;
+    }
 }
 
 .text-section {
     text-align: center;
 
     &-holder {
-        margin: 50px auto 0;
+        margin: 40px auto 0;
         max-width: 597px;
         opacity: .5;
 
@@ -75,12 +115,29 @@
 
     &.automate-work {
         background-color: $bg-primary;
-        padding: 125px 0;
+        padding: 60px 0;
+    }
+
+    @include media($tablet-600) {
+        p {
+            font-size: 15px;
+            line-height: (24/15);
+        }
+
+        &-holder {
+            margin-top: 50px;
+        }
+    }
+
+    @include media($tablet-600-up) {
+        &.automate-work {
+            padding: 125px 0;
+        }
     }
 }
 
 .section-title {
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     position: relative;
 
     &:after {
@@ -105,7 +162,7 @@
             weight: $weight-bold;
         }
         line-height: (72/24);
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         position: relative;
         text-align: center;
 
@@ -116,6 +173,20 @@
             margin: auto;
         }
     }
+
+    @include media($tablet-600) {
+        h2 {
+            font-size: 24px;
+        }
+    }
+
+    @include media($tablet-600-up) {
+        margin-bottom: 30px;
+
+        &-number {
+            margin-bottom: 30px;
+        }
+    }
 }
 
 // Font example
@@ -124,51 +195,117 @@
     overflow: hidden;
     position: relative;
 
-    &:after {
-        @include position(absolute, 0 0 0 40%);
-        background-color: $bg-secondary;
-        content: '';
-        z-index: -1;
-    }
-
-    &:before {
-        @include position(absolute, 0 70% 0 0);
-        background-color: $bg-primary;
-        content: '';
-        z-index: -1;
-    }
-
-    &-inner {
-        display: table;
-        table-layout: fixed;
-        width: 100%;
-    }
-
     &-box {
-        display: table-cell;
-        vertical-align: middle;
-
         &:first-child {
             background-color: $bg-primary;
-            width: 60%;
         }
 
         &:last-child {
             background-color: $bg-secondary;
-            width: 40%;
         }
     }
 
     &.additional-space-top {
-        margin-top: 120px;
+        margin-top: 60px;
     }
 
     &.additional-space-bottom {
-        margin-bottom: 150px;
+        margin-bottom: 60px;
+    }
+
+    @include media(new-breakpoint(min-width 731px max-width 921px)) {
+        &-box {
+            &:first-child {
+                padding-right: 20px;
+                width: 50%;
+            }
+
+            &:last-child {
+                width: 50%;
+            }
+        }
+    }
+
+    @include media($tablet-730-up) {
+        &:after {
+            @include position(absolute, 0 0 0 40%);
+            background-color: $bg-secondary;
+            content: '';
+            z-index: -1;
+        }
+
+        &:before {
+            @include position(absolute, 0 70% 0 0);
+            background-color: $bg-primary;
+            content: '';
+            z-index: -1;
+        }
+
+        &-inner {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        &-box {
+            box-sizing: border-box;
+            display: table-cell;
+            vertical-align: middle;
+        }
+    }
+
+    @include media($tablet-730) {
+        &-box {
+            margin: 0 -30px;
+
+            &:first-child {
+                padding: 0 30px;
+            }
+
+            &:last-child {
+                padding: 0 15px;
+            }
+        }
+    }
+
+    @include media($tablet-920-up) {
+        &-box {
+            &:first-child {
+                width: 60%;
+            }
+
+            &:last-child {
+                width: 40%;
+            }
+        }
+    }
+
+    @include media($tablet-600-up) {
+        &.additional-space-top {
+            margin-top: 120px;
+        }
+
+        &.additional-space-bottom {
+            margin-bottom: 150px;
+        }
+    }
+
+    @include media($mobile-480) {
+        &-box {
+            margin: 0 -20px;
+
+            &:first-child {
+                padding: 0 20px;
+            }
+
+            &:last-child {
+                padding: 0 5px;
+            }
+        }
     }
 }
 
-.example-content {
+.font-example-content {
     font-family: $font-playfair-display;
     padding-bottom: 60px;
 
@@ -186,16 +323,29 @@
         }
         line-height: (170/150);
     }
+
+    @include media($tablet-730) {
+        margin: 0 auto;
+        max-width: 420px;
+    }
+
+    @include media($mobile-480) {
+        max-width: 200px;
+    }
 }
 
 .color-palette-holder {
-    padding: 100px 0 84px;
+    padding: 89px 0;
+
+    @include media($tablet-730-up) {
+        padding: 100px 0 84px;
+    }
 }
 
 .color-box {
-    @include span-columns(2);
+    @include span-columns(4);
     color: $color-white;
-    height: 200px;
+    height: 213px;
     position: relative;
     text-align: center;
 
@@ -203,6 +353,33 @@
         @include position(absolute, null 10px 12px 10px);
         font-size: 14px;
         line-height: (17/14);
+    }
+
+    @include media(new-breakpoint(min-width 769px max-width 921px)) {
+        @include span-columns(3);
+        @include omega(4);
+    }
+
+    @include media($tablet-768) {
+        @include omega(3);
+
+        &.hide-on-768 {
+            display: none;
+        }
+    }
+
+    @include media($tablet-730-up) {
+        height: 200px;
+    }
+
+    @include media($tablet-920) {
+        &.hide-on-920 {
+            display: none;
+        }
+    }
+
+    @include media($tablet-920-up) {
+        @include span-columns(2);
     }
 }
 
@@ -293,7 +470,11 @@
 
 // module Snippet section
 .snippet-section {
-    padding: 97px 0 160px;
+    padding: 57px 0 61px;
+
+    @include media($tablet-600-up) {
+        padding: 97px 0 160px;
+    }
 }
 
 .snippet-box {
@@ -301,8 +482,12 @@
     border-radius: 15px 15px 0 0;
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 25px 30px 35px;
-    width: 708px;
+    max-width: $snippet-box-width;
+    padding: 20px 20px 25px;
+
+    @include media($mobile-480-up) {
+        padding: 25px 30px 35px;
+    }
 }
 
 .snippet-code-holder {
@@ -311,8 +496,8 @@
     border-radius: 0 0 15px 15px;
     margin: 0 auto;
     max-height: 0;
+    max-width: $snippet-box-width;
     overflow: hidden;
-    width: 708px;
 
     &.opened {
         max-height: 350px;
@@ -325,6 +510,15 @@
 
     &-box {
         @include span-columns(6);
+    }
+
+    @include media($mobile-480) {
+        &-box {
+            &:first-child {
+                line-height: 1.1;
+                padding-top: 7px;
+            }
+        }
     }
 }
 
@@ -351,8 +545,22 @@
 .snippet-button-holder {
     text-align: center;
 
-    button + button {
-        margin-left: 20px;
+    @include media($tablet-600) {
+        margin: 0 auto;
+        max-width: 200px;
+
+        .btn-secondary,
+        .btn-link {
+            margin-top: 15px;
+        }
+    }
+
+    @include media($tablet-600-up) {
+        .btn-secondary,
+        .btn-link {
+            margin-left: 20px;
+            vertical-align: middle;
+        }
     }
 }
 
@@ -362,31 +570,74 @@
     padding: 100px 0 20px;
 
     &-box {
-        @include span-columns(4);
-        @include omega(3n);
-        padding-bottom: 80px;
+        @include span-columns(12);
+        padding-bottom: 55px;
+
+        h3 {
+            margin-bottom: 10px;
+        }
 
         p {
-            font-size: 16px;
-            line-height: (23/16);
+            font-size: 15px;
+            line-height: (23/15);
             margin: 0;
             opacity: .5;
+        }
+    }
+
+    @include media(new-breakpoint(min-width 651px)) {
+        &-box {
+            @include span-columns(4);
+            @include omega(3n);
+            padding-bottom: 80px;
+
+            p {
+                font-size: 16px;
+                line-height: (23/16);
+            }
+
+            h3 {
+                margin-bottom: 25px;
+            }
+        }
+    }
+
+    @include media(new-breakpoint(min-width 481px max-width 650px)) {
+        &-box {
+            @include span-columns(6);
+            @include omega(2n);
+        }
+    }
+
+    @include media($mobile-480-up) {
+        .icon {
+            display: block;
+            height: 29px;
+            margin-bottom: 8px;
         }
     }
 }
 
 // module Installation section
 .installation-section {
-    background: url('../styles/images/bg-installation.jpg') no-repeat left top fixed;
+    background: url('../styles/images/bg-installation.jpg') no-repeat center bottom fixed;
     background-size: cover;
     color: $color-white;
-    padding: 55px 0 150px;
+    padding: 50px 0 60px;
+
+    @include media(new-breakpoint(min-width 961px)) {
+        background-position-x: left;
+    }
+
+    @include media($tablet-600-up) {
+        padding: 55px 0 150px;
+    }
 }
 
 .installation-intro-text {
     margin: 0 auto;
     max-width: 845px;
-    padding-bottom: 120px;
+    padding-bottom: 60px;
     text-align: center;
 
     h2 {
@@ -397,11 +648,27 @@
         font-weight: 300;
         margin-top: 0;
     }
+
+    @include media($tablet-600-up) {
+        padding-bottom: 120px;
+    }
+
+    @include media($tablet-600) {
+        h2 {
+            font-size: 24px;
+            line-height: (29/24);
+        }
+
+        p {
+            font-size: 15px;
+            line-height: (24/15);
+            opacity: .45;
+        }
+    }
 }
 
 .installation-additional-text {
-    padding-bottom: 85px;
-    text-align: right;
+    padding-bottom: 25px;
 
     > span {
         display: inline-block;
@@ -410,8 +677,13 @@
     }
 
     .icon-nodejs {
-        margin-left: 15px;
+        margin-left: 10px;
         vertical-align: middle;
+    }
+
+    @include media($tablet-600-up) {
+        padding-bottom: 85px;
+        text-align: right;
     }
 }
 
@@ -466,27 +738,50 @@
         }
     }
 
+    .typing-text {
+        margin-top: 20px;
+    }
+
+    @include media($tablet-600-up) {
+        .typing-text {
+            margin: 25px 0 0 50px;
+        }
+    }
+
+    @include media($tablet-600) {
+        li {
+            font-size: 16px;
+
+            &:after {
+                opacity: .2;
+            }
+        }
+    }
+}
+
+.gulp-task-definition {
+    margin: 10px 0 0;
+
     code {
         color: #fecd08;
         display: block;
         font: {
             family: $font-proxima-nova;
             weight: $weight-light;
-            size: 15px;
+            size: 14px;
         }
         line-height: (30/15);
-        margin-left: 30px;
         overflow: auto;
         white-space: pre;
         word-wrap: normal;
     }
 
-    pre {
-        margin: 10px 0 0;
-    }
+    @include media($tablet-600-up) {
+        margin-left: 30px;
 
-    .typing-text {
-        margin: 25px 0 0 50px;
+        code {
+            font-size: 15px;
+        }
     }
 }
 
@@ -522,7 +817,7 @@
     opacity: 0;
     padding-left: 45px;
     position: relative;
-    white-space: nowrap;
+    white-space: normal;
 
     &:before {
         @include svg-sprite('icon-terminal-small');
@@ -532,5 +827,13 @@
 
     &.active {
         opacity: 1;
+    }
+
+    @include media($tablet-600) {
+        font-size: 14px;
+    }
+
+    @include media($tablet-600-up) {
+        white-space: nowrap;
     }
 }

@@ -9,10 +9,18 @@ $border-box-sizing: false;
 @import 'bourbon';
 @import 'neat';
 
-//$tablet-1024: new-breakpoint(max-width 1024px);
-
 @import "neat-helpers";
-$tablet-1024-up: new-breakpoint(min-width 1024px);
+$tablet-1024-up: new-breakpoint(min-width 1025px);
+$tablet-920: new-breakpoint(max-width 920px);
+$tablet-920-up: new-breakpoint(min-width 921px);
+$tablet-768: new-breakpoint(max-width 768px);
+$tablet-768-up: new-breakpoint(min-width 769px);
+$tablet-730-up: new-breakpoint(min-width 731px);
+$tablet-730: new-breakpoint(max-width 730px);
+$tablet-600: new-breakpoint(max-width 600px);
+$tablet-600-up: new-breakpoint(min-width 601px);
+$mobile-480: new-breakpoint(max-width 480px);
+$mobile-480-up: new-breakpoint(min-width 481px);
 
 // Core
 @import 'core/normalize';

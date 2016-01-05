@@ -7,23 +7,9 @@ require.config({
             '//cdn.jsdelivr.net/jquery/1.11.3/jquery.min',
             'libs/jquery-1.11.3.min'
         ],
-        validation: [
-            '//cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min',
-            'plugins/jquery.validate.min'
-        ],
-        slickSlider: [
-            '//cdn.jsdelivr.net/jquery.slick/1.5.8/slick.min',
-            'plugins/slick.min'
-        ],
-        modal: 'plugins/jquery.modal',
         typing: 'plugins/typing-plugin',
         prism: 'plugins/prism',
         site: 'modules/site'
-    },
-    shim: {
-        validation: {
-            deps: ['jquery']
-        }
     }
 });
 require(['jquery', 'site'], function ($, site) {

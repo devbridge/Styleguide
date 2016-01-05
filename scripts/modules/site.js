@@ -9,19 +9,25 @@ define(['jquery', 'typing'], function ($) {
     module.initInstallationAnimation = function () {
         var triggerInstall = $('.js-typing-install'),
             triggerStart = $('.js-typing-start'),
+            triggerIntroCommand = $('.js-intro-command'),
             installationList = $('li', '.installation-process');
 
-        triggerInstall.addClass('active');
-        triggerInstall.loadTyping({
+        triggerIntroCommand.addClass('active');
+        triggerIntroCommand.loadTyping({
             incorrectTypingSpeed: 70,
             deletingSpeed: 70,
             correctTypingSpeed: 70
         });
 
+        triggerInstall.addClass('active');
+        triggerInstall.loadTyping({
+            incorrectTypingSpeed: 60
+        });
+
         setTimeout(function () {
             $(installationList.eq(0)).addClass('animate');
             $(installationList.eq(1)).addClass('active');
-        }, 5000);
+        }, 3000);
 
         setTimeout(function () {
             $(installationList.eq(1)).addClass('animate');
@@ -29,11 +35,9 @@ define(['jquery', 'typing'], function ($) {
 
             triggerStart.addClass('active');
             triggerStart.loadTyping({
-                incorrectTypingSpeed: 70,
-                deletingSpeed: 70,
-                correctTypingSpeed: 70
+                incorrectTypingSpeed: 60
             });
-        }, 5500);
+        }, 3500);
     };
 
     module.initToggle = function () {
@@ -90,10 +94,14 @@ define(['jquery', 'typing'], function ($) {
             }
         }
 
-        stickyHeader();
+        if($(window).width() > 1024) {
+            stickyHeader();
+        }
 
         $(window).on('scroll', function () {
-            stickyHeader();
+            if($(window).width() > 1024) {
+                stickyHeader();
+            }
         });
     };
 

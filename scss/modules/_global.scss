@@ -10,9 +10,25 @@
     box-sizing: border-box;
     margin: 0 auto;
     max-width: $max-width-content;
-    padding: 0 30px;
+    padding: 0 20px;
+
+    @include media($mobile-480-up) {
+        padding: 0 30px;
+    }
 }
 
 .align-right {
     text-align: right;
+}
+
+.hide-on-920 {
+    @include media($tablet-920) {
+        display: none;
+    }
+}
+
+.hide-on-768 {
+    @include media($tablet-768) {
+        display: none;
+    }
 }

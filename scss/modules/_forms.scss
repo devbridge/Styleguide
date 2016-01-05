@@ -65,39 +65,59 @@
 
 .btn-primary {
     @include ellipsis();
+    @include transition(all .3s ease);
     background-color: $bg-primary-button;
     border: 0;
     border-radius: 30px;
     box-sizing: border-box;
     color: $color-white;
-    display: inline-block;
     font-size: 18px;
     height: 48px;
     line-height: (48/18);
     padding: 0 40px;
     text-align: center;
+
+    @include media($tablet-1024-up) {
+        &:hover {
+            background-color: darken($bg-primary-button, 18%);
+        }
+    }
 }
 
 .btn-secondary {
     @include ellipsis();
+    @include transition(all .3s ease);
     background-color: $color-white;
     border: $border-btn-secondary solid 2px;
     border-radius: 30px;
     box-sizing: border-box;
     color: $text-button-link;
-    display: inline-block;
     font-size: 18px;
     height: 48px;
     line-height: (48/18);
     padding: 0 20px;
     text-align: center;
+
+    @include media($tablet-1024-up) {
+        &:hover {
+            border-color: darken($bg-primary-button, 18%);
+            color: darken($bg-primary-button, 18%);
+        }
+    }
 }
 
 .btn-link {
+    @include transition(all .3s ease);
     background: none;
     border: 0;
     color: $text-button-link;
     display: inline-block;
     font-size: 18px;
     line-height: (22/18);
+
+    @include media($tablet-1024-up) {
+        &:hover {
+            color: darken($bg-primary-button, 18%);
+        }
+    }
 }

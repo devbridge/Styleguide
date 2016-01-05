@@ -14,11 +14,12 @@
 
 .page-header {
     display: table;
+    table-layout: fixed;
     width: 100%;
 
     &-box {
         display: table-cell;
-        height: 85px;
+        height: 70px;
         vertical-align: middle;
 
         .links-group {
@@ -29,8 +30,38 @@
                 float: left;
 
                 + a {
-                    margin-left: 30px;
+                    margin-left: 20px;
                 }
+            }
+        }
+    }
+
+    @include media($tablet-768-up) {
+        &-box {
+            .links-group {
+                a {
+                    + a {
+                        margin-left: 30px;
+                    }
+                }
+            }
+        }
+    }
+
+    @include media($tablet-600-up) {
+        &-box {
+            height: 85px;
+        }
+    }
+
+    @include media($tablet-600) {
+        &-box {
+            &:first-child {
+                display: none;
+            }
+
+            &:last-child {
+                display: none;
             }
         }
     }
@@ -41,6 +72,7 @@
 
     img {
         display: block;
+        margin: 0 auto;
     }
 }
 
