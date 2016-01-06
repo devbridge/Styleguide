@@ -74,8 +74,13 @@
 }
 
 .sg-snippets-controls {
+    display: none;
     float: right;
     position: relative;
+
+    .server-on & {
+        display: block;
+    }
 
     .dropdown-list {
         left: auto;

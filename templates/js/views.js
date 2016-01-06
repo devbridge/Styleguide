@@ -73,10 +73,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
         categoryService.getCategories(function (categories) {
             views = pages = pages.concat(categories);
-            pages.push({
-                name: 'Deleted Snippets',
-                id: 'deleted'
-            });
 
             len = pages.length;
 
@@ -124,7 +120,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
     };
 
     var redrawPage = function (categoryId) {
-        var snippetResizeControls = $('.js-snippet-resize-controls'),
+        var snippetResizeControls = $('.js-sg-snippets-resize'),
             homeNavigation = $('.js-home-navigation'),
             currentPage = $('.js-current-page');
 
@@ -168,13 +164,22 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
     var defaultResolutionsHandler = function (width, fromInput) {
         var iFrames = $('iframe'),
             iFramesArray = iFrames.get(),
+
+            updateField = fromInput ? false : true,
+            windowWidth = $(window).width(),
+            inputWidth = width,
+
+            //array
             len = iFramesArray.length,
-            index,
-            updateField = fromInput ? false : true;
+            index;
 
         //in case of invalid input
-        if(width < 320 || width === "" || isNaN(width)) {
+        if (width < 320 || width === "" || isNaN(width)) {
             width = 320;
+        }
+
+        if (width + 100 > windowWidth) {
+            width = windowWidth - 100;
         }
 
         //snippets elements
@@ -191,7 +196,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         }
 
         //variables
-        document.cookie = "styleguideMedia=" + width + "; path=/";
+        document.cookie = "styleguideMedia=" + inputWidth + "; path=/";
         defaultResolution = width;
 
         //update iFrames heights to avoid scrollbars
@@ -201,10 +206,14 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
     var bindResolutionActions = function () {
         var customInput = $('.js-custom-media'),
             mediaList = $('.js-media-list'),
-            tempLi,
-            tempButton,
+
             mediaCookie = document.cookie.replace(/(?:(?:^|.*;\s*)styleguideMedia\s*\=\s*([^;]*).*$)|^.*$/, "$1"), //session cookie
-            firstValue = false; //assumed default viewport
+            firstValue = false, //assumed default viewport
+            windowWidth = $(window).width(),
+
+            //array
+            tempLi,
+            tempButton;
 
         $.getJSON('../styleguide_config.txt', function (data) {
             //viewport dropdown buttons generator
@@ -223,8 +232,14 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             });
 
             //init value
+            if (mediaCookie !== "") {
+                firstValue = parseFloat(mediaCookie);
+            }
             if(firstValue < 320 || firstValue === "" || isNaN(firstValue)) {
                 firstValue = 320;
+            }
+            if (firstValue + 100 + 20 > windowWidth) {
+                firstValue = windowWidth - 100 - 20;
             }
 
             if (mediaCookie === "") {
@@ -233,7 +248,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 defaultResolution = firstValue;
             } else {
                 customInput.val(mediaCookie);
-                defaultResolution = mediaCookie;
+                defaultResolution = firstValue;
             }
         });
 
@@ -254,8 +269,35 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
             defaultResolutionsHandler(width, true);
         }
-
         customInput.on('keydown change keyup', customInputEvents);
+
+        //resize event to keep iframes smaller than screen
+        $(window).on('resize', function () {
+            $(".js-snippet").each(function (index, value) {
+                var currentSnippet = $(value),
+                    iframeJQ = currentSnippet.find('iframe'),
+                    iframeJS = iframeJQ.get(0),
+                    snippetWidth = parseFloat(currentSnippet.find('.js-snippet-preview').css('width')),
+                    resizeWindowWidth = $(window).width(),
+                    width;
+
+                if (snippetWidth + 100 > resizeWindowWidth) {
+                    width = resizeWindowWidth - 100;
+                    iframeJS.style.width = width;
+                    currentSnippet
+                        .find('.js-snippet-preview')
+                        .css('width', width)
+                        .end()
+                        .find('.js-snippet-size')
+                        .text(width + 'px')
+                        .end()
+                        .find('.js-resize-length')
+                        .css('width', parseInt(width / 2, 10));
+
+                    snippetActions.handleHeights(iframeJQ);
+                }
+            });
+        });
     };
 
     window.onpopstate = function (event) {
@@ -300,7 +342,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
         //module 'new snippet' button
         $newSnippetBtnOpen.on("click", function () {
-            $newSnippetForm.toggle();
+            $newSnippetForm.toggleClass("active");
 
             ace
                 .edit('jsNewCss')
@@ -312,7 +354,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
         //module 'cancel' button for new snippet creation
         $newSnippetCancel.on("click", function () {
-            $newSnippetForm.hide();
+            $newSnippetForm.removeClass("active");
         });
     };
 
@@ -326,6 +368,10 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 $('html').addClass('server-on');
                 $('.js-scrape-snipp').on('click', $.proxy(snippetActions.scrapeHandler, null, 'snippets'));
                 $('.js-scrape-sass').on('click', $.proxy(snippetActions.scrapeHandler, null, 'sass'));
+                $('.js-create-snippet').submit({isNew: true}, snippetActions.createEditSnippet);
+                newSnippetControls();
+                deletedSnippetsNav();
+
                 if (data) {
                     $.openModal({
                         title: 'Found Duplicates!',
@@ -337,16 +383,18 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         });
     };
 
+    var deletedSnippetsNav = function () {
+        $('.js-deleted-snippets').on('click', bindNavClick);
+    };
+
     module.init = function () {
         editorService.init();
         bindResolutionActions();
         buildNavigation($('.js-navigation'), '.js-navigation-list', true);
         buildNavigation($('.js-home-navigation'), '.js-navigation-list', false);
         categoryService.bindCategoriesToForm($('.js-form-select').first());
-        openDropdown();
-        newSnippetControls();
         initSnippetService();
-        $('.js-create-snippet').submit({isNew: true}, snippetActions.createEditSnippet);
+        openDropdown();
     };
 
     module.getCurrentView = function () {

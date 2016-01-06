@@ -125,10 +125,7 @@ var sassService = (function ($) {
     var parseFonts = function (typography) {
         var fontsContainer = $('.js-fonts-container'),
             fontTpl = $('.js-font-tpl'),
-            examplesContainer = $('.js-examples-container'),
-            exampleTpl = $('.js-font-example'),
             currentFontView,
-            currentExampleView,
             currentFont,
             index,
             len = typography.length,
@@ -137,20 +134,11 @@ var sassService = (function ($) {
             fontDescription;
 
         fontsContainer.empty();
-        examplesContainer.empty();
 
         for (index = 0; index < len; index++) {
             currentFont = typography[index];
-            currentExampleView = exampleTpl.clone(true);
-
-            currentExampleView.css({
-                'font-family': currentFont.value
-            });
 
             fontDescription = currentFont.variable + ': ' + currentFont.value + ';';
-            currentExampleView.prepend($('<p>' + fontDescription + '</p>'));
-
-            examplesContainer.append(currentExampleView);
 
             if (currentFont.weights) {
                 weightsLen = currentFont.weights.length;
@@ -184,7 +172,6 @@ var sassService = (function ($) {
                 }
             } else {
                 fontsContainer.append('Weights were not defined for ' + currentFont.variable + '.<br>');
-                examplesContainer.append('Weights were not defined for ' + currentFont.variable + '.<br>');
             }
         }
     };
@@ -192,30 +179,42 @@ var sassService = (function ($) {
     module.loadSass = function () {
         getSassData(function (data) {
             var sassContent = $($('#sass-page').html()),
-                errorMessage = 'Sass variables has not been scraped yet or markers were not found in file!';
+                errorMessage = '<div class="sg-general-page-message">Sass variables has not been scraped yet or markers were not found in file!</div>',
+                snippetsContents,
+                snippets = [];
 
             $('.main').append(sassContent);
 
             if (!data.length) {
-                $('.js-color-box').html(errorMessage);
-                $('.js-font-tpl').html(errorMessage);
-                $('.js-font-example').html(errorMessage);
+                $('.js-snippet-colors').html(errorMessage);
+                $('.js-fonts-container').parent().html(errorMessage);
                 return;
             }
 
             if (data[0].colors) {
                 parseColors(data[0].colors);
             } else {
-                $('.js-color-box').html(errorMessage);
+                $('.js-snippet-colors').html(errorMessage);
             }
 
             if (data[0].typography) {
                 parseFonts(data[0].typography);
             } else {
-                $('.js-font-tpl').html(errorMessage);
-                $('.js-font-example').html(errorMessage);
+                $('.js-fonts-container').parent().html(errorMessage);
             }
 
+            snippetsContents = $(".js-styles-preview");
+
+            snippetsContents.each(function (index, value) {
+                snippets.push({
+                    id: 'static-' + index,
+                    content: $(value).html()
+                });
+            });
+
+            iframesService.formFramesForStatic(snippets, function (frames, snippets) {
+                snippetActions.drawStaticSnippets(frames, snippets, snippetsContents);
+            });
         });
     };
 

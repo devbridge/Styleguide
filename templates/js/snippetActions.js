@@ -404,7 +404,6 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     module.drawSnippets = function (frames, snippets) {
         var index,
             len = frames.length;
-
         iframesService.getTemplate(function (template) {
             for (index = 0; len > index; index++) {
                 drawSnippet(template, snippets[index], frames[index]);
@@ -414,12 +413,55 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         });
     };
 
+    module.drawStaticSnippets = function (frames, snippets, snippetsContents) {
+        var index,
+            len = snippets.length,
+            tempCode,
+            snippetFrame;
+
+        iframesService.getTemplate(function (template) {
+            for (index = 0; len > index; index++) {
+                //save source code
+                tempCode = $(snippets[index].content).clone();
+
+                //create frame
+                $(snippetsContents[index])
+                    .html(frames[index])
+                    .append('<div></div>');
+
+                //select frame
+                snippetFrame = $('#snippet-' + snippets[index].id);
+
+                //iframe magic
+                module.appendIframeContent(snippetFrame, template, tempCode, '', false);
+                snippetFrame.load($.proxy(module.appendIframeContent, null, snippetFrame, template, tempCode, '', false));
+
+                //some static parts are smaller than 320px in width
+                snippetFrame
+                    .contents()
+                    .find("body")
+                    .css("min-width", 0);
+            }
+            //TODO: redo that the content would be appended with iframe, so that timeout could be removed
+            setTimeout($.proxy(module.handleHeights, null, $('iframe')), 1000);
+        });
+    };
+
     module.handleHeights = function (iframes) {
         var len = iframes.length,
-            index;
+            index,
+            snippet,
+            overflow,
+            height;
 
         for (index = 0; index < len; index++) {
-            $(iframes[index]).height($(iframes[index]).contents().height());
+            snippet = $(iframes[index]).contents().find("#snippet");
+            overflow = snippet.css("overflow");
+            snippet.css("overflow", "scroll");
+            height = snippet.outerHeight();
+            snippet.css("overflow", overflow);
+
+            $(iframes[index]).height(height);
         }
     };
 

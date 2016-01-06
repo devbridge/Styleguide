@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="content/main.css">
 </head>
 <body>
+<!--Page Header-->
 <div class="page-container">
     <div class="sg-header">
         <div class="sg-page-wrapper">
@@ -30,7 +31,7 @@
             </nav>
 
             <!-- Action menu -->
-            <div class="sg-snippets-controls">
+            <div class="sg-snippets-controls js-snippets-controls">
                 <button class="btn-menu js-open-dropdown" type="button" title="Menu"></button>
                 <div class="dropdown-list js-dropdown-list">
                     <ul>
@@ -43,12 +44,15 @@
                         <li>
                             <button class="js-scrape-sass" type="button">Scrape Scss</button>
                         </li>
+                        <li>
+                            <button class="js-deleted-snippets" data-id="deleted" type="button">Deleted Snippets</button>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <!-- Resize -->
-            <div class="sg-snippets-resize">
+            <div class="sg-snippets-resize js-sg-snippets-resize">
                 <button class="btn-dropdown js-open-dropdown" type="button" title="Menu"></button>
                 <div class="dropdown-list js-dropdown-list">
                     <ul class="js-media-list">
@@ -62,7 +66,9 @@
 
         </div>
     </div>
-    <div class="snippet-settings js-new-snippet-form" style="display: none;">
+
+    <!--New snippet panel-->
+    <div class="snippet-settings js-new-snippet-form">
         <div class="sg-snippet-form sg-edit-snippet-form">
 
             <form class="js-create-snippet" action="/snippets">
@@ -96,17 +102,17 @@
                                     <span class="fake-box"></span>
                                     Include Javascript
                                 </label>
-                                <span class="tooltip">
-                                    <span class="tooltip-text">Appends JavaScript files that are specified in styleguide settings to this snippet</span>
-                                </span>
+                                        <span class="tooltip">
+                                            <span class="tooltip-text">Check if you want to execute javascript referenced in styleguide settings.</span>
+                                        </span>
                             </div>
                         </div>
                         <div class="medium-4 columns">
                             <div class="tooltip-pos-right clearfix">
                                 <label class="field-label">Inline CSS:</label>
-                                <span class="tooltip pos-right">
-                                    <span class="tooltip-text">Add snippet environment CSS here. f.e. wrapper background, minimum or maximum size, background or borders for layout snippets visualization</span>
-                                </span>
+                                        <span class="tooltip pos-right">
+                                            <span class="tooltip-text">Add extra CSS to handle or enhance your snippet (e.g. background color, position relative).</span>
+                                        </span>
                             </div>
 
                             <div class="sg-editor-holder">
@@ -120,22 +126,29 @@
                 </div>
                 <div class="row sg-controls-row">
                     <div class="sg-page-wrapper">
-                        <button class="btn-primary" type="submit">Create</button>
-                        <button class="btn-blank js-new-snippet-cancel" type="button">Cancel</button>
                         <h3 class="sg-snippet-title">New Snippet</h3>
+                        <div class="sg-controls-buttons">
+                            <button class="btn-blank js-new-snippet-cancel" type="button">Cancel</button>
+                            <button class="btn-primary" type="submit">Create</button>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
+    <!--Home navigation-->
     <nav class="sg-home-navigation js-home-navigation">
         <div class="sg-page-wrapper">
             <ul class="js-navigation-list clearfix"></ul>
         </div>
     </nav>
+
+    <!--Main-->
     <div class="main"></div>
 </div>
 
+<!--Page Footer-->
 <div class="sg-footer">
     <div class="sg-page-wrapper clearfix">
         <div class="pull-left sg-footer-info-box">
@@ -152,6 +165,7 @@
     </div>
 </div>
 
+<!--Snippet Edit Form-->
 <script type="text/html" id="snippet">
     <div class="sg-snippet js-snippet">
 
@@ -169,7 +183,7 @@
         </div>
 
         <!-- Snippet Info -->
-        <div class="sg-snippet-info js-snippet-code" style="display: none;">
+        <div class="sg-snippet-info js-snippet-code">
             <div class="sg-page-wrapper drawer-tip">
 
                 <div class="sg-snippet-code">
@@ -186,7 +200,7 @@
         </div>
 
         <!-- Snippet Settings -->
-        <div class="snippet-settings js-snippet-settings" style="display: none">
+        <div class="snippet-settings js-snippet-settings">
             <div class="sg-snippet-form sg-edit-snippet-form">
 
                 <form class="js-edit-snippet">
@@ -219,17 +233,17 @@
                                         <span class="fake-box"></span>
                                         Include JavaScript
                                     </label>
-                                    <span class="tooltip">
-                                        <span class="tooltip-text">Appends JavaScript files that are specified in styleguide settings to this snippet</span>
-                                    </span>
+                                            <span class="tooltip">
+                                              <span class="tooltip-text">Check if you want to execute javascript referenced in styleguide settings.</span>
+                                            </span>
                                 </div>
                             </div>
                             <div class="medium-4 columns">
                                 <div class="tooltip-pos-right clearfix">
                                     <label class="field-label">Inline CSS:</label>
-                                    <span class="tooltip pos-right">
-                                        <span class="tooltip-text">Add snippet environment CSS here. f.e. wrapper background, minimum or maximum size, background or borders for layout snippets visualization</span>
-                                    </span>
+                                            <span class="tooltip pos-right">
+                                                <span class="tooltip-text">Add extra CSS to handle or enhance your snippet (e.g. background color, position relative).</span>
+                                            </span>
                                 </div>
 
                                 <div class="sg-editor-holder">
@@ -249,9 +263,11 @@
                     </div>
                     <div class="row sg-controls-row">
                         <div class="sg-page-wrapper">
-                            <button class="btn-primary" type="submit">Update</button>
-                            <button class="btn-blank js-btn-cancel" type="button">Cancel</button>
                             <h3 class="sg-snippet-title">Edit Snippet</h3>
+                            <div class="sg-controls-buttons">
+                                <button class="btn-blank js-btn-cancel" type="button">Cancel</button>
+                                <button class="btn-primary" type="submit">Update</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -281,6 +297,8 @@
         </div>
     </div>
 </script>
+
+<!--Home Page-->
 <script type="text/html" id="sass-page">
     <div class="sg-intro-container">
         <div class="sg-page-wrapper">
@@ -328,16 +346,23 @@
         <div class="sg-page-wrapper">
             <ul class="sg-snippet-fonts-holder js-fonts-container">
                 <li class="row js-font-tpl">
-                    <div class="medium-2 columns medium-offset-2 sg-snippet-fonts-big js-set-font"
-                            style="font-family: Lato, Arial, sans-serif;">
-                        Aa
+                    <div class="medium-2 columns medium-offset-2">
+                        <div class="js-styles-preview">
+                            <div class="sg-snippet-fonts-big js-set-font" style="font-family: Lato, Arial, sans-serif;">
+                                <div style="font-size: 100px; line-height: 1.25;">
+                                    Aa
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="medium-8 columns js-small-fonts-container">
                         <div class="sg-snippet-fonts-variable js-variable">$font-main: Lato, Arial, sans-serif;</div>
-                        <div class="sg-snippet-fonts-small js-set-font" style="font-family: Lato, Arial, sans-serif;">
-                            a b c d e f g h i j k l m n o p q r s t u v w x y z <br>
-                            A B C D E F G H I J K L M N O P Q R S T U V W X Y Z <br>
-                            1 2 3 4 5 6 7 8 9 0
+                        <div class="js-styles-preview">
+                            <div class="sg-snippet-fonts-small js-set-font" style="font-family: Lato, Arial, sans-serif;">
+                                a b c d e f g h i j k l m n o p q r s t u v w x y z <br>
+                                A B C D E F G H I J K L M N O P Q R S T U V W X Y Z <br>
+                                1 2 3 4 5 6 7 8 9 0
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -355,27 +380,27 @@
             <ul class="sg-snippet-headings-holder">
                 <li class="row">
                     <div class="medium-1 columns medium-offset-1"><h1>&lt;h1&gt;</h1></div>
-                    <div class="medium-10 columns"><h1>The quick brown fox jumps over the lazy dog</h1></div>
+                    <div class="medium-10 columns js-styles-preview"><h1>The quick brown fox jumps over the lazy dog</h1></div>
                 </li>
                 <li class="row">
                     <div class="medium-1 columns medium-offset-1"><h2>&lt;h2&gt;</h2></div>
-                    <div class="medium-10 columns"><h2>The quick brown fox jumps over the lazy dog</h2></div>
+                    <div class="medium-10 columns js-styles-preview"><h2>The quick brown fox jumps over the lazy dog</h2></div>
                 </li>
                 <li class="row">
                     <div class="medium-1 columns medium-offset-1"><h3>&lt;h3&gt;</h3></div>
-                    <div class="medium-10 columns"><h3>The quick brown fox jumps over the lazy dog</h3></div>
+                    <div class="medium-10 columns js-styles-preview"><h3>The quick brown fox jumps over the lazy dog</h3></div>
                 </li>
                 <li class="row">
                     <div class="medium-1 columns medium-offset-1"><h4>&lt;h4&gt;</h4></div>
-                    <div class="medium-10 columns"><h4>The quick brown fox jumps over the lazy dog</h4></div>
+                    <div class="medium-10 columns js-styles-preview"><h4>The quick brown fox jumps over the lazy dog</h4></div>
                 </li>
                 <li class="row">
                     <div class="medium-1 columns medium-offset-1"><h5>&lt;h5&gt;</h5></div>
-                    <div class="medium-10 columns"><h5>The quick brown fox jumps over the lazy dog</h5></div>
+                    <div class="medium-10 columns js-styles-preview"><h5>The quick brown fox jumps over the lazy dog</h5></div>
                 </li>
                 <li class="row">
                     <div class="medium-1 columns medium-offset-1"><h6>&lt;h6&gt;</h6></div>
-                    <div class="medium-10 columns"><h6>The quick brown fox jumps over the lazy dog</h6></div>
+                    <div class="medium-10 columns js-styles-preview"><h6>The quick brown fox jumps over the lazy dog</h6></div>
                 </li>
             </ul>
 
@@ -385,53 +410,59 @@
                     <div class="medium-4 columns">
                         <div class="sg-text-example-title">Regular</div>
 
-                        <p>
-                            The quick brown fox jumps over the lazy dog. One morning, when Gregor Samsa woke
-                            from troubled dreams, he found himself transformed in his bed into a horrible
-                            vermin. He lay on his armour-like back, and if he lifted his head a little he could
-                            see his brown belly, slightly domed and divided by arches into stiff sections.
-                        </p>
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet, consectetuer.</li>
-                            <li>Aliquam tincidunt mauris eu risus.</li>
-                            <li>Vestibulum auctor dapibus neque.</li>
-                        </ul>
+                        <div class="js-styles-preview">
+                            <p>
+                                The quick brown fox jumps over the lazy dog. One morning, when Gregor Samsa woke
+                                from troubled dreams, he found himself transformed in his bed into a horrible
+                                vermin. He lay on his armour-like back, and if he lifted his head a little he could
+                                see his brown belly, slightly domed and divided by arches into stiff sections.
+                            </p>
+                            <ul>
+                                <li>Lorem ipsum dolor sit amet, consectetuer.</li>
+                                <li>Aliquam tincidunt mauris eu risus.</li>
+                                <li>Vestibulum auctor dapibus neque.</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="medium-4 columns">
                         <div class="sg-text-example-title"><strong>Bold</strong></div>
 
-                        <p>
-                            <strong>
-                                The quick brown fox jumps over the lazy dog. One morning, when Gregor Samsa woke
-                                from troubled dreams, he found himself transformed in his bed into a horrible
-                                vermin. He lay on his armour-like back, and if he lifted his head a little he could
-                                see his brown belly, slightly domed and divided by arches into stiff sections.
-                            </strong>
-                        </p>
-                        <ul style="font-weight: bold;">
-                            <li><strong>Lorem ipsum dolor sit amet, consectetuer.</strong></li>
-                            <li><strong>Aliquam tincidunt mauris eu risus.</strong></li>
-                            <li><strong>Vestibulum auctor dapibus neque.</strong></li>
-                        </ul>
+                        <div class="js-styles-preview">
+                            <p>
+                                <strong>
+                                    The quick brown fox jumps over the lazy dog. One morning, when Gregor Samsa woke
+                                    from troubled dreams, he found himself transformed in his bed into a horrible
+                                    vermin. He lay on his armour-like back, and if he lifted his head a little he could
+                                    see his brown belly, slightly domed and divided by arches into stiff sections.
+                                </strong>
+                            </p>
+                            <ul style="font-weight: bold;">
+                                <li><strong>Lorem ipsum dolor sit amet, consectetuer.</strong></li>
+                                <li><strong>Aliquam tincidunt mauris eu risus.</strong></li>
+                                <li><strong>Vestibulum auctor dapibus neque.</strong></li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="medium-4 columns">
                         <div class="sg-text-example-title"><em>Italic</em></div>
 
-                        <p>
-                            <em>
-                                The quick brown fox jumps over the lazy dog. One morning, when Gregor Samsa woke
-                                from troubled dreams, he found himself transformed in his bed into a horrible
-                                vermin. He lay on his armour-like back, and if he lifted his head a little he could
-                                see his brown belly, slightly domed and divided by arches into stiff sections.
-                            </em>
-                        </p>
-                        <ul style="font-style: italic;">
-                            <li><em>Lorem ipsum dolor sit amet, consectetuer.</em></li>
-                            <li><em>Aliquam tincidunt mauris eu risus.</em></li>
-                            <li><em>Vestibulum auctor dapibus neque.</em></li>
-                        </ul>
+                        <div class="js-styles-preview">
+                            <p>
+                                <em>
+                                    The quick brown fox jumps over the lazy dog. One morning, when Gregor Samsa woke
+                                    from troubled dreams, he found himself transformed in his bed into a horrible
+                                    vermin. He lay on his armour-like back, and if he lifted his head a little he could
+                                    see his brown belly, slightly domed and divided by arches into stiff sections.
+                                </em>
+                            </p>
+                            <ul style="font-style: italic;">
+                                <li><em>Lorem ipsum dolor sit amet, consectetuer.</em></li>
+                                <li><em>Aliquam tincidunt mauris eu risus.</em></li>
+                                <li><em>Vestibulum auctor dapibus neque.</em></li>
+                            </ul>
+                        </div>
                     </div>
 
                 </div>

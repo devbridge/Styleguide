@@ -30,11 +30,11 @@
             $btnSettings.on("click", function () {
                 //hide code
                 $btnCode.removeClass("active");
-                $code.hide();
+                $code.removeClass("active");
 
                 //toggle settings
                 $btnSettings.toggleClass("active");
-                $settings.toggle();
+                $settings.toggleClass("active");
 
                 iframesService.getTemplate(function (template) {
                     if ($btnSettings.hasClass("active")) {
@@ -42,7 +42,7 @@
                         originalValues.code = editors.code.getValue();
                         originalValues.css = editors.css.getValue();
 
-                        function onSourceChange () {
+                        function onSourceChange() {
                             snippetActions.appendIframeContent($previewSource, template, editors.code.getValue(), editors.css.getValue());
                             $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, editors.code.getValue(), editors.css.getValue()));
                         }
@@ -84,17 +84,17 @@
             $btnCode.on("click", function () {
                 //hide settings
                 $btnSettings.removeClass("active");
-                $settings.hide();
+                $settings.removeClass("active");
 
                 //toggle code
                 $btnCode.toggleClass("active");
-                $code.toggle();
+                $code.toggleClass("active");
             });
 
             //module 'cancel' button for snippet editing
             $btnCancel.on("click", function () {
                 $btnSettings.removeClass("active");
-                $settings.hide();
+                $settings.removeClass("active");
                 $preview.show();
             });
 
@@ -115,12 +115,13 @@
                     onmove: function (e) {
                         var target = e.target,
                             iframe = $(target).find('iframe').get(0),
-                            width = e.rect.width;
+                            width = e.rect.width,
+                            windowWidth = $(window).width();
 
                         if (width < 160) {
                             width = 160;
-                        } else if (width > 600) {
-                            width = 600;
+                        } else if ((width * 2) + 100 > windowWidth) {
+                            width = (windowWidth - 100) / 2;
                         }
 
                         $preview

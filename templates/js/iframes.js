@@ -74,6 +74,12 @@ var iframesService = (function ($, snippetService) {
         });
     };
 
+    module.formFramesForStatic = function (snippets, callback) {
+        constructFrames(snippets, function (frames) {
+            callback(frames, snippets);
+        });
+    };
+
     module.formFramesForCategory = function (categoryId, callback) {
         snippetService.getByCategoryId(categoryId, function (snippets) {
             constructFrames(snippets, function (frames) {

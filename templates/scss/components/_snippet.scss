@@ -11,10 +11,21 @@
 }
 
 %drawer-style {
+    @include transition(max-height .1s ease-in .2s, opacity .1s ease-out .125s);
     background: $color-grey;
     border-top: 2px solid $color-blue;
     margin-top: -1px;
+    max-height: 0;
+    opacity: 0;
+    overflow: auto;
     position: relative;
+
+    &.active {
+        @include transition(max-height .1s ease-out .125s, opacity .15s ease-in .2s);
+        max-height: 500px;
+        opacity: 1;
+        overflow: visible;
+    }
 }
 
 .drawer-tip {
@@ -90,8 +101,13 @@
         .btn-edit {
             @extend %snippet-btn-style;
             @extend %remove-outline;
+            display: none;
             margin-left: -1px;
             font-size: 0;
+
+            .server-on & {
+                display: block;
+            }
 
             &:before {
                 color: #999;
@@ -123,7 +139,11 @@
 
     .drawer-tip {
         &:before {
-            right: 100px;
+            right: 50px;
+
+            .server-on & {
+                right: 100px;
+            }
         }
     }
 
@@ -310,6 +330,11 @@
         }
 
         .sg-snippet-title {
+            display: inline-block;
+        }
+
+        .sg-controls-buttons {
+            @include clearfix;
             float: right;
         }
     }
