@@ -22,5 +22,18 @@ var categoryService = (function ($) {
         });
     };
 
+    module.getCategoryNameById = function (id) {
+        var name;
+        module.getCategories(function (categories) {
+            categories.map(function (category) {
+                if(category.id === id) {
+                    name = category.name;
+                }
+            });
+        });
+
+        return name;
+    };
+
     return module;
 })(jQuery || {});

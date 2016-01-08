@@ -29,7 +29,10 @@
             //module snippet's edit button
             $btnSettings.on("click", function () {
                 //hide code
-                $btnCode.removeClass("active");
+                $btnCode
+                    .removeClass("active")
+                    .text("Show code")
+                    .attr("data-toggle-text", "Hide code");
                 $code.removeClass("active");
 
                 //toggle settings
@@ -80,14 +83,19 @@
             });
 
             //module 'show code' button for snippet editing
-            //TODO improvement: 'hide code' text?
             $btnCode.on("click", function () {
+                var currentText = $btnCode.text(),
+                    toggleText = $btnCode.attr("data-toggle-text");
+
                 //hide settings
                 $btnSettings.removeClass("active");
                 $settings.removeClass("active");
 
                 //toggle code
-                $btnCode.toggleClass("active");
+                $btnCode
+                    .toggleClass("active")
+                    .text(toggleText)
+                    .attr("data-toggle-text", currentText);
                 $code.toggleClass("active");
             });
 
@@ -96,11 +104,6 @@
                 $btnSettings.removeClass("active");
                 $settings.removeClass("active");
                 $preview.show();
-            });
-
-            //TODO clarify: check if used
-            $sizeIndicator.on('keyup', function () {
-                $preview.find('iframe').get(0).style.width = $sizeIndicator.val();
             });
 
             //module draggable snippet sizer
@@ -113,9 +116,7 @@
                         top: false
                     },
                     onmove: function (e) {
-                        var target = e.target,
-                            iframe = $(target).find('iframe').get(0),
-                            width = e.rect.width,
+                        var width = e.rect.width,
                             windowWidth = $(window).width();
 
                         if (width < 160) {
@@ -130,12 +131,13 @@
                         $preview[0].style.width = (width * 2) + 'px';
                         $resizeLength[0].style.width = width + 'px';
                         $sizeIndicator.text((width * 2) + "px");
-
+                        snippetActions.handleHeights($previewSource);
                     },
                     onend: function () {
                         $preview
                             .find(snippetSource)
                             .removeClass('resize-overlay');
+                        snippetActions.handleHeights($previewSource);
                     }
                 });
         }

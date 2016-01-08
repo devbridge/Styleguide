@@ -387,6 +387,110 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         $('.js-deleted-snippets').on('click', bindNavClick);
     };
 
+    module.notifications = {
+        notificationsContainer: $(".js-notifications"),
+        template: '' +
+            '<div class="sg-notification-item js-notification-item">' +
+                '<span class="sg-notification-item-text">{{message}}</span>' +
+            '</div>',
+        pushMessage: function (message) {
+            var currentMessage = $(module.notifications.template.replace('{{message}}', message)),
+                localTimeout;
+
+            function activateTimeout (miliseconds) {
+                localTimeout = setTimeout(function () {
+                    //remove element and events
+                    currentMessage
+                        .remove();
+                    module
+                        .notifications
+                        .notificationsContainer
+                        .off("mouseover", removeTimeout)
+                        .off("mouseout", reactiveTimeout)
+                        .find(".js-close-notifications")
+                        .off("click", closeImmediately);
+
+                    //check if it was the last item
+                    if (module.notifications.notificationsContainer.find("> .js-notification-item").length === 0) {
+                        module
+                            .notifications
+                            .notificationsContainer
+                            .removeClass("show removing-5 removing-10")
+                            .addClass("quick-opacity");
+                    }
+                }, miliseconds);
+            }
+
+            //mouse over wrapper - opacity to 1 and all items stay in place
+            function removeTimeout () {
+                module
+                    .notifications
+                    .notificationsContainer
+                    .removeClass("removing-5 removing-10")
+                    .addClass("quick-opacity");
+                clearTimeout(localTimeout);
+            }
+
+            //mouse out - opacity to .85 in 5 seconds for all items
+            function reactiveTimeout () {
+                module
+                    .notifications
+                    .notificationsContainer
+                    .addClass("show removing-5")
+                    .removeClass("quick-opacity");
+                activateTimeout(5000);
+            }
+
+            //every item closes itself, since it is the easiest way to handle all events
+            function closeImmediately () {
+                activateTimeout(1);
+            }
+
+            //add new message to top
+            module
+                .notifications
+                .notificationsContainer
+                .prepend(currentMessage);
+
+            //set wrappers opacity to 1 and go to .85 in 10 seconds
+            setTimeout(function () {
+                module
+                    .notifications
+                    .notificationsContainer
+                    .addClass("show removing-10")
+                    .removeClass("quick-opacity")
+                    //required when there are more than one item in notifications
+                    //remove transitions
+                    .css({
+                        "transition": "0s",
+                        "-webkit-transition": "0s",
+                        "-moz-transition": "0s"
+                    })
+                    //animate opacity to 1
+                    .animate(
+                        {
+                            opacity: 1
+                        },
+                        200,
+                        function () {
+                            $(this).removeAttr("style"); //removes transitions and opacity from inline styles
+                        }
+                    );
+            }, 1);
+
+            activateTimeout(10000); // set 10 seconds until removing item
+
+            //attach events
+            module
+                .notifications
+                .notificationsContainer
+                .on("mouseover", removeTimeout)
+                .on("mouseout", reactiveTimeout)
+                .find(".js-close-notifications") //todo optimize selector since it is always there
+                .on("click", closeImmediately);
+        }
+    };
+
     module.init = function () {
         editorService.init();
         bindResolutionActions();

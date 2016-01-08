@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="content/main.css">
 </head>
 <body>
-<!--Page Header-->
+<!-- Page Header -->
 <div class="page-container">
     <div class="sg-header">
         <div class="sg-page-wrapper">
@@ -67,13 +67,14 @@
         </div>
     </div>
 
-    <!--New snippet panel-->
+    <!-- New snippet panel -->
     <div class="snippet-settings js-new-snippet-form">
         <div class="sg-snippet-form sg-edit-snippet-form">
 
             <form class="js-create-snippet" action="/snippets">
                 <div class="sg-page-wrapper drawer-tip">
                     <div class="sg-form-wrapper">
+                        <!-- Left -->
                         <div class="medium-3 columns">
                             <div class="field-wrapper">
                                 <input type="text" id="new-name" class="field-text js-form-submit-field" data-js-field-name="name" required placeholder="Snippet name">
@@ -84,9 +85,11 @@
                                 </select>
                             </div>
                             <div class="field-wrapper sg-no-margin">
-                                <textarea id="new-description" class="field-textarea js-form-submit-field" data-js-field-name="description"></textarea>
+                                <textarea id="new-description" class="field-textarea js-form-submit-field" data-js-field-name="description" placeholder="Description"></textarea>
                             </div>
                         </div>
+
+                        <!-- Middle -->
                         <div class="medium-5 columns">
                             <label class="field-label">Code:</label>
                             <div class="sg-editor-holder">
@@ -107,6 +110,8 @@
                                         </span>
                             </div>
                         </div>
+
+                        <!-- Right -->
                         <div class="medium-4 columns">
                             <div class="tooltip-pos-right clearfix">
                                 <label class="field-label">Inline CSS:</label>
@@ -137,18 +142,18 @@
         </div>
     </div>
 
-    <!--Home navigation-->
+    <!-- Home navigation -->
     <nav class="sg-home-navigation js-home-navigation">
         <div class="sg-page-wrapper">
             <ul class="js-navigation-list clearfix"></ul>
         </div>
     </nav>
 
-    <!--Main-->
+    <!-- Main -->
     <div class="main"></div>
 </div>
 
-<!--Page Footer-->
+<!-- Page Footer -->
 <div class="sg-footer">
     <div class="sg-page-wrapper clearfix">
         <div class="pull-left sg-footer-info-box">
@@ -165,7 +170,12 @@
     </div>
 </div>
 
-<!--Snippet Edit Form-->
+<!-- Notification -->
+<div class="sg-notification js-notifications">
+    <button class="sg-notifications-x js-close-notifications"></button>
+</div>
+
+<!-- Snippet Edit Form -->
 <script type="text/html" id="snippet">
     <div class="sg-snippet js-snippet">
 
@@ -176,7 +186,7 @@
                 <div class="sg-snippet-size js-snippet-size">1200px</div>
 
                 <div class="sg-header-controls">
-                    <button class="btn-show-code js-snippet-code-btn" type="button">Show code</button>
+                    <button class="btn-show-code js-snippet-code-btn" type="button" data-toggle-text="Hide code">Show code</button>
                     <button class="btn-edit js-snippet-settings-btn" type="button" title="Edit snippet">Edit snippet</button>
                 </div>
             </div>
@@ -206,6 +216,7 @@
                 <form class="js-edit-snippet">
                     <div class="sg-page-wrapper drawer-tip">
                         <div class="sg-form-wrapper">
+                            <!-- Left -->
                             <div class="medium-3 columns">
                                 <div class="field-wrapper">
                                     <input type="text" id="edit-name" class="field-text js-form-submit-field" data-js-field-name="name" required placeholder="Snippet name">
@@ -215,9 +226,11 @@
                                     </select>
                                 </div>
                                 <div class="field-wrapper sg-no-margin">
-                                    <textarea id="edit-description" class="field-textarea js-form-submit-field" data-js-field-name="description"></textarea>
+                                    <textarea id="edit-description" class="field-textarea js-form-submit-field" data-js-field-name="description" placeholder="Description"></textarea>
                                 </div>
                             </div>
+
+                            <!-- Middle -->
                             <div class="medium-5 columns">
                                 <label class="field-label">Code:</label>
                                 <div class="sg-editor-holder">
@@ -234,10 +247,12 @@
                                         Include JavaScript
                                     </label>
                                             <span class="tooltip">
-                                              <span class="tooltip-text">Check if you want to execute javascript referenced in styleguide settings.</span>
+                                                <span class="tooltip-text">Check if you want to execute javascript referenced in styleguide settings.</span>
                                             </span>
                                 </div>
                             </div>
+
+                            <!-- Right -->
                             <div class="medium-4 columns">
                                 <div class="tooltip-pos-right clearfix">
                                     <label class="field-label">Inline CSS:</label>

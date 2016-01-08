@@ -39,15 +39,13 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                         var content;
                         if (typeof data === 'object' && data.isDeleted) {
                             $('#' + data.id).detach();
-                            content = '<p>Snippet successfully deleted!</p>';
+                            content = 'Snippet <span class="sg-notification-item-highlight">' + data.name + '</span> was deleted from <span class="sg-notification-item-highlight">' + categoryService.getCategoryNameById(snippet.category) + '</span> category, but you can find it in Deleted Snippets page which you can reach from "+" menu';
                         } else {
-                            content = '<p>' + data + '</p>';
+                            content = data;
                         }
-                        $.openModal({
-                            title: 'Snippet Deletion',
-                            width: 500,
-                            content: content
-                        });
+                        viewService
+                            .notifications
+                            .pushMessage("Snippet Deletion: " + content);
                     });
                 });
             }
@@ -67,7 +65,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         }
 
         frame
-            .find('style') //TODO fix: it should not remove template style
+            .find('style#snippet-style')
             .empty()
             .append(css)
             .end()
@@ -146,7 +144,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             includeJs = snippet.includeJs,
             formFields = snippetEdit.find('.js-form-submit-field'),
             resolution = viewService.getDefaultResolution(),
-            iframeWindow;
+            iframeWindow,
+            clipboard;
 
         currentSnippetElement.attr('id', snippet.id);
 
@@ -194,11 +193,6 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         iframeWindow.style.width = resolution;
         snippetPreview.css('width', resolution);
 
-        //TODO used?
-        if (snippet.isEdited) {
-            currentSnippetElement.addClass('edited-snippet');
-        }
-
         for (fieldIndex = 0, fieldLen = formFields.length; fieldIndex < fieldLen; fieldIndex++) {
             currentField = $(formFields[fieldIndex]);
             currentField.val(snippet[currentField.data('js-field-name')]);
@@ -212,7 +206,15 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, includeJs));
 
         //init copy button
-        new ZeroClipboard(currentSnippetElement.find('.js-copy-code').get());
+        clipboard = new ZeroClipboard(currentSnippetElement.find('.js-copy-code').get());
+
+        clipboard.on("ready", function () {
+            clipboard.on("aftercopy", function (event) {
+                viewService
+                    .notifications
+                    .pushMessage("Copied code of snippet <span class='sg-notification-item-highlight'>" + snippet.name + "</span> to clipboard: <pre class='sg-notification-item-highlight'>" + event.data["text/plain"] + "</pre>");
+            });
+        });
     };
 
     var submitSnippet = function (data, form) {
@@ -220,7 +222,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             var modalContent;
             if (typeof snippet === 'string') {
                 //error
-                modalContent = '<p>' + snippet + '</p>';
+                modalContent = snippet;
             } else if (typeof snippet === 'object') {
                 //snippet creation in current category
                 if(snippet.category === viewService.getCurrentView().id) {
@@ -231,17 +233,15 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                     });
                 }
 
-                modalContent = '<p>Snippet Created successfully!</p>';
+                modalContent = 'New snippet <span class="sg-notification-item-highlight">' + snippet.name + '</span> was added to <span class="sg-notification-item-highlight">' + categoryService.getCategoryNameById(snippet.category) + '</span> category.';
                 clearOutForm(form);
-                $(".js-new-snippet-form").toggle();
+                $(".js-new-snippet-form").toggleClass("active");
             }
 
             form.removeClass('preloading');
-            $.openModal({
-                title: 'Snippet Creation',
-                width: 500,
-                content: modalContent
-            });
+            viewService
+                .notifications
+                .pushMessage("Snippet Creation: " + modalContent);
         });
     };
 
@@ -279,26 +279,22 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                     .find('.js-copy-code')
                     .attr('data-clipboard-text', snippet.code);
 
-                snippetContainer.addClass('edited-snippet');
-
                 snippetContents = snippetContainer.find('iframe');
 
                 module.appendIframeContent(snippetContents, null, snippet.code, snippet.inlineCss, includeJs);
                 snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, null, snippet.code, snippet.inlineCss, includeJs));
 
                 snippetContents.addClass('updated');
-                modalContent = '<p>Snippet updated successfully!</p>';
+                modalContent = 'Snippet <span class="sg-notification-item-highlight">' + snippet.name + '</span> was updated and you can find it in <span class="sg-notification-item-highlight">' + categoryService.getCategoryNameById(snippet.category) + '</span> category.';
             } else {
                 //edit error
-                modalContent = '<p>' + snippet + '</p>';
+                modalContent = snippet;
             }
 
             form.removeClass('preloading');
-            $.openModal({
-                title: 'Update Snippet',
-                width: 500,
-                content: modalContent
-            });
+            viewService
+                .notifications
+                .pushMessage("Snippet Update: " + modalContent);
         });
     };
 
