@@ -38,6 +38,21 @@ var editorService = (function ($) {
                 editor.resize();
             }
         });
+
+        //editor controls: update snippet when ctrl + s
+        commands.push({
+            name: 'Save on Ctrl-S',
+            bindKey: {
+                win: 'Ctrl-S',
+                mac: 'Command-S'
+            },
+            exec: function(editor) {
+                $(editor.container)
+                    .parents(".js-edit-snippet, .js-create-snippet")
+                    .find('button[type="submit"]')
+                    .click(); //button click triggers validation
+            }
+        });
     };
 
     //module editors configuration for new snippet

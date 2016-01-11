@@ -210,9 +210,22 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
 
         clipboard.on("ready", function () {
             clipboard.on("aftercopy", function (event) {
+                var tempWrapper = $("<span>Copied code of snippet <span class='sg-notification-item-highlight'>" + snippet.name + "</span> to clipboard:</span>"),
+                    tempCode = $("<code class='sg-notification-item-highlight'></code>"),
+                    linesOfCode = event.data["text/plain"].split(/\r\n|\r|\n/).length;
+
+                tempCode
+                    .text(event.data["text/plain"])
+                    .appendTo(tempWrapper);
+
+                if (linesOfCode > 3) {
+                    tempCode
+                        .addClass("extra-lines");
+                }
+
                 viewService
                     .notifications
-                    .pushMessage("Copied code of snippet <span class='sg-notification-item-highlight'>" + snippet.name + "</span> to clipboard: <pre class='sg-notification-item-highlight'>" + event.data["text/plain"] + "</pre>");
+                    .pushMessage(tempWrapper.get(0).outerHTML);
             });
         });
     };
@@ -448,14 +461,23 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             index,
             snippet,
             overflow,
+            overflowData,
             height;
 
         for (index = 0; index < len; index++) {
-            snippet = $(iframes[index]).contents().find("#snippet");
+            snippet = $(iframes[index]).contents().find("#snippet"); // element for height measurement
             overflow = snippet.css("overflow");
-            snippet.css("overflow", "scroll");
+            overflowData = snippet.attr("data-default-overflow");
+
+            if (overflowData !== undefined && overflowData !== "") {
+                overflow = overflowData;
+            } else {
+                snippet.attr("data-default-overflow", overflow); //sets default after first check, so temp value does not get picked on resize iterations
+            }
+
+            snippet.css("overflow", "scroll"); // sets temp value for measuring
             height = snippet.outerHeight();
-            snippet.css("overflow", overflow);
+            snippet.css("overflow", overflow); // sets styling value
 
             $(iframes[index]).height(height);
         }

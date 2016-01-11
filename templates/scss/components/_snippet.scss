@@ -19,6 +19,7 @@
     opacity: 0;
     overflow: auto;
     position: relative;
+    width: 100%;
 
     &.active {
         @include transition(max-height .1s ease-out .125s, opacity .15s ease-in .2s);

@@ -482,15 +482,28 @@ $btn-ghost-radius: $border-radius;
             color: $color-white;
         }
         
-        pre {
+        code {
             background: tint($color-blue, 20%);
             box-sizing: border-box;
             display: block;
-            max-height: 100px;
+            max-height: 4.9em; // 3 * 1.5 + 0.2 * 2 == 3 lines * 1.5 line-height + 0.2 vertical padding * 2
             max-width: 100%;
             overflow: hidden;
-            padding: 5px;
+            padding: .2em;
             text-align: left;
+            white-space: pre;
+
+            &.extra-lines {
+                &:after {
+                    @include transform(translateX(-50%));
+                    bottom: 0;
+                    content: '...';
+                    font-size: 16px;
+                    left: 50%;
+                    line-height: 1;
+                    position: absolute;
+                }
+            }
         }
 
         &:before {
