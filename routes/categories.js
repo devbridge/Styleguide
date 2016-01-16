@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
 
 router.post('/', function (req, res) {
 	var categories = JSON.parse(fs.readFileSync(databaseConfig.categories, 'utf8')),
-		uniqueIds = _.pluck(categories, 'id'),
+		uniqueIds = _.map(categories, 'id'),
 		newCategory = {},
 		id = 1;
 
@@ -35,6 +35,7 @@ router.post('/', function (req, res) {
 	categories.push(newCategory);
 
 	jf.writeFileSync(databaseConfig.categories, categories);
+	jf.writeFileSync(path.join(databaseConfig.database, newCategory.name + databaseConfig.extension), []);
 
 	res.json(newCategory);
 });

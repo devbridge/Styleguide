@@ -135,8 +135,8 @@ var initialize = function() {
   fs.writeFileSync(path.join(dbFolder, 'uniques.txt'), formatter.plain([]));
   fs.writeFileSync(path.join(dbFolder, 'sassdata.txt'), formatter.plain([]));
   fs.writeFileSync(path.join(currentFolder, 'styleguide_config.txt'), formatter.plain(mainConfig));
-  fs.writeFileSync(path.join(rootFolder, 'database_config.txt', formatter.plain(dbConfig)));
-  fs.writeFileSync(path.join(dbFolder, 'categories.txt', formatter.plain(initialCategories)));
+  fs.writeFileSync(path.join(rootFolder, 'database_config.txt'), formatter.plain(dbConfig));
+  fs.writeFileSync(path.join(dbFolder, 'categories.txt'), formatter.plain(initialCategories));
 
   process.exit(0);
 
