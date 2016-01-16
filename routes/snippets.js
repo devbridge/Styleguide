@@ -1,7 +1,8 @@
 var express = require('express'),
   fs = require('fs'),
   path = require('path'),
-  config = JSON.parse(fs.readFileSync('styleguide_config.txt', 'utf8')),
+  dbConfigPath = path.join('./', 'styleguide', 'database_config.txt'),
+  databaseConfig = JSON.parse(fs.readFileSync(dbConfigPath, 'utf8')),
   jf = require('jsonfile'),
   helpers = require('./helpers.js'),
   router = express.Router();
@@ -11,10 +12,11 @@ router.get('/', function(req, res) {
     snippets,
     dataPath,
     index,
-    length = config.categories.length;
+    categories = JSON.parse(fs.readFileSync(databaseConfig.categories)),
+    length = categories.length;
 
   for (index = 0; index < length; index++) {
-    dataPath = path.join(config.database, config.categories[index].name + config.extension);
+    dataPath = path.join(databaseConfig.database, categories[index].name + databaseConfig.extension);
 
     snippets = jf.readFileSync(dataPath);
     snippets = snippets.map(helpers.mapCategory, index);
@@ -30,10 +32,11 @@ router.get('/duplicates', function(req, res) {
     dataPath,
     snippets,
     index,
-    length = config.categories.length;
+    categories = JSON.parse(fs.readFileSync(databaseConfig.categories)),
+    length = categories.length;
 
   for (index = 0; index < length; index++) {
-    dataPath = path.join(config.database, config.categories[index].name + config.extension);
+    dataPath = path.join(databaseConfig.database, categories[index].name + databaseConfig.extension);
 
     snippets = jf.readFileSync(dataPath);
     snippets = snippets.map(helpers.mapCategory, index);
@@ -61,11 +64,12 @@ router.get('/category/:id', function(req, res) {
     dataPath,
     snippets,
     index,
-    length = config.categories.length;
+    categories = JSON.parse(fs.readFileSync(databaseConfig.categories)),
+    length = categories.length;
 
   for (index = 0; index < length; index++) {
-    if (config.categories[index].id == catId) {
-      dataPath = path.join(config.database, config.categories[index].name + config.extension);
+    if (categories[index].id == catId) {
+      dataPath = path.join(databaseConfig.database, categories[index].name + databaseConfig.extension);
     }
   }
 
@@ -82,19 +86,20 @@ router.get('/category/:id', function(req, res) {
 
 
 router.get('/:id', function(req, res) {
-  var uniques = jf.readFileSync(config.uniques),
+  var uniques = jf.readFileSync(databaseConfig.uniques),
     id = Number(req.params.id),
     snippets,
     dataPath,
-    desireableSnippet;
+    desireableSnippet,
+    categories = JSON.parse(fs.readFileSync(databaseConfig.categories));
 
   if (uniques.indexOf(id) === -1) {
     res.json(false);
     return;
   }
 
-  for (var i = 0, length = config.categories.length; i < length; i++) {
-    dataPath = path.join(config.database, config.categories[i].name + config.extension);
+  for (var i = 0, length = categories.length; i < length; i++) {
+    dataPath = path.join(databaseConfig.database, categories[i].name + databaseConfig.extension);
     snippets = jf.readFileSync(dataPath);
 
     desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];
@@ -110,17 +115,18 @@ router.get('/:id', function(req, res) {
 
 
 router.post('/', function(req, res) {
-  var uniques = jf.readFileSync(config.uniques),
+  var uniques = jf.readFileSync(databaseConfig.uniques),
     dataPath,
     dataStore,
     id,
     newSnippet,
     index,
-    length = config.categories.length;
+    categories = JSON.parse(fs.readFileSync(databaseConfig.categories)),
+    length = categories.length;
 
   for (index = 0; index < length; index++) {
-    if (config.categories[index].id === Number(req.body.category)) {
-      dataPath = path.join(config.database, config.categories[index].name + config.extension);
+    if (categories[index].id === Number(req.body.category)) {
+      dataPath = path.join(databaseConfig.database, categories[index].name + databaseConfig.extension);
     }
   }
 
@@ -158,7 +164,7 @@ router.post('/', function(req, res) {
   uniques.push(id);
 
   jf.writeFileSync(dataPath, dataStore);
-  jf.writeFileSync(config.uniques, uniques);
+  jf.writeFileSync(databaseConfig.uniques, uniques);
 
   newSnippet.category = Number(req.body.category);
   res.json(newSnippet);
@@ -166,13 +172,14 @@ router.post('/', function(req, res) {
 
 
 router.put('/:id', function(req, res) {
-  var uniques = jf.readFileSync(config.uniques),
+  var uniques = jf.readFileSync(databaseConfig.uniques),
     id = Number(req.params.id),
     snippets,
     category,
     dataPath,
     index,
-    length = config.categories.length,
+    categories = JSON.parse(fs.readFileSync(databaseConfig.categories)),
+    length = categories.length,
     newCategory = Number(req.body.category),
     desireableSnippet,
     modifiedSnippet;
@@ -183,7 +190,7 @@ router.put('/:id', function(req, res) {
   }
 
   for (index = 0; index < length; index++) {
-    dataPath = path.join(config.database, config.categories[index].name + config.extension);
+    dataPath = path.join(databaseConfig.database, categories[index].name + databaseConfig.extension);
     snippets = jf.readFileSync(dataPath);
 
     desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];
@@ -201,8 +208,8 @@ router.put('/:id', function(req, res) {
     jf.writeFileSync(dataPath, snippets);
 
     for (index = 0; index < length; index++) {
-      if (config.categories[index].id == newCategory) {
-        dataPath = path.join(config.database, config.categories[index].name + config.extension);
+      if (categories[index].id == newCategory) {
+        dataPath = path.join(databaseConfig.database, categories[index].name + databaseConfig.extension);
       }
     }
 
@@ -234,13 +241,14 @@ router.put('/:id', function(req, res) {
 
 
 router.delete('/:id', function(req, res) {
-  var uniques = jf.readFileSync(config.uniques),
+  var uniques = jf.readFileSync(databaseConfig.uniques),
     id = Number(req.params.id),
     snippets,
     category,
     dataPath,
     index,
-    length = config.categories.length,
+    categories = JSON.parse(fs.readFileSync(databaseConfig.categories)),
+    length = categories.length,
     desireableSnippet;
 
   if (uniques.indexOf(id) === -1) {
@@ -249,7 +257,7 @@ router.delete('/:id', function(req, res) {
   }
 
   for (index = 0; index < length; index++) {
-    dataPath = path.join(config.database, config.categories[index].name + config.extension);
+    dataPath = path.join(databaseConfig.database, categories[index].name + databaseConfig.extension);
     snippets = jf.readFileSync(dataPath);
 
     desireableSnippet = snippets.filter(helpers.filterOutById, id)[0];

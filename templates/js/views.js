@@ -216,8 +216,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             tempButton;
 
         $.getJSON('../styleguide_config.txt', function (data) {
-            //viewport dropdown buttons generator
-            $.each(data.resolutions, function (index, value) {
+            $.each(data.viewportWidths, function (index, value) {
                 if (firstValue === false) {
                     firstValue = value;
                 }
@@ -366,8 +365,9 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             } else {
                 isServerOn = true;
                 $('html').addClass('server-on');
-                $('.js-scrape-snipp').on('click', $.proxy(snippetActions.scrapeHandler, null, 'snippets'));
-                $('.js-scrape-sass').on('click', $.proxy(snippetActions.scrapeHandler, null, 'sass'));
+                //commented these, these will be improved and enabled after initial release
+                //$('.js-scrape-snipp').on('click', $.proxy(snippetActions.scrapeHandler, null, 'snippets'));
+                //$('.js-scrape-sass').on('click', $.proxy(snippetActions.scrapeHandler, null, 'sass'));
                 $('.js-create-snippet').submit({isNew: true}, snippetActions.createEditSnippet);
                 newSnippetControls();
                 deletedSnippetsNav();

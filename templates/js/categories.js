@@ -4,9 +4,11 @@ var categoryService = (function ($) {
 
     module.getCategories = function (callback) {
         if (!cachedCategories) {
-            $.getJSON('../styleguide_config.txt', function (data) {
-                cachedCategories = data.categories;
-                callback(cachedCategories);
+            $.getJSON('../styleguide/database_config.txt', function (config) {
+                $.getJSON('../' + config.categories, function (data) {
+                    cachedCategories = data.categories;
+                    callback(cachedCategories);
+                });
             });
         } else {
             callback(cachedCategories);
