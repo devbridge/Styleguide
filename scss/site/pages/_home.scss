@@ -1,7 +1,5 @@
 // module Intro section
 .intro-section {
-    @include animation(animatedBackground 11s linear infinite);
-    @include animation-fill-mode(both);
     background: url('../styles/images/bg-intro.jpg') 0 0;
     color: $color-white;
     margin-bottom: 46px;
@@ -35,6 +33,7 @@
         margin-bottom: 40px;
         min-height: 27px;
         padding-left: 55px;
+        text-align: left;
 
         &:before {
             @include svg-sprite('icon-terminal');
@@ -43,6 +42,11 @@
 
     .blink-cursor {
         height: 19px;
+    }
+
+    @include media($tablet-1024-up) {
+        @include animation(animatedBackground 11s linear infinite);
+        @include animation-fill-mode(both);
     }
 
     @include media($tablet-600-up) {
@@ -75,6 +79,20 @@
             margin-bottom: 110px;
         }
     }
+
+    @include media($mobile-320) {
+        .typing-text {
+            box-sizing: border-box;
+            line-height: 1.1;
+            width: 270px;
+
+            &:before {
+                bottom: 0;
+                margin: auto 0;
+                top: 0;
+            }
+        }
+    }
 }
 
 @include keyframes(animatedBackground) {
@@ -94,8 +112,12 @@
         max-width: 280px;
     }
 
-    @include media(new-breakpoint(min-width 601px max-width 768px)) {
+    @include media($tablet-768-up) {
         max-width: 400px;
+    }
+
+    @include media($mobile-320) {
+        max-width: 210px;
     }
 }
 
@@ -707,12 +729,6 @@
             content: '';
         }
 
-        + li {
-            margin-top: 40px;
-            opacity: 0;
-
-        }
-
         &:after {
             @include position(absolute, 25px null 100% 6px);
             @include transition(bottom .5s ease);
@@ -721,19 +737,43 @@
             width: 2px;
         }
 
+        &:first-child {
+            &:after {
+                @include transition-delay(1.9s);
+            }
+        }
+
+        &:nth-child(2) {
+            @include transition-delay(2s);
+
+            &:after {
+                @include transition-delay(2.4s);
+            }
+        }
+
         &:last-child {
+            @include transition-delay(2.5s);
+
             &:after {
                 display: none;
             }
         }
 
-        &.active {
-            opacity: 1;
+        + li {
+            margin-top: 40px;
+            opacity: 0;
+
         }
 
         &.animate {
+            opacity: 1;
+
             &:after {
                 bottom: -43px;
+            }
+
+            .typing-text {
+                opacity: 1;
             }
         }
     }
@@ -825,7 +865,7 @@
         content: '';
     }
 
-    &.active {
+    &.animate {
         opacity: 1;
     }
 

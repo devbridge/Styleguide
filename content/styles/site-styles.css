@@ -188,12 +188,18 @@ body {
   .page-header-holder .page-frame {
     max-width: 1440px; }
   .page-header-holder.fixed {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    box-shadow: 0 -1px 9px 1px rgba(0, 0, 0, 0.5);
-    z-index: 10; }
+    box-shadow: 0 -1px 9px 1px rgba(0, 0, 0, 0.5); }
+  @media screen and (min-width: 1025px) {
+    .page-header-holder {
+      position: fixed;
+      top: -85px;
+      right: 0;
+      left: 0;
+      z-index: 10; }
+      .page-header-holder:before {
+        content: '';
+        display: block;
+        height: 85px; } }
 
 .page-header {
   display: table;
@@ -479,12 +485,6 @@ img {
   display: inline-block; }
 
 .intro-section {
-  -webkit-animation: animatedBackground 11s linear infinite;
-  -moz-animation: animatedBackground 11s linear infinite;
-  animation: animatedBackground 11s linear infinite;
-  -webkit-animation-fill-mode: both;
-  -moz-animation-fill-mode: both;
-  animation-fill-mode: both;
   background: url("../styles/images/bg-intro.jpg") 0 0;
   color: #fff;
   margin-bottom: 46px;
@@ -508,13 +508,22 @@ img {
     line-height: 1.66667;
     margin-bottom: 40px;
     min-height: 27px;
-    padding-left: 55px; }
+    padding-left: 55px;
+    text-align: left; }
     .intro-section .typing-text:before {
       width: 38px;
       height: 27px;
       background-position: 0px -72px; }
   .intro-section .blink-cursor {
     height: 19px; }
+  @media screen and (min-width: 1025px) {
+    .intro-section {
+      -webkit-animation: animatedBackground 11s linear infinite;
+      -moz-animation: animatedBackground 11s linear infinite;
+      animation: animatedBackground 11s linear infinite;
+      -webkit-animation-fill-mode: both;
+      -moz-animation-fill-mode: both;
+      animation-fill-mode: both; } }
   @media screen and (min-width: 601px) {
     .intro-section {
       margin-bottom: 135px; }
@@ -535,6 +544,15 @@ img {
         font-size: 30px; }
       .intro-section .typing-text {
         margin-bottom: 110px; } }
+  @media screen and (max-width: 320px) {
+    .intro-section .typing-text {
+      box-sizing: border-box;
+      line-height: 1.1;
+      width: 270px; }
+      .intro-section .typing-text:before {
+        bottom: 0;
+        margin: auto 0;
+        top: 0; } }
 
 @-webkit-keyframes animatedBackground {
   0% {
@@ -559,9 +577,12 @@ img {
   @media screen and (max-width: 600px) {
     .intro-logo-holder {
       max-width: 280px; } }
-  @media screen and (min-width: 601px) and (max-width: 768px) {
+  @media screen and (min-width: 769px) {
     .intro-logo-holder {
       max-width: 400px; } }
+  @media screen and (max-width: 320px) {
+    .intro-logo-holder {
+      max-width: 210px; } }
 
 .text-section {
   text-align: center; }
@@ -1030,9 +1051,6 @@ img {
       border-radius: 50%;
       box-sizing: border-box;
       content: ''; }
-    .installation-process li + li {
-      margin-top: 40px;
-      opacity: 0; }
     .installation-process li:after {
       position: absolute;
       top: 25px;
@@ -1044,12 +1062,33 @@ img {
       background-color: #fff;
       content: '';
       width: 2px; }
-    .installation-process li:last-child:after {
-      display: none; }
-    .installation-process li.active {
+    .installation-process li:first-child:after {
+      -webkit-transition-delay: 1.9s;
+      -moz-transition-delay: 1.9s;
+      transition-delay: 1.9s; }
+    .installation-process li:nth-child(2) {
+      -webkit-transition-delay: 2s;
+      -moz-transition-delay: 2s;
+      transition-delay: 2s; }
+      .installation-process li:nth-child(2):after {
+        -webkit-transition-delay: 2.4s;
+        -moz-transition-delay: 2.4s;
+        transition-delay: 2.4s; }
+    .installation-process li:last-child {
+      -webkit-transition-delay: 2.5s;
+      -moz-transition-delay: 2.5s;
+      transition-delay: 2.5s; }
+      .installation-process li:last-child:after {
+        display: none; }
+    .installation-process li + li {
+      margin-top: 40px;
+      opacity: 0; }
+    .installation-process li.animate {
       opacity: 1; }
-    .installation-process li.animate:after {
-      bottom: -43px; }
+      .installation-process li.animate:after {
+        bottom: -43px; }
+      .installation-process li.animate .typing-text {
+        opacity: 1; }
   .installation-process .typing-text {
     margin-top: 20px; }
   @media screen and (min-width: 601px) {
@@ -1130,7 +1169,7 @@ img {
     top: -1px;
     left: 0;
     content: ''; }
-  .typing-text.active {
+  .typing-text.animate {
     opacity: 1; }
   @media screen and (max-width: 600px) {
     .typing-text {

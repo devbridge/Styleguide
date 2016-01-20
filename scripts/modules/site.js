@@ -10,36 +10,49 @@ define(['jquery', 'typing'], function ($) {
         var triggerInstall = $('.js-typing-install'),
             triggerStart = $('.js-typing-start'),
             triggerIntroCommand = $('.js-intro-command'),
-            installationList = $('li', '.installation-process');
+            installationList = $('li', '.installation-process'),
+            installationContainer = $('#installation'),
+            containerPosition = (installationContainer.offset().top * 1.15) - $(window).height();
 
-        triggerIntroCommand.addClass('active');
+        // Animate text of 'npm install devbridge-styleguide --save-dev' command in intro section
+        triggerIntroCommand.addClass('animate');
         triggerIntroCommand.loadTyping({
             incorrectTypingSpeed: 70,
             deletingSpeed: 70,
             correctTypingSpeed: 70
         });
 
-        triggerInstall.addClass('active');
-        triggerInstall.loadTyping({
-            incorrectTypingSpeed: 60
+        function installationAnimation() {
+            installationList.addClass('animate');
+
+            if (installationList.hasClass('animate')) {
+                // Animate text of 'npm install devbridge-styleguide --save-dev' command in Installation section
+                triggerInstall.loadTyping({
+                    incorrectTypingSpeed: 50
+                });
+
+                setTimeout(function () {
+                    // Animate text of 'gulp start-styleguide' command in Installation section
+                    triggerStart.loadTyping({
+                        incorrectTypingSpeed: 50
+                    });
+                }, 2500);
+            }
+        }
+
+        if ($(window).scrollTop() > containerPosition) {
+            installationAnimation();
+        }
+
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() > containerPosition) {
+                $(window).off('scroll');
+                installationAnimation();
+            }
         });
-
-        setTimeout(function () {
-            $(installationList.eq(0)).addClass('animate');
-            $(installationList.eq(1)).addClass('active');
-        }, 3000);
-
-        setTimeout(function () {
-            $(installationList.eq(1)).addClass('animate');
-            $(installationList.eq(2)).addClass('active');
-
-            triggerStart.addClass('active');
-            triggerStart.loadTyping({
-                incorrectTypingSpeed: 60
-            });
-        }, 3500);
     };
 
+    // Expand/Collapse function
     module.initToggle = function () {
         var trigger = $('.js-toggle-button'),
             container = $('.js-toggle-container'),
@@ -59,30 +72,32 @@ define(['jquery', 'typing'], function ($) {
         })
     };
 
+    // Scrolls to specific section when clicked navigation's link
     module.initScrollTo = function () {
         var triggerContainer = ('.js-scroll-nav'),
             spaceTop,
             targetElement,
             self;
 
-        $('a[href^="#"]', triggerContainer).on('click', function (event) {
+        $('a', triggerContainer).on('click', function (event) {
             event.preventDefault();
 
             self = $(this);
             targetElement = $(self.attr('href'));
 
-            if (self.attr('href') === '#features') {
-                spaceTop = 120;
-            } else {
+            if ($(window).width() > 1024) {
                 spaceTop = 85;
+            } else {
+                spaceTop = 0;
             }
 
             $('html, body').animate({
                 scrollTop: targetElement.offset().top - spaceTop
-            }, 900);
+            }, 800);
         });
     };
 
+    // Updates header position to fixed
     module.initStickyHeader = function () {
         var header = $('.js-header');
 
@@ -94,22 +109,28 @@ define(['jquery', 'typing'], function ($) {
             }
         }
 
-        if($(window).width() > 1024) {
+        if ($(window).width() > 1024) {
             stickyHeader();
         }
 
         $(window).on('scroll', function () {
-            if($(window).width() > 1024) {
+            if ($(window).width() > 1024) {
                 stickyHeader();
             }
         });
+
+        $(window).on('resize', function() {
+            if($(window).width() <= 1024 && header.hasClass('fixed')) {
+                header.removeClass('fixed');
+            }
+        })
     };
 
     module.init = function () {
         module.initInstallationAnimation();
+        module.initStickyHeader();
         module.initToggle();
         module.initScrollTo();
-        module.initStickyHeader();
     };
 
     return module;

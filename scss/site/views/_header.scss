@@ -6,9 +6,18 @@
     }
 
     &.fixed {
-        @include position(fixed, 0 0 null 0);
         box-shadow: 0 -1px 9px 1px rgba(0, 0, 0, .5);
+    }
+
+    @include media($tablet-1024-up) {
+        @include position(fixed, -$header-height-desktop 0 null 0);
         z-index: 10;
+
+        &:before {
+            content: '';
+            display: block;
+            height: $header-height-desktop;
+        }
     }
 }
 
@@ -50,7 +59,7 @@
 
     @include media($tablet-600-up) {
         &-box {
-            height: 85px;
+            height: $header-height-desktop;
         }
     }
 

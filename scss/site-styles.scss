@@ -21,6 +21,7 @@ $tablet-600: new-breakpoint(max-width 600px);
 $tablet-600-up: new-breakpoint(min-width 601px);
 $mobile-480: new-breakpoint(max-width 480px);
 $mobile-480-up: new-breakpoint(min-width 481px);
+$mobile-320: new-breakpoint(max-width 320px);
 
 // Core
 @import 'core/normalize';
