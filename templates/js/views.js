@@ -367,7 +367,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 $('html').addClass('server-on');
                 //commented these, these will be improved and enabled after initial release
                 //$('.js-scrape-snipp').on('click', $.proxy(snippetActions.scrapeHandler, null, 'snippets'));
-                //$('.js-scrape-sass').on('click', $.proxy(snippetActions.scrapeHandler, null, 'sass'));
+                $('.js-scrape-sass').on('click', $.proxy(snippetActions.scrapeHandler, null, 'sass'));
                 $('.js-create-snippet').submit({isNew: true}, snippetActions.createEditSnippet);
                 newSnippetControls();
                 deletedSnippetsNav();
