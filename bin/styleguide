@@ -138,6 +138,8 @@ var initialize = function() {
   fs.writeFileSync(path.join(rootFolder, 'database_config.txt'), formatter.plain(dbConfig));
   fs.writeFileSync(path.join(dbFolder, 'categories.txt'), formatter.plain(initialCategories));
 
+  stdout.write('Styleguide was successfully initialized in working directory!');
+
   process.exit(0);
 
 };
