@@ -24,63 +24,81 @@
                 //data
                 snippetSource = ".js-snippet-source",
                 editors,
-                originalValues = {};
+                originalValues = {},
 
-            //module snippet's edit button
-            $btnSettings.on("click", function () {
-                //hide code
-                $btnCode
-                    .removeClass("active")
-                    .text("Show code")
-                    .attr("data-toggle-text", "Hide code");
-                $code.removeClass("active");
+                timer,
+                snippetTemplate;
 
-                //toggle settings
-                $btnSettings.toggleClass("active");
-                $settings.toggleClass("active");
+            //live preview functions
+            function delay(callback, ms) {
+                clearTimeout (timer);
+                timer = setTimeout(callback, ms);
+            }
 
-                iframesService.getTemplate(function (template) {
-                    if ($btnSettings.hasClass("active")) {
-                        editors = editorService.addToEditForm($code.parent());
-                        originalValues.code = editors.code.getValue();
-                        originalValues.css = editors.css.getValue();
+            function onSourceChange() {
+                delay(function(){
+                    snippetActions.appendIframeContent($previewSource, snippetTemplate, editors.code.getValue(), editors.css.getValue());
+                    if (!snippetActions.isIE) {
+                        $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, snippetTemplate, editors.code.getValue(), editors.css.getValue()));
+                    }
+                }, 500);
+            }
 
-                        function onSourceChange() {
-                            snippetActions.appendIframeContent($previewSource, template, editors.code.getValue(), editors.css.getValue());
-                            $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, editors.code.getValue(), editors.css.getValue()));
-                        }
+            //module snippet's edit button and cancel button
+            $btnSettings
+                .add($btnCancel) //elements merge
+                .on("click", function () {
+                    //hide code
+                    $btnCode
+                        .removeClass("active")
+                        .text("Show code")
+                        .attr("data-toggle-text", "Hide code");
+                    $code.removeClass("active");
 
-                        editors
-                            .code
-                            .on('change', onSourceChange);
-                        editors
-                            .css
-                            .on('change', onSourceChange);
-                    } else {
-                        editors
-                            .code
-                            .off('change');
-                        editors
-                            .css
-                            .off('change');
+                    //toggle settings
+                    $btnSettings.toggleClass("active");
+                    $settings.toggleClass("active");
 
-                        if (!$previewSource.hasClass('updated')) {
-                            snippetActions.appendIframeContent($previewSource, template, originalValues.code, originalValues.css);
-                            $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, template, editors.code.getValue(), editors.css.getValue()));
+                    iframesService.getTemplate(function (template) {
+                        if ($btnSettings.hasClass("active")) {
+                            editors = editorService.addToEditForm($code.parent());
+                            originalValues.code = editors.code.getValue();
+                            originalValues.css = editors.css.getValue();
+                            snippetTemplate = template;
 
                             editors
                                 .code
-                                .setValue(originalValues.code);
+                                .on('change', onSourceChange);
                             editors
                                 .css
-                                .setValue(originalValues.css);
-                        }
+                                .on('change', onSourceChange);
+                        } else {
+                            editors
+                                .code
+                                .off('change', onSourceChange);
+                            editors
+                                .css
+                                .off('change', onSourceChange);
 
-                        $previewSource.removeClass('updated');
-                        editorService.removeFromEditForm($code.parent());
-                    }
+                            if (!$previewSource.hasClass('updated')) {
+                                snippetActions.appendIframeContent($previewSource, snippetTemplate, originalValues.code, originalValues.css);
+                                if (!snippetActions.isIE) {
+                                    $previewSource.load($.proxy(snippetActions.appendIframeContent, null, $previewSource, snippetTemplate, editors.code.getValue(), editors.css.getValue()));
+                                }
+
+                                editors
+                                    .code
+                                    .setValue(originalValues.code);
+                                editors
+                                    .css
+                                    .setValue(originalValues.css);
+                            }
+
+                            $previewSource.removeClass('updated');
+                            editorService.removeFromEditForm($code.parent());
+                        }
+                    });
                 });
-            });
 
             //module 'show code' button for snippet editing
             $btnCode.on("click", function () {
@@ -97,13 +115,6 @@
                     .text(toggleText)
                     .attr("data-toggle-text", currentText);
                 $code.toggleClass("active");
-            });
-
-            //module 'cancel' button for snippet editing
-            $btnCancel.on("click", function () {
-                $btnSettings.removeClass("active");
-                $settings.removeClass("active");
-                $preview.show();
             });
 
             //module draggable snippet sizer

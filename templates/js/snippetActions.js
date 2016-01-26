@@ -1,5 +1,8 @@
 var snippetActions = (function ($, snippetService, iframesService, editorService, viewService) {
-    var module = {};
+    var module = {},
+        ua = window.navigator.userAgent;
+
+    module.isIE = !!ua.match(/MSIE|Trident/);
 
     var injectJavaScript = function (iframe, source) {
         var scriptTag = iframe.contentWindow.document.createElement('script');
@@ -55,12 +58,25 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
     module.appendIframeContent = function (frameId, template, content, css, includeJs) {
         var frame = $(frameId).contents(),
             rawJsFrame,
-            frameHTML,
+            frameHTML = $(frame).find('html').get(0),
             index,
-            length;
+            length,
+            resources,
+            resourcesLength,
+            resourcesLoaded = 0,
+            loadingIndicator = $('<div class="spinner-wrapper"><div class="spinner"></div></div>'),
+            loadCount = parseFloat($(frameId).attr("data-load-count"));
+
+        if (!loadCount) {
+            loadCount = 0;
+        }
+
+        $(frameId)
+            .attr("data-load-count", loadCount + 1)
+            .parent()
+            .append(loadingIndicator);
 
         if (template) {
-            frameHTML = frame.find('html').get(0);
             frameHTML.innerHTML = template;
         }
 
@@ -85,6 +101,26 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                     injectJavaScript(rawJsFrame, jsResources[index]);
                 }
             });
+        }
+
+        if (loadCount === 0) {
+            resources = $(frameHTML).find("link, script, img");
+            resourcesLength = resources.length;
+
+            resources.on("load error", function () {
+                resourcesLoaded++;
+                if (resourcesLoaded === resourcesLength) {
+                    setTimeout(function () {
+                        module.handleHeights($(frameId));
+                        loadingIndicator.remove();
+                    }, 250);
+                }
+            });
+        } else {
+            setTimeout(function () {
+                module.handleHeights($(frameId));
+                loadingIndicator.remove();
+            }, 750);
         }
     };
 
@@ -202,9 +238,12 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         currentSnippetElement.appendTo('.main');
         snippetContents = $('#' + snippetId);
 
+        //executes on Chrome, IE, FF(does something on FF but is not needed for it to work)
         module.appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss, includeJs);
-        snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, includeJs));
-
+        if (!module.isIE) {
+            //executes on FF, very likely to crash on IE(with multiple iFrames on the page) so check is performed, does not get executed on Chrome
+            snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, includeJs));
+        }
         //init copy button
         clipboard = new ZeroClipboard(currentSnippetElement.find('.js-copy-code').get());
 
@@ -295,7 +334,9 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 snippetContents = snippetContainer.find('iframe');
 
                 module.appendIframeContent(snippetContents, null, snippet.code, snippet.inlineCss, includeJs);
-                snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, null, snippet.code, snippet.inlineCss, includeJs));
+                if (!module.isIE) { //crashes on IE
+                    snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, null, snippet.code, snippet.inlineCss, includeJs));
+                }
 
                 snippetContents.addClass('updated');
                 modalContent = 'Snippet <span class="sg-notification-item-highlight">' + snippet.name + '</span> was updated and you can find it in <span class="sg-notification-item-highlight">' + categoryService.getCategoryNameById(snippet.category) + '</span> category.';
@@ -417,8 +458,6 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             for (index = 0; len > index; index++) {
                 drawSnippet(template, snippets[index], frames[index]);
             }
-            //TODO: redo that the content would be appended with iframe, so that timeout could be removed
-            setTimeout($.proxy(module.handleHeights, null, $('iframe')), 1000);
         });
     };
 
@@ -442,17 +481,16 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 snippetFrame = $('#snippet-' + snippets[index].id);
 
                 //iframe magic
-                module.appendIframeContent(snippetFrame, template, tempCode, '', false);
-                snippetFrame.load($.proxy(module.appendIframeContent, null, snippetFrame, template, tempCode, '', false));
+                module.appendIframeContent(snippetFrame, template, tempCode, "body {min-width: 0 !important;} #snippet {overflow: hidden;}", false);
+                if (!module.isIE) { //crashes on IE
+                    snippetFrame.load($.proxy(module.appendIframeContent, null, snippetFrame, template, tempCode, "body {min-width: 0 !important;} #snippet {overflow: hidden;}", false));
+                }
 
-                //some static parts are smaller than 320px in width
                 snippetFrame
                     .contents()
-                    .find("body")
-                    .css("min-width", 0);
+                    .find("#snippet")
+                    .css("overflow", "hidden");
             }
-            //TODO: redo that the content would be appended with iframe, so that timeout could be removed
-            setTimeout($.proxy(module.handleHeights, null, $('iframe')), 1000);
         });
     };
 
@@ -476,7 +514,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             }
 
             snippet.css("overflow", "scroll"); // sets temp value for measuring
-            height = snippet.outerHeight();
+            height = snippet.get(0).offsetHeight;
             snippet.css("overflow", overflow); // sets styling value
 
             $(iframes[index]).height(height);

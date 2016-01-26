@@ -77,7 +77,6 @@
     padding: 60px 0;
 
     li {
-
         div {
             &:first-child {
                 border-right: 1px solid $border-snippet;
@@ -104,4 +103,9 @@
 .sg-general-page-message {
     margin: 30px auto;
     max-width: 1200px;
+}
+
+// iFrame parents
+.sg-styles-preview {
+    position: relative;
 }
