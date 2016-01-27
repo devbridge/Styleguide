@@ -108,4 +108,14 @@
 // iFrame parents
 .sg-styles-preview {
     position: relative;
+
+    // FOUC removal
+    > * {
+        visibility: hidden;
+    }
+
+    > iframe,
+    > .spinner-wrapper {
+        visibility: visible;
+    }
 }

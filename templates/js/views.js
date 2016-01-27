@@ -69,7 +69,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             len;
 
         route = route.replace('#', '');
-        currentPage.text(pages[0].name);
 
         categoryService.getCategories(function (categories) {
             views = pages = pages.concat(categories);
