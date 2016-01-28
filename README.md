@@ -171,3 +171,6 @@ $button-default-color-hover: $red-darker-2;
 $button-call-to-action-color: $red;
 //-- colors:end --//
 ```
+
+
+[![Analytics](https://ga-beacon.appspot.com/UA-73039601-2/Styleguide/readme)](https://github.com/igrigorik/ga-beacon)
