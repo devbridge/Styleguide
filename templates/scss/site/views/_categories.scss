@@ -1,0 +1,192 @@
+.sg-categories-list {
+    list-style: none;
+    margin: -15px -20px 0;
+    padding: 0;
+}
+
+.sg-category-line {
+    border-bottom: 1px solid $color-grey-light-01;
+    box-sizing: border-box;
+    height: 46px;
+    padding-right: 30px;
+    position: relative;
+    width: 100%;
+}
+
+.sg-field-wrapper {
+    height: 100%;
+    margin-right: 182px;
+    position: relative;
+
+    .sg-category-name {
+        @include transition(200ms);
+        background: $color-grey-01;
+        border: 0;
+        box-sizing: border-box;
+        height: 100%;
+        outline: 0;
+        padding-left: 30px;
+        width: 100%;
+
+        &[readonly] {
+            background: $color-white;
+        }
+    }
+}
+
+.sg-category-controls {
+    @include transition(all 250ms ease-out);
+    background: $color-white;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    right: 121px;
+    top: 0;
+    visibility: hidden;
+    width: 0;
+
+    .sg-category-controls-inner {
+        height: 100%;
+        left: 50%;
+        margin-left: -91px;
+        position: absolute;
+        top: 0;
+        width: 182px;
+
+        &:after {
+            background: $color-grey-light-01;
+            content: '';
+            height: 100%;
+            left: 90px;
+            position: absolute;
+            top: 0;
+            width: 1px;
+        }
+    }
+
+    &.sg-opened {
+        pointer-events: initial;
+        right: 30px;
+        visibility: visible;
+        width: 182px;
+    }
+
+    &.sg-hidden {
+        visibility: hidden;
+    }
+}
+
+.sg-category-button {
+    @include transition(200ms);
+    background: none;
+    border: 0;
+    box-sizing: border-box;
+    color: #999;
+    float: left;
+    font-size: em(14px);
+    height: 100%;
+    margin-right: 1px;
+    outline: 0;
+    padding: 0;
+    width: 90px;
+
+    &.sg-positive {
+        background: $color-blue;
+        color: $color-white;
+        font-size: em(16px);
+        text-align: center;
+
+        &:focus,
+        &:hover {
+            background: shade($color-blue, 10%);
+        }
+    }
+
+    &.sg-negative {
+        background: $color-red;
+        color: $color-white;
+        font-size: em(16px);
+        text-align: center;
+
+        &:focus,
+        &:hover {
+            background: shade($color-red, 10%);
+        }
+    }
+
+    &.sg-cancel {
+        background: #999;
+        color: $color-white;
+        font-size: em(16px);
+        text-align: center;
+
+        &:focus,
+        &:hover {
+            background: shade(#999, 10%);
+        }
+    }
+
+    &.sg-edit,
+    &.sg-delete {
+        &:after {
+            @extend %font-icon-style;
+            @include transition(200ms);
+            color: #999;
+            display: inline-block;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        &:focus,
+        &:hover {
+            color: $color-black;
+
+            &:after {
+                color: $color-blue;
+            }
+        }
+    }
+
+    &.sg-edit {
+        padding: 0 0 0 20px;
+        text-align: left;
+
+        &:after {
+            content: '\f040';
+        }
+    }
+
+    &.sg-delete {
+        padding: 0 20px 0 0;
+        text-align: right;
+
+        &:after {
+            content: '\f014';
+        }
+    }
+}
+
+.sg-button-add {
+    @include transition(200ms);
+    background: none;
+    border: 0;
+    color: $color-blue;
+    margin-top: 15px;
+    outline: 0;
+    padding: 0 5px;
+
+    &:before {
+        @include transform(translateY(1px));
+        content: '+';
+        display: inline-block;
+        font-size: em(22px);
+        line-height: 1;
+        margin-right: 10px;
+    }
+
+    &:focus,
+    &:hover {
+        color: shade($color-blue, 30%);
+    }
+}

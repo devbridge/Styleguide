@@ -356,6 +356,167 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         });
     };
 
+    var categoryControls = function () {
+        var categoriesButton = $(".js-categories-button"),
+            modalContent;
+
+        function categoryMarkup (name, id, editMode) {
+            //elements
+            var categoryLine = $('<li class="sg-category-line" data-category-id="' + id +'"></li>'),
+
+                categoryInputWrapper = $('<div class="sg-field-wrapper"></div>'),
+                categoryName = $('<input class="sg-category-name" type="text" value="' + name + '" readonly>'),
+
+                categoryControls = $('<div class="sg-category-controls sg-opened"></div>'),
+                categoryControlsInner = $('<div class="sg-category-controls-inner"></div>'),
+                categoryDelete = $('<button class="sg-category-button sg-delete" type="button">Delete</button>'),
+                categoryEdit = $('<button class="sg-category-button sg-edit" type="button">Edit</button>'),
+
+                categoryDeleteWrapper = $('<div class="sg-category-controls"></div>'),
+                categoryDeleteInnerWrapper = $('<div class="sg-category-controls-inner"></div>'),
+                categoryDeleteConfirm = $('<button class="sg-category-button sg-negative" type="button">Delete</button>'),
+                categoryDeleteCancel = $('<button class="sg-category-button sg-cancel" type="button">Cancel</button>'),
+
+                categoryEditWrapper = $('<div class="sg-category-controls"></div>'),
+                categoryEditInnerWrapper = $('<div class="sg-category-controls-inner"></div>'),
+                categoryEditConfirm = $('<button class="sg-category-button sg-positive" type="button">Save</button>'),
+                categoryEditCancel = $('<button class="sg-category-button sg-cancel" type="button">Cancel</button>');
+
+
+            //TODO notifications for actions
+            //TODO edit mode on field focus: enter = save, esc = cancel
+            //delete workflow
+            categoryDelete.on('click', function () {
+                categoryDeleteWrapper.addClass("sg-opened");
+                categoryName.focus();
+                categoryControls.addClass("sg-hidden");
+            });
+
+            categoryDeleteCancel.on('click', function () {
+                categoryDeleteWrapper.removeClass("sg-opened");
+                categoryName.focus();
+                categoryControls.removeClass("sg-hidden");
+            });
+
+            categoryDeleteConfirm.on('click', function () {
+                categoryLine.remove();
+                categoryControls.removeClass("sg-hidden");
+                //TODO send command to delete 'id' category (and perhaps some relative focus() so it does not go away from modal)
+            });
+
+            //edit workflow
+            function inputKeyboardEvents (event) {
+                if (event.keyCode === 13) {
+                    event.stopPropagation();
+                    categoryEditConfirm.click();
+                } else if (event.keyCode === 27) {
+                    event.stopPropagation();
+                    categoryEditCancel.click();
+                }
+            }
+
+            categoryEdit.on('click', function () {
+                categoryEditWrapper.addClass("sg-opened");
+                categoryName
+                    .removeAttr("readonly")
+                    .focus();
+                categoryControls.addClass("sg-hidden");
+
+                setTimeout(function () {
+                    categoryName.on("keydown keyup", inputKeyboardEvents);
+                }, 250);
+
+                //TODO remember init value
+            });
+
+            categoryEditCancel.on('click', function () {
+                categoryEditWrapper.removeClass("sg-opened");
+                categoryName
+                    .attr("readonly", "")
+                    .focus();
+                categoryControls.removeClass("sg-hidden");
+                setTimeout(function () {
+                    categoryName.off("keydown keyup", inputKeyboardEvents);
+                }, 250);
+
+                //TODO rollback changes
+            });
+
+            categoryEditConfirm.on('click', function () {
+                categoryEditWrapper.removeClass("sg-opened");
+                categoryName
+                    .attr("readonly", "")
+                    .focus();
+                categoryControls.removeClass("sg-hidden");
+                setTimeout(function () {
+                    categoryName.off("keydown keyup", inputKeyboardEvents);
+                }, 250);
+
+                //TODO send command to edit 'id' category
+            });
+
+            //construction
+            categoryInputWrapper
+                .append(categoryName);
+            categoryControlsInner
+                .append(categoryDelete)
+                .append(categoryEdit)
+                .appendTo(categoryControls);
+            categoryDeleteInnerWrapper
+                .append(categoryDeleteConfirm)
+                .append(categoryDeleteCancel)
+                .appendTo(categoryDeleteWrapper);
+            categoryEditInnerWrapper
+                .append(categoryEditConfirm)
+                .append(categoryEditCancel)
+                .appendTo(categoryEditWrapper);
+
+            categoryLine
+                .append(categoryInputWrapper)
+                .append(categoryControls)
+                .append(categoryDeleteWrapper)
+                .append(categoryEditWrapper);
+
+            if (editMode === true) {
+                setTimeout(function () {
+                    categoryEdit.click();
+                }, 50);
+            }
+
+            return categoryLine;
+        }
+
+        categoriesButton.on("click", function () {
+            categoryService.getCategories(function (categories) {
+                var categoriesList = $('<ul class="sg-categories-list"></ul>'),
+                    categoryAddButton = $('<button class="sg-button-add">Add Category</button>');
+                modalContent = $("<div></div>");
+
+                categoryAddButton.on('click', function () {
+                    //TODO better naming and id(for backend logic). Also better workflow for new item's cancel button might be needed.
+                    categoriesList.append(categoryMarkup('new category', 'unassigned', true));
+                });
+
+                $.each(categories, function (index, value) {
+                    categoriesList.append(categoryMarkup(value.name, value.id, false));
+                });
+
+                modalContent.append(categoriesList);
+                modalContent.append(categoryAddButton);
+
+                $.openModal({
+                    title: 'Categories',
+                    width: 750,
+                    content: modalContent
+                });
+            });
+        });
+    };
+
+    var deletedSnippetsNav = function () {
+        $('.js-deleted-snippets').on('click', bindNavClick);
+    };
+
     var initSnippetService = function () {
         snippetService.init(function (data) {
             if (typeof data === 'string') {
@@ -369,6 +530,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 $('.js-scrape-sass').on('click', $.proxy(snippetActions.scrapeHandler, null, 'sass'));
                 $('.js-create-snippet').submit({isNew: true}, snippetActions.createEditSnippet);
                 newSnippetControls();
+                categoryControls();
                 deletedSnippetsNav();
 
                 if (data) {
@@ -380,10 +542,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 }
             }
         });
-    };
-
-    var deletedSnippetsNav = function () {
-        $('.js-deleted-snippets').on('click', bindNavClick);
     };
 
     module.notifications = {

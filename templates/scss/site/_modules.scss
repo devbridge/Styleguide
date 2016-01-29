@@ -173,7 +173,7 @@ $btn-ghost-radius: $border-radius;
     }
 
     &:after {
-        background-color: #c1272d;
+        background-color: $color-red;
         @include position(absolute, null 18px 4px 43px);
         content: '';
         height: 1px;
@@ -185,7 +185,7 @@ $btn-ghost-radius: $border-radius;
     &.icon-delete {
         &:before {
             @extend %font-icon-style;
-            color: #c1272d;
+            color: $color-red;
             content: '\f014';
             font-size: 18px;
             margin-top: -2px;
