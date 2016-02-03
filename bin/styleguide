@@ -21,6 +21,9 @@ var mainConfig = {
   serverPort: 8080,
   snippetTemplate: path.join('./', 'styleguide', 'template.html'),
 
+  sassVariables: [],
+  maxSassIterations: 2000,
+
   database: path.join('./', 'styleguide', 'db'),
   categories: path.join('./', 'styleguide', 'db', 'categories.txt'),
   uniques: path.join('./', 'styleguide', 'db', 'uniques.txt'),

@@ -22,7 +22,7 @@ var snippetService = (function ($, categoryService) {
     };
 
     module.init = function (callback) {
-        var path = '../styleguide_config.txt',
+        var path = './config.txt',
             request;
 
         $.getJSON(path, function (data) {

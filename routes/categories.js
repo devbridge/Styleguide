@@ -3,18 +3,18 @@ var _ = require('lodash'),
 	fs = require('fs'),
 	path = require('path'),
 	jf = require('jsonfile'),
-	dbConfigPath = path.join('./', 'styleguide', 'database_config.txt'),
-	databaseConfig = JSON.parse(fs.readFileSync(dbConfigPath, 'utf8')),
+	configPath = path.join('./', 'styleguide', 'config.txt'),
+	config = JSON.parse(fs.readFileSync(configPath, 'utf8')),
 	router = express.Router();
 
 router.get('/', function(req, res) {
-	var categories = JSON.parse(fs.readFileSync(databaseConfig.categories, 'utf8'));
+	var categories = JSON.parse(fs.readFileSync(config.categories, 'utf8'));
 
 	res.json(categories);
 });
 
 router.post('/', function (req, res) {
-	var categories = JSON.parse(fs.readFileSync(databaseConfig.categories, 'utf8')),
+	var categories = JSON.parse(fs.readFileSync(config.categories, 'utf8')),
 		uniqueIds = _.map(categories, 'id'),
 		newCategory = {},
 		id = 1;
@@ -34,8 +34,8 @@ router.post('/', function (req, res) {
 
 	categories.push(newCategory);
 
-	jf.writeFileSync(databaseConfig.categories, categories);
-	jf.writeFileSync(path.join(databaseConfig.database, newCategory.name + databaseConfig.extension), []);
+	jf.writeFileSync(config.categories, categories);
+	jf.writeFileSync(path.join(config.database, newCategory.name + config.extension), []);
 
 	res.json(newCategory);
 });

@@ -4,7 +4,7 @@ var express = require('express'),
   async = require('async'),
   sassScraper = require('./sassScraper.js'),
   snippetScraper = require('./snippetScraper.js'),
-  config = JSON.parse(fs.readFileSync('./styleguide/database_config.txt', 'utf8')),
+  config = JSON.parse(fs.readFileSync('./styleguide/config.txt', 'utf8')),
 
   router = express.Router();
 
@@ -108,8 +108,8 @@ router.get('/snippets', function(req, res) {
 router.get('/sass', function(req, res) {
   var result = [],
     index,
-    sassPaths = req.app.get('sassPaths'),
-    maxSassIterations = req.app.get('maxSassIterations'),
+    sassPaths = config.sassVariables,
+    maxSassIterations = config.maxSassIterations,
     length = sassPaths.length,
     report = [];
 

@@ -4,7 +4,7 @@ var request = require('request'),
   async = require('async'),
   helpers = require('./helpers.js'),
   fs = require('fs'),
-  config = JSON.parse(fs.readFileSync('styleguide_config.txt', 'utf8')),
+  config = JSON.parse(fs.readFileSync('./styleguide/config.txt', 'utf8')),
 
   exports = module.exports = {};
 

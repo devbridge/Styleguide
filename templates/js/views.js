@@ -214,7 +214,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             tempLi,
             tempButton;
 
-        $.getJSON('../styleguide_config.txt', function (data) {
+        $.getJSON('./config.txt', function (data) {
             $.each(data.viewportWidths, function (index, value) {
                 if (firstValue === false) {
                     firstValue = value;
