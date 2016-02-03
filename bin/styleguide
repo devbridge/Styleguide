@@ -15,6 +15,10 @@ var initialCategories = [{
 }];
 
 var mainConfig = {
+  projectName: '',
+  projectUrl: '',
+  projectLogo: '',
+  
   jsResources: [],
   viewportWidths: [480, 768, 1200],
 
