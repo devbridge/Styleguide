@@ -175,7 +175,7 @@
         }
 
         .btn-blank {
-            @include position(absolute, 10px 10px null null);
+            @include position(absolute, 10px 30px null null);
             background: $color-white;
             font-size: 13px;
             height: 22px;

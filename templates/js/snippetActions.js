@@ -107,15 +107,22 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             resources = $(frameHTML).find("link, script, img");
             resourcesLength = resources.length;
 
-            resources.on("load error", function () {
-                resourcesLoaded++;
-                if (resourcesLoaded === resourcesLength) {
-                    setTimeout(function () {
-                        module.handleHeights($(frameId));
-                        loadingIndicator.remove();
-                    }, 250);
-                }
-            });
+            if (resourcesLength === 0) {
+                setTimeout(function () {
+                    module.handleHeights($(frameId));
+                    loadingIndicator.remove();
+                }, 250);
+            } else {
+                resources.on("load error", function () {
+                    resourcesLoaded++;
+                    if (resourcesLoaded === resourcesLength) {
+                        setTimeout(function () {
+                            module.handleHeights($(frameId));
+                            loadingIndicator.remove();
+                        }, 250);
+                    }
+                });
+            }
         } else {
             setTimeout(function () {
                 module.handleHeights($(frameId));
@@ -245,27 +252,25 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, includeJs));
         }
         //init copy button
-        clipboard = new ZeroClipboard(currentSnippetElement.find('.js-copy-code').get());
+        clipboard = new Clipboard(currentSnippetElement.find('.js-copy-code').get(0));
 
-        clipboard.on("ready", function () {
-            clipboard.on("aftercopy", function (event) {
-                var tempWrapper = $("<span>Copied code of snippet <span class='sg-notification-item-highlight'>" + snippet.name + "</span> to clipboard:</span>"),
-                    tempCode = $("<code class='sg-notification-item-highlight'></code>"),
-                    linesOfCode = event.data["text/plain"].split(/\r\n|\r|\n/).length;
+        clipboard.on("success", function (event) {
+            var tempWrapper = $("<span>Copied code of snippet <span class='sg-notification-item-highlight'>" + snippet.name + "</span> to clipboard:</span>"),
+                tempCode = $("<code class='sg-notification-item-highlight'></code>"),
+                linesOfCode = event.text.split(/\r\n|\r|\n/).length;
 
+            tempCode
+                .text(event.text)
+                .appendTo(tempWrapper);
+
+            if (linesOfCode > 3) {
                 tempCode
-                    .text(event.data["text/plain"])
-                    .appendTo(tempWrapper);
+                    .addClass("extra-lines");
+            }
 
-                if (linesOfCode > 3) {
-                    tempCode
-                        .addClass("extra-lines");
-                }
-
-                viewService
-                    .notifications
-                    .pushMessage(tempWrapper.get(0).outerHTML);
-            });
+            viewService
+                .notifications
+                .pushMessage(tempWrapper.get(0).outerHTML);
         });
     };
 
@@ -549,6 +554,8 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                     content += '<p>IDs of snippets that were changed: None.</p>';
                 }
             } else {
+                /*
+                //DETAILED REPORT
                 len = data.length;
 
                 for (index = 0; len > index; index++) {
@@ -572,6 +579,12 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                     }
                     content += '<br>';
                 }
+                */
+                content = '' +
+                    '<div class="sg-success-message">' +
+                        '<p><strong>Scss variables has been successfully updated.</strong></p>' +
+                        '<span class="sg-check-symbol"></span>' +
+                    '</div>';
             }
 
             $.openModal({

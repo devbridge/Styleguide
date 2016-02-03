@@ -109,10 +109,6 @@ var copyContent = function(currentFolder) {
       currentContents = fs.readFileSync(path.join(templateFolder, 'js', javascripts[index]), 'utf-8');
       fs.writeFileSync(path.join(rootFolder, 'js', javascripts[index]), currentContents);
     }
-
-    currentContents = fs.readFileSync(path.join(templateFolder, 'js', 'ZeroClipboard.swf'));
-
-    fs.writeFileSync(path.join(rootFolder, 'js', 'ZeroClipboard.swf'), currentContents);
   }
 
 };

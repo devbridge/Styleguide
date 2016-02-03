@@ -577,3 +577,39 @@ $btn-ghost-radius: $border-radius;
         opacity: 0;
     }
 }
+
+//module modal success message
+.sg-success-message {
+    text-align: center;
+
+    .sg-check-symbol {
+        display: inline-block;
+        height: 32px;
+        margin-top: 15px;
+        position: relative;
+        width: 32px;
+
+        &:before,
+        &:after {
+            background: $color-blue;
+            border-radius: 3px;
+            content: '';
+            height: 8px;
+            position: absolute;
+        }
+
+        &:before {
+            @include transform(rotate(45deg));
+            left: -1px;
+            top: 17px;
+            width: 16px;
+        }
+
+        &:after {
+            @include transform(rotate(-45deg));
+            left: 6px;
+            top: 16px;
+            width: 30px;
+        }
+    }
+}
