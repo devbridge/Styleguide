@@ -15,15 +15,12 @@ var initialCategories = [{
 }];
 
 var mainConfig = {
-  cssResourcs: [],
   jsResources: [],
   viewportWidths: [480, 768, 1200],
 
   serverPort: 8080,
-  snippetTemplate: ''
-};
+  snippetTemplate: path.join('./', 'styleguide', 'template.html'),
 
-var dbConfig = {
   database: path.join('./', 'styleguide', 'db'),
   categories: path.join('./', 'styleguide', 'db', 'categories.txt'),
   uniques: path.join('./', 'styleguide', 'db', 'uniques.txt'),
@@ -33,6 +30,7 @@ var dbConfig = {
 
 var copyContent = function(currentFolder) {
   var templateFolder = path.join(currentFolder, 'node_modules', 'devbridge-styleguide', 'templates'),
+    moduleFolder = path.join(currentFolder, 'node_modules', 'devbridge-styleguide'),
     rootFolder = path.join(currentFolder, 'styleguide'),
     dbFolder = path.join(rootFolder, 'db'),
     currentContents,
@@ -45,6 +43,10 @@ var copyContent = function(currentFolder) {
     fs.mkdirSync(path.join(rootFolder, 'content'));
     fs.mkdirSync(path.join(rootFolder, 'content', 'fonts'));
     fs.mkdirSync(path.join(rootFolder, 'js'));
+
+    currentContents = fs.readFileSync(path.join(moduleFolder, 'template.html'), 'utf-8');
+
+    fs.writeFileSync(path.join(rootFolder, 'template.html'), currentContents);
 
     currentContents = fs.readFileSync(path.join(templateFolder, 'index.html'), 'utf-8');
 
@@ -130,8 +132,7 @@ var initialize = function() {
 
   fs.writeFileSync(path.join(dbFolder, 'uniques.txt'), formatter.plain([]));
   fs.writeFileSync(path.join(dbFolder, 'sassdata.txt'), formatter.plain([]));
-  fs.writeFileSync(path.join(currentFolder, 'styleguide_config.txt'), formatter.plain(mainConfig));
-  fs.writeFileSync(path.join(rootFolder, 'database_config.txt'), formatter.plain(dbConfig));
+  fs.writeFileSync(path.join(rootFolder, 'config.txt'), formatter.plain(mainConfig));
   fs.writeFileSync(path.join(dbFolder, 'categories.txt'), formatter.plain(initialCategories));
 
   stdout.write('Styleguide was successfully initialized in working directory!');
