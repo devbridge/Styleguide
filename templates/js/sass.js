@@ -70,17 +70,17 @@ var sassService = (function ($) {
         bColor = parseHsv(bColor);
 
         if (aColor.hue < bColor.hue)
-            return -1;
+            return 1;
         if (aColor.hue > bColor.hue)
-            return 1;
+            return -1;
         if (aColor.sat < bColor.sat)
-            return -1;
+            return 1;
         if (aColor.sat > bColor.sat)
-            return 1;
-        if (aColor.val < bColor.val)
             return -1;
-        if (aColor.val > bColor.val)
+        if (aColor.val < bColor.val)
             return 1;
+        if (aColor.val > bColor.val)
+            return -1;
         return 0;
     };
 
