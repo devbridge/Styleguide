@@ -12,8 +12,8 @@
 
     &:active,
     &:focus {
-        outline: none;
         box-shadow: none;
+        outline: none;
     }
 }
 
@@ -33,48 +33,53 @@ $btn-ghost-radius: $border-radius;
     }
 }
 
+.btn-secondary {
+    @extend %btn-template;
+    background-color: transparent;
+    border: {
+        color: $color-blue;
+        width: 2px;
+    }
+    border-radius: 20px;
+    color: $color-blue;
+    line-height: 28px;
+}
+
 .btn-menu {
+    @include transition(all .3s);
+    @include transform(rotate(0deg));
     background: transparent;
     border: 2px solid $color-blue;
     border-radius: 50%;
     box-sizing: border-box;
     font-size: 0;
     height: 32px;
+    margin-left: 20px;
     position: relative;
+    vertical-align: middle;
     width: 32px;
-    @include transition(all 0.3s);
-    @include transform(rotate(0deg));
-
-    &:before,
-    &:after {
-        background-color: $color-blue;
-        @include position(absolute, 0 0 0 0);
-        content: '';
-        margin: auto;
-    }
 
     &:before {
-        height: 1px;
-        width: 13px;
+        @include position(absolute, 10px 7px 9px 7px);
+        border: {
+            color: $color-blue;
+            style: solid;
+            width: 1px 0;
+        }
+        content: '';
     }
 
     &:after {
-        height: 13px;
-        width: 1px;
+        @include position(absolute, 50% 7px null 7px);
+        background: $color-blue;
+        content: '';
+        height: 1px;
     }
 
     &:active,
     &:focus {
-        outline: none;
         box-shadow: none;
-    }
-
-    &.active {
-        @include transform(rotate(270deg));
-
-        &:before {
-            display: none;
-        }
+        outline: none;
     }
 }
 

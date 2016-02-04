@@ -517,6 +517,10 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         $('.js-deleted-snippets').on('click', bindNavClick);
     };
 
+    var styleguideLogoNav = function () {
+        $('.js-styleguide-logo').on('click', bindNavClick);
+    };
+
     var initSnippetService = function () {
         snippetService.init(function (data) {
             if (typeof data === 'string') {
@@ -656,6 +660,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         categoryService.bindCategoriesToForm($('.js-form-select').first());
         initSnippetService();
         openDropdown();
+        styleguideLogoNav();
     };
 
     module.getCurrentView = function () {
