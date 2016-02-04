@@ -4,7 +4,7 @@ var iframesService = (function ($, snippetService) {
 
     var getConfig = function (callback) {
         if (!cachedConfig) {
-            $.getJSON('../styleguide_config.txt', function (data) {
+            $.getJSON('./config.txt', function (data) {
                 cachedConfig = data;
                 callback(cachedConfig);
             });

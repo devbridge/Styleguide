@@ -1,7 +1,7 @@
 var helpers = require('./helpers.js'),
   fs = require('fs'),
   jf = require('jsonfile'),
-  config = JSON.parse(fs.readFileSync('./styleguide/database_config.txt', 'utf8')),
+  config = JSON.parse(fs.readFileSync('./styleguide/config.txt', 'utf8')),
 
   exports = module.exports = {};
 
