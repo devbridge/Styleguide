@@ -97,6 +97,42 @@ define(['jquery', 'typing'], function ($) {
         });
     };
 
+    // Reveals the header logo, then main logo in first slide is scrolled over
+    module.showLogoOnScroll = function(){
+        var logo = $('.js-logo-header'),
+            siteHeader = $('.js-logo-reveal'),
+            headerHeight,
+            logoTop,
+            windowVar = $(window),
+            windowScrollTop;
+
+        function toggleVisibility() {
+            windowScrollTop = windowVar.scrollTop();
+
+            if (windowScrollTop > logoTop - headerHeight) {
+                siteHeader.addClass('home-logo-is-invisible');
+            } else {
+                siteHeader.removeClass('home-logo-is-invisible');
+            }
+        }
+
+        if (logo.length) {
+            headerHeight = $('.page-header').outerHeight();
+            logoTop = logo.offset().top + logo.height();
+
+            toggleVisibility();
+
+            windowVar.on('scroll', function () {
+                toggleVisibility();
+            });
+
+            windowVar.resize(function () {
+                logoTop = logo.offset().top + logo.outerHeight() - headerHeight;
+                toggleVisibility();
+            });
+        }
+    };
+
     // Updates header position to fixed
     module.initStickyHeader = function () {
         var header = $('.js-header');
@@ -131,6 +167,7 @@ define(['jquery', 'typing'], function ($) {
         module.initStickyHeader();
         module.initToggle();
         module.initScrollTo();
+        module.showLogoOnScroll();
     };
 
     return module;

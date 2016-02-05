@@ -77,7 +77,13 @@
 }
 
 .logo-holder {
+    @include transition(opacity 0.5s);
     margin: 0;
+    opacity: 0;
+
+    &.home-logo-is-invisible {
+        opacity: 1;
+    }
 
     img {
         display: block;

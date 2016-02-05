@@ -227,7 +227,13 @@ body {
       display: none; } }
 
 .logo-holder {
-  margin: 0; }
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+  margin: 0;
+  opacity: 0; }
+  .logo-holder.home-logo-is-invisible {
+    opacity: 1; }
   .logo-holder img {
     display: block;
     margin: 0 auto; }
