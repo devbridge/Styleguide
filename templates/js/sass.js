@@ -176,12 +176,34 @@ var sassService = (function ($) {
         }
     };
 
+    var bindProjectInformation = function (data, sassContent) {
+        var $linkElement = sassContent.find('.js-project-link');
+        var $imgContainer = sassContent.find('.js-project-logo');
+        var projectName = data.projectName.length ? data.projectName : 'project name';
+        var projectUrl = data.projectUrl.length ? data.projectUrl : '#nolink';
+        var $image = $('<img />');
+
+        $linkElement.text(projectName);
+        $linkElement.attr('href', projectUrl);
+
+        if (data.projectImage.length) {
+            $image.attr('src', data.projectImage);
+            $image.attr('alt', projectName);
+
+            $imgContainer.append($image);
+        }
+    };
+
     module.loadSass = function () {
         getSassData(function (data) {
             var sassContent = $($('#sass-page').html()),
                 errorMessage = '<div class="sg-general-page-message">Sass variables has not been scraped yet or markers were not found in file!</div>',
                 snippetsContents,
                 snippets = [];
+
+            $.getJSON('./config.txt', function (data) {
+                bindProjectInformation(data, sassContent);
+            });
 
             $('.main').append(sassContent);
 
