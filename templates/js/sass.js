@@ -186,8 +186,8 @@ var sassService = (function ($) {
         $linkElement.text(projectName);
         $linkElement.attr('href', projectUrl);
 
-        if (data.projectImage.length) {
-            $image.attr('src', data.projectImage);
+        if (data.projectLogo.length) {
+            $image.attr('src', data.projectLogo);
             $image.attr('alt', projectName);
 
             $imgContainer.append($image);

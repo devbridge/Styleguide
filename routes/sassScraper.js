@@ -184,7 +184,7 @@ var parseColors = function(theme, sass, maxSassIterations) {
 };
 
 var compareForReport = function(theme, report) {
-  var oldData = jf.readFileSync(config.sassData),
+  var oldData = jf.readFileSync(config.sassData, {throws: false}) || [],
     len = oldData.length,
     index;
 
