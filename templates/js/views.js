@@ -399,9 +399,15 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             });
 
             categoryDeleteConfirm.on('click', function () {
-                categoryLine.remove();
-                categoryControls.removeClass("sg-hidden");
-                //TODO send command to delete 'id' category (and perhaps some relative focus() so it does not go away from modal)
+                categoryService.deleteById(id, function (data) {
+                    if (typeof data === 'string') {
+                        //TODO: handle error
+                    } else {
+                        //TODO perhaps some relative focus() so it does not go away from modal
+                        categoryLine.remove();
+                        categoryControls.removeClass("sg-hidden");
+                    }
+                });
             });
 
             //edit workflow
@@ -425,8 +431,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 setTimeout(function () {
                     categoryName.on("keydown keyup", inputKeyboardEvents);
                 }, 250);
-
-                //TODO remember init value
             });
 
             categoryEditCancel.on('click', function () {
@@ -439,20 +443,31 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                     categoryName.off("keydown keyup", inputKeyboardEvents);
                 }, 250);
 
-                //TODO rollback changes
+                categoryName.val(name);
             });
 
             categoryEditConfirm.on('click', function () {
-                categoryEditWrapper.removeClass("sg-opened");
-                categoryName
-                    .attr("readonly", "")
-                    .focus();
-                categoryControls.removeClass("sg-hidden");
-                setTimeout(function () {
-                    categoryName.off("keydown keyup", inputKeyboardEvents);
-                }, 250);
-
-                //TODO send command to edit 'id' category
+                categoryService.save({
+                    id: id,
+                    name: categoryName.val()
+                }, function (data) {
+                    if (typeof data === 'string') {
+                        //TODO: handle error message, notification?
+                        categoryName.val(name);
+                    } else {
+                        categoryEditWrapper.removeClass("sg-opened");
+                        categoryName
+                            .attr("readonly", "")
+                            .focus();
+                        categoryControls.removeClass("sg-hidden");
+                        setTimeout(function () {
+                            categoryName.off("keydown keyup", inputKeyboardEvents);
+                        }, 250);
+                        id = data.id;
+                        name = data.name;
+                        categoryName.val(data.name);
+                    }
+                });
             });
 
             //construction
@@ -494,7 +509,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
                 categoryAddButton.on('click', function () {
                     //TODO better naming and id(for backend logic). Also better workflow for new item's cancel button might be needed.
-                    categoriesList.append(categoryMarkup('new category', 'unassigned', true));
+                    categoriesList.append(categoryMarkup('new category', undefined, true));
                 });
 
                 $.each(categories, function (index, value) {
@@ -657,6 +672,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         bindResolutionActions();
         buildNavigation($('.js-navigation'), '.js-navigation-list', true);
         buildNavigation($('.js-home-navigation'), '.js-navigation-list', false);
+        categoryService.init();
         categoryService.bindCategoriesToForm($('.js-form-select').first());
         initSnippetService();
         openDropdown();

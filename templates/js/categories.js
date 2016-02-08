@@ -1,6 +1,16 @@
 var categoryService = (function ($) {
     var module = {},
-        cachedCategories;
+        cachedCategories,
+        apiPath;
+
+    module.init = function (callback) {
+        var path = './config.txt';
+
+        $.getJSON(path, function (data) {
+            apiPath = '//' + window.location.hostname + ':' + data.serverPort + '/categories/';
+        });
+    };
+
 
     module.getCategories = function (callback) {
         if (!cachedCategories) {
@@ -35,6 +45,51 @@ var categoryService = (function ($) {
         });
 
         return name;
+    };
+
+    module.deleteById = function (categoryId, callback) {
+        var request = $.ajax({
+            method: 'DELETE',
+            url: apiPath + categoryId,
+            data: {},
+            dataType: 'json'
+        });
+
+        request.done(function (data) {
+            callback(data);
+        });
+
+        request.fail(function () {
+            callback('Failed to delete category! Maybe your styleguide server is down?');
+        });
+    };
+
+    module.save = function (category, callback) {
+        var request;
+
+        if (!isNaN(category.id)) {
+            request = $.ajax({
+                method: 'PUT',
+                url: apiPath + category.id,
+                data: category,
+                dataType: 'json'
+            });
+        } else {
+            request = $.ajax({
+                method: 'POST',
+                url: apiPath,
+                data: category,
+                dataType: 'json'
+            });
+        }
+
+        request.done(function (data) {
+            callback(data);
+        });
+
+        request.fail(function () {
+            callback('Failed to save category! Maybe your styleguide server is down?');
+        });
     };
 
     return module;
