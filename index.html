@@ -91,18 +91,18 @@
                     </div>
                     <div class="example-section-box">
                         <div class="code-box">
-                            <pre class="line-numbers" data-start="49"><code class="language-scss">$color-yellow: #ffa960;
-$color-yellow-110: #de883f;
-$color-sky-d10: #538292;
-$color-sky: #70b1c7;
-//-- typo:start --//
-$font-avenir: 'Avenir W01', sans-serif;
-$font-chaparral: 'Chaparral W01', serif;
-//-- typo:end --//
-$src-icon-down: 'images/icon-down.svg';
-$weight-black: 900;
-$weight-heavy: 800;
-$weight-bold: 700;</code></pre>
+ <pre class="line-numbers dimmed" data-start="49">
+<code class="language-scss">    $color-yellow: #ffa960;
+    $color-yellow-110: #de883f;
+    $color-sky-d10: #538292;
+    $color-sky: #70b1c7;</code></pre>
+                            <pre class="line-numbers" data-start="53"><code class="language-scss">    //-- typo:start --//
+    $font-avenir: 'Avenir W01', sans-serif;
+    $font-chaparral: 'Chaparral W01', serif;
+    //-- typo:end --//</code></pre><pre class="line-numbers dimmed" data-start="57"><code class="language-scss">    $src-icon-down: 'images/icon-down.svg';
+    $weight-black: 900;
+    $weight-heavy: 800;
+    $weight-bold: 700;</code></pre>
                         </div>
                     </div>
                 </div>
@@ -117,24 +117,27 @@ $weight-bold: 700;</code></pre>
                             <div class="color-box" style="background-color: #F8533B;"><span>#F8533B</span></div>
                             <div class="color-box" style="background-color: #FDA400;"><span>#FDA400</span></div>
                             <div class="color-box" style="background-color: #205B67;"><span>#205B67</span></div>
-                            <div class="color-box hide-on-768" style="background-color: #00A5BC;"><span>#00A5BC</span></div>
-                            <div class="color-box hide-on-920" style="background-color: #95BF15;"><span>#95BF15</span></div>
+                            <div class="color-box hide-on-768" style="background-color: #00A5BC;"><span>#00A5BC</span>
+                            </div>
+                            <div class="color-box hide-on-920" style="background-color: #95BF15;"><span>#95BF15</span>
+                            </div>
                         </div>
                     </div>
                     <div class="example-section-box">
                         <div class="code-box">
-                            <pre class="line-numbers" data-start="52"><code class="language-scss">$gutter-single: ($gutter / 2);
-$footer-height: 200px;
-//-- color:start --//
-$color-red: #f8533b;
-$color-yellow: #fda400;
-$color-blue: #205b67;
-$color-blue-120: #00a5bc;
-$color-green: #95bf15;
-//-- color:end --//
-$body-font: $font-chaparral;
-$heading-font: $font-avenir;
-$src-icon-down: 'images/icon-down.svg';</code></pre>
+                            <pre class="line-numbers dimmed" data-start="52"><code class="language-scss">    ($gutter / 2);
+    $footer-height: 200px;</code></pre>
+                            <pre class="line-numbers" data-start="54"><code class="language-scss">    $gutter-single:
+    //-- color:start --//
+    $color-red: #f8533b;
+    $color-yellow: #fda400;
+    $color-blue: #205b67;
+    $color-blue-120: #00a5bc;
+    $color-green: #95bf15;
+    //-- color:end --//</code></pre>
+                            <pre class="line-numbers dimmed" data-start="62"><code class="language-scss">    $body-font: $font-chaparral;
+    $heading-font: $font-avenir;
+    $src-icon-down: 'images/icon-down.svg';</code></pre>
                         </div>
                     </div>
                 </div>
@@ -181,14 +184,15 @@ $src-icon-down: 'images/icon-down.svg';</code></pre>
 
                 <div class="snippet-code-holder opened js-toggle-container">
                     <div class="code-box">
-                    <pre class="line-numbers" data-start="54"><code class="language-markup">&lt;!-- snippet:start include-js --&gt;
-&lt;div class="navigation"&gt;
-    &lt;button class="btn-primary"&gt;Save&lt;/button&gt;
-    &lt;button class="btn-secondary"&gt;Save as draft&lt;/button&gt;
-    &lt;button class="btn-link"&gt;Cancel&lt;/button&gt;
-&lt;/div&gt;
-&lt;!-- snippet:end --&gt;</code></pre>
-                </div>
+                    <pre class="line-numbers" data-start="54"><code class="language-markup">&lt;!-- snippet:start
+                        include-js --&gt;
+                        &lt;div class="navigation"&gt;
+                        &lt;button class="btn-primary"&gt;Save&lt;/button&gt;
+                        &lt;button class="btn-secondary"&gt;Save as draft&lt;/button&gt;
+                        &lt;button class="btn-link"&gt;Cancel&lt;/button&gt;
+                        &lt;/div&gt;
+                        &lt;!-- snippet:end --&gt;</code></pre>
+                    </div>
                 </div>
             </div>
         </section>
@@ -271,10 +275,11 @@ $src-icon-down: 'images/icon-down.svg';</code></pre>
                     </li>
                     <li>
                         Create Gulp task
-                        <pre class="gulp-task-definition"><code>var gulp = require('gulp'); var styleguide = require('devbridge-styleguide');
-gulp.task('start-styleguide', function () {
-    styleguide.startServer();
-});</code></pre>
+                        <pre class="gulp-task-definition"><code>var gulp = require('gulp'); var styleguide =
+                            require('devbridge-styleguide');
+                            gulp.task('start-styleguide', function () {
+                            styleguide.startServer();
+                            });</code></pre>
                     </li>
                     <li>
                         Start styleguide server <br>

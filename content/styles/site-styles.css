@@ -821,6 +821,13 @@ img {
   line-height: 2;
   text-shadow: none; }
 
+.code-box .line-numbers.dimmed {
+  opacity: .15; }
+  .code-box .line-numbers.dimmed:first-of-type {
+    margin-bottom: -2em; }
+  .code-box .line-numbers.dimmed:last-of-type {
+    margin-top: -2em; }
+
 .code-box .line-numbers .line-numbers-rows {
   border-right: 0;
   letter-spacing: 0;

@@ -430,6 +430,18 @@
     }
 
     .line-numbers {
+        &.dimmed {
+            opacity: .15;
+
+            &:first-of-type {
+                margin-bottom: -2em;
+            }
+
+            &:last-of-type {
+                margin-top: -2em;
+            }
+        }
+
         .line-numbers-rows {
             border-right: 0;
             letter-spacing: 0;
