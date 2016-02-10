@@ -383,7 +383,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 categoryEditCancel = $('<button class="sg-category-button sg-cancel" type="button">Cancel</button>');
 
 
-            //TODO notifications for actions
             //TODO edit mode on field focus: enter = save, esc = cancel
             //delete workflow
             categoryDelete.on('click', function () {
@@ -401,9 +400,13 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             categoryDeleteConfirm.on('click', function () {
                 categoryService.deleteById(id, function (data) {
                     if (typeof data === 'string') {
-                        //TODO: handle error
+                        module
+                            .notifications
+                            .pushMessage("Category Deletion: " + data);
                     } else {
-                        //TODO perhaps some relative focus() so it does not go away from modal
+                        module
+                            .notifications
+                            .pushMessage("Category Deleted!");
                         categoryLine.remove();
                         categoryControls.removeClass("sg-hidden");
                     }
@@ -452,7 +455,9 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                     name: categoryName.val()
                 }, function (data) {
                     if (typeof data === 'string') {
-                        //TODO: handle error message, notification?
+                        module
+                            .notifications
+                            .pushMessage("Category Save: " + data);
                         categoryName.val(name);
                     } else {
                         categoryEditWrapper.removeClass("sg-opened");
@@ -466,6 +471,9 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                         id = data.id;
                         name = data.name;
                         categoryName.val(data.name);
+                        module
+                            .notifications
+                            .pushMessage("Category Save: Successfully Saved!");
                     }
                 });
             });
@@ -508,7 +516,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 modalContent = $("<div></div>");
 
                 categoryAddButton.on('click', function () {
-                    //TODO better naming and id(for backend logic). Also better workflow for new item's cancel button might be needed.
                     categoriesList.append(categoryMarkup('new category', undefined, true));
                 });
 

@@ -46,7 +46,9 @@ router.put('/:id', function(req, res) {
 		id = Number(req.params.id),
 		categoryIndex = uniqueIds.indexOf(id),
 		category = categories[categoryIndex],
-		modifiedCategory;
+		modifiedCategory,
+		oldCategoryPath = path.join(config.database, category.name + config.extension),
+		newCategoryPath;
 
 	if (categoryIndex === -1) {
 		res.json(false);
@@ -58,8 +60,12 @@ router.put('/:id', function(req, res) {
 		name: req.body.name
 	};
 
+	newCategoryPath = path.join(config.database, modifiedCategory.name + config.extension);
+
 	categories.splice(categoryIndex, 1, modifiedCategory);
 	jf.writeFileSync(config.categories, categories);
+
+	fs.renameSync(oldCategoryPath, newCategoryPath);
 
 	res.json(modifiedCategory);
 });
