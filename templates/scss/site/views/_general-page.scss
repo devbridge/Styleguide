@@ -72,21 +72,47 @@
 
 // Headings
 .sg-snippet-headings-holder {
+
     list-style-type: none;
     margin: 0;
     padding: 60px 0;
 
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: 1em;
+    }
+
     li {
+
         div {
             &:first-child {
-                border-right: 1px solid $border-snippet;
                 padding-bottom: 10px;
+                padding-right: 40px;
                 text-align: right;
             }
 
             &:last-child {
                 padding-left: 12px;
             }
+        }
+    }
+
+    .row {
+        position: relative;
+    }
+
+    .sg-styles-preview {
+        position: static;
+
+        &:before {
+            content: '';
+            @include position(absolute, 0 null);
+            border-left: 1px solid $border-snippet;
+            margin-left: -28px;
         }
     }
 }
