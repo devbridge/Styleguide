@@ -40,4 +40,46 @@ router.post('/', function (req, res) {
 	res.json(newCategory);
 });
 
+router.put('/:id', function(req, res) {
+	var categories = JSON.parse(fs.readFileSync(config.categories, 'utf8')),
+		uniqueIds = _.map(categories, 'id'),
+		id = Number(req.params.id),
+		categoryIndex = uniqueIds.indexOf(id),
+		category = categories[categoryIndex],
+		modifiedCategory;
+
+	if (categoryIndex === -1) {
+		res.json(false);
+		return;
+	}
+
+	modifiedCategory = {
+		id: id,
+		name: req.body.name
+	};
+
+	categories.splice(categoryIndex, 1, modifiedCategory);
+	jf.writeFileSync(config.categories, categories);
+
+	res.json(modifiedCategory);
+});
+
+router.delete('/:id', function(req, res) {
+	var categories = JSON.parse(fs.readFileSync(config.categories, 'utf8')),
+		uniqueIds = _.map(categories, 'id'),
+		id = Number(req.params.id)
+		categoryIndex = uniqueIds.indexOf(id),
+		category = categories[categoryIndex];
+
+	if (categoryIndex === -1) {
+		res.json(false);
+		return;
+	}
+
+	categories.splice(categoryIndex, 1);
+
+	jf.writeFileSync(config.categories, categories);
+	res.json(category);
+});
+
 module.exports = router;

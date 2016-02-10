@@ -56,6 +56,7 @@ var categoryService = (function ($) {
         });
 
         request.done(function (data) {
+            cachedCategories = null;
             callback(data);
         });
 
@@ -84,6 +85,7 @@ var categoryService = (function ($) {
         }
 
         request.done(function (data) {
+            cachedCategories = null;
             callback(data);
         });
 
