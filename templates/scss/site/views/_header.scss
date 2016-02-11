@@ -1,8 +1,8 @@
 .sg-header {
+    @include position(fixed, 0 0 auto);
     background: $color-grey-dark-tertiary;
     color: $color-white;
     padding: 14px 0;
-    position: relative;
     z-index: 999;
 
     .sg-page-wrapper {
@@ -30,15 +30,14 @@
 }
 
 .sg-header-nav {
-    @include position(absolute, 0 auto auto 50%);
-    @include transform(translateX(-50%));
+    float: right;
+    position: relative;
 }
 
 // Size Controls
 .sg-snippets-resize {
-    float: right;
-    position: relative;
-    margin-right: 20px;
+    @include position(absolute, 0 auto auto 50%);
+    @include transform(translateX(-50%));
 
     .label-new-size {
         @include position(absolute, 0 32px auto auto);
@@ -108,6 +107,37 @@
                 right: 10px;
             }
         }
+    }
+}
+
+// Btn new
+.btn-new {
+    float: right;
+    @include transition(all .3s);
+    background: transparent;
+    border: 2px solid $color-blue;
+    border-radius: 16px;
+    box-sizing: border-box;
+    color: $color-blue;
+    height: 32px;
+    margin-left: 20px;
+    position: relative;
+    vertical-align: middle;
+    padding: 0 15px;
+    font: {
+        size: 14px;
+        weight: 400;
+    };
+    line-height: 28px;
+
+    &:hover {
+        background: rgba($color-blue, 0.2);
+    }
+
+    &:active,
+    &:focus {
+        box-shadow: none;
+        outline: none;
     }
 }
 

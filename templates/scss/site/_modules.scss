@@ -59,6 +59,10 @@ $btn-ghost-radius: $border-radius;
     vertical-align: middle;
     width: 32px;
 
+    &:hover {
+        background: rgba($color-blue, 0.2);
+    }
+
     &:before {
         @include position(absolute, 10px 7px 9px 7px);
         border: {
@@ -486,7 +490,7 @@ $btn-ghost-radius: $border-radius;
         .sg-notification-item-highlight {
             color: $color-white;
         }
-        
+
         code {
             background: tint($color-blue, 20%);
             box-sizing: border-box;
