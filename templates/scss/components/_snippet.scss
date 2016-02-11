@@ -11,7 +11,7 @@
 }
 
 %drawer-style {
-    @include transition(all .3s);
+    @include transition(all .3s ease-out);
     @include transform(translateY(-15px));
     background: $color-grey;
     border-top: 2px solid $color-blue;
@@ -32,11 +32,13 @@
 }
 
 .sg-holder {
+    @include transition(all .3s ease-out);
     height: 0;
-    overflow: hidden;
+    visibility: hidden;
     position: relative;
 
     &.active {
+        visibility: visible;
         height: auto;
         overflow: visible;
         position: static;
@@ -305,6 +307,7 @@
     }
 
     .ace_editor {
+        @include transition(border .6s);
         background-color: $color-white;
         border: transparent solid 2px;
         border-radius: 4px;

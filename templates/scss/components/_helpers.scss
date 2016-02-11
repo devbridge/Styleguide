@@ -25,6 +25,7 @@
 }
 
 %form-item-style {
+    @include transition(border .6s);
     background-color: $color-white;
     border: transparent solid 2px;
     border-radius: 4px;
