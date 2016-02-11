@@ -5,6 +5,11 @@ var helpers = require('./helpers.js'),
 
   exports = module.exports = {};
 
+var pruneArrayAndObject = function () {
+  delete Array.prototype.equals;
+  delete Object.prototype.equals;
+}
+
 var extendArrayAndObject = function() {
   Array.prototype.equals = function(array) {
     if (!array)
@@ -206,7 +211,7 @@ var compareForReport = function(theme, report) {
   report.uniqueColVals = Object.keys(theme.colors).length;
   report.diffOfColVals = report.uniqueColVals - Object.keys(oldData.colors).length;
 
-  if (!theme.typography.equals(oldData.typography)) {
+  if (theme.typography && !theme.typography.equals(oldData.typography)) {
     report.oldTypo = oldData.typography;
     report.newTypo = theme.typography;
   }
@@ -239,6 +244,8 @@ exports.scrapeTheme = function(themeIndex, result, sassPaths, maxSassIterations)
   extendArrayAndObject();
 
   compareForReport(theme, report);
+
+  pruneArrayAndObject();
 
   result.push(theme);
 
