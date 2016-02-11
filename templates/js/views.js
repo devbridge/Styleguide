@@ -75,25 +75,20 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
             len = pages.length;
 
-            navList.on('added:element', function () {
-                if (navLinksArr.length === pages.length) {
-                    sortAndAppendLinks(navList, navLinksArr);
-                }
-            });
+            navList.empty();
 
             for (index = 0; len > index; index++) {
                 iteratingPage = pages[index];
-                snippetService.getCategoryItemsCount(iteratingPage, function (count, category) {
-                    pageElement = $('<button type="button" data-id="' + category.id + '">' + category.name + '</button>');
-                    pageElement.on('click', bindNavClick);
+                pageElement = $('<button type="button" data-id="' + iteratingPage.id + '">' + iteratingPage.name + '</button>');
+                pageElement.on('click', bindNavClick);
 
-                    navLinksArr.push({
-                        element: pageElement,
-                        category: category
-                    });
-                    navList.trigger('added:element');
+                navLinksArr.push({
+                    element: pageElement,
+                    category: iteratingPage
                 });
             }
+
+            sortAndAppendLinks(navList, navLinksArr);
 
             if (route.length) {
                 currentView = $.grep(views, function (el) {
@@ -356,6 +351,12 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         });
     };
 
+    var categoriesUpdateActions = function () {
+        buildNavigation($('.js-navigation'), '.js-navigation-list', true);
+        buildNavigation($('.js-home-navigation'), '.js-navigation-list', false);
+        categoryService.bindCategoriesToForm($('.js-form-select').first());
+    };
+
     var categoryControls = function () {
         var categoriesButton = $(".js-categories-button"),
             modalContent;
@@ -404,6 +405,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                             .notifications
                             .pushMessage("Category Deletion: " + data);
                     } else {
+                        categoriesUpdateActions();
                         module
                             .notifications
                             .pushMessage("Category Deleted!");
@@ -471,6 +473,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                         id = data.id;
                         name = data.name;
                         categoryName.val(data.name);
+                        categoriesUpdateActions();
                         module
                             .notifications
                             .pushMessage("Category Save: Successfully Saved!");
