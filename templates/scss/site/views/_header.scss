@@ -38,6 +38,7 @@
 .sg-snippets-resize {
     @include position(absolute, 0 auto auto 50%);
     @include transform(translateX(-50%));
+    z-index: 10;
 
     .label-new-size {
         @include position(absolute, 0 32px auto auto);

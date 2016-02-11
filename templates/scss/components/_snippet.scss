@@ -11,21 +11,35 @@
 }
 
 %drawer-style {
-    @include transition(max-height .1s ease-in .2s, opacity .1s ease-out .125s);
+    @include transition(all .3s);
+    @include transform(translateY(-15px));
     background: $color-grey;
     border-top: 2px solid $color-blue;
     margin-top: -1px;
-    max-height: 0;
+    max-height: 500px;
     opacity: 0;
     overflow: auto;
     position: relative;
     width: 100%;
 
-    &.active {
-        @include transition(max-height .1s ease-out .125s, opacity .15s ease-in .2s);
+    .active & {
+        @include transform(translateY(0));
+        //@include transition(max-height .1s ease-out .125s, opacity .15s ease-in .2s);
         max-height: 500px;
         opacity: 1;
         overflow: visible;
+    }
+}
+
+.sg-holder {
+    height: 0;
+    overflow: hidden;
+    position: relative;
+
+    &.active {
+        height: auto;
+        overflow: visible;
+        position: static;
     }
 }
 
@@ -209,6 +223,17 @@
 .snippet-settings {
     @extend %drawer-style;
 
+    .sg-header & {
+        @include position(absolute, 100% 0 null);
+
+        .drawer-tip {
+
+            &:before {
+                right: 111px;
+            }
+        }
+    }
+
     .sg-page-wrapper {
         position: relative;
     }
@@ -226,6 +251,7 @@
     }
 
     .drawer-tip {
+
         &:before {
             right: 28px;
         }

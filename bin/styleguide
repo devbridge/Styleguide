@@ -10,7 +10,7 @@ var stdin = process.stdin;
 var stdout = process.stdout;
 
 var initialCategories = [{
-    name: 'undefined',
+    name: 'Undefined',
     id: 0
 }];
 
@@ -18,7 +18,7 @@ var mainConfig = {
   projectName: '',
   projectUrl: '',
   projectLogo: '',
-  
+
   jsResources: [],
   viewportWidths: [480, 768, 1200],
 
@@ -128,7 +128,7 @@ var initialize = function() {
     currentFolder = process.cwd(),
     rootFolder = path.join(currentFolder, 'styleguide'),
     dbFolder = path.join(rootFolder, 'db');
-  
+
   stdin.resume();
 
   copyContent(currentFolder);
