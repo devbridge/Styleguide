@@ -258,8 +258,9 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             mediaCookie = document.cookie.replace(/(?:(?:^|.*;\s*)styleguideMedia\s*\=\s*([^;]*).*$)|^.*$/, "$1"), //session cookie
             firstValue = false; //assumed default viewport
 
-        $.getJSON('../styleguide_config.txt', function (data) {
-            $.each(data.resolutions, function (index, value) {
+        $.getJSON('../styleguide/config.txt', function (data) {
+
+            $.each(data.viewportWidths, function (index, value) {
                 if (firstValue === false) {
                     firstValue = value;
                 }
