@@ -39,7 +39,9 @@
 
             <!-- Action menu -->
             <div class="sg-snippets-controls js-snippets-controls">
-                <button class="btn-menu js-open-dropdown" type="button" title="Menu"></button>
+                <button class="btn-menu js-open-dropdown" type="button" title="Menu">
+                    <span>Toggle menu</span>
+                </button>
                 <div class="dropdown-list js-dropdown-list">
                     <ul>
                         <li>
@@ -146,15 +148,9 @@
 
     </div>
 
-    <!-- Home navigation -->
-    <nav class="sg-home-navigation js-home-navigation">
-        <div class="sg-page-wrapper">
-            <ul class="js-navigation-list clearfix"></ul>
-        </div>
-    </nav>
-
     <!-- Main -->
-    <div class="main"></div>
+    <div class="main">
+    </div>
 </div>
 
 <!-- Page Footer -->
@@ -343,14 +339,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Home navigation -->
+        <nav class="sg-home-navigation js-home-navigation">
+            <div class="sg-page-wrapper">
+                <ul class="js-navigation-list clearfix">
+                </ul>
+            </div>
+        </nav>
     </div>
 
     <div class="snippet">
-        <header class="sg-snippet-header">
-            <div class="sg-page-wrapper">
-                <span class="sg-snippet-title">Colors</span>
-            </div>
-        </header>
         <div class="sg-colors-container">
             <ul class="sg-colors-holder js-snippet-colors">
                 <li class="js-color-box">

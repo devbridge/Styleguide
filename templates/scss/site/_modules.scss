@@ -52,32 +52,63 @@ $btn-ghost-radius: $border-radius;
     border: 2px solid $color-blue;
     border-radius: 50%;
     box-sizing: border-box;
-    font-size: 0;
     height: 32px;
     margin-left: 20px;
     position: relative;
     vertical-align: middle;
     width: 32px;
 
+    span {
+        @include position(absolute, 0 7px 0);
+        @include transition(background .2s ease);
+        background: $color-blue;
+        display: block;
+        font-size: 0;
+        height: 1px;
+        margin: auto;
+
+        &:before,
+        &:after {
+            @include position(absolute, null 0 null);
+            @include transition(top, transform .3s ease);
+            background: $color-blue;
+            content: '';
+            height: 1px;
+            width: 100%;
+        }
+
+        &:before {
+            top: -4px;
+        }
+
+        &:after {
+            bottom: -4px;
+        }
+    }
+
     &:hover {
         background: rgba($color-blue, 0.2);
     }
 
-    &:before {
-        @include position(absolute, 10px 7px 9px 7px);
-        border: {
-            color: $color-blue;
-            style: solid;
-            width: 1px 0;
-        }
-        content: '';
-    }
+    &.active {
+        span {
+            background: none;
 
-    &:after {
-        @include position(absolute, 50% 7px null 7px);
-        background: $color-blue;
-        content: '';
-        height: 1px;
+            &:before,
+            &:after {
+                @include transition-delay(0s, .1s);
+            }
+
+            &:before {
+                @include transform(rotate(45deg));
+                top: 0;
+            }
+
+            &:after {
+                @include transform(rotate(-45deg));
+                bottom: 0;
+            }
+        }
     }
 
     &:active,
@@ -91,22 +122,22 @@ $btn-ghost-radius: $border-radius;
     background: transparent;
     border: none;
     box-sizing: border-box;
-    height: 32px;
-    position: relative;
-    padding: 0 10px;
     font-size: 16px;
-    vertical-align: middle;
+    height: 32px;
     line-height: 30px;
+    padding: 0 10px;
+    position: relative;
+    vertical-align: middle;
     @include transition(all 0.3s);
 
     &:after {
         @extend %font-icon-style;
         content: '\f107';
+        display: inline-block;
         font-size: 20px;
+        line-height: 32px;
         margin-left: 10px;
         vertical-align: middle;
-        line-height: 32px;
-        display: inline-block;
         @include transition(all 0.15s);
         @include transform(scaleY(1));
     }
@@ -120,8 +151,8 @@ $btn-ghost-radius: $border-radius;
 
     &:active,
     &:focus {
-        outline: none;
         box-shadow: none;
+        outline: none;
     }
 }
 
@@ -323,7 +354,8 @@ $btn-ghost-radius: $border-radius;
 // module Intro header
 .sg-intro {
     &-container {
-        padding: 50px 0 75px;
+        background: $color-grey;
+        padding: 70px 0 60px;
     }
 
     &-row {
@@ -380,7 +412,7 @@ $btn-ghost-radius: $border-radius;
             text-decoration: none;
 
             &:after {
-                background-color: $color-grey-dark;
+                background-color: #666666;
                 @include position(absolute, null 0 -2px 0);
                 content: '';
                 height: 1px;
@@ -399,37 +431,41 @@ $btn-ghost-radius: $border-radius;
 
 // module Home secondary navigation
 .sg-home-navigation {
-    border-bottom: 1px solid $border-snippet;
-    padding: 11px 0;
+    padding-top: 80px;
 
     ul {
         list-style: none;
         margin: 0;
         padding: 0;
+        text-align: center;
     }
 
     li {
-        float: left;
+        display: inline-block;
 
         button {
-            color: $color-blue;
+            @include transition(all .3s ease);
             background: none;
-            border: 0;
+            border: 2px solid $color-grey;
+            border-radius: 50px;
+            color: $color-black;
             font: {
-                size: 16px;
+                size: 18px;
                 weight: $weight-bold;
             }
-            padding: 0;
+            height: 34px;
+            line-height: 30px;
+            padding: 0 15px;
             text-decoration: none;
 
             &:hover,
             &.active {
-                color: $color-black-secondary
+                border-color: $color-black;
             }
         }
 
         + li {
-            padding-left: 40px;
+            padding-left: 30px;
         }
     }
 }
