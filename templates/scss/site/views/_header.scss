@@ -108,6 +108,10 @@
             }
         }
     }
+
+    html:not([class]) & {
+        display: none;
+    }
 }
 
 // Btn new
@@ -138,6 +142,10 @@
     &:focus {
         box-shadow: none;
         outline: none;
+    }
+
+    html:not([class]) & {
+        display: none;
     }
 }
 
