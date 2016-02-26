@@ -148,12 +148,14 @@
     @include transform(translateY(-15px) translateX(-50%));
     background-color: $color-blue;
     opacity: 0;
+    pointer-events: none;
     visibility: hidden;
     z-index: 10;
 
     &.active {
         @include transform(translateY(0) translateX(-50%));
         opacity: 1;
+        pointer-events: all;
         visibility: visible;
     }
 

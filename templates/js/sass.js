@@ -92,7 +92,7 @@ var sassService = (function ($) {
             color,
             len,
             index;
-            //varName;
+        //varName;
 
         //colorBoxTpl.find('p').remove();
 
@@ -102,9 +102,9 @@ var sassService = (function ($) {
             if (colors.hasOwnProperty(color)) {
                 currentColorBox = colorBoxTpl.clone(true);
                 currentColorBox
-                    .find('span')
-                    .css('background', color)
-                    .attr('data-color-text', color);
+                .find('span')
+                .css('background', color)
+                .attr('data-color-text', color);
 
                 //for (index = 0, len = colors[color].length; index < len; index++) {
                 //    varName = $('<p>' + colors[color][index] + '</p>');
@@ -147,12 +147,12 @@ var sassService = (function ($) {
                     currentFontView = fontTpl.clone(true);
 
                     currentFontView
-                        .find('.js-set-font')
-                        .css({
-                            'font-family': currentFont.value,
-                            'font-weight': currentFont.weights[weightsInd].weight,
-                            'font-style': currentFont.weights[weightsInd].italic ? 'italic' : 'normal'
-                        });
+                    .find('.js-set-font')
+                    .css({
+                        'font-family': currentFont.value,
+                        'font-weight': currentFont.weights[weightsInd].weight,
+                        'font-style': currentFont.weights[weightsInd].italic ? 'italic' : 'normal'
+                    });
 
                     fontDescription = currentFont.variable + ': ' + currentFont.value + '; ' + 'font-weight: ' + currentFont.weights[weightsInd].weight + ';';
 
@@ -161,8 +161,8 @@ var sassService = (function ($) {
                     }
 
                     currentFontView
-                        .find('.js-variable')
-                        .text(fontDescription);
+                    .find('.js-variable')
+                    .text(fontDescription);
 
                     fontsContainer.append(currentFontView);
                 }
@@ -176,34 +176,12 @@ var sassService = (function ($) {
         }
     };
 
-    var bindProjectInformation = function (data, sassContent) {
-        var $linkElement = sassContent.find('.js-project-link');
-        var $imgContainer = sassContent.find('.js-project-logo');
-        var projectName = data.projectName.length ? data.projectName : 'project name';
-        var projectUrl = data.projectUrl.length ? data.projectUrl : '#nolink';
-        var $image = $('<img />');
-
-        $linkElement.text(projectName);
-        $linkElement.attr('href', projectUrl);
-
-        if (data.projectLogo.length) {
-            $image.attr('src', data.projectLogo);
-            $image.attr('alt', projectName);
-
-            $imgContainer.append($image);
-        }
-    };
-
     module.loadSass = function () {
         getSassData(function (data) {
             var sassContent = $($('#sass-page').html()),
                 errorMessage = '<div class="sg-general-page-message">Sass variables has not been scraped yet or markers were not found in file!</div>',
                 snippetsContents,
                 snippets = [];
-
-            $.getJSON('./config.txt', function (data) {
-                bindProjectInformation(data, sassContent);
-            });
 
             $('.main').append(sassContent);
 

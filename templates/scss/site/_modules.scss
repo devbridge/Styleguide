@@ -355,7 +355,7 @@ $btn-ghost-radius: $border-radius;
 .sg-intro {
     &-container {
         background: $color-grey;
-        padding: 70px 0 60px;
+        padding: 70px 0 55px;
     }
 
     &-row {
@@ -442,6 +442,7 @@ $btn-ghost-radius: $border-radius;
 
     li {
         display: inline-block;
+        margin-bottom: 15px;
 
         button {
             @include transition(all .3s ease);
@@ -457,6 +458,7 @@ $btn-ghost-radius: $border-radius;
             line-height: 30px;
             padding: 0 15px;
             text-decoration: none;
+            text-transform: capitalize;
 
             &:hover,
             &.active {
