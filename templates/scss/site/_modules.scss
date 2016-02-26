@@ -355,6 +355,7 @@ $btn-ghost-radius: $border-radius;
 .sg-intro {
     &-container {
         background: $color-grey;
+        display: none;
         padding: 70px 0 55px;
     }
 

@@ -96,7 +96,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
             for (index = 0; len > index; index++) {
                 iteratingPage = pages[index];
-                if (iteratingPage.id === currentView.id) {
+                if (iteratingPage.id === 'sass') {
                     pageElement = $('<button type="button" class="active" data-id="' + iteratingPage.id + '">' + iteratingPage.name + '</button>');
                 } else {
                     pageElement = $('<button type="button" data-id="' + iteratingPage.id + '">' + iteratingPage.name + '</button>');
@@ -128,6 +128,11 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         function snippetsPage() {
             currentPage.text(currentView.name);
             snippetResizeControls.show();
+        }
+
+        if (categoryId === 'sass') {
+            introContainer.show();
+        } else {
             introContainer.hide();
         }
 
@@ -154,7 +159,6 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
             //home page
             snippetResizeControls.hide();
-            introContainer.show();
             currentPage.text(currentView.name);
             sassService.loadSass();
         }
@@ -168,7 +172,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             windowWidth = $(window).width(),
             inputWidth = width,
 
-            //array
+        //array
             len = iFramesArray.length,
             index;
 
