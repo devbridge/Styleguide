@@ -600,7 +600,7 @@ $btn-ghost-radius: $border-radius;
 
 //module spinner
 .spinner-wrapper {
-    @include position(absolute, 0 0 1px 0);
+    @include position(absolute, 2px 0 1px 0);
     background: $color-white;
 }
 
