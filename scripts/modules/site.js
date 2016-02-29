@@ -22,22 +22,16 @@ define(['jquery', 'typing'], function ($) {
             correctTypingSpeed: 70
         });
 
+        triggerInstall.loadTyping({
+            incorrectTypingSpeed: 50
+        });
+
+        triggerStart.loadTyping({
+            incorrectTypingSpeed: 50
+        });
+
         function installationAnimation() {
             installationList.addClass('animate');
-
-            if (installationList.hasClass('animate')) {
-                // Animate text of 'npm install devbridge-styleguide --save-dev' command in Installation section
-                triggerInstall.loadTyping({
-                    incorrectTypingSpeed: 50
-                });
-
-                setTimeout(function () {
-                    // Animate text of 'gulp start-styleguide' command in Installation section
-                    triggerStart.loadTyping({
-                        incorrectTypingSpeed: 50
-                    });
-                }, 2500);
-            }
         }
 
         if ($(window).scrollTop() > containerPosition) {
@@ -46,7 +40,6 @@ define(['jquery', 'typing'], function ($) {
 
         $(window).on('scroll', function () {
             if ($(window).scrollTop() > containerPosition) {
-                $(window).off('scroll');
                 installationAnimation();
             }
         });
@@ -108,6 +101,7 @@ define(['jquery', 'typing'], function ($) {
 
         function toggleVisibility() {
             windowScrollTop = windowVar.scrollTop();
+            console.log(windowScrollTop + ' scroll top -  logo top ->' + logoTop + ' header-height -> ' + headerHeight);
 
             if (windowScrollTop > logoTop - headerHeight) {
                 siteHeader.addClass('home-logo-is-invisible');
@@ -123,10 +117,11 @@ define(['jquery', 'typing'], function ($) {
             toggleVisibility();
 
             windowVar.on('scroll', function () {
+                console.log('scroll');
                 toggleVisibility();
             });
 
-            windowVar.resize(function () {
+            windowVar.on('resize', function () {
                 logoTop = logo.offset().top + logo.outerHeight() - headerHeight;
                 toggleVisibility();
             });

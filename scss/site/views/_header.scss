@@ -77,7 +77,7 @@
 }
 
 .logo-holder {
-    @include transition(opacity 0.5s);
+    @include transition(opacity .5s);
     margin: 0;
     opacity: 0;
 
