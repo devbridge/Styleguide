@@ -116,7 +116,6 @@ define(['jquery', 'typing'], function ($) {
             toggleVisibility();
 
             windowVar.on('scroll', function () {
-                console.log('scroll');
                 toggleVisibility();
             });
 
