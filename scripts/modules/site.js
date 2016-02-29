@@ -101,7 +101,6 @@ define(['jquery', 'typing'], function ($) {
 
         function toggleVisibility() {
             windowScrollTop = windowVar.scrollTop();
-            console.log(windowScrollTop + ' scroll top -  logo top ->' + logoTop + ' header-height -> ' + headerHeight);
 
             if (windowScrollTop > logoTop - headerHeight) {
                 siteHeader.addClass('home-logo-is-invisible');
