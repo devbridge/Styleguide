@@ -599,18 +599,12 @@ img {
     .text-section-holder p {
       font-weight: 300;
       margin: 0; }
-  .text-section.automate-work {
-    background-color: #f4f4f5;
-    padding: 60px 0; }
   @media screen and (max-width: 600px) {
     .text-section p {
       font-size: 15px;
       line-height: 1.6; }
     .text-section-holder {
       margin-top: 50px; } }
-  @media screen and (min-width: 601px) {
-    .text-section.automate-work {
-      padding: 125px 0; } }
 
 .section-title {
   padding-bottom: 20px;
@@ -941,9 +935,15 @@ img {
       margin-left: 20px;
       vertical-align: middle; } }
 
+.categories-img-holder {
+  margin-top: 60px; }
+  @media screen and (max-width: 600px) {
+    .categories-img-holder {
+      display: none; } }
+
 .features-content {
   display: block;
-  padding: 100px 0 20px; }
+  padding: 90px 0 20px; }
   .features-content-box {
     float: left;
     display: block;
@@ -953,6 +953,7 @@ img {
     .features-content-box:last-child {
       margin-right: 0; }
     .features-content-box h3 {
+      line-height: 1;
       margin-bottom: 10px; }
     .features-content-box p {
       font-size: 15px;
@@ -968,27 +969,25 @@ img {
       padding-bottom: 80px; }
       .features-content-box:last-child {
         margin-right: 0; }
-      .features-content-box:nth-child(3n) {
-        margin-right: 0; }
-      .features-content-box:nth-child(3n+1) {
-        clear: left; }
       .features-content-box p {
         font-size: 16px;
         line-height: 1.4375; }
       .features-content-box h3 {
         margin-bottom: 25px; } }
   @media screen and (min-width: 481px) and (max-width: 650px) {
-    .features-content-box {
-      float: left;
-      display: block;
-      margin-right: 2.35765%;
-      width: 48.82117%; }
-      .features-content-box:last-child {
-        margin-right: 0; }
-      .features-content-box:nth-child(2n) {
-        margin-right: 0; }
-      .features-content-box:nth-child(2n+1) {
-        clear: left; } }
+    .features-content {
+      padding-top: 60px; }
+      .features-content-box {
+        float: left;
+        display: block;
+        margin-right: 2.35765%;
+        width: 48.82117%; }
+        .features-content-box:last-child {
+          margin-right: 0; }
+        .features-content-box:nth-child(2n) {
+          margin-right: 0; }
+        .features-content-box:nth-child(2n+1) {
+          clear: left; } }
   @media screen and (min-width: 481px) {
     .features-content .icon {
       display: block;

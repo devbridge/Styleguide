@@ -135,11 +135,6 @@
         }
     }
 
-    &.automate-work {
-        background-color: $bg-primary;
-        padding: 60px 0;
-    }
-
     @include media($tablet-600) {
         p {
             font-size: 15px;
@@ -148,12 +143,6 @@
 
         &-holder {
             margin-top: 50px;
-        }
-    }
-
-    @include media($tablet-600-up) {
-        &.automate-work {
-            padding: 125px 0;
         }
     }
 }
@@ -598,16 +587,25 @@
     }
 }
 
+.categories-img-holder {
+    margin-top: 60px;
+
+    @include media($tablet-600) {
+        display: none;
+    }
+}
+
 // module Features section
 .features-content {
     @include row();
-    padding: 100px 0 20px;
+    padding: 90px 0 20px;
 
     &-box {
         @include span-columns(12);
         padding-bottom: 55px;
 
         h3 {
+            line-height: 1;
             margin-bottom: 10px;
         }
 
@@ -622,7 +620,6 @@
     @include media(new-breakpoint(min-width 651px)) {
         &-box {
             @include span-columns(4);
-            @include omega(3n);
             padding-bottom: 80px;
 
             p {
@@ -637,6 +634,8 @@
     }
 
     @include media(new-breakpoint(min-width 481px max-width 650px)) {
+        padding-top: 60px;
+
         &-box {
             @include span-columns(6);
             @include omega(2n);
