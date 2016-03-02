@@ -9,6 +9,7 @@ require.config({
         ],
         typing: 'plugins/typing-plugin',
         prism: 'plugins/prism',
+        interact: 'plugins/interact-1.2.4.min',
         site: 'modules/site'
     }
 });

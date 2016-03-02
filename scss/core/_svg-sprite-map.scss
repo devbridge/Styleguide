@@ -1,15 +1,15 @@
 $icons: (
 	sprite: (
 		width: 137px,
-		height: 99px,
+		height: 127px,
 		pngPath: 'images/sprite.png',
 		svgPath: 'images/sprite.svg'
 	),
 	icon-arrows: (
 		width: 19px,
 		height: 12px,
-		backgroundX: -84px,
-		backgroundY: -72px
+		backgroundX: 0px,
+		backgroundY: -99px
 	),
 	icon-chat: (
 		width: 28px,
@@ -53,6 +53,12 @@ $icons: (
 		backgroundX: -99px,
 		backgroundY: -48px
 	),
+	icon-handle: (
+		width: 10px,
+		height: 16px,
+		backgroundX: 0px,
+		backgroundY: -111px
+	),
 	icon-hexagon: (
 		width: 65px,
 		height: 72px,
@@ -64,6 +70,12 @@ $icons: (
 		height: 48px,
 		backgroundX: -65px,
 		backgroundY: 0px
+	),
+	icon-pencil: (
+		width: 15px,
+		height: 20px,
+		backgroundX: -84px,
+		backgroundY: -72px
 	),
 	icon-terminal: (
 		width: 38px,

@@ -13,12 +13,12 @@
     border: 0;
     display: inline-block;
     font-size: 14px;
-    line-height: (30/14);
+    line-height: (30 / 14);
     margin: 0;
     padding: 0 30px 0 0;
     position: relative;
 
-    &:after {
+    &::after {
         @include position(absolute, 0 0 0 null);
         @include svg-sprite('icon-arrows');
         content: '';
@@ -39,7 +39,7 @@
     padding: 0;
     position: relative;
 
-    &:before {
+    &::before {
         @include svg-sprite('icon-gripper');
         @include position(absolute, 0 null 0 -10px);
         content: '';
@@ -63,23 +63,22 @@
     }
 }
 
-.btn-primary {
+.btn {
     @include ellipsis();
     @include transition(all .3s ease);
-    background-color: $bg-primary-button;
+    background-color: $color-pink;
     border: 0;
-    border-radius: 30px;
-    box-sizing: border-box;
+    border-radius: 50px;
     color: $color-white;
+    display: inline-block;
     font-size: 18px;
     height: 48px;
-    line-height: (48/18);
-    padding: 0 40px;
-    text-align: center;
+    line-height: (45 / 18);
+    padding: 0 43px;
 
     @include media($tablet-1024-up) {
         &:hover {
-            background-color: darken($bg-primary-button, 18%);
+            background-color: darken($color-pink, 25%);
         }
     }
 }
@@ -88,20 +87,21 @@
     @include ellipsis();
     @include transition(all .3s ease);
     background-color: $color-white;
-    border: $border-btn-secondary solid 2px;
+    border: $color-pink solid 2px;
     border-radius: 30px;
     box-sizing: border-box;
-    color: $text-button-link;
+    color: $color-pink;
     font-size: 18px;
     height: 48px;
-    line-height: (48/18);
+    line-height: (48 / 18);
     padding: 0 20px;
     text-align: center;
 
     @include media($tablet-1024-up) {
         &:hover {
-            border-color: darken($bg-primary-button, 18%);
-            color: darken($bg-primary-button, 18%);
+            background-color: $color-pink;
+            border-color: $color-pink;
+            color: $color-white;
         }
     }
 }
@@ -110,14 +110,14 @@
     @include transition(all .3s ease);
     background: none;
     border: 0;
-    color: $text-button-link;
+    color: $color-pink;
     display: inline-block;
     font-size: 18px;
-    line-height: (22/18);
+    line-height: (48 / 18);
 
     @include media($tablet-1024-up) {
         &:hover {
-            color: darken($bg-primary-button, 18%);
+            color: darken($color-pink, 25%);
         }
     }
 }

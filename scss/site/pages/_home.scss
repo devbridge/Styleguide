@@ -322,7 +322,7 @@
 
     p {
         font-family: inherit;
-        line-height: (30/22);
+        line-height: (30 / 22);
         margin: 0;
     }
 
@@ -332,7 +332,7 @@
             family: inherit;
             size: 150px;
         }
-        line-height: (170/150);
+        line-height: (170 / 150);
     }
 
     @include media($tablet-730) {
@@ -363,7 +363,7 @@
     > span {
         @include position(absolute, null 10px 12px 10px);
         font-size: 14px;
-        line-height: (17/14);
+        line-height: (17 / 14);
     }
 
     @include media(new-breakpoint(min-width 769px max-width 921px)) {
@@ -491,110 +491,6 @@
     }
 }
 
-// module Snippet section
-.snippet-section {
-    padding: 57px 0 61px;
-
-    @include media($tablet-600-up) {
-        padding: 97px 0 160px;
-    }
-}
-
-.snippet-box {
-    border: 1px solid #dedede;
-    border-radius: 15px 15px 0 0;
-    box-sizing: border-box;
-    margin: 0 auto;
-    max-width: $snippet-box-width;
-    padding: 20px 20px 25px;
-
-    @include media($mobile-480-up) {
-        padding: 25px 30px 35px;
-    }
-}
-
-.snippet-code-holder {
-    @include transition(all .3s ease-out);
-    background-color: #2f3638;
-    border-radius: 0 0 15px 15px;
-    margin: 0 auto;
-    max-height: 0;
-    max-width: $snippet-box-width;
-    overflow: hidden;
-
-    &.opened {
-        max-height: 350px;
-    }
-}
-
-.title-row {
-    @include row();
-    padding-bottom: 30px;
-
-    &-box {
-        @include span-columns(6);
-    }
-
-    @include media($mobile-480) {
-        &-box {
-            &:first-child {
-                line-height: 1.1;
-                padding-top: 7px;
-            }
-        }
-    }
-}
-
-.snippet-title {
-    color: $text-snippet-title;
-    font-weight: $weight-medium;
-}
-
-.snippet-preview {
-    padding: 30px 25px;
-    position: relative;
-
-    .resize-control {
-        @include position(absolute, 0 null 0 0);
-        height: 100%;
-
-        &.pos-right {
-            left: auto;
-            right: 0;
-        }
-    }
-}
-
-.snippet-button-holder {
-    text-align: center;
-
-    @include media($tablet-600) {
-        margin: 0 auto;
-        max-width: 200px;
-
-        .btn-secondary,
-        .btn-link {
-            margin-top: 15px;
-        }
-    }
-
-    @include media($tablet-600-up) {
-        .btn-secondary,
-        .btn-link {
-            margin-left: 20px;
-            vertical-align: middle;
-        }
-    }
-}
-
-.categories-img-holder {
-    margin-top: 60px;
-
-    @include media($tablet-600) {
-        display: none;
-    }
-}
-
 // module Features section
 .features-content {
     @include row();
@@ -611,7 +507,7 @@
 
         p {
             font-size: 15px;
-            line-height: (23/15);
+            line-height: (23 / 15);
             margin: 0;
             opacity: .5;
         }
@@ -624,7 +520,7 @@
 
             p {
                 font-size: 16px;
-                line-height: (23/16);
+                line-height: (23 / 16);
             }
 
             h3 {
@@ -863,7 +759,7 @@
 
 .typing-text {
     color: $color-blue;
-    line-height: (22/18);
+    line-height: (22 / 18);
     min-height: 23px;
     opacity: 0;
     padding-left: 45px;
@@ -886,5 +782,127 @@
 
     @include media($tablet-600-up) {
         white-space: nowrap;
+    }
+}
+
+// module Live edit
+.snippet-header {
+    border: $border-snippet solid;
+    border-width: 1px 0;
+
+    &-inner {
+        @include row();
+        padding: 0 100px;
+        position: relative;
+    }
+}
+
+.snippet-size {
+    @include position(absolute, 0);
+    color: $text-snippet-size;
+    font-size: 14px;
+    line-height: (45 / 14);
+    text-align: center;
+    z-index: -1;
+}
+
+.snippet-controls {
+    float: right;
+
+    .btn-show-code,
+    .btn-edit {
+        vertical-align: top;
+    }
+}
+
+.btn-show-code {
+    background: none;
+    border: $border-snippet solid;
+    border-width: 0 1px;
+    color: $text-btn-show-code;
+    display: inline-block;
+    font-size: 13px;
+    height: 45px;
+    padding: 0 17px;
+
+    &::after {
+        @include svg-sprite('icon-arrows');
+        content: '';
+        margin-left: 14px;
+    }
+}
+
+.btn-edit {
+    background: none;
+    border: $border-snippet solid;
+    border-width: 0 1px 0 0;
+    display: inline-block;
+    font-size: 0;
+    height: 45px;
+    padding: 0 12px;
+
+    &::before {
+        @include svg-sprite('icon-pencil');
+        content: '';
+        vertical-align: middle;
+    }
+}
+
+.snippet-preview {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 60px 10px;
+    position: relative;
+}
+
+.snippet-source {
+    text-align: center;
+
+    > button {
+        vertical-align: top;
+
+        + button {
+            margin-left: 30px;
+        }
+    }
+
+    &.resize-overlay {
+        pointer-events: none;
+        position: relative;
+    }
+}
+
+.snippet-resize-handle {
+    @include position(absolute, 50% null null);
+    @include transition(all .4s);
+    box-sizing: border-box;
+    cursor: w-resize;
+    height: 100px;
+    margin-top: -50px;
+    width: 30px;
+
+    &::before {
+        @include svg-sprite('icon-handle');
+        @include position(absolute, 50% null null);
+        content: '';
+        margin-top: -8px;
+    }
+
+    &.pos-left {
+        border-right: $border-snippet solid 1px;
+        left: -30px;
+
+        &::before {
+            left: 0;
+        }
+    }
+
+    &.pos-right {
+        border-left: $border-snippet solid 1px;
+        right: -30px;
+
+        &::before {
+            right: 0;
+        }
     }
 }

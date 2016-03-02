@@ -92,17 +92,18 @@
                     <div class="example-section-box">
                         <div class="code-box">
  <pre class="line-numbers dimmed" data-start="49">
-<code class="language-scss">    $color-yellow: #ffa960;
+<code class="language-scss"> $color-yellow: #ffa960;
     $color-yellow-110: #de883f;
     $color-sky-d10: #538292;
     $color-sky: #70b1c7;</code></pre>
-                            <pre class="line-numbers" data-start="53"><code class="language-scss">    //-- typo:start --//
-    $font-avenir: 'Avenir W01', sans-serif;
-    $font-chaparral: 'Chaparral W01', serif;
-    //-- typo:end --//</code></pre><pre class="line-numbers dimmed" data-start="57"><code class="language-scss">    $src-icon-down: 'images/icon-down.svg';
-    $weight-black: 900;
-    $weight-heavy: 800;
-    $weight-bold: 700;</code></pre>
+                            <pre class="line-numbers" data-start="53"><code class="language-scss"> //-- typo:start --//
+                                $font-avenir: 'Avenir W01', sans-serif;
+                                $font-chaparral: 'Chaparral W01', serif;
+                                //-- typo:end --//</code></pre><pre class="line-numbers dimmed" data-start="57"><code
+                            class="language-scss"> $src-icon-down: 'images/icon-down.svg';
+                            $weight-black: 900;
+                            $weight-heavy: 800;
+                            $weight-bold: 700;</code></pre>
                         </div>
                     </div>
                 </div>
@@ -125,19 +126,20 @@
                     </div>
                     <div class="example-section-box">
                         <div class="code-box">
-                            <pre class="line-numbers dimmed" data-start="52"><code class="language-scss">    ($gutter / 2);
-    $footer-height: 200px;</code></pre>
-                            <pre class="line-numbers" data-start="54"><code class="language-scss">    $gutter-single:
-    //-- color:start --//
-    $color-red: #f8533b;
-    $color-yellow: #fda400;
-    $color-blue: #205b67;
-    $color-blue-120: #00a5bc;
-    $color-green: #95bf15;
-    //-- color:end --//</code></pre>
-                            <pre class="line-numbers dimmed" data-start="62"><code class="language-scss">    $body-font: $font-chaparral;
-    $heading-font: $font-avenir;
-    $src-icon-down: 'images/icon-down.svg';</code></pre>
+                            <pre class="line-numbers dimmed" data-start="52"><code class="language-scss"> ($gutter / 2);
+                                $footer-height: 200px;</code></pre>
+                            <pre class="line-numbers" data-start="54"><code class="language-scss"> $gutter-single:
+                                //-- color:start --//
+                                $color-red: #f8533b;
+                                $color-yellow: #fda400;
+                                $color-blue: #205b67;
+                                $color-blue-120: #00a5bc;
+                                $color-green: #95bf15;
+                                //-- color:end --//</code></pre>
+                            <pre class="line-numbers dimmed" data-start="62"><code class="language-scss"> $body-font:
+                                $font-chaparral;
+                                $heading-font: $font-avenir;
+                                $src-icon-down: 'images/icon-down.svg';</code></pre>
                         </div>
                     </div>
                 </div>
@@ -159,39 +161,29 @@
             </div>
         </section>
 
-        <section class="snippet-section">
+        <section class="snippet">
             <div class="page-frame">
-                <div class="snippet-box">
-                    <div class="title-row">
-                        <div class="title-row-box">
-                            <span class="snippet-title">Snippet: Buttons</span>
-                        </div>
-                        <div class="title-row-box align-right">
-                            <button class="btn-hide-code js-toggle-button">Hide Code</button>
+                <header class="snippet-header">
+                    <div class="snippet-header-inner">
+                        <div class="snippet-size js-snippet-size">1920px</div>
+                        <div class="snippet-controls">
+                            <button type="button" class="btn-show-code">Show code</button>
+                            <button type="button" class="btn-edit">Edit snippet</button>
                         </div>
                     </div>
+                </header>
 
-                    <div class="snippet-preview">
-                        <button class="resize-control">Resize</button>
-                        <div class="snippet-button-holder">
-                            <button class="btn-primary" type="button">Save</button>
-                            <button class="btn-secondary" type="button">Save as draft</button>
-                            <button class="btn-link" type="button">Cancel</button>
+                <div class="js-snippet-preview-holder">
+                    <div class="snippet-preview js-snippet-preview">
+                        <div class="js-snippet-source snippet-source">
+                            <button type="button" class="btn">Save</button>
+                            <button type="button" class="btn-secondary">Save as draft</button>
+                            <button type="button" class="btn-link">Cancel</button>
                         </div>
-                        <button class="resize-control pos-right">Resize</button>
-                    </div>
-                </div>
-
-                <div class="snippet-code-holder opened js-toggle-container">
-                    <div class="code-box">
-                    <pre class="line-numbers" data-start="54"><code class="language-markup">&lt;!-- snippet:start
-                        include-js --&gt;
-                        &lt;div class="navigation"&gt;
-                        &lt;button class="btn-primary"&gt;Save&lt;/button&gt;
-                        &lt;button class="btn-secondary"&gt;Save as draft&lt;/button&gt;
-                        &lt;button class="btn-link"&gt;Cancel&lt;/button&gt;
-                        &lt;/div&gt;
-                        &lt;!-- snippet:end --&gt;</code></pre>
+                        <div class="js-resize-length">
+                            <div class="snippet-resize-handle pos-left js-snippet-resize-handle-left"></div>
+                            <div class="snippet-resize-handle pos-right js-snippet-resize-handle-right"></div>
+                        </div>
                     </div>
                 </div>
             </div>

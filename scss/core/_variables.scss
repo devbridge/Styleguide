@@ -3,7 +3,7 @@ $disable-warnings: true;
 $border-box-sizing: false !default;
 
 //module TYPOGRAPHY
-$base-line-height: (30/18);
+$base-line-height: (30 / 18);
 $base-font-size: 18px;
 
 // Fonts
@@ -19,10 +19,14 @@ $weight-bold: 700;
 //module MAIN COLOR PALETTE
 $color-black: #292929;
 $color-black-100: #2d3335;
+$color-black-200: #010101;
 $color-blue: #3381ff;
 $color-light-gray: #f4f4f5;
 $color-white: #fff;
 $color-yellow: #f6dc44;
+$color-gray: #cdcccc;
+$color-gray-100: #989898;
+$color-pink: #f76cb5;
 
 //module TEXT COLORS
 $text-primary: $color-black;
@@ -30,9 +34,12 @@ $text-link: $color-black;
 $text-list-number: $color-blue;
 $text-snippet-title: $color-blue;
 $text-button-link: $color-blue;
+$text-btn-show-code: $color-gray-100;
+$text-snippet-size: $color-black-200;
 
 $border-primary: $color-black;
 $border-btn-secondary: $color-blue;
+$border-snippet: $color-gray;
 
 $bg-primary: $color-light-gray;
 $bg-secondary: $color-black-100;

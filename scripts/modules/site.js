@@ -3,7 +3,7 @@
 /*jslint regexp: true, nomen: true, sloppy: true */
 /*global require, define, alert, applicationConfig, location, document, window,  setTimeout, Countable */
 
-define(['jquery', 'typing'], function ($) {
+define(['jquery', 'interact', 'typing'], function ($, interact) {
     var module = {};
 
     module.initInstallationAnimation = function () {
@@ -155,12 +155,60 @@ define(['jquery', 'typing'], function ($) {
         })
     };
 
+    // Resize snippet
+    module.initSnippetResize = function() {
+        var $handleLeft = $('.js-snippet-resize-handle-left'),
+            $handleRight = $('.js-snippet-resize-handle-right'),
+            $preview = $('.js-snippet-preview'),
+            $resizeLength = $('.js-resize-length'),
+            $sizeIndicator = $('.js-snippet-size'),
+            $snippetHolder = $('.js-snippet-preview-holder'),
+            snippetSource = '.js-snippet-source';
+
+        $resizeLength.css('width', ($snippetHolder.width() / 2));
+        $sizeIndicator.text($snippetHolder.width() + "px");
+
+        interact($resizeLength[0])
+            .resizable({
+                edges: {
+                    left: $handleRight[0],
+                    right: $handleLeft[0],
+                    bottom: false,
+                    top: false
+                },
+                onmove: function (e) {
+                    var width = e.rect.width,
+                        windowWidth = $(window).width(),
+                        snippetWidth = $snippetHolder.width();
+
+                    if (width < 160) {
+                        width = 160;
+                    } else if ((width * 2) + snippetWidth > windowWidth) {
+                        width = (snippetWidth) / 2;
+                    }
+
+                    $preview
+                        .find(snippetSource)
+                        .addClass('resize-overlay');
+                    $preview[0].style.width = (width * 2) + 'px';
+                    $resizeLength[0].style.width = width + 'px';
+                    $sizeIndicator.text((width * 2) + "px");
+                },
+                onend: function () {
+                    $preview
+                        .find(snippetSource)
+                        .removeClass('resize-overlay');
+                }
+            });
+    };
+
     module.init = function () {
         module.initInstallationAnimation();
         module.initStickyHeader();
         module.initToggle();
         module.initScrollTo();
         module.showLogoOnScroll();
+        module.initSnippetResize();
     };
 
     return module;
