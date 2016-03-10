@@ -1,5 +1,6 @@
 var editorService = (function ($) {
     var module = {};
+    var edits = [];
 
     //module editor controls: toggle full screen by html button
     var toggleFullScreen = function (editor, e) {
@@ -127,14 +128,15 @@ var editorService = (function ($) {
 
         function removeFromEditor(currentId, type) {
             var currentEditor = ace.edit(currentId),
-                tempText = currentEditor.getValue();
+                tempText = currentEditor.getValue(),
+                containerClone = currentEditor.container.cloneNode(false);
+
+            containerClone.textContent = currentEditor.getValue();
 
             currentEditor.destroy();
-            $(currentEditor.container)
-                .children()
-                .remove()
-                .end()
-                .text(tempText);
+
+            // Replace container with cloned copy to remove all event listeners
+            currentEditor.container.parentNode.replaceChild(containerClone, currentEditor.container);
 
             snippetContainer
                 .find('.js-toggle-' + type + '-full-screen')
