@@ -148,19 +148,19 @@ td,
 th {
   padding: 0; }
 
-.clearfix:after, .page-header-box .links-group:after, .features-content:after, .snippet-header-inner:after {
+.clearfix:after, .page-header-box .links-group:after, .features-content:after, .snippet-header-inner:after, .snippet-editor-content:after {
   clear: both;
   content: '';
   display: table;
   height: 0; }
 
-.github-link:after, .btn-hide-code::after, .resize-control::before, .icon-folder:before, .icon-download:before, .icon-flag:before, .icon-chat:before, .icon-element:before, .icon-nodejs:before, .intro-section .typing-text:before, .section-title-number:before, .typing-text:before, .btn-show-code::after, .btn-edit::before, .snippet-resize-handle::before {
+.github-link:after, .btn-hide-code::after, .resize-control::before, .icon-folder:before, .icon-download:before, .icon-flag:before, .icon-chat:before, .icon-element:before, .icon-nodejs:before, .intro-section .typing-text::before, .section-title-number:before, .typing-text::before, .btn-show-code::after, .btn-edit::before, .snippet-resize-handle::before {
   background-image: url("images/sprite.svg");
   background-repeat: no-repeat;
   background-size: 137px 127px;
   display: inline-block; }
 
-.ie8 .github-link:after, .ie8 .btn-hide-code::after, .ie8 .resize-control::before, .ie8 .icon-folder:before, .ie8 .icon-download:before, .ie8 .icon-flag:before, .ie8 .icon-chat:before, .ie8 .icon-element:before, .ie8 .icon-nodejs:before, .ie8 .intro-section .typing-text:before, .ie8 .section-title-number:before, .ie8 .typing-text:before, .ie8 .btn-show-code::after, .ie8 .btn-edit::before, .ie8 .snippet-resize-handle::before {
+.ie8 .github-link:after, .ie8 .btn-hide-code::after, .ie8 .resize-control::before, .ie8 .icon-folder:before, .ie8 .icon-download:before, .ie8 .icon-flag:before, .ie8 .icon-chat:before, .ie8 .icon-element:before, .ie8 .icon-nodejs:before, .ie8 .intro-section .typing-text::before, .ie8 .section-title-number:before, .ie8 .typing-text::before, .ie8 .btn-show-code::after, .ie8 .btn-edit::before, .ie8 .snippet-resize-handle::before {
   background-image: url("images/sprite.png"); }
 
 html,
@@ -182,6 +182,12 @@ body {
   @media screen and (max-width: 1024px) {
     body {
       -webkit-text-size-adjust: 100%; } }
+
+iframe {
+  border: 0;
+  height: auto;
+  margin: 0;
+  width: 100%; }
 
 .page-header-holder {
   background-color: #fff; }
@@ -337,67 +343,26 @@ body {
       right: -10px; }
 
 .btn {
-  display: inline-block;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-wrap: normal;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-  background-color: #f76cb5;
+  background-color: #fff;
   border: 0;
   border-radius: 50px;
-  color: #fff;
+  color: #29aae2;
   display: inline-block;
+  font-family: "Proxima Nova W01", sans-serif;
   font-size: 18px;
-  height: 48px;
-  line-height: 2.5;
-  padding: 0 43px; }
-  @media screen and (min-width: 1025px) {
-    .btn:hover {
-      background-color: #d80c77; } }
-
-.btn-secondary {
-  display: inline-block;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-wrap: normal;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-  background-color: #fff;
-  border: #f76cb5 solid 2px;
-  border-radius: 30px;
-  box-sizing: border-box;
-  color: #f76cb5;
-  font-size: 18px;
-  height: 48px;
-  line-height: 2.66667;
-  padding: 0 20px;
-  text-align: center; }
-  @media screen and (min-width: 1025px) {
-    .btn-secondary:hover {
-      background-color: #f76cb5;
-      border-color: #f76cb5;
-      color: #fff; } }
+  font-weight: 500;
+  height: 31px;
+  line-height: 1.72222;
+  padding: 0 20px; }
 
 .btn-link {
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  transition: all 0.3s ease;
   background: none;
   border: 0;
-  color: #f76cb5;
+  color: #fff;
   display: inline-block;
+  font-family: "Proxima Nova W01", sans-serif;
   font-size: 18px;
-  line-height: 2.66667; }
-  @media screen and (min-width: 1025px) {
-    .btn-link:hover {
-      color: #d80c77; } }
+  font-weight: 400; }
 
 a {
   color: #292929;
@@ -516,7 +481,7 @@ img {
     min-height: 27px;
     padding-left: 55px;
     text-align: left; }
-    .intro-section .typing-text:before {
+    .intro-section .typing-text::before {
       width: 38px;
       height: 27px;
       background-position: 0px -72px; }
@@ -609,7 +574,7 @@ img {
 .section-title {
   padding-bottom: 20px;
   position: relative; }
-  .section-title:after {
+  .section-title::after {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -970,7 +935,7 @@ img {
     transition: opacity 0.5s ease;
     padding-left: 40px;
     position: relative; }
-    .installation-process li:before {
+    .installation-process li::before {
       position: absolute;
       top: 7px;
       left: 0;
@@ -980,7 +945,7 @@ img {
       border-radius: 50%;
       box-sizing: border-box;
       content: ''; }
-    .installation-process li:after {
+    .installation-process li::after {
       position: absolute;
       top: 25px;
       bottom: 100%;
@@ -991,7 +956,7 @@ img {
       background-color: #fff;
       content: '';
       width: 2px; }
-    .installation-process li:first-child:after {
+    .installation-process li:first-child::after {
       -webkit-transition-delay: 1.9s;
       -moz-transition-delay: 1.9s;
       transition-delay: 1.9s; }
@@ -999,7 +964,7 @@ img {
       -webkit-transition-delay: 2s;
       -moz-transition-delay: 2s;
       transition-delay: 2s; }
-      .installation-process li:nth-child(2):after {
+      .installation-process li:nth-child(2)::after {
         -webkit-transition-delay: 2.4s;
         -moz-transition-delay: 2.4s;
         transition-delay: 2.4s; }
@@ -1007,14 +972,14 @@ img {
       -webkit-transition-delay: 2.5s;
       -moz-transition-delay: 2.5s;
       transition-delay: 2.5s; }
-      .installation-process li:last-child:after {
+      .installation-process li:last-child::after {
         display: none; }
     .installation-process li + li {
       margin-top: 40px;
       opacity: 0; }
     .installation-process li.animate {
       opacity: 1; }
-      .installation-process li.animate:after {
+      .installation-process li.animate::after {
         bottom: -43px; }
       .installation-process li.animate .typing-text {
         opacity: 1; }
@@ -1035,8 +1000,8 @@ img {
     color: #fecd08;
     display: block;
     font-family: "Proxima Nova W01", sans-serif;
-    font-weight: 300;
     font-size: 14px;
+    font-weight: 300;
     line-height: 2;
     overflow: auto;
     white-space: pre;
@@ -1090,7 +1055,7 @@ img {
   padding-left: 45px;
   position: relative;
   white-space: normal; }
-  .typing-text:before {
+  .typing-text::before {
     width: 34px;
     height: 23px;
     background-position: -65px -48px;
@@ -1107,25 +1072,55 @@ img {
     .typing-text {
       white-space: nowrap; } }
 
+.snippet .page-frame {
+  max-width: 920px; }
+
 .snippet-header {
   border: #cdcccc solid;
-  border-width: 1px 0; }
+  border-width: 1px 0;
+  margin-top: 75px; }
   .snippet-header-inner {
     display: block;
-    padding: 0 100px;
+    padding: 0 15px;
     position: relative; }
+  @media screen and (min-width: 769px) {
+    .snippet-header-inner {
+      padding: 0 100px; } }
+  @media screen and (min-width: 600px) and (max-width: 768px) {
+    .snippet-header-inner {
+      padding: 0 50px; } }
 
 .snippet-size {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 15px;
   bottom: 0;
-  left: 0;
+  left: 15px;
   color: #010101;
   font-size: 14px;
   line-height: 3.21429;
-  text-align: center;
   z-index: -1; }
+  @media screen and (min-width: 769px) {
+    .snippet-size {
+      left: 100px;
+      right: 100px;
+      text-align: center; } }
+  @media screen and (min-width: 600px) and (max-width: 768px) {
+    .snippet-size {
+      left: 50px;
+      right: 50px; } }
+
+.snippet-code-preview {
+  background-color: #fff;
+  border-radius: 4px;
+  display: block;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 12px;
+  height: 162px;
+  margin: 0;
+  padding: 10px;
+  white-space: pre;
+  word-wrap: normal; }
 
 .snippet-controls {
   float: right; }
@@ -1148,6 +1143,20 @@ img {
     background-position: 0px -99px;
     content: '';
     margin-left: 14px; }
+  .btn-show-code.active {
+    position: relative; }
+    .btn-show-code.active::before {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 0;
+      width: 0;
+      border-bottom: 5px solid #29aae2;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      content: '';
+      margin: 0 auto; }
 
 .btn-edit {
   background: none;
@@ -1163,22 +1172,26 @@ img {
     background-position: -84px -72px;
     content: '';
     vertical-align: middle; }
+  .btn-edit.active {
+    position: relative; }
+    .btn-edit.active::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 0;
+      width: 0;
+      border-bottom: 5px solid #29aae2;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      content: '';
+      margin: 0 auto; }
 
 .snippet-preview {
   box-sizing: border-box;
   margin: 0 auto;
   padding: 60px 10px;
   position: relative; }
-
-.snippet-source {
-  text-align: center; }
-  .snippet-source > button {
-    vertical-align: top; }
-    .snippet-source > button + button {
-      margin-left: 30px; }
-  .snippet-source.resize-overlay {
-    pointer-events: none;
-    position: relative; }
 
 .snippet-resize-handle {
   position: absolute;
@@ -1209,5 +1222,104 @@ img {
     right: -30px; }
     .snippet-resize-handle.pos-right::before {
       right: 0; }
+
+.snippet-editor {
+  background-color: #eaeaea;
+  border-top: solid 2px #29aae2; }
+  .snippet-editor-content {
+    padding-bottom: 26px;
+    padding-top: 30px; }
+  .snippet-editor-title {
+    color: #2d3335;
+    font-size: 14px;
+    padding-bottom: 5px; }
+    .snippet-editor-title sup {
+      color: #f76cb5;
+      font-size: 14px;
+      top: -2px; }
+  .snippet-editor-controls {
+    background-color: #29aae2;
+    padding: 15px 30px; }
+    .snippet-editor-controls .btn-link {
+      margin-left: 15px;
+      vertical-align: middle; }
+  @media screen and (min-width: 769px) {
+    .snippet-editor-content {
+      padding-left: 35px;
+      padding-right: 35px; } }
+  @media screen and (max-width: 768px) {
+    .snippet-editor-content {
+      padding-left: 20px;
+      padding-right: 20px; } }
+  @media screen and (min-width: 601px) {
+    .snippet-editor-content {
+      display: block;
+      padding: 30px 35px 26px; }
+    .snippet-editor-col {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 48.82117%; }
+      .snippet-editor-col:last-child {
+        margin-right: 0; } }
+  @media screen and (max-width: 600px) {
+    .snippet-editor-col + .snippet-editor-col {
+      margin-top: 30px; } }
+
+.snippet-source.resize-overlay {
+  pointer-events: none;
+  position: relative; }
+
+.snippet-content {
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  height: 0;
+  margin-top: -1px;
+  pointer-events: none;
+  visibility: hidden; }
+  .snippet-content-inner {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    -webkit-transform: translateY(-15px);
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -o-transform: translateY(-15px);
+    transform: translateY(-15px);
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden; }
+  .snippet-content.active {
+    height: auto;
+    pointer-events: all;
+    visibility: visible; }
+    .snippet-content.active .snippet-content-inner {
+      -webkit-transform: translateY(0);
+      -moz-transform: translateY(0);
+      -ms-transform: translateY(0);
+      -o-transform: translateY(0);
+      transform: translateY(0);
+      height: auto;
+      opacity: 1;
+      visibility: visible; }
+
+@media screen and (min-width: 601px) {
+  .categories-img-holder {
+    margin-top: 60px; } }
+
+@media screen and (max-width: 600px) {
+  .categories-img-holder {
+    display: none; } }
+
+.editor-container {
+  height: 162px; }
+  .editor-container.ace-github {
+    border-radius: 4px;
+    font-size: 12px; }
+    .editor-container.ace-github .ace_gutter {
+      background: none;
+      color: #989898; }
 
 /*# sourceMappingURL=site-styles.css.map */

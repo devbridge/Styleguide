@@ -167,18 +167,57 @@
                     <div class="snippet-header-inner">
                         <div class="snippet-size js-snippet-size">1920px</div>
                         <div class="snippet-controls">
-                            <button type="button" class="btn-show-code">Show code</button>
-                            <button type="button" class="btn-edit">Edit snippet</button>
+                            <button type="button" class="btn-show-code js-trigger-code-preview">Show code</button>
+                            <button type="button" class="btn-edit js-edit-snippet">Edit snippet</button>
                         </div>
                     </div>
                 </header>
 
+                <div class="snippet-content js-snippet-content">
+                    <div class="snippet-content-inner">
+                        <div class="snippet-editor">
+                            <div class="snippet-editor-content">
+                                <pre class="snippet-code-preview js-code-preview"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="snippet-content js-snippet-content">
+                    <div class="snippet-content-inner">
+                        <div class="snippet-editor">
+                            <div class="snippet-editor-content">
+                                <div class="snippet-editor-col">
+                                    <div class="snippet-editor-title">Code: <sup>*</sup></div>
+                                    <div class="editor-container" id="js-html-editor"><pre>&lt;div class="button-wrapper"&gt;
+    &lt;button type="button" class="btn"&gt;Save&lt;/button&gt;
+    &lt;button type="button" class="btn-secondary"&gt;Save as draft&lt;/button&gt;
+    &lt;button type="button" class="btn-link"&gt;Cancel&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+                                    </div>
+                                </div>
+                                <div class="snippet-editor-col">
+                                    <div class="snippet-editor-title">Custom CSS: <sup>*</sup></div>
+                                    <div class="editor-container" id="js-css-editor"><pre>.wrapper {
+
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="snippet-editor-controls">
+                            <button type="button" class="btn js-update-markup">Save</button>
+                            <button type="button" class="btn-link js-close-edit">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="js-snippet-preview-holder">
                     <div class="snippet-preview js-snippet-preview">
                         <div class="js-snippet-source snippet-source">
-                            <button type="button" class="btn">Save</button>
-                            <button type="button" class="btn-secondary">Save as draft</button>
-                            <button type="button" class="btn-link">Cancel</button>
+                            <iframe id="js-snippet-code"></iframe>
                         </div>
                         <div class="js-resize-length">
                             <div class="snippet-resize-handle pos-left js-snippet-resize-handle-left"></div>

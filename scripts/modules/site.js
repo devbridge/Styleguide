@@ -6,6 +6,10 @@
 define(['jquery', 'interact', 'typing'], function ($, interact) {
     var module = {};
 
+    var selectors = {
+        snippetIframe: $('#js-snippet-code')
+    };
+
     module.initInstallationAnimation = function () {
         var triggerInstall = $('.js-typing-install'),
             triggerStart = $('.js-typing-start'),
@@ -91,7 +95,7 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
     };
 
     // Reveals the header logo, then main logo in first slide is scrolled over
-    module.showLogoOnScroll = function(){
+    module.showLogoOnScroll = function () {
         var logo = $('.js-logo-header'),
             siteHeader = $('.js-logo-reveal'),
             headerHeight,
@@ -148,15 +152,15 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
             }
         });
 
-        $(window).on('resize', function() {
-            if($(window).width() <= 1024 && header.hasClass('fixed')) {
+        $(window).on('resize', function () {
+            if ($(window).width() <= 1024 && header.hasClass('fixed')) {
                 header.removeClass('fixed');
             }
         })
     };
 
     // Resize snippet
-    module.initSnippetResize = function() {
+    module.initSnippetResize = function () {
         var $handleLeft = $('.js-snippet-resize-handle-left'),
             $handleRight = $('.js-snippet-resize-handle-right'),
             $preview = $('.js-snippet-preview'),
@@ -165,8 +169,8 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
             $snippetHolder = $('.js-snippet-preview-holder'),
             snippetSource = '.js-snippet-source';
 
-        $resizeLength.css('width', ($snippetHolder.width() / 2));
-        $sizeIndicator.text($snippetHolder.width() + "px");
+        $resizeLength.css('width', ($snippetHolder.innerWidth() / 2));
+        $sizeIndicator.text($snippetHolder.innerWidth() + "px");
 
         interact($resizeLength[0])
             .resizable({
@@ -178,13 +182,16 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
                 },
                 onmove: function (e) {
                     var width = e.rect.width,
-                        windowWidth = $(window).width(),
                         snippetWidth = $snippetHolder.width();
+
+                    $(window).on('resize', function() {
+                        snippetWidth = $snippetHolder.width();
+                    });
 
                     if (width < 160) {
                         width = 160;
-                    } else if ((width * 2) + snippetWidth > windowWidth) {
-                        width = (snippetWidth) / 2;
+                    } else if (width > (snippetWidth / 2)) {
+                        width = (snippetWidth / 2);
                     }
 
                     $preview
@@ -193,6 +200,7 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
                     $preview[0].style.width = (width * 2) + 'px';
                     $resizeLength[0].style.width = width + 'px';
                     $sizeIndicator.text((width * 2) + "px");
+                    selectors.snippetIframe.height(selectors.snippetIframe.contents().height());
                 },
                 onend: function () {
                     $preview
@@ -202,13 +210,103 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
             });
     };
 
+    module.insertSnippetStyles = function () {
+        var iframe = $('#js-snippet-code'),
+            stylesUrl = '<link href="content/styles/snippet-styles.css" rel="stylesheet" type="text/css"/>';
+
+        iframe.contents().find('head').append(stylesUrl);
+    };
+
+    module.initEditor = function () {
+        require(['ace/ace'], function (ace) {
+            var htmlEditor = ace.edit('js-html-editor'),
+                cssEditor = ace.edit('js-css-editor'),
+                htmlCode = htmlEditor.getSession().getValue(),
+                cssCode = cssEditor.getSession().getValue(),
+                editTrigger = $('.js-update-markup'),
+                cloneHeadContent = $('#js-snippet-code').contents().find('head').clone().html(),
+                codePreview = $('.js-code-preview');
+
+            htmlEditor.setTheme('ace/theme/github');
+            htmlEditor.getSession().setMode('ace/mode/html');
+
+            cssEditor.setTheme('ace/theme/github');
+            cssEditor.getSession().setMode('ace/mode/css');
+
+            htmlEditor.getSession().on('change', function () {
+                htmlCode = htmlEditor.getSession().getValue();
+            });
+
+            cssEditor.getSession().on('change', function () {
+                cssCode = cssEditor.getSession().getValue();
+            });
+
+            selectors.snippetIframe.contents().find('body').html(htmlCode);
+            codePreview.text(htmlCode);
+
+            editTrigger.on('click', function () {
+                codePreview.text(htmlCode);
+                selectors.snippetIframe.contents().find('body').html(htmlCode);
+                selectors.snippetIframe.contents().find('head').html(cloneHeadContent + '<style>' + cssCode + '</style>');
+            });
+        });
+    };
+
+    function initToggle(self, container) {
+        $('.js-snippet-content').removeClass('active');
+
+        if(self.hasClass('active')) {
+            self.removeClass('active');
+            container.removeClass('active');
+        } else {
+            self.addClass('active');
+            container.addClass('active');
+        }
+    }
+
+    module.toggleEdit = function() {
+        var editTrigger = $('.js-edit-snippet'),
+            snippetContent = $('.js-snippet-content'),
+            closeTrigger = $('.js-close-edit'),
+            triggerCodePreview = $('.js-trigger-code-preview'),
+            self;
+
+        editTrigger.on('click', function() {
+            self = $(this);
+
+            if (triggerCodePreview.hasClass('active')) {
+                triggerCodePreview.removeClass('active');
+            }
+
+            initToggle(self, snippetContent.eq(1));
+        });
+
+        triggerCodePreview.on('click', function() {
+            self = $(this);
+
+            if (editTrigger.hasClass('active')) {
+                editTrigger.removeClass('active');
+            }
+
+            initToggle(self, snippetContent.eq(0));
+        });
+
+        closeTrigger.on('click', function() {
+            editTrigger.removeClass('active');
+            snippetContent.eq(1).removeClass('active');
+        });
+    };
+
     module.init = function () {
+        module.insertSnippetStyles();
+        module.initEditor();
         module.initInstallationAnimation();
         module.initStickyHeader();
         module.initToggle();
         module.initScrollTo();
         module.showLogoOnScroll();
         module.initSnippetResize();
+        module.toggleEdit();
     };
 
     return module;

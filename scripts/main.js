@@ -7,6 +7,7 @@ require.config({
             '//cdn.jsdelivr.net/jquery/1.11.3/jquery.min',
             'libs/jquery-1.11.3.min'
         ],
+        ace: 'libs/ace/',
         typing: 'plugins/typing-plugin',
         prism: 'plugins/prism',
         interact: 'plugins/interact-1.2.4.min',

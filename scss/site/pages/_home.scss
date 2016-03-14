@@ -1,3 +1,10 @@
+@mixin activeSnippetControl() {
+    @include position(absolute, null 0 0 0);
+    @include triangle(10px, $snippet-active, up);
+    content: '';
+    margin: 0 auto;
+}
+
 // module Intro section
 .intro-section {
     background: url('../styles/images/bg-intro.jpg') 0 0;
@@ -11,7 +18,7 @@
             size: 20px;
             weight: $weight-light;
         }
-        line-height: (58/48);
+        line-height: (58 / 48);
         margin: 0;
         padding: 20px 0 40px;
     }
@@ -29,13 +36,13 @@
     .typing-text {
         display: inline-block;
         font-size: 15px;
-        line-height: (25/15);
+        line-height: (25 / 15);
         margin-bottom: 40px;
         min-height: 27px;
         padding-left: 55px;
         text-align: left;
 
-        &:before {
+        &::before {
             @include svg-sprite('icon-terminal');
         }
     }
@@ -54,7 +61,7 @@
 
         .typing-text {
             font-size: 22px;
-            line-height: (27/22);
+            line-height: (27 / 22);
             margin-bottom: 140px;
         }
     }
@@ -138,7 +145,7 @@
     @include media($tablet-600) {
         p {
             font-size: 15px;
-            line-height: (24/15);
+            line-height: (24 / 15);
         }
 
         &-holder {
@@ -151,7 +158,7 @@
     padding-bottom: 20px;
     position: relative;
 
-    &:after {
+    &::after {
         @include position(absolute, null 0 0 0);
         @include size(70px 3px);
         background-color: $border-primary;
@@ -172,7 +179,7 @@
             size: 24px;
             weight: $weight-bold;
         }
-        line-height: (72/24);
+        line-height: (72 / 24);
         margin-bottom: 20px;
         position: relative;
         text-align: center;
@@ -414,7 +421,7 @@
 
     code[class*="language-"] {
         color: #2dd1ff;
-        line-height: (30/15);
+        line-height: (30 / 15);
         text-shadow: none;
     }
 
@@ -585,12 +592,12 @@
     @include media($tablet-600) {
         h2 {
             font-size: 24px;
-            line-height: (29/24);
+            line-height: (29 / 24);
         }
 
         p {
             font-size: 15px;
-            line-height: (24/15);
+            line-height: (24 / 15);
             opacity: .45;
         }
     }
@@ -627,7 +634,7 @@
         padding-left: 40px;
         position: relative;
 
-        &:before {
+        &::before {
             @include position(absolute, 7px null null 0);
             @include size(14px);
             border: $color-white solid 2px;
@@ -636,7 +643,7 @@
             content: '';
         }
 
-        &:after {
+        &::after {
             @include position(absolute, 25px null 100% 6px);
             @include transition(bottom .5s ease);
             background-color: $color-white;
@@ -645,7 +652,7 @@
         }
 
         &:first-child {
-            &:after {
+            &::after {
                 @include transition-delay(1.9s);
             }
         }
@@ -653,7 +660,7 @@
         &:nth-child(2) {
             @include transition-delay(2s);
 
-            &:after {
+            &::after {
                 @include transition-delay(2.4s);
             }
         }
@@ -661,7 +668,7 @@
         &:last-child {
             @include transition-delay(2.5s);
 
-            &:after {
+            &::after {
                 display: none;
             }
         }
@@ -675,7 +682,7 @@
         &.animate {
             opacity: 1;
 
-            &:after {
+            &::after {
                 bottom: -43px;
             }
 
@@ -714,10 +721,10 @@
         display: block;
         font: {
             family: $font-proxima-nova;
-            weight: $weight-light;
             size: 14px;
+            weight: $weight-light;
         }
-        line-height: (30/15);
+        line-height: (30 / 15);
         overflow: auto;
         white-space: pre;
         word-wrap: normal;
@@ -766,7 +773,7 @@
     position: relative;
     white-space: normal;
 
-    &:before {
+    &::before {
         @include svg-sprite('icon-terminal-small');
         @include position(absolute, -1px null null 0);
         content: '';
@@ -786,24 +793,68 @@
 }
 
 // module Live edit
+.snippet {
+    .page-frame {
+        max-width: 920px;
+    }
+}
+
 .snippet-header {
     border: $border-snippet solid;
     border-width: 1px 0;
+    margin-top: 75px;
 
     &-inner {
         @include row();
-        padding: 0 100px;
+        padding: 0 15px;
         position: relative;
+    }
+
+    @include media($tablet-768-up) {
+        &-inner {
+            padding: 0 100px;
+        }
+    }
+
+    @include media(new-breakpoint(min-width 600px max-width 768px)) {
+        &-inner {
+            padding: 0 50px;
+        }
     }
 }
 
 .snippet-size {
-    @include position(absolute, 0);
+    @include position(absolute, 0 15px);
     color: $text-snippet-size;
     font-size: 14px;
     line-height: (45 / 14);
-    text-align: center;
     z-index: -1;
+
+    @include media($tablet-768-up) {
+        left: 100px;
+        right: 100px;
+        text-align: center;
+    }
+
+    @include media(new-breakpoint(min-width 600px max-width 768px)) {
+        left: 50px;
+        right: 50px;
+    }
+}
+
+.snippet-code-preview {
+    background-color: $color-white;
+    border-radius: 4px;
+    display: block;
+    font: {
+        family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+        size: 12px;
+    }
+    height: 162px;
+    margin: 0;
+    padding: 10px;
+    white-space: pre;
+    word-wrap: normal;
 }
 
 .snippet-controls {
@@ -830,6 +881,14 @@
         content: '';
         margin-left: 14px;
     }
+
+    &.active {
+        position: relative;
+
+        &::before {
+            @include activeSnippetControl();
+        }
+    }
 }
 
 .btn-edit {
@@ -846,6 +905,14 @@
         content: '';
         vertical-align: middle;
     }
+
+    &.active {
+        position: relative;
+
+        &::after {
+            @include activeSnippetControl();
+        }
+    }
 }
 
 .snippet-preview {
@@ -853,23 +920,6 @@
     margin: 0 auto;
     padding: 60px 10px;
     position: relative;
-}
-
-.snippet-source {
-    text-align: center;
-
-    > button {
-        vertical-align: top;
-
-        + button {
-            margin-left: 30px;
-        }
-    }
-
-    &.resize-overlay {
-        pointer-events: none;
-        position: relative;
-    }
 }
 
 .snippet-resize-handle {
@@ -903,6 +953,139 @@
 
         &::before {
             right: 0;
+        }
+    }
+}
+
+.snippet-editor {
+    background-color: $bg-snippet-editor;
+    border-top: solid 2px $snippet-active;
+
+    &-content {
+        padding: {
+            bottom: 26px;
+            top: 30px;
+        }
+    }
+
+    &-title {
+        color: $color-black-100;
+        font-size: 14px;
+        padding-bottom: 5px;
+
+        sup {
+            color: $color-pink;
+            font-size: 14px;
+            top: -2px;
+        }
+    }
+
+    &-controls {
+        background-color: $snippet-active;
+        padding: 15px 30px;
+
+        .btn-link {
+            margin-left: 15px;
+            vertical-align: middle;
+        }
+    }
+
+    @include media($tablet-768-up) {
+        &-content {
+            padding: {
+                left: 35px;
+                right: 35px;
+            }
+        }
+    }
+
+    @include media($tablet-768) {
+        &-content {
+            padding: {
+                left: 20px;
+                right: 20px;
+            }
+        }
+    }
+
+    @include media($tablet-600-up) {
+        &-content {
+            @include row();
+            padding: 30px 35px 26px;
+        }
+
+        &-col {
+            @include span-columns(6);
+        }
+    }
+
+    @include media($tablet-600) {
+        &-col {
+            + .snippet-editor-col {
+                margin-top: 30px;
+            }
+        }
+    }
+}
+
+.snippet-source {
+    &.resize-overlay {
+        pointer-events: none;
+        position: relative;
+    }
+}
+
+.snippet-content {
+    @include transition(all .3s ease-out);
+    height: 0;
+    margin-top: -1px;
+    pointer-events: none;
+    visibility: hidden;
+
+    &-inner {
+        @include transition(all .3s ease-out);
+        @include transform(translateY(-15px));
+        height: 0;
+        opacity: 0;
+        overflow: hidden;
+        visibility: hidden;
+    }
+
+    &.active {
+        height: auto;
+        pointer-events: all;
+        visibility: visible;
+
+        .snippet-content-inner {
+            @include transform(translateY(0));
+            height: auto;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+.categories-img-holder {
+    @include media($tablet-600-up) {
+        margin-top: 60px;
+    }
+
+    @include media($tablet-600) {
+        display: none;
+    }
+}
+
+// Ace editor modify
+.editor-container {
+    height: 162px;
+
+    &.ace-github {
+        border-radius: 4px;
+        font-size: 12px;
+
+        .ace_gutter {
+            background: none;
+            color: $color-gray-100
         }
     }
 }

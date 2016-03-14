@@ -64,60 +64,29 @@
 }
 
 .btn {
-    @include ellipsis();
-    @include transition(all .3s ease);
-    background-color: $color-pink;
+    background-color: $color-white;
     border: 0;
     border-radius: 50px;
-    color: $color-white;
+    color: $color-light-blue;
     display: inline-block;
-    font-size: 18px;
-    height: 48px;
-    line-height: (45 / 18);
-    padding: 0 43px;
-
-    @include media($tablet-1024-up) {
-        &:hover {
-            background-color: darken($color-pink, 25%);
-        }
+    font: {
+        family: $font-proxima-nova;
+        size: 18px;
+        weight: $weight-medium;
     }
-}
-
-.btn-secondary {
-    @include ellipsis();
-    @include transition(all .3s ease);
-    background-color: $color-white;
-    border: $color-pink solid 2px;
-    border-radius: 30px;
-    box-sizing: border-box;
-    color: $color-pink;
-    font-size: 18px;
-    height: 48px;
-    line-height: (48 / 18);
+    height: 31px;
+    line-height: (31 / 18);
     padding: 0 20px;
-    text-align: center;
-
-    @include media($tablet-1024-up) {
-        &:hover {
-            background-color: $color-pink;
-            border-color: $color-pink;
-            color: $color-white;
-        }
-    }
 }
 
 .btn-link {
-    @include transition(all .3s ease);
     background: none;
     border: 0;
-    color: $color-pink;
+    color: $color-white;
     display: inline-block;
-    font-size: 18px;
-    line-height: (48 / 18);
-
-    @include media($tablet-1024-up) {
-        &:hover {
-            color: darken($color-pink, 25%);
-        }
+    font: {
+        family: $font-proxima-nova;
+        size: 18px;
+        weight: $weight-regular;
     }
 }

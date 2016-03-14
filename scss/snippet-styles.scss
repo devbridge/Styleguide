@@ -1,0 +1,111 @@
+@charset "utf-8";
+@import 'core/variables';
+// Dependencies
+@import 'bourbon';
+@import 'neat';
+@import "neat-helpers";
+
+$tablet-1024-up: new-breakpoint(min-width 1025px);
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+}
+
+.button-wrapper {
+    text-align: center;
+
+    > button {
+        vertical-align: top;
+
+        + button {
+            margin-left: 30px;
+        }
+    }
+
+    &.resize-overlay {
+        pointer-events: none;
+        position: relative;
+    }
+
+    @include media(new-breakpoint(max-width 440px)) {
+        margin: 0 auto;
+        max-width: 320px;
+
+        > button {
+            display: block;
+            width: 100%;
+
+            + button {
+                margin: {
+                    left: 0;
+                    top: 20px;
+                }
+            }
+        }
+
+        .btn-link {
+            line-height: 1;
+        }
+    }
+}
+
+.btn {
+    @include ellipsis();
+    @include transition(all .3s ease);
+    background-color: $color-pink;
+    border: 0;
+    border-radius: 50px;
+    color: $color-white;
+    display: inline-block;
+    font-size: 18px;
+    height: 48px;
+    line-height: (45 / 18);
+    padding: 0 43px;
+
+    @include media($tablet-1024-up) {
+        &:hover {
+            background-color: darken($color-pink, 25%);
+        }
+    }
+}
+
+.btn-secondary {
+    @include ellipsis();
+    @include transition(all .3s ease);
+    background-color: $color-white;
+    border: $color-pink solid 2px;
+    border-radius: 30px;
+    box-sizing: border-box;
+    color: $color-pink;
+    font-size: 18px;
+    height: 48px;
+    line-height: (48 / 18);
+    padding: 0 20px;
+    text-align: center;
+
+    @include media($tablet-1024-up) {
+        &:hover {
+            background-color: $color-pink;
+            border-color: $color-pink;
+            color: $color-white;
+        }
+    }
+}
+
+.btn-link {
+    @include transition(all .3s ease);
+    background: none;
+    border: 0;
+    color: $text-btn-link;
+    display: inline-block;
+    font-size: 18px;
+    line-height: (48 / 18);
+
+    @include media($tablet-1024-up) {
+        &:hover {
+            color: darken($text-btn-link, 25%);
+        }
+    }
+}

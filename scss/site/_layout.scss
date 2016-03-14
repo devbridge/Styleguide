@@ -30,6 +30,13 @@ body {
     }
 }
 
+iframe {
+    border: 0;
+    height: auto;
+    margin: 0;
+    width: 100%;
+}
+
 .clearfix {
     @include clearfix($extend: true)
 }

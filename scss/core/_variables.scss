@@ -18,9 +18,11 @@ $weight-bold: 700;
 
 //module MAIN COLOR PALETTE
 $color-black: #292929;
+$color-black-100: #333333;
 $color-black-100: #2d3335;
 $color-black-200: #010101;
 $color-blue: #3381ff;
+$color-light-blue: #29aae2;
 $color-light-gray: #f4f4f5;
 $color-white: #fff;
 $color-yellow: #f6dc44;
@@ -36,14 +38,17 @@ $text-snippet-title: $color-blue;
 $text-button-link: $color-blue;
 $text-btn-show-code: $color-gray-100;
 $text-snippet-size: $color-black-200;
+$text-btn-link: $color-light-blue;
 
 $border-primary: $color-black;
 $border-btn-secondary: $color-blue;
 $border-snippet: $color-gray;
+$snippet-active: $color-light-blue;
 
 $bg-primary: $color-light-gray;
 $bg-secondary: $color-black-100;
 $bg-primary-button: $color-blue;
+$bg-snippet-editor: #eaeaea;
 
 //module LINK COLORS
 
