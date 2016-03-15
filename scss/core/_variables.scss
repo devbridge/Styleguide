@@ -18,7 +18,7 @@ $weight-bold: 700;
 
 //module MAIN COLOR PALETTE
 $color-black: #292929;
-$color-black-100: #333333;
+$color-black-100: #333;
 $color-black-100: #2d3335;
 $color-black-200: #010101;
 $color-blue: #3381ff;
@@ -39,6 +39,7 @@ $text-button-link: $color-blue;
 $text-btn-show-code: $color-gray-100;
 $text-snippet-size: $color-black-200;
 $text-btn-link: $color-light-blue;
+$text-snippet-control-active: $color-black-200;
 
 $border-primary: $color-black;
 $border-btn-secondary: $color-blue;

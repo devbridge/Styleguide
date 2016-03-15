@@ -501,7 +501,7 @@
 // module Features section
 .features-content {
     @include row();
-    padding: 90px 0 20px;
+    padding: 60px 0 20px;
 
     &-box {
         @include span-columns(12);
@@ -521,6 +521,8 @@
     }
 
     @include media(new-breakpoint(min-width 651px)) {
+        padding-top: 90px;
+
         &-box {
             @include span-columns(4);
             padding-bottom: 80px;
@@ -537,8 +539,6 @@
     }
 
     @include media(new-breakpoint(min-width 481px max-width 650px)) {
-        padding-top: 60px;
-
         &-box {
             @include span-columns(6);
             @include omega(2n);
@@ -793,9 +793,17 @@
 }
 
 // module Live edit
-.snippet {
+.snippet-section {
     .page-frame {
         max-width: 920px;
+    }
+
+    @include media($tablet-768-up) {
+        margin-bottom: 70px;
+    }
+
+    @include media(new-breakpoint(min-width 601px max-width 768px)) {
+        margin-bottom: 30px;
     }
 }
 
@@ -816,7 +824,7 @@
         }
     }
 
-    @include media(new-breakpoint(min-width 600px max-width 768px)) {
+    @include media(new-breakpoint(min-width 601px max-width 768px)) {
         &-inner {
             padding: 0 50px;
         }
@@ -836,9 +844,13 @@
         text-align: center;
     }
 
-    @include media(new-breakpoint(min-width 600px max-width 768px)) {
+    @include media(new-breakpoint(min-width 601px max-width 768px)) {
         left: 50px;
         right: 50px;
+    }
+
+    @include media($tablet-600) {
+        display: none;
     }
 }
 
@@ -885,8 +897,24 @@
     &.active {
         position: relative;
 
+        &::after {
+            @include svg-sprite('icon-arrows-active');
+        }
+
         &::before {
             @include activeSnippetControl();
+        }
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    @include media($tablet-1024-up) {
+        &:hover {
+            &::after {
+                @include svg-sprite('icon-arrows-active');
+            }
         }
     }
 }
@@ -909,8 +937,24 @@
     &.active {
         position: relative;
 
+        &::before {
+            @include svg-sprite('icon-pencil-active');
+        }
+
         &::after {
             @include activeSnippetControl();
+        }
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    @include media($tablet-1024-up) {
+        &:hover {
+            &::before {
+                @include svg-sprite('icon-pencil-active');
+            }
         }
     }
 }
@@ -918,8 +962,20 @@
 .snippet-preview {
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 60px 10px;
+    padding: 60px 20px;
     position: relative;
+
+    @include media($tablet-600-up) {
+        padding: {
+            left: 10px;
+            right: 10px;
+        }
+    }
+
+    @include media($tablet-600) {
+        margin: 0 auto;
+        max-width: 320px;
+    }
 }
 
 .snippet-resize-handle {
@@ -955,6 +1011,29 @@
             right: 0;
         }
     }
+
+    @include media($tablet-1024-up) {
+        opacity: 0;
+        visibility: hidden;
+
+        .snippet-section:hover & {
+            @include transform(translateX(0));
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &.pos-left {
+            @include transform(translateX(10px));
+        }
+
+        &.pos-right {
+            @include transform(translateX(-10px));
+        }
+    }
+
+    @include media($tablet-600) {
+        display: none;
+    }
 }
 
 .snippet-editor {
@@ -982,7 +1061,10 @@
 
     &-controls {
         background-color: $snippet-active;
-        padding: 15px 30px;
+        padding: {
+            bottom: 15px;
+            top: 15px;
+        }
 
         .btn-link {
             margin-left: 15px;
@@ -1011,11 +1093,17 @@
     @include media($tablet-600-up) {
         &-content {
             @include row();
-            padding: 30px 35px 26px;
         }
 
         &-col {
             @include span-columns(6);
+        }
+
+        &-controls {
+            padding: {
+                left: 30px;
+                right: 30px;
+            }
         }
     }
 
@@ -1023,6 +1111,13 @@
         &-col {
             + .snippet-editor-col {
                 margin-top: 30px;
+            }
+        }
+
+        &-controls {
+            padding: {
+                left: 20px;
+                right: 20px;
             }
         }
     }

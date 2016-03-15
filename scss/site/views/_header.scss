@@ -77,17 +77,20 @@
 }
 
 .logo-holder {
-    @include transition(opacity .5s);
     margin: 0;
-    opacity: 0;
-
-    &.home-logo-is-invisible {
-        opacity: 1;
-    }
 
     img {
         display: block;
         margin: 0 auto;
+    }
+
+    @include media($tablet-1024-up) {
+        @include transition(opacity .5s);
+        opacity: 0;
+
+        &.home-logo-is-invisible {
+            opacity: 1;
+        }
     }
 }
 

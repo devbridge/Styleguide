@@ -154,13 +154,13 @@ th {
   display: table;
   height: 0; }
 
-.github-link:after, .btn-hide-code::after, .resize-control::before, .icon-folder:before, .icon-download:before, .icon-flag:before, .icon-chat:before, .icon-element:before, .icon-nodejs:before, .intro-section .typing-text::before, .section-title-number:before, .typing-text::before, .btn-show-code::after, .btn-edit::before, .snippet-resize-handle::before {
+.github-link:after, .btn-hide-code::after, .resize-control::before, .icon-folder:before, .icon-download:before, .icon-flag:before, .icon-chat:before, .icon-element:before, .icon-nodejs:before, .intro-section .typing-text::before, .section-title-number:before, .typing-text::before, .btn-show-code::after, .btn-show-code.active::after, .btn-show-code:hover::after, .btn-edit::before, .btn-edit.active::before, .btn-edit:hover::before, .snippet-resize-handle::before {
   background-image: url("images/sprite.svg");
   background-repeat: no-repeat;
-  background-size: 137px 127px;
+  background-size: 137px 135px;
   display: inline-block; }
 
-.ie8 .github-link:after, .ie8 .btn-hide-code::after, .ie8 .resize-control::before, .ie8 .icon-folder:before, .ie8 .icon-download:before, .ie8 .icon-flag:before, .ie8 .icon-chat:before, .ie8 .icon-element:before, .ie8 .icon-nodejs:before, .ie8 .intro-section .typing-text::before, .ie8 .section-title-number:before, .ie8 .typing-text::before, .ie8 .btn-show-code::after, .ie8 .btn-edit::before, .ie8 .snippet-resize-handle::before {
+.ie8 .github-link:after, .ie8 .btn-hide-code::after, .ie8 .resize-control::before, .ie8 .icon-folder:before, .ie8 .icon-download:before, .ie8 .icon-flag:before, .ie8 .icon-chat:before, .ie8 .icon-element:before, .ie8 .icon-nodejs:before, .ie8 .intro-section .typing-text::before, .ie8 .section-title-number:before, .ie8 .typing-text::before, .ie8 .btn-show-code::after, .ie8 .btn-show-code.active::after, .ie8 .btn-show-code:hover::after, .ie8 .btn-edit::before, .ie8 .btn-edit.active::before, .ie8 .btn-edit:hover::before, .ie8 .snippet-resize-handle::before {
   background-image: url("images/sprite.png"); }
 
 html,
@@ -233,16 +233,18 @@ iframe {
       display: none; } }
 
 .logo-holder {
-  -webkit-transition: opacity 0.5s;
-  -moz-transition: opacity 0.5s;
-  transition: opacity 0.5s;
-  margin: 0;
-  opacity: 0; }
-  .logo-holder.home-logo-is-invisible {
-    opacity: 1; }
+  margin: 0; }
   .logo-holder img {
     display: block;
     margin: 0 auto; }
+  @media screen and (min-width: 1025px) {
+    .logo-holder {
+      -webkit-transition: opacity 0.5s;
+      -moz-transition: opacity 0.5s;
+      transition: opacity 0.5s;
+      opacity: 0; }
+      .logo-holder.home-logo-is-invisible {
+        opacity: 1; } }
 
 .github-link {
   display: inline-block;
@@ -308,7 +310,7 @@ iframe {
     bottom: 0;
     width: 19px;
     height: 12px;
-    background-position: 0px -99px;
+    background-position: -34px -99px;
     content: '';
     margin: auto 0; }
   .btn-hide-code.active {
@@ -825,7 +827,7 @@ img {
 
 .features-content {
   display: block;
-  padding: 90px 0 20px; }
+  padding: 60px 0 20px; }
   .features-content-box {
     float: left;
     display: block;
@@ -843,33 +845,33 @@ img {
       margin: 0;
       opacity: .5; }
   @media screen and (min-width: 651px) {
-    .features-content-box {
-      float: left;
-      display: block;
-      margin-right: 2.35765%;
-      width: 31.76157%;
-      padding-bottom: 80px; }
-      .features-content-box:last-child {
-        margin-right: 0; }
-      .features-content-box p {
-        font-size: 16px;
-        line-height: 1.4375; }
-      .features-content-box h3 {
-        margin-bottom: 25px; } }
-  @media screen and (min-width: 481px) and (max-width: 650px) {
     .features-content {
-      padding-top: 60px; }
+      padding-top: 90px; }
       .features-content-box {
         float: left;
         display: block;
         margin-right: 2.35765%;
-        width: 48.82117%; }
+        width: 31.76157%;
+        padding-bottom: 80px; }
         .features-content-box:last-child {
           margin-right: 0; }
-        .features-content-box:nth-child(2n) {
-          margin-right: 0; }
-        .features-content-box:nth-child(2n+1) {
-          clear: left; } }
+        .features-content-box p {
+          font-size: 16px;
+          line-height: 1.4375; }
+        .features-content-box h3 {
+          margin-bottom: 25px; } }
+  @media screen and (min-width: 481px) and (max-width: 650px) {
+    .features-content-box {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 48.82117%; }
+      .features-content-box:last-child {
+        margin-right: 0; }
+      .features-content-box:nth-child(2n) {
+        margin-right: 0; }
+      .features-content-box:nth-child(2n+1) {
+        clear: left; } }
   @media screen and (min-width: 481px) {
     .features-content .icon {
       display: block;
@@ -1072,8 +1074,16 @@ img {
     .typing-text {
       white-space: nowrap; } }
 
-.snippet .page-frame {
+.snippet-section .page-frame {
   max-width: 920px; }
+
+@media screen and (min-width: 769px) {
+  .snippet-section {
+    margin-bottom: 70px; } }
+
+@media screen and (min-width: 601px) and (max-width: 768px) {
+  .snippet-section {
+    margin-bottom: 30px; } }
 
 .snippet-header {
   border: #cdcccc solid;
@@ -1086,7 +1096,7 @@ img {
   @media screen and (min-width: 769px) {
     .snippet-header-inner {
       padding: 0 100px; } }
-  @media screen and (min-width: 600px) and (max-width: 768px) {
+  @media screen and (min-width: 601px) and (max-width: 768px) {
     .snippet-header-inner {
       padding: 0 50px; } }
 
@@ -1105,10 +1115,13 @@ img {
       left: 100px;
       right: 100px;
       text-align: center; } }
-  @media screen and (min-width: 600px) and (max-width: 768px) {
+  @media screen and (min-width: 601px) and (max-width: 768px) {
     .snippet-size {
       left: 50px;
       right: 50px; } }
+  @media screen and (max-width: 600px) {
+    .snippet-size {
+      display: none; } }
 
 .snippet-code-preview {
   background-color: #fff;
@@ -1140,11 +1153,15 @@ img {
   .btn-show-code::after {
     width: 19px;
     height: 12px;
-    background-position: 0px -99px;
+    background-position: -34px -99px;
     content: '';
     margin-left: 14px; }
   .btn-show-code.active {
     position: relative; }
+    .btn-show-code.active::after {
+      width: 19px;
+      height: 12px;
+      background-position: -15px -99px; }
     .btn-show-code.active::before {
       position: absolute;
       right: 0;
@@ -1157,6 +1174,13 @@ img {
       border-right: 5px solid transparent;
       content: '';
       margin: 0 auto; }
+  .btn-show-code:focus {
+    outline: none; }
+  @media screen and (min-width: 1025px) {
+    .btn-show-code:hover::after {
+      width: 19px;
+      height: 12px;
+      background-position: -15px -99px; } }
 
 .btn-edit {
   background: none;
@@ -1169,11 +1193,15 @@ img {
   .btn-edit::before {
     width: 15px;
     height: 20px;
-    background-position: -84px -72px;
+    background-position: 0px -99px;
     content: '';
     vertical-align: middle; }
   .btn-edit.active {
     position: relative; }
+    .btn-edit.active::before {
+      width: 15px;
+      height: 20px;
+      background-position: -84px -72px; }
     .btn-edit.active::after {
       position: absolute;
       right: 0;
@@ -1186,12 +1214,27 @@ img {
       border-right: 5px solid transparent;
       content: '';
       margin: 0 auto; }
+  .btn-edit:focus {
+    outline: none; }
+  @media screen and (min-width: 1025px) {
+    .btn-edit:hover::before {
+      width: 15px;
+      height: 20px;
+      background-position: -84px -72px; } }
 
 .snippet-preview {
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 60px 10px;
+  padding: 60px 20px;
   position: relative; }
+  @media screen and (min-width: 601px) {
+    .snippet-preview {
+      padding-left: 10px;
+      padding-right: 10px; } }
+  @media screen and (max-width: 600px) {
+    .snippet-preview {
+      margin: 0 auto;
+      max-width: 320px; } }
 
 .snippet-resize-handle {
   position: absolute;
@@ -1207,7 +1250,7 @@ img {
   .snippet-resize-handle::before {
     width: 10px;
     height: 16px;
-    background-position: 0px -111px;
+    background-position: 0px -119px;
     position: absolute;
     top: 50%;
     content: '';
@@ -1222,6 +1265,33 @@ img {
     right: -30px; }
     .snippet-resize-handle.pos-right::before {
       right: 0; }
+  @media screen and (min-width: 1025px) {
+    .snippet-resize-handle {
+      opacity: 0;
+      visibility: hidden; }
+      .snippet-section:hover .snippet-resize-handle {
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible; }
+      .snippet-resize-handle.pos-left {
+        -webkit-transform: translateX(10px);
+        -moz-transform: translateX(10px);
+        -ms-transform: translateX(10px);
+        -o-transform: translateX(10px);
+        transform: translateX(10px); }
+      .snippet-resize-handle.pos-right {
+        -webkit-transform: translateX(-10px);
+        -moz-transform: translateX(-10px);
+        -ms-transform: translateX(-10px);
+        -o-transform: translateX(-10px);
+        transform: translateX(-10px); } }
+  @media screen and (max-width: 600px) {
+    .snippet-resize-handle {
+      display: none; } }
 
 .snippet-editor {
   background-color: #eaeaea;
@@ -1239,7 +1309,8 @@ img {
       top: -2px; }
   .snippet-editor-controls {
     background-color: #29aae2;
-    padding: 15px 30px; }
+    padding-bottom: 15px;
+    padding-top: 15px; }
     .snippet-editor-controls .btn-link {
       margin-left: 15px;
       vertical-align: middle; }
@@ -1253,18 +1324,23 @@ img {
       padding-right: 20px; } }
   @media screen and (min-width: 601px) {
     .snippet-editor-content {
-      display: block;
-      padding: 30px 35px 26px; }
+      display: block; }
     .snippet-editor-col {
       float: left;
       display: block;
       margin-right: 2.35765%;
       width: 48.82117%; }
       .snippet-editor-col:last-child {
-        margin-right: 0; } }
+        margin-right: 0; }
+    .snippet-editor-controls {
+      padding-left: 30px;
+      padding-right: 30px; } }
   @media screen and (max-width: 600px) {
     .snippet-editor-col + .snippet-editor-col {
-      margin-top: 30px; } }
+      margin-top: 30px; }
+    .snippet-editor-controls {
+      padding-left: 20px;
+      padding-right: 20px; } }
 
 .snippet-source.resize-overlay {
   pointer-events: none;

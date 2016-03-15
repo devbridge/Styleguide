@@ -1,0 +1,92 @@
+body,
+html {
+  margin: 0;
+  overflow: hidden;
+  width: 100%; }
+
+.button-wrapper {
+  text-align: center; }
+  .button-wrapper > button {
+    vertical-align: top; }
+    .button-wrapper > button + button {
+      margin-left: 30px; }
+  .button-wrapper.resize-overlay {
+    pointer-events: none;
+    position: relative; }
+  @media screen and (max-width: 440px) {
+    .button-wrapper {
+      margin: 0 auto;
+      max-width: 320px; }
+      .button-wrapper > button {
+        display: block;
+        width: 100%; }
+        .button-wrapper > button + button {
+          margin-left: 0;
+          margin-top: 20px; }
+      .button-wrapper .btn-link {
+        line-height: 1; } }
+
+.btn {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: #f76cb5;
+  border: 0;
+  border-radius: 50px;
+  color: #fff;
+  display: inline-block;
+  font-size: 18px;
+  height: 48px;
+  line-height: 2.5;
+  padding: 0 43px; }
+  @media screen and (min-width: 1025px) {
+    .btn:hover {
+      background-color: #d80c77; } }
+
+.btn-secondary {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  border: #f76cb5 solid 2px;
+  border-radius: 30px;
+  box-sizing: border-box;
+  color: #f76cb5;
+  font-size: 18px;
+  height: 48px;
+  line-height: 2.66667;
+  padding: 0 20px;
+  text-align: center; }
+  @media screen and (min-width: 1025px) {
+    .btn-secondary:hover {
+      background-color: #f76cb5;
+      border-color: #f76cb5;
+      color: #fff; } }
+
+.btn-link {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background: none;
+  border: 0;
+  color: #29aae2;
+  display: inline-block;
+  font-size: 18px;
+  line-height: 2.66667; }
+  @media screen and (min-width: 1025px) {
+    .btn-link:hover {
+      color: #115b7b; } }
+
+/*# sourceMappingURL=snippet-styles.css.map */

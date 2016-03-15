@@ -49,25 +49,11 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
         });
     };
 
-    // Expand/Collapse function
-    module.initToggle = function () {
-        var trigger = $('.js-toggle-button'),
-            container = $('.js-toggle-container'),
-            activeClass = 'opened',
-            self;
-
-        trigger.on('click', function () {
-            self = $(this);
-
-            if (!container.hasClass(activeClass)) {
-                self.removeClass('active');
-                container.addClass(activeClass);
-            } else {
-                self.addClass('active');
-                container.removeClass(activeClass);
-            }
-        })
-    };
+    // Set height to iframe based on content height
+    function updateIframeHeight() {
+        var contentHeight = selectors.snippetIframe.contents().find('#js-snippet').innerHeight();
+        selectors.snippetIframe.height(contentHeight);
+    }
 
     // Scrolls to specific section when clicked navigation's link
     module.initScrollTo = function () {
@@ -113,21 +99,33 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
             }
         }
 
-        if (logo.length) {
-            headerHeight = $('.page-header').outerHeight();
-            logoTop = logo.offset().top + logo.height();
+        function initLogoVisibility() {
+            if (logo.length) {
+                headerHeight = $('.page-header').outerHeight();
+                logoTop = logo.offset().top + logo.height();
 
-            toggleVisibility();
-
-            windowVar.on('scroll', function () {
                 toggleVisibility();
-            });
 
-            windowVar.on('resize', function () {
-                logoTop = logo.offset().top + logo.outerHeight() - headerHeight;
-                toggleVisibility();
-            });
+                windowVar.on('scroll', function () {
+                    toggleVisibility();
+                });
+
+                windowVar.on('resize', function () {
+                    logoTop = logo.offset().top + logo.outerHeight() - headerHeight;
+                    toggleVisibility();
+                });
+            }
         }
+
+        if (windowVar.width() > 1024) {
+            initLogoVisibility();
+        }
+
+        windowVar.on('resize', function () {
+            if (windowVar.width() > 1024) {
+                initLogoVisibility();
+            }
+        });
     };
 
     // Updates header position to fixed
@@ -159,18 +157,41 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
         })
     };
 
-    // Resize snippet
+    // Set width to snippet container on page load
+    function setSnippetWidth(resizeContainer, previewContainer, sizeText, width) {
+        var spacing = ($(window).width() > 769) ? 200 : 140;
+        width = Math.round((width - spacing) / 2);
+
+        resizeContainer.css('width', width);
+        previewContainer.css('width', (width * 2));
+        sizeText.text((width * 2) + 'px');
+    }
+
+    // Change snippet width
     module.initSnippetResize = function () {
         var $handleLeft = $('.js-snippet-resize-handle-left'),
             $handleRight = $('.js-snippet-resize-handle-right'),
             $preview = $('.js-snippet-preview'),
             $resizeLength = $('.js-resize-length'),
             $sizeIndicator = $('.js-snippet-size'),
-            $snippetHolder = $('.js-snippet-preview-holder'),
-            snippetSource = '.js-snippet-source';
+            $snippetHeader = $('.js-snippet-header'),
+            snippetSource = '.js-snippet-source',
+            resizeInit = false,
+            $window = $(window),
+            primaryWidth = $snippetHeader.width();
 
-        $resizeLength.css('width', ($snippetHolder.innerWidth() / 2));
-        $sizeIndicator.text($snippetHolder.innerWidth() + "px");
+        if ($window.width() > 600) {
+            setSnippetWidth($resizeLength, $preview, $sizeIndicator, primaryWidth);
+        }
+
+        $window.on('resize', function () {
+            primaryWidth = $snippetHeader.width();
+            updateIframeHeight();
+
+            if ($window.width() > 600) {
+                setSnippetWidth($resizeLength, $preview, $sizeIndicator, primaryWidth);
+            }
+        });
 
         interact($resizeLength[0])
             .resizable({
@@ -182,16 +203,12 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
                 },
                 onmove: function (e) {
                     var width = e.rect.width,
-                        snippetWidth = $snippetHolder.width();
-
-                    $(window).on('resize', function() {
-                        snippetWidth = $snippetHolder.width();
-                    });
+                        windowWidth = $(window).width();
 
                     if (width < 160) {
                         width = 160;
-                    } else if (width > (snippetWidth / 2)) {
-                        width = (snippetWidth / 2);
+                    } else if ((width * 2) + 100 > windowWidth) {
+                        width = (windowWidth - 100) / 2;
                     }
 
                     $preview
@@ -199,10 +216,11 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
                         .addClass('resize-overlay');
                     $preview[0].style.width = (width * 2) + 'px';
                     $resizeLength[0].style.width = width + 'px';
-                    $sizeIndicator.text((width * 2) + "px");
-                    selectors.snippetIframe.height(selectors.snippetIframe.contents().height());
+                    $sizeIndicator.text((width * 2) + 'px');
+                    updateIframeHeight();
                 },
                 onend: function () {
+                    resizeInit = true;
                     $preview
                         .find(snippetSource)
                         .removeClass('resize-overlay');
@@ -210,6 +228,7 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
             });
     };
 
+    // Add styles file to iframe
     module.insertSnippetStyles = function () {
         var iframe = $('#js-snippet-code'),
             stylesUrl = '<link href="content/styles/snippet-styles.css" rel="stylesheet" type="text/css"/>';
@@ -217,6 +236,7 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
         iframe.contents().find('head').append(stylesUrl);
     };
 
+    // Init html and css editors. Set text to code preview container.
     module.initEditor = function () {
         require(['ace/ace'], function (ace) {
             var htmlEditor = ace.edit('js-html-editor'),
@@ -241,21 +261,24 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
                 cssCode = cssEditor.getSession().getValue();
             });
 
-            selectors.snippetIframe.contents().find('body').html(htmlCode);
+            selectors.snippetIframe.contents().find('body').html('<div id="js-snippet">' + htmlCode + '</div>');
+            updateIframeHeight();
             codePreview.text(htmlCode);
 
             editTrigger.on('click', function () {
                 codePreview.text(htmlCode);
-                selectors.snippetIframe.contents().find('body').html(htmlCode);
+                selectors.snippetIframe.contents().find('body').html('<div id="js-snippet">' + htmlCode + '</div>');
                 selectors.snippetIframe.contents().find('head').html(cloneHeadContent + '<style>' + cssCode + '</style>');
+                updateIframeHeight();
             });
         });
     };
 
+    // Expand/Collapse function
     function initToggle(self, container) {
         $('.js-snippet-content').removeClass('active');
 
-        if(self.hasClass('active')) {
+        if (self.hasClass('active')) {
             self.removeClass('active');
             container.removeClass('active');
         } else {
@@ -264,14 +287,15 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
         }
     }
 
-    module.toggleEdit = function() {
+    // Expand/Collapse snippet header controls
+    module.toggleSnippetControls = function () {
         var editTrigger = $('.js-edit-snippet'),
             snippetContent = $('.js-snippet-content'),
             closeTrigger = $('.js-close-edit'),
             triggerCodePreview = $('.js-trigger-code-preview'),
             self;
 
-        editTrigger.on('click', function() {
+        editTrigger.on('click', function () {
             self = $(this);
 
             if (triggerCodePreview.hasClass('active')) {
@@ -281,7 +305,7 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
             initToggle(self, snippetContent.eq(1));
         });
 
-        triggerCodePreview.on('click', function() {
+        triggerCodePreview.on('click', function () {
             self = $(this);
 
             if (editTrigger.hasClass('active')) {
@@ -291,22 +315,23 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
             initToggle(self, snippetContent.eq(0));
         });
 
-        closeTrigger.on('click', function() {
+        closeTrigger.on('click', function () {
             editTrigger.removeClass('active');
             snippetContent.eq(1).removeClass('active');
         });
     };
 
     module.init = function () {
-        module.insertSnippetStyles();
-        module.initEditor();
-        module.initInstallationAnimation();
-        module.initStickyHeader();
-        module.initToggle();
-        module.initScrollTo();
-        module.showLogoOnScroll();
-        module.initSnippetResize();
-        module.toggleEdit();
+        $(function () {
+            module.insertSnippetStyles();
+            module.initEditor();
+            module.initInstallationAnimation();
+            module.initStickyHeader();
+            module.initScrollTo();
+            module.showLogoOnScroll();
+            module.initSnippetResize();
+            module.toggleSnippetControls();
+        });
     };
 
     return module;
