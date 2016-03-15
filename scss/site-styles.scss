@@ -2,6 +2,10 @@
 @import 'core/variables';
 
 // Neat settings
+$column: 40px;
+$gutter: 40px;
+$grid-columns: 12;
+$max-width: 1100px;
 $visual-grid: false;
 $border-box-sizing: false;
 
@@ -11,6 +15,7 @@ $border-box-sizing: false;
 
 @import "neat-helpers";
 $tablet-1024-up: new-breakpoint(min-width 1025px);
+$tablet-1024: new-breakpoint(max-width 1024px);
 $tablet-920: new-breakpoint(max-width 920px);
 $tablet-920-up: new-breakpoint(min-width 921px);
 $tablet-768: new-breakpoint(max-width 768px);

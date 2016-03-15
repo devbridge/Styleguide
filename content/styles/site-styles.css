@@ -193,8 +193,6 @@ iframe {
   background-color: #fff; }
   .page-header-holder .page-frame {
     max-width: 1440px; }
-  .page-header-holder.fixed {
-    box-shadow: 0 -1px 9px 1px rgba(0, 0, 0, 0.5); }
   @media screen and (min-width: 1025px) {
     .page-header-holder {
       position: fixed;
@@ -205,7 +203,9 @@ iframe {
       .page-header-holder:before {
         content: '';
         display: block;
-        height: 85px; } }
+        height: 85px; }
+      .page-header-holder.fixed {
+        box-shadow: 0 -1px 9px 1px rgba(0, 0, 0, 0.5); } }
 
 .page-header {
   display: table;
@@ -231,6 +231,13 @@ iframe {
       display: none; }
     .page-header-box:last-child {
       display: none; } }
+  @media screen and (min-width: 1025px) {
+    .page-header-box {
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s; }
+      .page-header-holder.fixed .page-header-box {
+        height: 60px; } }
 
 .logo-holder {
   margin: 0; }
@@ -460,7 +467,7 @@ img {
 .intro-section {
   background: url("../styles/images/bg-intro.jpg") 0 0;
   color: #fff;
-  margin-bottom: 46px;
+  margin-bottom: 45px;
   padding-top: 46px;
   text-align: center; }
   .intro-section .subtitle {
@@ -468,7 +475,7 @@ img {
     font-weight: 300;
     line-height: 1.20833;
     margin: 0;
-    padding: 20px 0 40px; }
+    padding: 0 0 40px; }
   .intro-section .img-holder {
     margin: 0; }
     .intro-section .img-holder img {
@@ -479,7 +486,7 @@ img {
     display: inline-block;
     font-size: 15px;
     line-height: 1.66667;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
     min-height: 27px;
     padding-left: 55px;
     text-align: left; }
@@ -496,7 +503,9 @@ img {
       animation: animatedBackground 11s linear infinite;
       -webkit-animation-fill-mode: both;
       -moz-animation-fill-mode: both;
-      animation-fill-mode: both; } }
+      animation-fill-mode: both; }
+      .intro-section .subtitle {
+        padding: 35px 0 80px; } }
   @media screen and (min-width: 601px) {
     .intro-section {
       margin-bottom: 135px; }
@@ -508,8 +517,7 @@ img {
     .intro-section {
       padding-top: 140px; }
       .intro-section .subtitle {
-        font-size: 48px;
-        padding: 35px 0 80px; } }
+        font-size: 48px; } }
   @media screen and (min-width: 601px) and (max-width: 768px) {
     .intro-section {
       padding-top: 100px; }
@@ -547,30 +555,24 @@ img {
 
 .intro-logo-holder {
   margin: 0 auto; }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1024px) {
     .intro-logo-holder {
-      max-width: 280px; } }
-  @media screen and (min-width: 769px) {
-    .intro-logo-holder {
-      max-width: 400px; } }
-  @media screen and (max-width: 320px) {
-    .intro-logo-holder {
-      max-width: 210px; } }
+      display: none; } }
 
 .text-section {
   text-align: center; }
-  .text-section-holder {
+  .text-section-content {
     margin: 40px auto 0;
     max-width: 597px;
     opacity: .5; }
-    .text-section-holder p {
+    .text-section-content p {
       font-weight: 300;
       margin: 0; }
   @media screen and (max-width: 600px) {
     .text-section p {
       font-size: 15px;
       line-height: 1.6; }
-    .text-section-holder {
+    .text-section-content {
       margin-top: 50px; } }
 
 .section-title {
@@ -719,8 +721,8 @@ img {
 .color-box {
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 31.76157%;
+  margin-right: 4.34783%;
+  width: 30.43478%;
   color: #fff;
   height: 213px;
   position: relative;
@@ -738,8 +740,8 @@ img {
     .color-box {
       float: left;
       display: block;
-      margin-right: 2.35765%;
-      width: 23.23176%; }
+      margin-right: 4.34783%;
+      width: 21.73913%; }
       .color-box:last-child {
         margin-right: 0; }
       .color-box:nth-child(4) {
@@ -759,8 +761,8 @@ img {
     .color-box {
       float: left;
       display: block;
-      margin-right: 2.35765%;
-      width: 14.70196%; }
+      margin-right: 4.34783%;
+      width: 13.04348%; }
       .color-box:last-child {
         margin-right: 0; } }
 
@@ -831,7 +833,7 @@ img {
   .features-content-box {
     float: left;
     display: block;
-    margin-right: 2.35765%;
+    margin-right: 4.34783%;
     width: 100%;
     padding-bottom: 55px; }
     .features-content-box:last-child {
@@ -844,14 +846,17 @@ img {
       line-height: 1.53333;
       margin: 0;
       opacity: .5; }
+  .features-content .icon {
+    display: block;
+    margin-bottom: 8px; }
   @media screen and (min-width: 651px) {
     .features-content {
       padding-top: 90px; }
       .features-content-box {
         float: left;
         display: block;
-        margin-right: 2.35765%;
-        width: 31.76157%;
+        margin-right: 4.34783%;
+        width: 30.43478%;
         padding-bottom: 80px; }
         .features-content-box:last-child {
           margin-right: 0; }
@@ -864,19 +869,20 @@ img {
     .features-content-box {
       float: left;
       display: block;
-      margin-right: 2.35765%;
-      width: 48.82117%; }
+      margin-right: 4.34783%;
+      width: 47.82609%; }
       .features-content-box:last-child {
         margin-right: 0; }
       .features-content-box:nth-child(2n) {
         margin-right: 0; }
       .features-content-box:nth-child(2n+1) {
         clear: left; } }
+  @media screen and (max-width: 480px) {
+    .features-content {
+      text-align: center; } }
   @media screen and (min-width: 481px) {
     .features-content .icon {
-      display: block;
-      height: 29px;
-      margin-bottom: 8px; } }
+      height: 29px; } }
 
 .installation-section {
   background: url("../styles/images/bg-installation.jpg") no-repeat center bottom fixed;
@@ -1328,8 +1334,8 @@ img {
     .snippet-editor-col {
       float: left;
       display: block;
-      margin-right: 2.35765%;
-      width: 48.82117%; }
+      margin-right: 4.34783%;
+      width: 47.82609%; }
       .snippet-editor-col:last-child {
         margin-right: 0; }
     .snippet-editor-controls {

@@ -9,7 +9,7 @@
 .intro-section {
     background: url('../styles/images/bg-intro.jpg') 0 0;
     color: $color-white;
-    margin-bottom: 46px;
+    margin-bottom: 45px;
     padding-top: 46px;
     text-align: center;
 
@@ -20,7 +20,7 @@
         }
         line-height: (58 / 48);
         margin: 0;
-        padding: 20px 0 40px;
+        padding: 0 0 40px;
     }
 
     .img-holder {
@@ -37,7 +37,7 @@
         display: inline-block;
         font-size: 15px;
         line-height: (25 / 15);
-        margin-bottom: 40px;
+        margin-bottom: 45px;
         min-height: 27px;
         padding-left: 55px;
         text-align: left;
@@ -54,6 +54,10 @@
     @include media($tablet-1024-up) {
         @include animation(animatedBackground 11s linear infinite);
         @include animation-fill-mode(both);
+
+        .subtitle {
+            padding: 35px 0 80px;
+        }
     }
 
     @include media($tablet-600-up) {
@@ -71,7 +75,6 @@
 
         .subtitle {
             font-size: 48px;
-            padding: 35px 0 80px;
         }
     }
 
@@ -115,23 +118,15 @@
 .intro-logo-holder {
     margin: 0 auto;
 
-    @include media($tablet-600) {
-        max-width: 280px;
-    }
-
-    @include media($tablet-768-up) {
-        max-width: 400px;
-    }
-
-    @include media($mobile-320) {
-        max-width: 210px;
+    @include media($tablet-1024) {
+        display: none;
     }
 }
 
 .text-section {
     text-align: center;
 
-    &-holder {
+    &-content {
         margin: 40px auto 0;
         max-width: 597px;
         opacity: .5;
@@ -148,7 +143,7 @@
             line-height: (24 / 15);
         }
 
-        &-holder {
+        &-content {
             margin-top: 50px;
         }
     }
@@ -520,6 +515,11 @@
         }
     }
 
+    .icon {
+        display: block;
+        margin-bottom: 8px;
+    }
+
     @include media(new-breakpoint(min-width 651px)) {
         padding-top: 90px;
 
@@ -545,11 +545,13 @@
         }
     }
 
+    @include media(new-breakpoint(max-width 480px)) {
+        text-align: center;
+    }
+
     @include media($mobile-480-up) {
         .icon {
-            display: block;
             height: 29px;
-            margin-bottom: 8px;
         }
     }
 }

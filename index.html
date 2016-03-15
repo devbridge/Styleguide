@@ -70,7 +70,7 @@
                     <h2>Transform Your Variables</h2>
                 </div>
 
-                <div class="text-section-holder">
+                <div class="text-section-content">
                     <p>Document and maintain your brand or design guidelines with an online tool. Forget about the time
                         consuming manual creation of PDF style guides. Frontify Style Guide makes professional style
                         guide.</p>
@@ -151,7 +151,7 @@ $src-icon-down: 'images/icon-down.svg';</code></pre>
                     <h2>Live Edits In The Browser</h2>
                 </div>
 
-                <div class="text-section-holder">
+                <div class="text-section-content">
                     <p>Document and maintain your brand or design guidelines with an online tool. Forget about the time
                         consuming manual creation of PDF style guides. Frontify Style Guide makes professional style
                         guide.</p>
@@ -187,19 +187,17 @@ $src-icon-down: 'images/icon-down.svg';</code></pre>
                             <div class="snippet-editor-content">
                                 <div class="snippet-editor-col">
                                     <div class="snippet-editor-title">Code: <sup>*</sup></div>
-                                    <div class="editor-container" id="js-html-editor">
-<pre>&lt;div class="button-wrapper"&gt;
-    &lt;button type="button" class="btn"&gt;Save&lt;/button&gt;
-    &lt;button type="button" class="btn-secondary"&gt;Save as draft&lt;/button&gt;
-    &lt;button type="button" class="btn-link"&gt;Cancel&lt;/button&gt;
+                                    <div class="editor-container" id="js-html-editor"><pre>&lt;div class="button-wrapper"&gt;
+&lt;button type="button" class="btn"&gt;Save&lt;/button&gt;
+&lt;button type="button" class="btn-secondary"&gt;Save as draft&lt;/button&gt;
+&lt;button type="button" class="btn-link"&gt;Cancel&lt;/button&gt;
 &lt;/div&gt;
 </pre>
                                     </div>
                                 </div>
                                 <div class="snippet-editor-col">
                                     <div class="snippet-editor-title">Custom CSS: <sup>*</sup></div>
-                                    <div class="editor-container" id="js-css-editor">
-<pre>.wrapper {
+                                    <div class="editor-container" id="js-css-editor"><pre>.wrapper {
 
 }</pre>
                                     </div>
@@ -235,7 +233,7 @@ $src-icon-down: 'images/icon-down.svg';</code></pre>
                     <h2>Organize into the categories</h2>
                 </div>
 
-                <div class="text-section-holder">
+                <div class="text-section-content">
                     <p>Document and maintain your brand or design guidelines with an online tool. Forget about the time
                         consuming manual creation of PDF style guides. Frontify Style Guide makes professional style
                         guide.</p>
@@ -296,11 +294,10 @@ $src-icon-down: 'images/icon-down.svg';</code></pre>
                     </li>
                     <li>
                         Create Gulp task
-                        <pre class="gulp-task-definition"><code>var gulp = require('gulp'); var styleguide =
-                            require('devbridge-styleguide');
-                            gulp.task('start-styleguide', function () {
-                            styleguide.startServer();
-                            });</code></pre>
+                        <pre class="gulp-task-definition"><code>var gulp = require('gulp'); var styleguide = require('devbridge-styleguide');
+gulp.task('start-styleguide', function () {
+styleguide.startServer();
+});</code></pre>
                     </li>
                     <li>
                         Start styleguide server <br>
