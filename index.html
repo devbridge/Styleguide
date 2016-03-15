@@ -120,7 +120,7 @@ $weight-bold: 700;</code></pre>
                             <div class="color-box" style="background-color: #205B67;"><span>#205B67</span></div>
                             <div class="color-box hide-on-768" style="background-color: #00A5BC;"><span>#00A5BC</span>
                             </div>
-                            <div class="color-box hide-on-920" style="background-color: #95BF15;"><span>#95BF15</span>
+                            <div class="color-box hide-on-960" style="background-color: #95BF15;"><span>#95BF15</span>
                             </div>
                         </div>
                     </div>
@@ -164,48 +164,43 @@ $src-icon-down: 'images/icon-down.svg';</code></pre>
                 <header class="snippet-header js-snippet-header">
                     <div class="snippet-header-inner">
                         <div class="snippet-size js-snippet-size">1920px</div>
-                        <div class="snippet-controls">
+                        <div class="snippet-header-controls">
                             <button type="button" class="btn-show-code js-trigger-code-preview">Show code</button>
                             <button type="button" class="btn-edit js-edit-snippet">Edit snippet</button>
                         </div>
                     </div>
                 </header>
 
-                <div class="snippet-content js-snippet-content">
-                    <div class="snippet-content-inner">
-                        <div class="snippet-editor">
-                            <div class="snippet-editor-content">
-                                <pre class="snippet-code-preview js-code-preview"></pre>
-                            </div>
+                <div class="snippet-info js-snippet-content">
+                    <div class="snippet-info-inner">
+                        <div class="snippet-info-content">
+                            <pre class="snippet-code-preview js-code-preview"></pre>
                         </div>
                     </div>
                 </div>
 
-                <div class="snippet-content js-snippet-content">
-                    <div class="snippet-content-inner">
-                        <div class="snippet-editor">
-                            <div class="snippet-editor-content">
-                                <div class="snippet-editor-col">
-                                    <div class="snippet-editor-title">Code: <sup>*</sup></div>
-                                    <div class="editor-container" id="js-html-editor"><pre>&lt;div class="button-wrapper"&gt;
-&lt;button type="button" class="btn"&gt;Save&lt;/button&gt;
-&lt;button type="button" class="btn-secondary"&gt;Save as draft&lt;/button&gt;
-&lt;button type="button" class="btn-link"&gt;Cancel&lt;/button&gt;
+                <div class="snippet-info js-snippet-content">
+                    <div class="snippet-info-inner">
+                        <div class="snippet-info-content">
+                            <div class="snippet-info-col">
+                                <div class="snippet-info-title">Code: <sup>*</sup></div>
+                                <div class="editor-container" id="js-html-editor"><pre>&lt;div class="button-wrapper"&gt;
+    &lt;button type="button" class="btn"&gt;Save&lt;/button&gt;
+    &lt;button type="button" class="btn-secondary"&gt;Save as draft&lt;/button&gt;
+    &lt;button type="button" class="btn-link"&gt;Cancel&lt;/button&gt;
 &lt;/div&gt;
 </pre>
-                                    </div>
                                 </div>
-                                <div class="snippet-editor-col">
-                                    <div class="snippet-editor-title">Custom CSS: <sup>*</sup></div>
-                                    <div class="editor-container" id="js-css-editor"><pre>.wrapper {
+                            </div>
+                            <div class="snippet-info-col">
+                                <div class="snippet-info-title">Custom CSS: <sup>*</sup></div>
+                                <div class="editor-container" id="js-css-editor"><pre>.wrapper {
 
 }</pre>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="snippet-editor-controls">
+                        <div class="snippet-info-content-footer">
                             <button type="button" class="btn js-update-markup">Save</button>
                             <button type="button" class="btn-link js-close-edit">Cancel</button>
                         </div>
@@ -294,9 +289,9 @@ $src-icon-down: 'images/icon-down.svg';</code></pre>
                     </li>
                     <li>
                         Create Gulp task
-                        <pre class="gulp-task-definition"><code>var gulp = require('gulp'); var styleguide = require('devbridge-styleguide');
-gulp.task('start-styleguide', function () {
-styleguide.startServer();
+<pre class="gulp-task-definition"><code>var gulp = require('gulp'); var styleguide = require('devbridge-styleguide');
+    gulp.task('start-styleguide', function () {
+    styleguide.startServer();
 });</code></pre>
                     </li>
                     <li>

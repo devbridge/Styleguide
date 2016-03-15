@@ -226,7 +226,7 @@
         margin-bottom: 60px;
     }
 
-    @include media(new-breakpoint(min-width 731px max-width 921px)) {
+    @include media(new-breakpoint(min-width 731px max-width 961px)) {
         &-box {
             &:first-child {
                 padding-right: 20px;
@@ -281,7 +281,7 @@
         }
     }
 
-    @include media($tablet-920-up) {
+    @include media($tablet-960-up) {
         &-box {
             &:first-child {
                 width: 60%;
@@ -368,7 +368,7 @@
         line-height: (17 / 14);
     }
 
-    @include media(new-breakpoint(min-width 769px max-width 921px)) {
+    @include media(new-breakpoint(min-width 769px max-width 961px)) {
         @include span-columns(3);
         @include omega(4);
     }
@@ -385,13 +385,13 @@
         height: 200px;
     }
 
-    @include media($tablet-920) {
-        &.hide-on-920 {
+    @include media($tablet-960) {
+        &.hide-on-960 {
             display: none;
         }
     }
 
-    @include media($tablet-920-up) {
+    @include media($tablet-960-up) {
         @include span-columns(2);
     }
 }
@@ -490,6 +490,17 @@
                 }
             }
         }
+    }
+}
+
+// module Categories image section
+.categories-img-holder {
+    @include media($tablet-600-up) {
+        margin-top: 60px;
+    }
+
+    @include media($tablet-600) {
+        display: none;
     }
 }
 
@@ -820,6 +831,15 @@
         position: relative;
     }
 
+    &-controls {
+        float: right;
+
+        .btn-show-code,
+        .btn-edit {
+            vertical-align: top;
+        }
+    }
+
     @include media($tablet-768-up) {
         &-inner {
             padding: 0 100px;
@@ -869,15 +889,6 @@
     padding: 10px;
     white-space: pre;
     word-wrap: normal;
-}
-
-.snippet-controls {
-    float: right;
-
-    .btn-show-code,
-    .btn-edit {
-        vertical-align: top;
-    }
 }
 
 .btn-show-code {
@@ -1038,101 +1049,7 @@
     }
 }
 
-.snippet-editor {
-    background-color: $bg-snippet-editor;
-    border-top: solid 2px $snippet-active;
-
-    &-content {
-        padding: {
-            bottom: 26px;
-            top: 30px;
-        }
-    }
-
-    &-title {
-        color: $color-black-100;
-        font-size: 14px;
-        padding-bottom: 5px;
-
-        sup {
-            color: $color-pink;
-            font-size: 14px;
-            top: -2px;
-        }
-    }
-
-    &-controls {
-        background-color: $snippet-active;
-        padding: {
-            bottom: 15px;
-            top: 15px;
-        }
-
-        .btn-link {
-            margin-left: 15px;
-            vertical-align: middle;
-        }
-    }
-
-    @include media($tablet-768-up) {
-        &-content {
-            padding: {
-                left: 35px;
-                right: 35px;
-            }
-        }
-    }
-
-    @include media($tablet-768) {
-        &-content {
-            padding: {
-                left: 20px;
-                right: 20px;
-            }
-        }
-    }
-
-    @include media($tablet-600-up) {
-        &-content {
-            @include row();
-        }
-
-        &-col {
-            @include span-columns(6);
-        }
-
-        &-controls {
-            padding: {
-                left: 30px;
-                right: 30px;
-            }
-        }
-    }
-
-    @include media($tablet-600) {
-        &-col {
-            + .snippet-editor-col {
-                margin-top: 30px;
-            }
-        }
-
-        &-controls {
-            padding: {
-                left: 20px;
-                right: 20px;
-            }
-        }
-    }
-}
-
-.snippet-source {
-    &.resize-overlay {
-        pointer-events: none;
-        position: relative;
-    }
-}
-
-.snippet-content {
+.snippet-info {
     @include transition(all .3s ease-out);
     height: 0;
     margin-top: -1px;
@@ -1148,27 +1065,88 @@
         visibility: hidden;
     }
 
+    &-content {
+        background-color: $bg-snippet-editor;
+        border-top: solid 2px $snippet-active;
+    }
+
+    &-title {
+        color: $color-black-100;
+        font-size: 14px;
+        padding-bottom: 5px;
+
+        sup {
+            color: $color-pink;
+            font-size: 14px;
+            top: -2px;
+        }
+    }
+
+    &-content-footer {
+        background-color: $snippet-active;
+
+        .btn-link {
+            margin-left: 15px;
+            vertical-align: middle;
+        }
+    }
+
     &.active {
         height: auto;
         pointer-events: all;
         visibility: visible;
 
-        .snippet-content-inner {
+        .snippet-info-inner {
             @include transform(translateY(0));
             height: auto;
             opacity: 1;
             visibility: visible;
         }
     }
-}
 
-.categories-img-holder {
+    @include media($tablet-768-up) {
+        &-content {
+            padding: 30px 35px;
+        }
+
+        &-content-footer {
+            padding: 15px 30px;
+        }
+    }
+
+    @include media($tablet-768) {
+        &-content {
+            padding: 30px 20px;
+        }
+
+        &-content-footer {
+            padding: 15px 20px;
+        }
+    }
+
     @include media($tablet-600-up) {
-        margin-top: 60px;
+        &-content {
+            @include row();
+        }
+
+        &-col {
+            @include span-columns(6);
+        }
     }
 
     @include media($tablet-600) {
-        display: none;
+        &-col {
+            + .snippet-info-col {
+                margin-top: 30px;
+            }
+        }
+    }
+}
+
+.snippet-source {
+    &.resize-overlay {
+        pointer-events: none;
+        position: relative;
     }
 }
 
