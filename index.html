@@ -25,22 +25,16 @@
     <div class="page-header-holder js-header">
         <div class="page-frame">
             <header class="page-header">
-                <div class="page-header-box">
-                    <div class="links-group js-scroll-nav">
-                        <a href="#features">Features</a>
-                        <a href="#installation">Installation</a>
-                    </div>
-                </div>
+                <figure class="logo-holder js-logo-reveal">
+                    <img src="content/images/styleguide-logo.svg" alt="Styleguide">
+                </figure>
 
-                <div class="page-header-box">
-                    <figure class="logo-holder js-logo-reveal">
-                        <img src="content/images/styleguide-logo.svg" alt="Styleguide">
-                    </figure>
-                </div>
-
-                <div class="page-header-box align-right">
+                <nav class="page-header-nav js-scroll-nav">
+                    <a href="#features">Features</a>
+                    <a href="#installation">Installation</a>
+                    <a class="demo-link" href="http://styleguide.devbproto.com/styleguide/" target="_blank">Demo</a>
                     <a class="github-link" href="https://github.com/devbridge/Styleguide" target="_blank">Github</a>
-                </div>
+                </nav>
             </header>
         </div>
     </div>
@@ -93,17 +87,17 @@
                         <div class="code-box">
 <pre class="line-numbers dimmed" data-start="49">
 <code class="language-scss">$color-yellow: #ffa960;
-$color-yellow-110: #de883f;
-color-sky-d10: #538292;
-$color-sky: #70b1c7;</code></pre>
+    $color-yellow-110: #de883f;
+    color-sky-d10: #538292;
+    $color-sky: #70b1c7;</code></pre>
 <pre class="line-numbers" data-start="53"><code class="language-scss"> //-- typo:start --//
-$font-avenir: 'Avenir W01', sans-serif;
-$font-chaparral: 'Chaparral W01', serif;
-//-- typo:end --//</code></pre>
+    $font-avenir: 'Avenir W01', sans-serif;
+    $font-chaparral: 'Chaparral W01', serif;
+    //-- typo:end --//</code></pre>
 <pre class="line-numbers dimmed" data-start="57"><code class="language-scss"> $src-icon-down: 'images/icon-down.svg';
-$weight-black: 900;
-$weight-heavy: 800;
-$weight-bold: 700;</code></pre>
+    $weight-black: 900;
+    $weight-heavy: 800;
+    $weight-bold: 700;</code></pre>
                         </div>
                     </div>
                 </div>
@@ -127,17 +121,17 @@ $weight-bold: 700;</code></pre>
                     <div class="example-section-box">
                         <div class="code-box">
 <pre class="line-numbers dimmed" data-start="52"><code class="language-scss">($gutter / 2);
-$footer-height: 200px;</code></pre>
+    $footer-height: 200px;</code></pre>
 <pre class="line-numbers" data-start="54"><code class="language-scss">//-- color:start --//
-$color-red: #f8533b;
-$color-yellow: #fda400;
-$color-blue: #205b67;
-$color-blue-120: #00a5bc;
-$color-green: #95bf15;
-//-- color:end --//</code></pre>
+    $color-red: #f8533b;
+    $color-yellow: #fda400;
+    $color-blue: #205b67;
+    $color-blue-120: #00a5bc;
+    $color-green: #95bf15;
+    //-- color:end --//</code></pre>
 <pre class="line-numbers dimmed" data-start="62"><code class="language-scss"> $body-font:font-chaparral;
-$heading-font: $font-avenir;
-$src-icon-down: 'images/icon-down.svg';</code></pre>
+    $heading-font: $font-avenir;
+    $src-icon-down: 'images/icon-down.svg';</code></pre>
                         </div>
                     </div>
                 </div>
@@ -282,7 +276,7 @@ $src-icon-down: 'images/icon-down.svg';</code></pre>
                 <ul class="installation-process">
                     <li>
                         Install local package to your project directory
-                        <div class="js-typing-install typing-text">
+                        <div class="typing-text">
                             <span>npm install devbridge-styleguide --save-dev</span>
                             <span class="blink-cursor">|</span>
                         </div>
@@ -292,11 +286,11 @@ $src-icon-down: 'images/icon-down.svg';</code></pre>
 <pre class="gulp-task-definition"><code>var gulp = require('gulp'); var styleguide = require('devbridge-styleguide');
     gulp.task('start-styleguide', function () {
     styleguide.startServer();
-});</code></pre>
+    });</code></pre>
                     </li>
                     <li>
                         Start styleguide server <br>
-                        <div class="js-typing-start typing-text">
+                        <div class="typing-text">
                             <span>gulp start-styleguide</span>
                             <span class="blink-cursor">|</span>
                         </div>

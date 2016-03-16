@@ -5,27 +5,7 @@
 a {
     color: $text-link;
     font-weight: $weight-medium;
-    position: relative;
     text-decoration: none;
-
-    @include media($tablet-1024-up) {
-        &:before {
-            @include transform(scaleX(0));
-            @include position(absolute, null 0 0 0);
-            @include size(100% 2px);
-            @include transition(all .25s ease-in-out 0s);
-            background-color: $color-black;
-            content: '';
-            visibility: hidden;
-        }
-
-        &:hover {
-            &:before {
-                visibility: visible;
-                @include transform(scaleX(1));
-            }
-        }
-    }
 }
 
 h1,

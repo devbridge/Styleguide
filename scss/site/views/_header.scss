@@ -1,5 +1,6 @@
 .page-header-holder {
     background-color: $color-white;
+    padding: 27px 0 26px;
 
     .page-frame {
         max-width: 1440px;
@@ -7,6 +8,7 @@
 
     @include media($tablet-1024-up) {
         @include position(fixed, -$header-height-desktop 0 null 0);
+        @include transition(all .3s);
         z-index: 10;
 
         &:before {
@@ -17,72 +19,76 @@
 
         &.fixed {
             box-shadow: 0 -1px 9px 1px rgba(0, 0, 0, .5);
+            padding: 16px 0;
         }
 
     }
 }
 
 .page-header {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
+    position: relative;
 
-    &-box {
-        display: table-cell;
-        height: 70px;
-        vertical-align: middle;
+    &-nav {
+        a {
+            display: inline-block;
+            position: relative;
+            z-index: 1;
 
-        .links-group {
-            @extend %clearfix;
-
-            a {
-                display: block;
-                float: left;
-
-                + a {
-                    margin-left: 20px;
-                }
-            }
-        }
-    }
-
-    @include media($tablet-768-up) {
-        &-box {
-            .links-group {
-                a {
-                    + a {
-                        margin-left: 30px;
-                    }
-                }
-            }
-        }
-    }
-
-    @include media($tablet-600-up) {
-        &-box {
-            height: $header-height-desktop;
-        }
-    }
-
-    @include media($tablet-600) {
-        &-box {
-            &:first-child {
-                display: none;
-            }
-
-            &:last-child {
-                display: none;
+            + a {
+                margin-left: 25px;
             }
         }
     }
 
     @include media($tablet-1024-up) {
-        &-box {
-            @include transition(all .3s);
+        &-nav {
+            a:not(.demo-link) {
+                &:before {
+                    @include transform(scaleX(0));
+                    @include position(absolute, null 0 0 0);
+                    @include size(100% 2px);
+                    @include transition(all .25s ease-in-out 0s);
+                    background-color: $color-black;
+                    content: '';
+                    visibility: hidden;
+                }
 
-            .page-header-holder.fixed & {
-                height: 60px;
+                &:hover {
+                    &:before {
+                        visibility: visible;
+                        @include transform(scaleX(1));
+                    }
+                }
             }
+
+            .github-link {
+                @include position(absolute, 0 0 null null);
+                margin-left: 32px;
+            }
+        }
+
+        .logo-holder {
+            @include position(absolute, 0 0 null 0);
+
+            img {
+                margin: 0 auto;
+            }
+        }
+    }
+
+    @include media($tablet-1024) {
+        @include row();
+
+        &-nav {
+            float: right;
+
+            .github-link {
+                margin-left: 57px;
+            }
+        }
+
+        .logo-holder {
+            float: left;
         }
     }
 }
@@ -92,7 +98,6 @@
 
     img {
         display: block;
-        margin: 0 auto;
     }
 
     @include media($tablet-1024-up) {
@@ -107,19 +112,27 @@
 
 .github-link {
     display: inline-block;
+    margin-left: 32px;
     min-height: 26px;
-    padding-left: 32px;
+    position: relative;
 
     &:after {
         @include svg-sprite('icon-github');
-        @include position(absolute, 0 null 0 0);
+        @include position(absolute, 0 null 0 -32px);
         content: '';
     }
+}
+
+.demo-link {
+    @include transition(all .3s ease-out);
+    border: solid 1px $border-primary;
+    border-radius: 4px;
+    padding: 0 10px;
 
     @include media($tablet-1024-up) {
-        &:before {
-            left: 32px;
-            width: auto;
+        &:hover {
+            background-color: $color-black;
+            color: $color-white;
         }
     }
 }

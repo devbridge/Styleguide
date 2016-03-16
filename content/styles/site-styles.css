@@ -148,7 +148,7 @@ td,
 th {
   padding: 0; }
 
-.clearfix:after, .page-header-box .links-group:after, .features-content:after, .snippet-header-inner:after, .snippet-info-content:after {
+.clearfix:after, .page-header:after, .features-content:after, .snippet-header-inner:after, .snippet-info-content:after {
   clear: both;
   content: '';
   display: table;
@@ -172,12 +172,13 @@ body {
 
 body {
   color: #292929;
+  font-family: "Proxima Nova W01", sans-serif;
   font-size: 18px;
   font-style: normal;
-  font-family: "Proxima Nova W01", sans-serif;
   font-weight: 400;
   line-height: 1.66667;
   min-width: 320px;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased; }
   @media screen and (max-width: 1024px) {
     body {
@@ -190,7 +191,8 @@ iframe {
   width: 100%; }
 
 .page-header-holder {
-  background-color: #fff; }
+  background-color: #fff;
+  padding: 27px 0 26px; }
   .page-header-holder .page-frame {
     max-width: 1440px; }
   @media screen and (min-width: 1025px) {
@@ -199,51 +201,78 @@ iframe {
       top: -85px;
       right: 0;
       left: 0;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
       z-index: 10; }
       .page-header-holder:before {
         content: '';
         display: block;
         height: 85px; }
       .page-header-holder.fixed {
-        box-shadow: 0 -1px 9px 1px rgba(0, 0, 0, 0.5); } }
+        box-shadow: 0 -1px 9px 1px rgba(0, 0, 0, 0.5);
+        padding: 16px 0; } }
 
 .page-header {
-  display: table;
-  table-layout: fixed;
-  width: 100%; }
-  .page-header-box {
-    display: table-cell;
-    height: 70px;
-    vertical-align: middle; }
-    .page-header-box .links-group a {
-      display: block;
-      float: left; }
-      .page-header-box .links-group a + a {
-        margin-left: 20px; }
-  @media screen and (min-width: 769px) {
-    .page-header-box .links-group a + a {
-      margin-left: 30px; } }
-  @media screen and (min-width: 601px) {
-    .page-header-box {
-      height: 85px; } }
-  @media screen and (max-width: 600px) {
-    .page-header-box:first-child {
-      display: none; }
-    .page-header-box:last-child {
-      display: none; } }
+  position: relative; }
+  .page-header-nav a {
+    display: inline-block;
+    position: relative;
+    z-index: 1; }
+    .page-header-nav a + a {
+      margin-left: 25px; }
   @media screen and (min-width: 1025px) {
-    .page-header-box {
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      transition: all 0.3s; }
-      .page-header-holder.fixed .page-header-box {
-        height: 60px; } }
+    .page-header-nav a:not(.demo-link):before {
+      -webkit-transform: scaleX(0);
+      -moz-transform: scaleX(0);
+      -ms-transform: scaleX(0);
+      -o-transform: scaleX(0);
+      transform: scaleX(0);
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      -webkit-transition: all 0.25s ease-in-out 0s;
+      -moz-transition: all 0.25s ease-in-out 0s;
+      transition: all 0.25s ease-in-out 0s;
+      background-color: #292929;
+      content: '';
+      visibility: hidden; }
+    .page-header-nav a:not(.demo-link):hover:before {
+      visibility: visible;
+      -webkit-transform: scaleX(1);
+      -moz-transform: scaleX(1);
+      -ms-transform: scaleX(1);
+      -o-transform: scaleX(1);
+      transform: scaleX(1); }
+    .page-header-nav .github-link {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin-left: 32px; }
+    .page-header .logo-holder {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0; }
+      .page-header .logo-holder img {
+        margin: 0 auto; } }
+  @media screen and (max-width: 1024px) {
+    .page-header {
+      display: block; }
+      .page-header-nav {
+        float: right; }
+        .page-header-nav .github-link {
+          margin-left: 57px; }
+      .page-header .logo-holder {
+        float: left; } }
 
 .logo-holder {
   margin: 0; }
   .logo-holder img {
-    display: block;
-    margin: 0 auto; }
+    display: block; }
   @media screen and (min-width: 1025px) {
     .logo-holder {
       -webkit-transition: opacity 0.5s;
@@ -255,8 +284,9 @@ iframe {
 
 .github-link {
   display: inline-block;
+  margin-left: 32px;
   min-height: 26px;
-  padding-left: 32px; }
+  position: relative; }
   .github-link:after {
     width: 27px;
     height: 26px;
@@ -264,12 +294,20 @@ iframe {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
+    left: -32px;
     content: ''; }
+
+.demo-link {
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  border: solid 1px #292929;
+  border-radius: 4px;
+  padding: 0 10px; }
   @media screen and (min-width: 1025px) {
-    .github-link:before {
-      left: 32px;
-      width: auto; } }
+    .demo-link:hover {
+      background-color: #292929;
+      color: #fff; } }
 
 .noscript-message {
   background-color: #fff1bb;
@@ -376,34 +414,7 @@ iframe {
 a {
   color: #292929;
   font-weight: 500;
-  position: relative;
   text-decoration: none; }
-  @media screen and (min-width: 1025px) {
-    a:before {
-      -webkit-transform: scaleX(0);
-      -moz-transform: scaleX(0);
-      -ms-transform: scaleX(0);
-      -o-transform: scaleX(0);
-      transform: scaleX(0);
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      height: 2px;
-      width: 100%;
-      -webkit-transition: all 0.25s ease-in-out 0s;
-      -moz-transition: all 0.25s ease-in-out 0s;
-      transition: all 0.25s ease-in-out 0s;
-      background-color: #292929;
-      content: '';
-      visibility: hidden; }
-    a:hover:before {
-      visibility: visible;
-      -webkit-transform: scaleX(1);
-      -moz-transform: scaleX(1);
-      -ms-transform: scaleX(1);
-      -o-transform: scaleX(1);
-      transform: scaleX(1); } }
 
 h2,
 .heading2 {
@@ -944,13 +955,16 @@ img {
   list-style: none;
   margin: 0 auto;
   max-width: 545px;
-  padding: 0; }
+  padding: 0;
+  overflow: hidden; }
   .installation-process li {
-    -webkit-transition: opacity 0.5s ease;
-    -moz-transition: opacity 0.5s ease;
-    transition: opacity 0.5s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    opacity: 0;
     padding-left: 40px;
-    position: relative; }
+    position: relative;
+    visibility: hidden; }
     .installation-process li::before {
       position: absolute;
       top: 7px;
@@ -966,41 +980,27 @@ img {
       top: 25px;
       bottom: 100%;
       left: 6px;
-      -webkit-transition: bottom 0.5s ease;
-      -moz-transition: bottom 0.5s ease;
-      transition: bottom 0.5s ease;
+      -webkit-transition: all 0.4s ease;
+      -moz-transition: all 0.4s ease;
+      transition: all 0.4s ease;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition-delay: 0.4s;
+      transition-delay: 0.4s;
       background-color: #fff;
       content: '';
       width: 2px; }
-    .installation-process li:first-child::after {
-      -webkit-transition-delay: 1.9s;
-      -moz-transition-delay: 1.9s;
-      transition-delay: 1.9s; }
-    .installation-process li:nth-child(2) {
-      -webkit-transition-delay: 2s;
-      -moz-transition-delay: 2s;
-      transition-delay: 2s; }
-      .installation-process li:nth-child(2)::after {
-        -webkit-transition-delay: 2.4s;
-        -moz-transition-delay: 2.4s;
-        transition-delay: 2.4s; }
-    .installation-process li:last-child {
-      -webkit-transition-delay: 2.5s;
-      -moz-transition-delay: 2.5s;
-      transition-delay: 2.5s; }
-      .installation-process li:last-child::after {
-        display: none; }
+    .installation-process li:last-child::after {
+      display: none; }
     .installation-process li + li {
-      margin-top: 40px;
-      opacity: 0; }
+      margin-top: 40px; }
     .installation-process li.animate {
-      opacity: 1; }
+      opacity: 1;
+      visibility: visible; }
       .installation-process li.animate::after {
         bottom: -43px; }
-      .installation-process li.animate .typing-text {
-        opacity: 1; }
   .installation-process .typing-text {
-    margin-top: 20px; }
+    margin-top: 20px;
+    opacity: 1; }
   @media screen and (min-width: 601px) {
     .installation-process .typing-text {
       margin: 25px 0 0 50px; } }

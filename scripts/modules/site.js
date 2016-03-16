@@ -11,12 +11,11 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
     };
 
     module.initInstallationAnimation = function () {
-        var triggerInstall = $('.js-typing-install'),
-            triggerStart = $('.js-typing-start'),
-            triggerIntroCommand = $('.js-intro-command'),
+        var triggerIntroCommand = $('.js-intro-command'),
             installationList = $('li', '.installation-process'),
             installationContainer = $('#installation'),
-            containerPosition = (installationContainer.offset().top * 1.15) - $(window).height();
+            $window = $(window),
+            containerPosition = Math.round((installationContainer.offset().top * 1.15) - $window.height());
 
         // Animate text of 'npm install devbridge-styleguide --save-dev' command in intro section
         triggerIntroCommand.addClass('animate');
@@ -26,24 +25,25 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
             correctTypingSpeed: 70
         });
 
-        triggerInstall.loadTyping({
-            incorrectTypingSpeed: 50
-        });
-
-        triggerStart.loadTyping({
-            incorrectTypingSpeed: 50
-        });
-
         function installationAnimation() {
-            installationList.addClass('animate');
+            installationList.each(function (i, element) {
+                if (i == 0) {
+                    $(element).addClass('animate');
+                } else {
+                    setTimeout(function () {
+                        $(element).addClass('animate');
+                    }, i * 300);
+                }
+            });
         }
 
-        if ($(window).scrollTop() > containerPosition) {
+        if ($window.scrollTop() > containerPosition) {
             installationAnimation();
         }
 
-        $(window).on('scroll', function () {
-            if ($(window).scrollTop() > containerPosition) {
+        $window.on('scroll resize', function () {
+            containerPosition = Math.round((installationContainer.offset().top * 1.15) - $window.height());
+            if ($window.scrollTop() > containerPosition) {
                 installationAnimation();
             }
         });
@@ -322,16 +322,14 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
     };
 
     module.init = function () {
-        $(function () {
-            module.insertSnippetStyles();
-            module.initEditor();
-            module.initInstallationAnimation();
-            module.initStickyHeader();
-            module.initScrollTo();
-            module.showLogoOnScroll();
-            module.initSnippetResize();
-            module.toggleSnippetControls();
-        });
+        module.initStickyHeader();
+        module.insertSnippetStyles();
+        module.initInstallationAnimation();
+        module.initEditor();
+        module.initScrollTo();
+        module.showLogoOnScroll();
+        module.initSnippetResize();
+        module.toggleSnippetControls();
     };
 
     return module;
