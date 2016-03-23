@@ -35,13 +35,15 @@
     @include transition(all .3s ease-out);
     height: 0;
     visibility: hidden;
-    position: relative;
+    //position: relative;
+    @include position(absolute, 47px 0 null);
+    width: 100%;
+    z-index: 10;
 
     &.active {
         visibility: visible;
         height: auto;
         overflow: visible;
-        position: static;
     }
 }
 
@@ -56,6 +58,7 @@
 
 .sg-snippet {
     margin-top: -1px;
+    position: relative;
 }
 
 // Snippet Header
@@ -94,6 +97,8 @@
         .btn-show-code {
             @extend %snippet-btn-style;
             @extend %remove-outline;
+
+            min-width: 125px;
 
             &:after {
                 background: url($src-icon-code) no-repeat;
@@ -170,7 +175,7 @@
 
     .sg-snippet-code {
         float: left;
-        width: 67%;
+        width: 57%;
         position: relative;
         box-sizing: border-box;
         padding-right: 10px;
@@ -182,7 +187,7 @@
             display: block;
             overflow: auto;
             line-height: (22 / 11);
-            max-height: 322px;
+            height: 323px;
             font: {
                 family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
                 size: 11px;
@@ -202,7 +207,7 @@
 
     .sg-snippet-description {
         float: right;
-        width: 33%;
+        width: 43%;
         box-sizing: border-box;
         padding-left: 10px;
         max-height: 350px;
@@ -534,6 +539,7 @@
     margin: 0 auto;
     padding: 60px 10px;
     position: relative;
+    @include transition(margin-top .3s ease-out);
 
     .sg-snippet-resize-handle {
         height: 100px;
@@ -575,6 +581,10 @@
             }
         }
     }
+}
+
+.active ~ .sg-snippet-preview {
+    margin-top: 467px;
 }
 
 .sg-snippet {

@@ -475,47 +475,38 @@ $btn-ghost-radius: $border-radius;
 
 //module notification
 .sg-notification {
-    @include transition-property(opacity, transform);
-    @include transition-duration(10s, .15s);
-    @include transition-timing-function(ease-in);
-    @include transform(translateY(100%));
-    background: $color-blue;
-    bottom: 0;
+    @include position(fixed, 60px 0 null);
     box-sizing: border-box;
-    left: 0;
-    max-height: 300px;
-    opacity: 1;
+    max-height: 123px;
     overflow-y: auto;
-    padding: 10px 60px;
-    position: fixed;
-    right: 0;
     text-align: center;
+    z-index: 998;
+    background: #754A4A;
+    //@include transition(opacity .3s);
+    //opacity: 0;
 
     &.show {
-        @include transform(translateY(0));
+        //opacity: 1;
     }
 
     &.removing-10 {
-        @include transition-duration(10s, .15s);
-        @include transition-timing-function(ease-in);
-        opacity: .85;
+        //@include transition-duration(10s);
     }
 
     &.removing-5 {
-        @include transition-duration(5s, .15s);
-        @include transition-timing-function(ease-in);
-        opacity: .85;
+        //@include transition-duration(5s);
     }
 
     &.quick-opacity {
-        @include transition-duration(.5s, .15s);
-        @include transition-timing-function(ease-out);
-        opacity: 1;
+        //@include transition-duration(.5s);
     }
 
     .sg-notification-item {
-        padding: 10px 0;
+        background: #319fa3;
+        padding: 5px 60px 10px;
         position: relative;
+        z-index: 4;
+        animation: show-notification 3s normal forwards ease-in-out;
 
         .sg-notification-item-text {
             color: #ddd;
@@ -528,6 +519,21 @@ $btn-ghost-radius: $border-radius;
 
         .sg-notification-item-highlight {
             color: $color-white;
+        }
+
+        + .sg-notification-item {
+            background: #0e687a;
+            z-index: 3;
+
+            + .sg-notification-item {
+                background: #c8cc2b;
+                z-index: 2;
+
+                + .sg-notification-item {
+                    background: #cc6726;
+                    z-index: 1;
+                }
+            }
         }
 
         code {
@@ -553,22 +559,13 @@ $btn-ghost-radius: $border-radius;
                 }
             }
         }
+    }
 
-        &:before {
-            background: $color-white;
-            border-radius: 50%;
-            color: $color-blue;
-            content: '!';
-            display: inline-block;
-            font-size: 24px;
-            font-weight: 700;
-            height: 30px;
-            line-height: 30px;
-            margin-right: 10px;
-            text-align: center;
-            vertical-align: top;
-            width: 30px;
-        }
+    @keyframes show-notification {
+        0%      {margin-top: -41px;}
+        15%     {margin-top: 0;}
+        85%     {margin-top: 0;}
+        100%    {margin-top: -41px;}
     }
 
     .sg-notifications-x {
@@ -580,7 +577,7 @@ $btn-ghost-radius: $border-radius;
         position: absolute;
         right: 10px;
         text-align: center;
-        top: 10px;
+        top: 4px;
         width: 30px;
 
         &:before {

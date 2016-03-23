@@ -4,6 +4,7 @@
     color: $color-white;
     padding: 14px 0;
     z-index: 999;
+    @include transition(background 0.3s);
 
     .sg-page-wrapper {
         @extend .clearfix;
@@ -27,6 +28,35 @@
             }
         }
     }
+
+    .sg-logo:after {
+        content: 'Saved';
+        @include position(absolute, 0 null null 100%);
+        color: #38a55d;
+        font-weight: 700;
+        font-size: 18px;
+        margin: 8px 0 0 10px;
+        border-left: #38a55d solid 1px;
+        padding-left: 10px;
+        opacity: 0;
+        @include transition(opacity 0.3s);
+        @include transition-delay(0.2s);
+    }
+
+    &.have-message {
+        animation: bg-color 1.5s ease-out;
+
+        .sg-logo:after {
+            opacity: 1;
+        }
+    }
+}
+
+@-webkit-keyframes bg-color {
+    0%      {background: $color-grey-dark-tertiary;}
+    20%     {background: #38a55d;}
+    30%     {background: #38a55d;}
+    100%    {background: $color-grey-dark-tertiary;}
 }
 
 .sg-header-nav {
