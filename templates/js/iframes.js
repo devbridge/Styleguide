@@ -4,7 +4,7 @@ var iframesService = (function ($, snippetService) {
 
     var getConfig = function (callback) {
         if (!cachedConfig) {
-            $.getJSON('../styleguide_config.txt', function (data) {
+            $.getJSON('./config.txt', function (data) {
                 cachedConfig = data;
                 callback(cachedConfig);
             });
@@ -71,6 +71,12 @@ var iframesService = (function ($, snippetService) {
             } else {
                 console.log('No JavaScript files are defined in configuration to load into iframe.');
             }
+        });
+    };
+
+    module.formFramesForStatic = function (snippets, callback) {
+        constructFrames(snippets, function (frames) {
+            callback(frames, snippets);
         });
     };
 

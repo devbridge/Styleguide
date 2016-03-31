@@ -22,7 +22,7 @@ var snippetService = (function ($, categoryService) {
     };
 
     module.init = function (callback) {
-        var path = '../styleguide_config.txt',
+        var path = './config.txt',
             request;
 
         $.getJSON(path, function (data) {
@@ -72,6 +72,10 @@ var snippetService = (function ($, categoryService) {
                     });
 
                     deletedSnippets = deletedSnippets.concat(filteredSnippets);
+
+                    deletedSnippets = deletedSnippets.sort(function (obj1, obj2) {
+                        return obj1.id - obj2.id;
+                    });
                 });
             }
 
@@ -106,6 +110,10 @@ var snippetService = (function ($, categoryService) {
                 data = data.map(function (obj) {
                     obj.category = categoryId;
                     return obj;
+                });
+
+                data = data.sort(function (obj1, obj2) {
+                    return obj1.id - obj2.id;
                 });
 
                 callback(data);

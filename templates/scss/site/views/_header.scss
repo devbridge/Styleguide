@@ -1,9 +1,10 @@
 .sg-header {
+    @include position(fixed, 0 0 auto);
     background: $color-grey-dark-tertiary;
     color: $color-white;
     padding: 14px 0;
-    position: relative;
     z-index: 999;
+    @include transition(background 0.3s);
 
     .sg-page-wrapper {
         @extend .clearfix;
@@ -11,52 +12,92 @@
     }
 
     .sg-logo {
+        background: 0;
+        border: 0;
         float: left;
-        margin-right: 10px;
         line-height: 1;
+        margin-right: 10px;
+        outline: 0;
         position: relative;
+
+        a {
+            display: block;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .sg-logo:after {
+        content: 'Saved';
+        @include position(absolute, 0 null null 100%);
+        color: #38a55d;
+        font-weight: 700;
+        font-size: 18px;
+        margin: 8px 0 0 10px;
+        border-left: #38a55d solid 1px;
+        padding-left: 10px;
+        opacity: 0;
+        @include transition(opacity 0.3s);
+        @include transition-delay(0.2s);
+    }
+
+    &.have-message {
+        animation: bg-color 1.5s ease-out;
+
+        .sg-logo:after {
+            opacity: 1;
+        }
     }
 }
 
+@-webkit-keyframes bg-color {
+    0%      {background: $color-grey-dark-tertiary;}
+    20%     {background: #38a55d;}
+    30%     {background: #38a55d;}
+    100%    {background: $color-grey-dark-tertiary;}
+}
+
 .sg-header-nav {
-    @include position(absolute, 0 auto auto 50%);
-    @include transform(translateX(-50%));
+    float: right;
+    position: relative;
 }
 
 // Size Controls
 .sg-snippets-resize {
-    float: right;
-    position: relative;
-    margin-right: 20px;
+    @include position(absolute, 0 auto auto 50%);
+    @include transform(translateX(-50%));
+    z-index: 10;
 
     .label-new-size {
         @include position(absolute, 0 32px auto auto);
+        color: $color-white;
         line-height: 28px;
         vertical-align: middle;
-        color: $color-white;
     }
 
     .input-new-size {
-        height: 32px;
-        border: transparent solid 2px;
         background: none;
+        border: transparent solid 2px;
         border-radius: 16px;
         box-sizing: border-box;
         float: left;
+        height: 32px;
         line-height: 28px;
-        vertical-align: middle;
-        padding:0 50px 0 10px;
         overflow: hidden;
+        padding:0 50px 0 10px;
+        text-align: right;
+        vertical-align: middle;
         white-space: nowrap;
         width: 105px;
-        text-align: right;
         @include transition(all .2s ease-out);
 
         &:active,
         &:focus {
-            outline: none;
-            box-shadow: none;
             border-color: $color-blue;
+            box-shadow: none;
+            outline: none;
         }
     }
 
@@ -77,6 +118,10 @@
     float: right;
     position: relative;
 
+    .server-on & {
+        display: block;
+    }
+
     .dropdown-list {
         left: auto;
         right: 0;
@@ -93,6 +138,45 @@
             }
         }
     }
+
+    html:not([class]) & {
+        display: none;
+    }
+}
+
+// Btn new
+.btn-new {
+    background: transparent;
+    @include transition(all .3s);
+    border: 2px solid $color-blue;
+    border-radius: 16px;
+    box-sizing: border-box;
+    color: $color-blue;
+    float: right;
+    height: 32px;
+    line-height: 28px;
+    margin-left: 20px;
+    padding: 0 15px;
+    position: relative;
+    font: {
+        size: 14px;
+        weight: 400;
+    };
+    vertical-align: middle;
+
+    &:hover {
+        background: rgba($color-blue, 0.2);
+    }
+
+    &:active,
+    &:focus {
+        box-shadow: none;
+        outline: none;
+    }
+
+    html:not([class]) & {
+        display: none;
+    }
 }
 
 // Dropdown List
@@ -100,24 +184,26 @@
     @include position(absolute, 44px null null 50%);
     @include transition(all .2s ease-out);
     @include transform(translateY(-15px) translateX(-50%));
-    visibility: hidden;
-    opacity: 0;
     background-color: $color-blue;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
     z-index: 10;
 
     &.active {
         @include transform(translateY(0) translateX(-50%));
         opacity: 1;
+        pointer-events: all;
         visibility: visible;
     }
 
     ul {
         border-top: 3px solid #005D96;
+        font-size: 14px;
         list-style: none;
         margin: 0;
         padding: 20px 0;
         position: relative;
-        font-size: 14px;
 
         &:before {
             @include position(absolute, auto 0 100% 0);
@@ -136,15 +222,15 @@
         border: 0;
         color: $color-white;
         display: block;
+        letter-spacing: 1px;
         min-width: 100%;
         padding: 0 25px;
         text-align: left;
-        white-space: nowrap;
         font: {
             family: $font-main;
             weight: 400;
         };
-        letter-spacing: 1px;
+        white-space: nowrap;
         @extend %remove-outline;
 
         &:hover {

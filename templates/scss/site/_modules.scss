@@ -12,8 +12,8 @@
 
     &:active,
     &:focus {
-        outline: none;
         box-shadow: none;
+        outline: none;
     }
 }
 
@@ -33,48 +33,88 @@ $btn-ghost-radius: $border-radius;
     }
 }
 
+.btn-secondary {
+    @extend %btn-template;
+    background-color: transparent;
+    border: {
+        color: $color-blue;
+        width: 2px;
+    }
+    border-radius: 20px;
+    color: $color-blue;
+    line-height: 28px;
+}
+
 .btn-menu {
+    @include transition(all .3s);
+    @include transform(rotate(0deg));
     background: transparent;
     border: 2px solid $color-blue;
     border-radius: 50%;
     box-sizing: border-box;
-    font-size: 0;
     height: 32px;
+    margin-left: 20px;
     position: relative;
+    vertical-align: middle;
     width: 32px;
-    @include transition(all 0.3s);
-    @include transform(rotate(0deg));
 
-    &:before,
-    &:after {
-        background-color: $color-blue;
-        @include position(absolute, 0 0 0 0);
-        content: '';
-        margin: auto;
-    }
-
-    &:before {
+    span {
+        @include position(absolute, 0 7px 0);
+        @include transition(background .2s ease);
+        background: $color-blue;
+        display: block;
+        font-size: 0;
         height: 1px;
-        width: 13px;
+        margin: auto;
+
+        &:before,
+        &:after {
+            @include position(absolute, null 0 null);
+            @include transition(top, transform .3s ease);
+            background: $color-blue;
+            content: '';
+            height: 1px;
+            width: 100%;
+        }
+
+        &:before {
+            top: -4px;
+        }
+
+        &:after {
+            bottom: -4px;
+        }
     }
 
-    &:after {
-        height: 13px;
-        width: 1px;
+    &:hover {
+        background: rgba($color-blue, 0.2);
+    }
+
+    &.active {
+        span {
+            background: none;
+
+            &:before,
+            &:after {
+                @include transition-delay(0s, .1s);
+            }
+
+            &:before {
+                @include transform(rotate(45deg));
+                top: 0;
+            }
+
+            &:after {
+                @include transform(rotate(-45deg));
+                bottom: 0;
+            }
+        }
     }
 
     &:active,
     &:focus {
-        outline: none;
         box-shadow: none;
-    }
-
-    &.active {
-        @include transform(rotate(270deg));
-
-        &:before {
-            display: none;
-        }
+        outline: none;
     }
 }
 
@@ -82,22 +122,22 @@ $btn-ghost-radius: $border-radius;
     background: transparent;
     border: none;
     box-sizing: border-box;
-    height: 32px;
-    position: relative;
-    padding: 0 10px;
     font-size: 16px;
-    vertical-align: middle;
+    height: 32px;
     line-height: 30px;
+    padding: 0 10px;
+    position: relative;
+    vertical-align: middle;
     @include transition(all 0.3s);
 
     &:after {
         @extend %font-icon-style;
         content: '\f107';
+        display: inline-block;
         font-size: 20px;
+        line-height: 32px;
         margin-left: 10px;
         vertical-align: middle;
-        line-height: 32px;
-        display: inline-block;
         @include transition(all 0.15s);
         @include transform(scaleY(1));
     }
@@ -111,8 +151,8 @@ $btn-ghost-radius: $border-radius;
 
     &:active,
     &:focus {
-        outline: none;
         box-shadow: none;
+        outline: none;
     }
 }
 
@@ -173,7 +213,7 @@ $btn-ghost-radius: $border-radius;
     }
 
     &:after {
-        background-color: #c1272d;
+        background-color: $color-red;
         @include position(absolute, null 18px 4px 43px);
         content: '';
         height: 1px;
@@ -185,7 +225,7 @@ $btn-ghost-radius: $border-radius;
     &.icon-delete {
         &:before {
             @extend %font-icon-style;
-            color: #c1272d;
+            color: $color-red;
             content: '\f014';
             font-size: 18px;
             margin-top: -2px;
@@ -314,7 +354,9 @@ $btn-ghost-radius: $border-radius;
 // module Intro header
 .sg-intro {
     &-container {
-        padding: 50px 0 75px;
+        background: $color-grey;
+        display: none;
+        padding: 70px 0 55px;
     }
 
     &-row {
@@ -371,7 +413,7 @@ $btn-ghost-radius: $border-radius;
             text-decoration: none;
 
             &:after {
-                background-color: $color-grey-dark;
+                background-color: #666666;
                 @include position(absolute, null 0 -2px 0);
                 content: '';
                 height: 1px;
@@ -390,37 +432,229 @@ $btn-ghost-radius: $border-radius;
 
 // module Home secondary navigation
 .sg-home-navigation {
-    border-bottom: 1px solid $border-snippet;
-    padding: 11px 0;
+    padding-top: 80px;
 
     ul {
         list-style: none;
         margin: 0;
         padding: 0;
+        text-align: center;
     }
 
     li {
-        float: left;
+        display: inline-block;
+        margin-bottom: 15px;
 
         button {
-            color: $color-blue;
+            @include transition(all .3s ease);
             background: none;
-            border: 0;
+            border: 2px solid $color-grey;
+            border-radius: 50px;
+            color: $color-black;
             font: {
-                size: 16px;
+                size: 18px;
                 weight: $weight-bold;
             }
-            padding: 0;
+            height: 34px;
+            line-height: 30px;
+            padding: 0 15px;
             text-decoration: none;
+            text-transform: capitalize;
 
             &:hover,
             &.active {
-                color: $color-black-secondary
+                border-color: $color-black;
             }
         }
 
         + li {
-            padding-left: 40px;
+            padding-left: 30px;
+        }
+    }
+}
+
+//module notification
+.sg-notification {
+    @include position(fixed, 60px 0 null);
+    box-sizing: border-box;
+    max-height: 123px;
+    overflow-y: auto;
+    text-align: center;
+    z-index: 998;
+    background: #754A4A;
+    //@include transition(opacity .3s);
+    //opacity: 0;
+
+    &.show {
+        //opacity: 1;
+    }
+
+    &.removing-10 {
+        //@include transition-duration(10s);
+    }
+
+    &.removing-5 {
+        //@include transition-duration(5s);
+    }
+
+    &.quick-opacity {
+        //@include transition-duration(.5s);
+    }
+
+    .sg-notification-item {
+        background: #319fa3;
+        padding: 5px 60px 10px;
+        position: relative;
+        z-index: 4;
+        animation: show-notification 3s normal forwards ease-in-out;
+
+        .sg-notification-item-text {
+            color: #ddd;
+            display: inline-block;
+            max-height: 200px;
+            max-width: 100%;
+            overflow-y: auto;
+            vertical-align: middle;
+        }
+
+        .sg-notification-item-highlight {
+            color: $color-white;
+        }
+
+        + .sg-notification-item {
+            background: #0e687a;
+            z-index: 3;
+
+            + .sg-notification-item {
+                background: #c8cc2b;
+                z-index: 2;
+
+                + .sg-notification-item {
+                    background: #cc6726;
+                    z-index: 1;
+                }
+            }
+        }
+
+        code {
+            background: tint($color-blue, 20%);
+            box-sizing: border-box;
+            display: block;
+            max-height: 4.9em; // 3 * 1.5 + 0.2 * 2 == 3 lines * 1.5 line-height + 0.2 vertical padding * 2
+            max-width: 100%;
+            overflow: hidden;
+            padding: .2em;
+            text-align: left;
+            white-space: pre;
+
+            &.extra-lines {
+                &:after {
+                    @include transform(translateX(-50%));
+                    bottom: 0;
+                    content: '...';
+                    font-size: 16px;
+                    left: 50%;
+                    line-height: 1;
+                    position: absolute;
+                }
+            }
+        }
+    }
+
+    @keyframes show-notification {
+        0%      {margin-top: -41px;}
+        15%     {margin-top: 0;}
+        85%     {margin-top: 0;}
+        100%    {margin-top: -41px;}
+    }
+
+    .sg-notifications-x {
+        background: none;
+        border: 0;
+        height: 30px;
+        line-height: 30px;
+        padding: 0;
+        position: absolute;
+        right: 10px;
+        text-align: center;
+        top: 4px;
+        width: 30px;
+
+        &:before {
+            @include transition(.2s);
+            color: $color-white;
+            content: '\00D7';
+            font-size: 30px;
+            line-height: 1;
+        }
+
+        &:hover {
+            &:before {
+                color: $color-grey;
+            }
+        }
+    }
+}
+
+//module spinner
+.spinner-wrapper {
+    @include position(absolute, 2px 0 1px 0);
+    background: $color-white;
+}
+
+.spinner {
+    @include animation(sk-scaleout 1s infinite ease-in-out);
+    @include position(absolute, 50% null null 50%);
+    background-color: $color-blue;
+    border-radius: 100%;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    width: 60px;
+}
+
+@include keyframes(sk-scaleout) {
+    0% {
+        @include transform(scale(0));
+    }
+
+    100% {
+        @include transform(scale(1));
+        opacity: 0;
+    }
+}
+
+//module modal success message
+.sg-success-message {
+    text-align: center;
+
+    .sg-check-symbol {
+        display: inline-block;
+        height: 32px;
+        margin-top: 15px;
+        position: relative;
+        width: 32px;
+
+        &:before,
+        &:after {
+            background: $color-blue;
+            border-radius: 3px;
+            content: '';
+            height: 8px;
+            position: absolute;
+        }
+
+        &:before {
+            @include transform(rotate(45deg));
+            left: -1px;
+            top: 17px;
+            width: 16px;
+        }
+
+        &:after {
+            @include transform(rotate(-45deg));
+            left: 6px;
+            top: 16px;
+            width: 30px;
         }
     }
 }

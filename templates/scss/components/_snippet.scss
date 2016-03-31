@@ -11,10 +11,40 @@
 }
 
 %drawer-style {
+    @include transition(all .3s ease-out);
+    @include transform(translateY(-15px));
     background: $color-grey;
     border-top: 2px solid $color-blue;
     margin-top: -1px;
+    max-height: 500px;
+    opacity: 0;
+    overflow: auto;
     position: relative;
+    width: 100%;
+
+    .active & {
+        @include transform(translateY(0));
+        //@include transition(max-height .1s ease-out .125s, opacity .15s ease-in .2s);
+        max-height: 500px;
+        opacity: 1;
+        overflow: visible;
+    }
+}
+
+.sg-holder {
+    @include transition(all .3s ease-out);
+    height: 0;
+    visibility: hidden;
+    //position: relative;
+    @include position(absolute, 47px 0 null);
+    width: 100%;
+    z-index: 10;
+
+    &.active {
+        visibility: visible;
+        height: auto;
+        overflow: visible;
+    }
 }
 
 .drawer-tip {
@@ -28,6 +58,7 @@
 
 .sg-snippet {
     margin-top: -1px;
+    position: relative;
 }
 
 // Snippet Header
@@ -67,6 +98,8 @@
             @extend %snippet-btn-style;
             @extend %remove-outline;
 
+            min-width: 125px;
+
             &:after {
                 background: url($src-icon-code) no-repeat;
                 content: '';
@@ -90,8 +123,13 @@
         .btn-edit {
             @extend %snippet-btn-style;
             @extend %remove-outline;
+            display: none;
             margin-left: -1px;
             font-size: 0;
+
+            .server-on & {
+                display: block;
+            }
 
             &:before {
                 color: #999;
@@ -123,7 +161,11 @@
 
     .drawer-tip {
         &:before {
-            right: 100px;
+            right: 50px;
+
+            .server-on & {
+                right: 100px;
+            }
         }
     }
 
@@ -133,7 +175,7 @@
 
     .sg-snippet-code {
         float: left;
-        width: 67%;
+        width: 57%;
         position: relative;
         box-sizing: border-box;
         padding-right: 10px;
@@ -145,7 +187,7 @@
             display: block;
             overflow: auto;
             line-height: (22 / 11);
-            max-height: 322px;
+            height: 323px;
             font: {
                 family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
                 size: 11px;
@@ -155,6 +197,7 @@
 
         .btn-blank {
             @include position(absolute, 10px 30px null null);
+            background: $color-white;
             font-size: 13px;
             height: 22px;
             line-height: 1;
@@ -164,7 +207,7 @@
 
     .sg-snippet-description {
         float: right;
-        width: 33%;
+        width: 43%;
         box-sizing: border-box;
         padding-left: 10px;
         max-height: 350px;
@@ -187,6 +230,17 @@
 .snippet-settings {
     @extend %drawer-style;
 
+    .sg-header & {
+        @include position(absolute, 100% 0 null);
+
+        .drawer-tip {
+
+            &:before {
+                right: 111px;
+            }
+        }
+    }
+
     .sg-page-wrapper {
         position: relative;
     }
@@ -204,6 +258,7 @@
     }
 
     .drawer-tip {
+
         &:before {
             right: 28px;
         }
@@ -249,10 +304,15 @@
             padding-left: 0;
             padding-right: 0;
             font-size: 14px;
+
+            &.hidden {
+                display: none;
+            }
         }
     }
 
     .ace_editor {
+        @include transition(border .6s);
         background-color: $color-white;
         border: transparent solid 2px;
         border-radius: 4px;
@@ -306,6 +366,11 @@
         }
 
         .sg-snippet-title {
+            display: inline-block;
+        }
+
+        .sg-controls-buttons {
+            @include clearfix;
             float: right;
         }
     }
@@ -474,6 +539,7 @@
     margin: 0 auto;
     padding: 60px 10px;
     position: relative;
+    @include transition(margin-top .3s ease-out);
 
     .sg-snippet-resize-handle {
         height: 100px;
@@ -515,6 +581,10 @@
             }
         }
     }
+}
+
+.active ~ .sg-snippet-preview {
+    margin-top: 467px;
 }
 
 .sg-snippet {

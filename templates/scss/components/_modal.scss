@@ -11,7 +11,7 @@
     height: 100%;
     overflow-y: scroll;
     width: 100%;
-    z-index: 500;
+    z-index: 1500;
 }
 
 .modal-container {
@@ -32,7 +32,7 @@
     }
     line-height: 1.1;
     overflow: hidden;
-    padding: 12px 60px 12px 20px;
+    padding: 12px 60px 12px 30px;
     text-overflow: ellipsis;
     white-space: nowrap;
 }

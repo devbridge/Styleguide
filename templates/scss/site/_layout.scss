@@ -23,6 +23,8 @@ body {
 .page-container {
     margin-bottom: -$footer-height;
     min-height: 100%;
+    box-sizing: border-box;
+    padding-top: 59px;
 
     &:after {
         content: '';

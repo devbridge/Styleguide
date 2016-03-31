@@ -4,7 +4,8 @@ var express = require('express'),
   async = require('async'),
   sassScraper = require('./sassScraper.js'),
   snippetScraper = require('./snippetScraper.js'),
-  config = JSON.parse(fs.readFileSync('styleguide_config.txt', 'utf8')),
+  config = JSON.parse(fs.readFileSync('./styleguide/config.txt', 'utf8')),
+  _ = require('lodash'),
 
   router = express.Router();
 
@@ -106,16 +107,37 @@ router.get('/snippets', function(req, res) {
 });
 
 router.get('/sass', function(req, res) {
-  var result = [],
+  var results = [],
+    result = {
+      name: 'theme',
+      colors: {},
+      typography: []
+    },
     index,
-    length = config.sassResources.length,
-    report = [];
+    sassPaths = config.sassVariables,
+    maxSassIterations = config.maxSassIterations,
+    length = sassPaths.length,
+    report = [],
+    currentResult;
 
   for (index = 0; index < length; index++) {
-    report.push(sassScraper.scrapeTheme(index, result));
+    report.push(sassScraper.scrapeTheme(index, results, sassPaths, maxSassIterations));
   }
 
-  jf.writeFileSync(config.sassData, result);
+  for (index = 0; index < length; index++) {
+    currentResult = results[index];
+
+    if (currentResult.colors) {
+      result.colors = _.assign(result.colors, currentResult.colors);
+    }
+    
+    if (currentResult.typography) {
+      result.typography = result.typography.concat(currentResult.typography);
+    }
+    
+  }
+
+  jf.writeFileSync(config.sassData, [result]);
 
   res.json(report);
 });

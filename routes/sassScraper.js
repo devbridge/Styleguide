@@ -1,9 +1,14 @@
 var helpers = require('./helpers.js'),
   fs = require('fs'),
   jf = require('jsonfile'),
-  config = JSON.parse(fs.readFileSync('styleguide_config.txt', 'utf8')),
+  config = JSON.parse(fs.readFileSync('./styleguide/config.txt', 'utf8')),
 
   exports = module.exports = {};
+
+var pruneArrayAndObject = function () {
+  delete Array.prototype.equals;
+  delete Object.prototype.equals;
+}
 
 var extendArrayAndObject = function() {
   Array.prototype.equals = function(array) {
@@ -114,7 +119,7 @@ var parseTypoghraphy = function(theme, sass) {
   theme.typography = typography;
 };
 
-var parseColors = function(theme, sass) {
+var parseColors = function(theme, sass, maxSassIterations) {
   //matches everything between //-- colors:start --// and //-- colors:end --/ including these markers
   var rawColArray = sass.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi),
     unassignedColors = [],
@@ -153,7 +158,7 @@ var parseColors = function(theme, sass) {
     };
   }
 
-  while (iterations < config.maxSassIterations && unassignedColors.length) {
+  while (iterations < maxSassIterations && unassignedColors.length) {
     for (index = 0; index < unassignedColors.length; index++) {
       if (unassignedColors[index].value.indexOf('$') !== 0) {
         if (assignedColors[unassignedColors[index].value]) {
@@ -176,7 +181,7 @@ var parseColors = function(theme, sass) {
     iterations++;
   }
 
-  if (iterations === config.maxSassIterations) {
+  if (iterations === maxSassIterations) {
     console.log('Iterations reached max size, your variables json file could be inaccurate!\nThis means, that variable r-value is trying to show to non existing variable!');
   }
 
@@ -184,7 +189,7 @@ var parseColors = function(theme, sass) {
 };
 
 var compareForReport = function(theme, report) {
-  var oldData = jf.readFileSync(config.sassData),
+  var oldData = jf.readFileSync(config.sassData, {throws: false}) || [],
     len = oldData.length,
     index;
 
@@ -206,21 +211,21 @@ var compareForReport = function(theme, report) {
   report.uniqueColVals = Object.keys(theme.colors).length;
   report.diffOfColVals = report.uniqueColVals - Object.keys(oldData.colors).length;
 
-  if (!theme.typography.equals(oldData.typography)) {
+  if (theme.typography && !theme.typography.equals(oldData.typography)) {
     report.oldTypo = oldData.typography;
     report.newTypo = theme.typography;
   }
 };
 
-exports.scrapeTheme = function(themeIndex, result) {
+exports.scrapeTheme = function(themeIndex, result, sassPaths, maxSassIterations) {
   var sass,
     theme = {},
     report = {};
 
-  sass = fs.readFileSync(config.sassResources[themeIndex], {
+  sass = fs.readFileSync(sassPaths[themeIndex], {
     encoding: 'utf-8'
   });
-  theme.name = config.sassResources[themeIndex];
+  theme.name = sassPaths[themeIndex];
 
   //matches everything between //-- typo:start --// and //-- typo:end --/ including these markers
   if (sass.search(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi) !== -1) {
@@ -231,7 +236,7 @@ exports.scrapeTheme = function(themeIndex, result) {
 
   //matches everything between //-- colors:start --// and //-- colors:end --/ including these markers
   if (sass.search(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi) !== -1) {
-    parseColors(theme, sass);
+    parseColors(theme, sass, maxSassIterations);
   } else {
     console.log('Color markers not found in ' + theme.name + '.');
   }
@@ -239,6 +244,8 @@ exports.scrapeTheme = function(themeIndex, result) {
   extendArrayAndObject();
 
   compareForReport(theme, report);
+
+  pruneArrayAndObject();
 
   result.push(theme);
 
