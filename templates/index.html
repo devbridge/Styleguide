@@ -181,6 +181,12 @@
     <!-- Main -->
     <div class="main">
     </div>
+
+    <!-- Notification -->
+    <div class="sg-notification">
+        <div class="inner js-notifications"></div>
+    </div>
+
 </div>
 
 <!-- Page Footer -->
@@ -200,13 +206,8 @@
     </div>
 </div>
 
-<!-- Notification -->
-<div class="sg-notification js-notifications">
-    <button class="sg-notifications-x js-close-notifications"></button>
-</div>
-
 <!-- Snippet Edit Form -->
-<script type="text/html" id="snippet">
+<script type="text/html" id="snippet-old">
     <div class="sg-snippet js-snippet">
 
         <!-- Snippet Header -->
@@ -347,6 +348,112 @@
     </div>
 </script>
 
+<!-- Snippet Edit Form -->
+<script type="text/html" id="snippet">
+    <div class="sg-snippet js-snippet">
+
+        <!-- Snippet Header -->
+        <div class="sg-snippet-header">
+            <div class="sg-page-wrapper clearfix">
+                <div class="sg-snippet-title js-snippet-name">Snippet Name</div>
+                <div class="sg-snippet-size js-snippet-size">1200px</div>
+
+                <div class="sg-header-controls">
+                    <button class="btn-show-code js-snippet-code-btn" type="button" data-toggle-text="Hide code">Show code</button>
+                    <button class="btn-edit js-snippet-settings-btn" type="button" title="Edit snippet">Edit snippet</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Snippet Info -->
+        <div class="sg-holder js-snippet-code">
+            <div class="sg-snippet-info">
+                <div class="sg-page-wrapper drawer-tip">
+
+                    <div class="sg-snippet-code">
+                        <button class="btn-blank js-copy-code">Copy</button>
+                        <code class="sg-snippet-code-preview js-snippet-code-preview">code preview</code>
+                    </div>
+
+                    <div class="sg-snippet-description">
+                        <div class="sg-title">Description:</div>
+                        <div class="js-snippet-description"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Snippet Settings -->
+        <div class="sg-holder js-snippet-settings">
+
+            <form class="sg-snippet-settings js-edit-snippet">
+                <div class="sg-page-wrapper drawer-tip">
+
+                    <!-- Left -->
+                    <div class="sg-sidebar">
+                        <div class="sg-snippet-item">
+                            <input type="text" name="" class="field-text" placeholder="Enter snippet name">
+                        </div>
+                        <div class="sg-snippet-item">
+                            <select class="field-select" name="">
+                                <option>xxx</option>
+                            </select>
+                        </div>
+                        <div class="sg-snippet-item">
+                            <button class="sg-btn"><i class="icon-code"></i>Code</button>
+                        </div>
+                        <div class="sg-snippet-item">
+                            <button class="sg-btn"><i class="icon-css"></i>Inline CSS</button>
+                        </div>
+                        <div class="sg-snippet-item">
+                            <button class="sg-btn"><i class="icon-desc"></i>Description</button>
+                        </div>
+                        <div class="sg-snippet-item">
+                            <label>
+                                <input type="checkbox" name="" class="field-checkbox">
+                                Include Javascript
+                            </label>
+                        </div>
+                        <div class="sg-snippet-buttons">
+                            <button class="sg-btn-submit">Update</button>
+                            <button class="sg-btn-close">Close</button>
+                        </div>
+                    </div>
+
+                    <!-- Right -->
+                    <div class="sg-content">
+                        <div class="sg-code">Code</div>
+                        <div class="sg-descripton">Description</div>
+                        <div class="sg-css">Inline CSS</div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+
+
+        <div class="sg-snippet-description">
+            <div class="sg-page-wrapper js-snippet-description"></div>
+        </div>
+
+        <!-- Snippet Preview -->
+        <div class="sg-snippet-preview js-snippet-preview" style="width: 1200px;">
+
+            <div class="sg-snippet-source js-snippet-source">Loading</div>
+
+            <div class="js-resize-length" style="width: 600px;">
+                <div class="sg-snippet-resize-handle pos-left js-snippet-resize-handle-left" draggable="true"></div>
+                <div class="sg-snippet-resize-handle pos-right js-snippet-resize-handle-right" draggable="true"></div>
+            </div>
+
+        </div>
+    </div>
+</script>
+
+
+
 <!-- Home Page-->
 <script type="text/html" id="sass-page">
     <div class="snippet">
@@ -404,27 +511,27 @@
             <ul class="sg-snippet-headings-holder">
                 <li class="row">
                     <div class="medium-2 columns"><h1>&lt;h1&gt;</h1></div>
-                    <div class="medium-10 columns js-styles-preview sg-styles-preview"><h1>The quick brown fox jumps over the lazy dog</h1></div>
+                    <div class="medium-10 columns js-styles-preview sg-styles-preview"><h1 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">The quick brown fox jumps over the lazy dog</h1></div>
                 </li>
                 <li class="row">
-                    <div class="medium-2 columns"><h2>&lt;h2&gt;</h2></div>
+                    <div class="medium-2 columns"><h2 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">&lt;h2&gt;</h2></div>
                     <div class="medium-10 columns js-styles-preview sg-styles-preview"><h2>The quick brown fox jumps over the lazy dog</h2></div>
                 </li>
                 <li class="row">
-                    <div class="medium-2 columns"><h3>&lt;h3&gt;</h3></div>
+                    <div class="medium-2 columns"><h3 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">&lt;h3&gt;</h3></div>
                     <div class="medium-10 columns js-styles-preview sg-styles-preview"><h3>The quick brown fox jumps over the lazy dog</h3></div>
                 </li>
                 <li class="row">
-                    <div class="medium-2 columns"><h4>&lt;h4&gt;</h4></div>
+                    <div class="medium-2 columns"><h4 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">&lt;h4&gt;</h4></div>
                     <div class="medium-10 columns js-styles-preview sg-styles-preview"><h4>The quick brown fox jumps over the lazy dog</h4></div>
                 </li>
                 <li class="row">
-                    <div class="medium-2 columns"><h5>&lt;h5&gt;</h5></div>
+                    <div class="medium-2 columns"><h5 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">&lt;h5&gt;</h5></div>
                     <div class="medium-10 columns js-styles-preview sg-styles-preview"><h5>The quick brown fox jumps over the lazy dog</h5></div>
                 </li>
                 <li class="row">
-                    <div class="medium-2 columns"><h6>&lt;h6&gt;</h6></div>
-                    <div class="medium-10 columns js-styles-preview sg-styles-preview"><h6>The quick brown fox jumps over the lazy dog</h6></div>
+                    <div class="medium-2 columns"><h6 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">&lt;h6&gt;</h6></div>
+                    <div class="medium-10 columns js-styles-preview sg-styles-preview"><h6 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">The quick brown fox jumps over the lazy dog</h6></div>
                 </li>
             </ul>
 

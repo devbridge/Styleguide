@@ -1,0 +1,72 @@
+@mixin snippet-item-style {
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 10px 0;
+    width: 100%;
+    text-align: left;
+    color: #4d4d4d;
+    box-sizing: border-box;
+    height: 50px;
+    display: block;
+    vertical-align: middle;
+
+}
+
+.sg-snippet-description {
+    background: #f4f4f4;
+
+    .have-content {
+        padding: 30px 0 35px;
+    }
+}
+
+.sg-snippet-settings {
+
+    padding: {
+        top: 50px;
+        bottom: 50px;
+    };
+    background: #dee0e0;
+    border-top: #2b2b2b solid 3px;
+    margin-top: -1px;
+
+    .drawer-tip:before {
+        right: 0;
+    }
+
+    .sg-page-wrapper {
+        @include clearfix();
+    }
+
+    .sg-sidebar {
+        float: left;
+        width: 25%;
+    }
+
+    .sg-content {
+        float: right;
+        width: 75%;
+    }
+
+    .sg-snippet-item {
+        border-bottom: #cccccc solid 1px;
+    }
+
+    .field-text {
+        @include snippet-item-style();
+
+    }
+
+    .field-select {
+        @include snippet-item-style();
+    }
+
+    .sg-btn {
+        @include snippet-item-style();
+    }
+
+    label {
+        @include snippet-item-style();
+    }
+}

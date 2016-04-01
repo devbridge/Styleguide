@@ -153,16 +153,16 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             snippetContents,
             currentSnippetElement = $($('#snippet').html()).clone(true),
 
-            //array iterators
+            // array iterators
             currentField,
             fieldIndex,
             fieldLen,
 
-            //text
+            // text
             snippetName = currentSnippetElement.find('.js-snippet-name'),
             snippetDescription =  currentSnippetElement.find('.js-snippet-description'), //inside code view
 
-            //form
+            // form
             snippetEdit = currentSnippetElement.find('.js-edit-snippet'), //panel
             snippetEditCode =  currentSnippetElement.find('.js-edit-code'),
             snippetEditCss =  currentSnippetElement.find('.js-edit-css'),
@@ -170,18 +170,18 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             snippetDelete = currentSnippetElement.find('.js-delete-snippet'),
             snippetCategorySelect = currentSnippetElement.find('.js-form-select'),
 
-            //copy
+            // copy
             snippetCopyCode = currentSnippetElement.find('.js-copy-code'),
             snippetCodePreview = currentSnippetElement.find('.js-snippet-code-preview'),
 
-            //view
+            // view
             snippetSource = currentSnippetElement.find('.js-snippet-source'),
             snippetPreview = currentSnippetElement.find('.js-snippet-preview'),
 
-            //snippet viewport text
+            // snippet viewport text
             snippetSize = currentSnippetElement.find('.js-snippet-size'),
 
-            //resizing functionality
+            // resizing functionality
             snippetResizeLength = currentSnippetElement.find(".js-resize-length"),
 
             includeJs = snippet.includeJs,
@@ -198,11 +198,14 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             includeJs = false;
         }
 
-        //text
+        // text
         snippetName.html(snippet.name);
-        snippetDescription.html(snippet.description);
 
-        //form
+        if (snippet.description.length > 0){
+            snippetDescription.html(snippet.description).addClass('have-content');
+        }
+
+        // form
         snippetEditCode.text(snippet.code);
         snippetEditCss.text(snippet.inlineCss);
         snippetIncludeJs.prop('checked', includeJs);
@@ -217,16 +220,16 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             snippetDelete.addClass('hidden');
         }
 
-        //copy
+        // copy
         snippetCopyCode.attr('data-clipboard-text', snippet.code);
         snippetCodePreview.text(snippet.code);
 
-        //view
+        // view
         snippetSource
             .html(frame)
             .append('<div></div>');
 
-        //viewport size
+        // viewport size
         snippetSize.text(resolution + "px");
         snippetResizeLength.css("width", parseInt(resolution / 2, 10));
 
@@ -245,13 +248,13 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         currentSnippetElement.appendTo('.main');
         snippetContents = $('#' + snippetId);
 
-        //executes on Chrome, IE, FF(does something on FF but is not needed for it to work)
+        // executes on Chrome, IE, FF(does something on FF but is not needed for it to work)
         module.appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss, includeJs);
         if (!module.isIE) {
             //executes on FF, very likely to crash on IE(with multiple iFrames on the page) so check is performed, does not get executed on Chrome
             snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, includeJs));
         }
-        //init copy button
+        // init copy button
         clipboard = new Clipboard(currentSnippetElement.find('.js-copy-code').get(0));
 
         clipboard.on("success", function (event) {

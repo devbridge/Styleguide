@@ -48,18 +48,19 @@
             $btnSettings
                 .add($btnCancel) //elements merge
                 .on("click", function () {
-                    //hide code
+
+                    // hide code
                     $btnCode
                         .removeClass("active")
                         .text("Show code")
                         .attr("data-toggle-text", "Hide code");
                     $code.removeClass("active");
 
-                    //toggle settings
+                    // toggle settings
                     $btnSettings.toggleClass("active");
                     $settings.toggleClass("active");
 
-                    iframesService.getTemplate(function (template) {
+                    /*iframesService.getTemplate(function (template) {
                         if ($btnSettings.hasClass("active")) {
                             editors = editorService.addToEditForm($code.parent());
                             originalValues.code = editors.code.getValue();
@@ -97,7 +98,7 @@
                             $previewSource.removeClass('updated');
                             editorService.removeFromEditForm($code.parent());
                         }
-                    });
+                    });*/
                 });
 
             //module 'show code' button for snippet editing
