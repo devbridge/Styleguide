@@ -15,7 +15,7 @@ Also assure that you have it installed globally:
 npm install devbridge-styleguide -g
 ```
 
-After this is done you can generate your configuration file running `styleguide generate-config` in your project root directory.
+After this is done you can generate your configuration file running `styleguide initialize` in your project root directory.
 
 These are the steps, that generator will lead you through:
 
