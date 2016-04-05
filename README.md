@@ -15,39 +15,34 @@ Also assure that you have it installed globally:
 npm install devbridge-styleguide -g
 ```
 
-After this is done you can generate your configuration file running `styleguide initialize` in your project root directory.
+After this is done you can initialize your styleguide running `styleguide initialize [folder]` in your project root directory.
 
-These are the steps, that generator will lead you through:
+You can define folder in which your styleguide should be, but if none is provided - it defaults to './styleguide'
 
-1. You'll need to supply your snippet categories delimited by comma, for example:
-  ```General, Buttons, Navigation```
-
-2. You can supply URLs to scrape snippets from, but this is optional.
-
-3. You can supply relative path from your project root to SASS file, where fonts and colors variables are stored.
-
-4. You'll be asked to supply maximum of iterations to go through SASS variables, this means if references in your SASS file are messed up - the script will just exit after that number of iterations.
-
-5. You'll be asked to supply relative path from your project root to template for snippets (which will be inserted into iframe). This is optional, but if you want to customize what's inside the iframe feel free to do so.
-
-6. You'll be asked to supply relative path from domain root to JS file (this will be injected to snippet iframe). This is optional (you can supply more than one, they will be loaded in the order you supplied them).
-
-7. You'll be asked to supply port on which Styleguide server will work.
-
-8. You'll be asked to provide default resolution widths for desktop, tablet, mobile. This is optional. By default snippets will be represented with desktop width. And there will be buttons in UI to alter snippets widths (Also you'll be able to input the exact width that you want).
-
-9. Finally, all the generated configuration will be printed to terminal and if you confirm - press <kbd>Enter</kbd>.
 
 After these steps there will be created folder structure like this:
 ```
 .
 ├── styleguide
-|   ├── css
+|   ├── content
+|   |   ├── fonts
+|   |   |	├── fontawesome-webfont.eot
+|   |   |	├── fontawesome-webfont.otf
+|   |   |	├── fontawesome-webfont.svg
+|   |   |	├── fontawesome-webfont.ttf
+|   |   |	├── fontawesome-webfont.woff
+|   |   |	└── fontawesome-webfont.woff2
+|   |   ├── db-logo.svg
+|   |   ├── icon-code.svg
+|   |   ├── icon-code-active.svg
+|   |   ├── icon-down.svg
+|   |   ├── icon-drag.svg
+|   |   ├── your-logo.png
+|   |   ├── logo-github.svg
+|   |   ├── logo-npm.svg
 |   |   └── main.css
 |   ├── db
-|   |   ├── Buttons.txt
-|   |   ├── General.txt
-|   |   ├── Navigation.txt
+|   |   ├── categories.txt
 |   |   ├── sassdata.txt
 |   |   ├── undefined.txt
 |   |   └── uniques.txt
@@ -56,13 +51,19 @@ After these steps there will be created folder structure like this:
 |   |   ├── editor.js
 |   |   ├── iframes.js
 |   |   ├── interact-1.2.4.min.js
+|   |   ├── jquery.modal.js
 |   |   ├── main.js
 |   |   ├── sass.js
 |   |   ├── snippetActions.js
 |   |   ├── snippets.js
-|   |   └── views.js
+|   |   ├── views.js
+|   |   ├── ZeroClipboard.min.js
+|   |   ├── ZeroClipboard.min.map
+|   |   └── ZeroClipboard.swf
+|   ├── config.txt
+|   ├── database_config.txt
+|   ├── favicon.ico
 |   └── index.html
-└── styleguide_config.txt
 ```
 
 ###Running a server
@@ -81,7 +82,12 @@ gulp.task('start-styleguide', function () {
 });
 ```
 
-Function does not take any arguments and returns server instance.
+Function can take arguments and returns server instance.
+You can pass folder name to function (default is 'styleguide'):
+
+```
+styleguide.startServer({styleguidePath: 'styleguide-folder-name'});
+```
 
 
 ###Accessing your styleguide

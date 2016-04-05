@@ -4,11 +4,10 @@ var request = require('request'),
   async = require('async'),
   helpers = require('./helpers.js'),
   fs = require('fs'),
-  config = JSON.parse(fs.readFileSync('./styleguide/config.txt', 'utf8')),
 
   exports = module.exports = {};
 
-var findSnippet = function(snippetId, callback) {
+var findSnippet = function(snippetId, callback, config) {
   var dataPath,
     snippets,
     desireableSnippet,
@@ -90,7 +89,7 @@ exports.buildSnippetFromHtml = function(filteredHTml, snippets) {
   return newSnippet;
 };
 
-exports.writeOutSnippets = function(snippets, category, uniques, callback) {
+exports.writeOutSnippets = function(snippets, category, uniques, callback, config) {
   var dataPath,
     snippet,
     dataStore,
@@ -170,7 +169,7 @@ exports.writeOutSnippets = function(snippets, category, uniques, callback) {
     return function(cb) {
       findSnippet(snippetToSearch.id, function(snippetAndCategory) {
         foundSnippetCallback(snippetAndCategory, changedSnippets, snippetToSearch, cb);
-      });
+      }, config);
     };
   };
 

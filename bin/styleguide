@@ -14,32 +14,32 @@ var initialCategories = [{
     id: 0
 }];
 
-var mainConfig = {
-  projectName: '',
-  projectUrl: '',
-  projectLogo: '',
+var getMainConfig = function(folder) {
+  return {
+    projectName: '',
+    projectUrl: '',
+    projectLogo: '',
 
-  jsResources: [],
-  viewportWidths: [480, 768, 1200],
+    jsResources: [],
+    viewportWidths: [480, 768, 1200],
 
-  serverPort: 8080,
-  snippetTemplate: path.join('./', 'styleguide', 'template.html'),
+    serverPort: 8080,
+    snippetTemplate: path.join('./', folder, 'template.html'),
 
-  sassVariables: [],
-  maxSassIterations: 2000,
+    sassVariables: [],
+    maxSassIterations: 2000,
 
-  database: path.join('./', 'styleguide', 'db'),
-  categories: path.join('./', 'styleguide', 'db', 'categories.txt'),
-  uniques: path.join('./', 'styleguide', 'db', 'uniques.txt'),
-  sassData: path.join('./', 'styleguide', 'db', 'sassdata.txt'),
-  extension: '.txt'
+    database: path.join('./', folder, 'db'),
+    categories: path.join('./', folder, 'db', 'categories.txt'),
+    uniques: path.join('./', folder, 'db', 'uniques.txt'),
+    sassData: path.join('./', folder, 'db', 'sassdata.txt'),
+    extension: '.txt'
+  };
 };
 
-var copyContent = function(currentFolder) {
+var copyContent = function(currentFolder, rootFolder, dbFolder) {
   var templateFolder = path.join(currentFolder, 'node_modules', 'devbridge-styleguide', 'templates'),
     moduleFolder = path.join(currentFolder, 'node_modules', 'devbridge-styleguide'),
-    rootFolder = path.join(currentFolder, 'styleguide'),
-    dbFolder = path.join(rootFolder, 'db'),
     currentContents,
     javascripts,
     fontsFolder;
@@ -122,16 +122,23 @@ var copyContent = function(currentFolder) {
 
 };
 
-var initialize = function() {
+var initialize = function(folder) {
   var stdin = process.stdin,
     stdout = process.stdout,
     currentFolder = process.cwd(),
-    rootFolder = path.join(currentFolder, 'styleguide'),
-    dbFolder = path.join(rootFolder, 'db');
+    rootFolder,
+    dbFolder;
+
+  if (!folder) {
+    folder = 'styleguide';
+  }
+
+  rootFolder = path.join(currentFolder, folder);
+  dbFolder = path.join(rootFolder, 'db');
 
   stdin.resume();
 
-  copyContent(currentFolder);
+  copyContent(currentFolder, rootFolder, dbFolder);
 
   for (var index = 0, len = initialCategories.length; index < len; index++) {
     fs.writeFileSync(path.join(dbFolder, initialCategories[index].name + '.txt'), formatter.plain([]));
@@ -139,7 +146,7 @@ var initialize = function() {
 
   fs.writeFileSync(path.join(dbFolder, 'uniques.txt'), formatter.plain([]));
   fs.writeFileSync(path.join(dbFolder, 'sassdata.txt'), formatter.plain([]));
-  fs.writeFileSync(path.join(rootFolder, 'config.txt'), formatter.plain(mainConfig));
+  fs.writeFileSync(path.join(rootFolder, 'config.txt'), formatter.plain(getMainConfig(folder)));
   fs.writeFileSync(path.join(dbFolder, 'categories.txt'), formatter.plain(initialCategories));
 
   stdout.write('Styleguide was successfully initialized in working directory!');
@@ -154,8 +161,8 @@ program
   .usage('<command>');
 
 program
-  .command('initialize')
-  .description('initialize styleguide in working directory')
+  .command('initialize [folder]')
+  .description('initialize styleguide in working directory, if no folder specified - defaults to ./styleguide')
   .action(initialize);
 
 program.parse(process.argv);

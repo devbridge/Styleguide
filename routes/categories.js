@@ -3,18 +3,18 @@ var _ = require('lodash'),
 	fs = require('fs'),
 	path = require('path'),
 	jf = require('jsonfile'),
-	configPath = path.join('./', 'styleguide', 'config.txt'),
-	config = JSON.parse(fs.readFileSync(configPath, 'utf8')),
 	router = express.Router();
 
 router.get('/', function(req, res) {
-	var categories = JSON.parse(fs.readFileSync(config.categories, 'utf8'));
+	var config = req.app.get('styleguideConfig'),
+		categories = JSON.parse(fs.readFileSync(config.categories, 'utf8'));
 
 	res.json(categories);
 });
 
 router.post('/', function (req, res) {
-	var categories = JSON.parse(fs.readFileSync(config.categories, 'utf8')),
+	var config = req.app.get('styleguideConfig'),
+		categories = JSON.parse(fs.readFileSync(config.categories, 'utf8')),
 		uniqueIds = _.map(categories, 'id'),
 		newCategory = {},
 		id = 1;
@@ -41,7 +41,8 @@ router.post('/', function (req, res) {
 });
 
 router.put('/:id', function(req, res) {
-	var categories = JSON.parse(fs.readFileSync(config.categories, 'utf8')),
+	var config = req.app.get('styleguideConfig'),
+		categories = JSON.parse(fs.readFileSync(config.categories, 'utf8')),
 		uniqueIds = _.map(categories, 'id'),
 		id = Number(req.params.id),
 		categoryIndex = uniqueIds.indexOf(id),
@@ -71,7 +72,8 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-	var categories = JSON.parse(fs.readFileSync(config.categories, 'utf8')),
+	var config = req.app.get('styleguideConfig'),
+		categories = JSON.parse(fs.readFileSync(config.categories, 'utf8')),
 		uniqueIds = _.map(categories, 'id'),
 		id = Number(req.params.id)
 		categoryIndex = uniqueIds.indexOf(id),

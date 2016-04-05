@@ -1,11 +1,13 @@
 var app = require('./app');
 var http = require('http');
 var fs = require('fs');
-var config = JSON.parse(fs.readFileSync('./styleguide/config.txt', 'utf8'));
 var exports = module.exports = {};
 
 exports.startServer = function(options) {
+  var styleguidePath = options.styleguidePath || 'styleguide';
+  var config = JSON.parse(fs.readFileSync('./' + styleguidePath + '/config.txt', 'utf8'));
   var serverInstance;
+  app.set('styleguideConfig', config);
   app.set('port', config.serverPort);
   serverInstance = http.createServer(app);
   serverInstance.listen(config.serverPort, function() {

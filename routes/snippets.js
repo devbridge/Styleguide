@@ -1,14 +1,13 @@
 var express = require('express'),
   fs = require('fs'),
   path = require('path'),
-  configPath = path.join('./', 'styleguide', 'config.txt'),
-  config = JSON.parse(fs.readFileSync(configPath, 'utf8')),
   jf = require('jsonfile'),
   helpers = require('./helpers.js'),
   router = express.Router();
 
 router.get('/', function(req, res) {
   var allSnippets = [],
+    config = req.app.get('styleguideConfig'),
     snippets,
     dataPath,
     index,
@@ -28,6 +27,7 @@ router.get('/', function(req, res) {
 
 router.get('/duplicates', function(req, res) {
   var allSnippets = [],
+    config = req.app.get('styleguideConfig'),
     found = false,
     dataPath,
     snippets,
@@ -61,6 +61,7 @@ router.get('/duplicates', function(req, res) {
 
 router.get('/category/:id', function(req, res) {
   var catId = Number(req.params.id),
+    config = req.app.get('styleguideConfig'),
     dataPath,
     snippets,
     index,
@@ -86,7 +87,8 @@ router.get('/category/:id', function(req, res) {
 
 
 router.get('/:id', function(req, res) {
-  var uniques = jf.readFileSync(config.uniques),
+  var config = req.app.get('styleguideConfig'),
+    uniques = jf.readFileSync(config.uniques),
     id = Number(req.params.id),
     snippets,
     dataPath,
@@ -115,7 +117,8 @@ router.get('/:id', function(req, res) {
 
 
 router.post('/', function(req, res) {
-  var uniques = jf.readFileSync(config.uniques),
+  var config = req.app.get('styleguideConfig'),
+    uniques = jf.readFileSync(config.uniques),
     dataPath,
     dataStore,
     id,
@@ -172,7 +175,8 @@ router.post('/', function(req, res) {
 
 
 router.put('/:id', function(req, res) {
-  var uniques = jf.readFileSync(config.uniques),
+  var config = req.app.get('styleguideConfig'),
+    uniques = jf.readFileSync(config.uniques),
     id = Number(req.params.id),
     snippets,
     category,
@@ -241,7 +245,8 @@ router.put('/:id', function(req, res) {
 
 
 router.delete('/:id', function(req, res) {
-  var uniques = jf.readFileSync(config.uniques),
+  var config = req.app.get('styleguideConfig'),
+    uniques = jf.readFileSync(config.uniques),
     id = Number(req.params.id),
     snippets,
     category,

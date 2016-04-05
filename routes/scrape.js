@@ -4,23 +4,24 @@ var express = require('express'),
   async = require('async'),
   sassScraper = require('./sassScraper.js'),
   snippetScraper = require('./snippetScraper.js'),
-  config = JSON.parse(fs.readFileSync('./styleguide/config.txt', 'utf8')),
   _ = require('lodash'),
 
   router = express.Router();
 
-var pushAsyncTask = function(snippets, category, uniques) {
-  return function(callback) {
-    snippetScraper.writeOutSnippets(snippets, category, uniques, function(changedSnipps, newSnipps) {
-      callback(null, {
-        changedSnipps: changedSnipps,
-        newSnipps: newSnipps
-      });
-    });
-  };
-};
-
 router.get('/snippets', function(req, res) {
+  var config = req.app.get('styleguideConfig');
+
+  var pushAsyncTask = function(snippets, category, uniques, config) {
+    return function(callback) {
+      snippetScraper.writeOutSnippets(snippets, category, uniques, function(changedSnipps, newSnipps) {
+        callback(null, {
+          changedSnipps: changedSnipps,
+          newSnipps: newSnipps
+        });
+      });
+    };
+  };
+  
   snippetScraper.requestPages(config.scrapeUrls, function(responses) {
     var filteredHTml = [],
       filters,
@@ -85,7 +86,7 @@ router.get('/snippets', function(req, res) {
 
     for (category in snippets) {
       if (snippets.hasOwnProperty(category)) {
-        asyncTasks.push(pushAsyncTask(snippets, category, uniques));
+        asyncTasks.push(pushAsyncTask(snippets, category, uniques, config));
       }
     }
 
@@ -107,6 +108,8 @@ router.get('/snippets', function(req, res) {
 });
 
 router.get('/sass', function(req, res) {
+  var config = req.app.get('styleguideConfig');
+
   var results = [],
     result = {
       name: 'theme',
@@ -121,7 +124,7 @@ router.get('/sass', function(req, res) {
     currentResult;
 
   for (index = 0; index < length; index++) {
-    report.push(sassScraper.scrapeTheme(index, results, sassPaths, maxSassIterations));
+    report.push(sassScraper.scrapeTheme(index, results, sassPaths, maxSassIterations, config));
   }
 
   for (index = 0; index < length; index++) {

@@ -1,7 +1,6 @@
 var helpers = require('./helpers.js'),
   fs = require('fs'),
   jf = require('jsonfile'),
-  config = JSON.parse(fs.readFileSync('./styleguide/config.txt', 'utf8')),
 
   exports = module.exports = {};
 
@@ -188,7 +187,7 @@ var parseColors = function(theme, sass, maxSassIterations) {
   theme.colors = assignedColors;
 };
 
-var compareForReport = function(theme, report) {
+var compareForReport = function(theme, report, config) {
   var oldData = jf.readFileSync(config.sassData, {throws: false}) || [],
     len = oldData.length,
     index;
@@ -217,7 +216,7 @@ var compareForReport = function(theme, report) {
   }
 };
 
-exports.scrapeTheme = function(themeIndex, result, sassPaths, maxSassIterations) {
+exports.scrapeTheme = function(themeIndex, result, sassPaths, maxSassIterations, config) {
   var sass,
     theme = {},
     report = {};
@@ -243,7 +242,7 @@ exports.scrapeTheme = function(themeIndex, result, sassPaths, maxSassIterations)
 
   extendArrayAndObject();
 
-  compareForReport(theme, report);
+  compareForReport(theme, report, config);
 
   pruneArrayAndObject();
 
