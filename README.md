@@ -97,7 +97,7 @@ Your project server should be running, also if you want to edit/create/scrape sn
 This is how you open your styleguide:
 
 ```
-http://your-project-hostname/styleguide/index.html
+http://your-project-hostname/[folder]/index.html
 ```
 
 ###Snippet structure for scraping
