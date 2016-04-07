@@ -658,3 +658,68 @@ $btn-ghost-radius: $border-radius;
         }
     }
 }
+
+.sg-missing {
+    margin: 0 auto;
+    position: relative;
+    width: 960px;
+
+    &-title {
+        font: {
+            size: 24px;
+            weight: $weight-light;
+        }
+        margin: 80px 0;
+        text-align: center;
+    }
+
+    &-list {
+        counter-reset: steps-counter;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        &-item {
+            padding: 5px 0 5px 40px;
+            position: relative;
+
+            &::before {
+                color: #000;
+                content: '#' counter(steps-counter);
+                counter-increment: steps-counter;
+                font: {
+                    size: 24px;
+                    weight: $weight-bold;
+                }
+                left: 0;
+                position: absolute;
+                top: 0;
+            }
+        }
+
+        &-child {
+            display: block;
+            padding: 10px 0;
+        }
+
+        // TODO Update button class to remove these properties and layout it by wrapper element
+        .btn-new {
+            float: none;
+            margin-left: 0;
+        }
+    }
+}
+
+.sg-sample-code {
+    color: #808080;
+    display: block;
+
+    &-comment {
+        background-color: #000;
+        color: #fff;
+    }
+
+    & + & {
+        margin-top: 25px;
+    }
+}
