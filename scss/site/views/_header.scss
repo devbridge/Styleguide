@@ -1,6 +1,7 @@
 .page-header-holder {
     background-color: $color-white;
     padding: 27px 0 26px;
+    overflow: hidden;
 
     .page-frame {
         max-width: 1440px;
@@ -27,6 +28,7 @@
 
 .page-header {
     position: relative;
+    font-size: 16px;
 
     &-nav {
         a {
@@ -102,9 +104,12 @@
 
     @include media($tablet-1024-up) {
         @include transition(opacity .5s);
+        @include transform(translateY(50px));
+        @include transition(all 0.3s);
         opacity: 0;
 
         &.home-logo-is-invisible {
+            @include transform(translateY(0px));
             opacity: 1;
         }
     }
@@ -125,9 +130,10 @@
 
 .demo-link {
     @include transition(all .3s ease-out);
-    border: solid 1px $border-primary;
-    border-radius: 4px;
-    padding: 0 10px;
+    border: solid 1px #868686;
+    border-radius: 16px;
+    padding: 0 20px;
+    margin-left: 25px;
 
     @include media($tablet-1024-up) {
         &:hover {

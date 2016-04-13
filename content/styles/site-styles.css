@@ -192,7 +192,8 @@ iframe {
 
 .page-header-holder {
   background-color: #fff;
-  padding: 27px 0 26px; }
+  padding: 27px 0 26px;
+  overflow: hidden; }
   .page-header-holder .page-frame {
     max-width: 1440px; }
   @media screen and (min-width: 1025px) {
@@ -214,7 +215,8 @@ iframe {
         padding: 16px 0; } }
 
 .page-header {
-  position: relative; }
+  position: relative;
+  font-size: 16px; }
   .page-header-nav a {
     display: inline-block;
     position: relative;
@@ -278,8 +280,21 @@ iframe {
       -webkit-transition: opacity 0.5s;
       -moz-transition: opacity 0.5s;
       transition: opacity 0.5s;
+      -webkit-transform: translateY(50px);
+      -moz-transform: translateY(50px);
+      -ms-transform: translateY(50px);
+      -o-transform: translateY(50px);
+      transform: translateY(50px);
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      transition: all 0.3s;
       opacity: 0; }
       .logo-holder.home-logo-is-invisible {
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -o-transform: translateY(0px);
+        transform: translateY(0px);
         opacity: 1; } }
 
 .github-link {
@@ -301,9 +316,10 @@ iframe {
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  border: solid 1px #292929;
-  border-radius: 4px;
-  padding: 0 10px; }
+  border: solid 1px #868686;
+  border-radius: 16px;
+  padding: 0 20px;
+  margin-left: 25px; }
   @media screen and (min-width: 1025px) {
     .demo-link:hover {
       background-color: #292929;
@@ -480,7 +496,8 @@ img {
   color: #fff;
   margin-bottom: 45px;
   padding-top: 46px;
-  text-align: center; }
+  text-align: center;
+  overflow: hidden; }
   .intro-section .subtitle {
     font-size: 20px;
     font-weight: 300;
@@ -488,7 +505,9 @@ img {
     margin: 0;
     padding: 0 0 40px; }
   .intro-section .img-holder {
-    margin: 0; }
+    margin: 0 0 -40px;
+    border: #3D4244 solid 20px;
+    border-radius: 20px; }
     .intro-section .img-holder img {
       display: block;
       margin: 0 auto;
@@ -523,7 +542,9 @@ img {
       .intro-section .typing-text {
         font-size: 22px;
         line-height: 1.22727;
-        margin-bottom: 140px; } }
+        margin-bottom: 140px; }
+      .intro-section .img-holder {
+        border-width: 40px; } }
   @media screen and (min-width: 769px) {
     .intro-section {
       padding-top: 140px; }

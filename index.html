@@ -26,13 +26,17 @@
         <div class="page-frame">
             <header class="page-header">
                 <figure class="logo-holder js-logo-reveal">
-                    <img src="content/images/styleguide-logo.svg" alt="Styleguide">
+                    <a href="/">
+                        <img src="content/images/styleguide-logo.svg" alt="Styleguide">
+                    </a>
                 </figure>
 
-                <nav class="page-header-nav js-scroll-nav">
-                    <a href="#features">Features</a>
-                    <a href="#installation">Installation</a>
-                    <a class="demo-link" href="http://styleguide.devbproto.com/styleguide/" target="_blank">Demo</a>
+                <nav class="page-header-nav">
+                    <span class="js-scroll-nav">
+                        <a href="#features">Features</a>
+                        <a href="#installation">Installation</a>
+                    </span>
+                    <a class="demo-link" href="http://styleguide.devbproto.com/styleguide/" target="_blank">demo</a>
                     <a class="github-link" href="https://github.com/devbridge/Styleguide" target="_blank">Github</a>
                 </nav>
             </header>
@@ -52,7 +56,7 @@
                     <span class="blink-cursor">|</span>
                 </div>
                 <figure class="img-holder">
-                    <img src="content/images/img-styleguide.png" alt="Styleguide"/>
+                    <img src="content/images/img-styleguide.jpg" alt="Styleguide"/>
                 </figure>
             </div>
         </section>
@@ -61,13 +65,13 @@
             <div class="page-frame">
                 <div class="section-title">
                     <span class="section-title-number">01.</span>
-                    <h2>Transform Your Variables</h2>
+                    <h2>Transform your variables into elegant styles</h2>
                 </div>
 
                 <div class="text-section-content">
-                    <p>Document and maintain your brand or design guidelines with an online tool. Forget about the time
-                        consuming manual creation of PDF style guides. Frontify Style Guide makes professional style
-                        guide.</p>
+                    <p>
+                        Color swatches or typography chart can be generated automatically directly from you variables files. Just group them with the comments and you are done.
+                    </p>
                 </div>
             </div>
         </section>
@@ -142,13 +146,11 @@
             <div class="page-frame">
                 <div class="section-title">
                     <span class="section-title-number">02.</span>
-                    <h2>Live Edits In The Browser</h2>
+                    <h2>Live edits in the browser</h2>
                 </div>
 
                 <div class="text-section-content">
-                    <p>Document and maintain your brand or design guidelines with an online tool. Forget about the time
-                        consuming manual creation of PDF style guides. Frontify Style Guide makes professional style
-                        guide.</p>
+                    <p>Edit snippets, organize categories, update styles, everything can be done directly in the browser.</p>
                 </div>
             </div>
         </section>
@@ -219,14 +221,9 @@
             <div class="page-frame">
                 <div class="section-title">
                     <span class="section-title-number">03.</span>
-                    <h2>Organize into the categories</h2>
+                    <h2>Organize snippets into the categories</h2>
                 </div>
 
-                <div class="text-section-content">
-                    <p>Document and maintain your brand or design guidelines with an online tool. Forget about the time
-                        consuming manual creation of PDF style guides. Frontify Style Guide makes professional style
-                        guide.</p>
-                </div>
             </div>
         </section>
 
@@ -234,7 +231,7 @@
             <img src="content/images/img-organize-categories.jpg" alt="Organize into the categories"/>
         </div>
 
-        <section class="features-section">
+        <section class="features-section" style="display: none">
             <div class="page-frame">
                 <div class="features-content">
                     <div class="features-content-box">
@@ -246,7 +243,7 @@
 
                     <div class="features-content-box">
                         <span class="icon-flag icon"></span>
-                        <h3>No backend dependencies</h3>
+                        <h3>No backend dependencies for publication</h3>
                         <p>Document and maintain your brand or design guidelines with an online tool. Forget about the
                             time consuming manual.</p>
                     </div>
@@ -283,10 +280,10 @@
                     </li>
                     <li>
                         Create Gulp task
-<pre class="gulp-task-definition"><code>var gulp = require('gulp'); var styleguide = require('devbridge-styleguide');
-    gulp.task('start-styleguide', function () {
-    styleguide.startServer();
-    });</code></pre>
+<pre class="gulp-task-definition"><code>var styleguide = require('devbridge-styleguide');
+gulp.task('start-styleguide', function () {
+  styleguide.startServer();
+});</code></pre>
                     </li>
                     <li>
                         Start styleguide server <br>

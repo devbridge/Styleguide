@@ -12,6 +12,7 @@
     margin-bottom: 45px;
     padding-top: 46px;
     text-align: center;
+    overflow: hidden;
 
     .subtitle {
         font: {
@@ -24,7 +25,9 @@
     }
 
     .img-holder {
-        margin: 0;
+        margin: 0 0 -40px;
+        border: #3D4244 solid 20px;
+        border-radius: 20px;
 
         img {
             display: block;
@@ -67,6 +70,10 @@
             font-size: 22px;
             line-height: (27 / 22);
             margin-bottom: 140px;
+        }
+
+        .img-holder {
+            border-width: 40px;
         }
     }
 
