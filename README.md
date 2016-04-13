@@ -1,182 +1,116 @@
 Styleguide
 ===
-Usage:
+Living Styleguide Made Easy
+
+Installation:
 ---
 
-###Setting up
+##### #1 Install package to your local directory: #####
+`npm install devbridge-styleguide --save-dev`
 
-Firstly install this package locally to your project:
-```
-npm install devbridge-styleguide --save-dev
-```
+##### #2 Make sure you have installed it globally: #####
+`npm install devbridge-styleguide -g`
 
-Also assure that you have it installed globally:
-```
-npm install devbridge-styleguide -g
-```
+##### #3 Initialize styleguide: #####
+`styleguide initialize `
 
-After this is done you can initialize your styleguide running `styleguide initialize [folder]` in your project root directory.
+Copy of the styleguide will be generated and placed in your project's root directory under `'/styleguide/'` folder. If you want to change folder name run `styleguide initialize [folder-name]`
 
-You can define folder in which your styleguide should be, but if none is provided - it defaults to './styleguide'
-
-
-After these steps there will be created folder structure like this:
-```
-.
-├── styleguide
-|   ├── content
-|   |   ├── fonts
-|   |   |	├── fontawesome-webfont.eot
-|   |   |	├── fontawesome-webfont.otf
-|   |   |	├── fontawesome-webfont.svg
-|   |   |	├── fontawesome-webfont.ttf
-|   |   |	├── fontawesome-webfont.woff
-|   |   |	└── fontawesome-webfont.woff2
-|   |   ├── db-logo.svg
-|   |   ├── icon-code.svg
-|   |   ├── icon-code-active.svg
-|   |   ├── icon-down.svg
-|   |   ├── icon-drag.svg
-|   |   ├── your-logo.png
-|   |   ├── logo-github.svg
-|   |   ├── logo-npm.svg
-|   |   └── main.css
-|   ├── db
-|   |   ├── categories.txt
-|   |   ├── sassdata.txt
-|   |   ├── undefined.txt
-|   |   └── uniques.txt
-|   ├── js
-|   |   ├── categories.js
-|   |   ├── editor.js
-|   |   ├── iframes.js
-|   |   ├── interact-1.2.4.min.js
-|   |   ├── jquery.modal.js
-|   |   ├── main.js
-|   |   ├── sass.js
-|   |   ├── snippetActions.js
-|   |   ├── snippets.js
-|   |   ├── views.js
-|   |   ├── ZeroClipboard.min.js
-|   |   ├── ZeroClipboard.min.map
-|   |   └── ZeroClipboard.swf
-|   ├── config.txt
-|   ├── database_config.txt
-|   ├── favicon.ico
-|   └── index.html
-```
-
-###Running a server
-
-You can require this package in gulpfile, like this:
-
+##### #4 Setup Gulp task: #####
 ```
 var styleguide = require('devbridge-styleguide');
-```
 
-And then write a task to start a server:
-
-```
 gulp.task('start-styleguide', function () {
   styleguide.startServer();
 });
-```
+````
 
-Function can take arguments and returns server instance.
-You can pass folder name to function (default is 'styleguide'):
-
-```
-styleguide.startServer({styleguidePath: 'styleguide-folder-name'});
-```
-
-
-###Accessing your styleguide
-
-Your project server should be running, also if you want to edit/create/scrape snippets Styleguide server should be running.
-
-This is how you open your styleguide:
+If your styleguide is placed in different directory than /styleguide/ you need to specified it in the task:
 
 ```
-http://your-project-hostname/[folder]/index.html
+styleguide.startServer({
+    styleguidePath: 'styleguide-folder-name'
+});
 ```
 
-###Snippet structure for scraping
+##### #5 Run styleguide: #####
+`gulp start-styleguide`
 
-You have to wrap your snippet with DOM comments, you must define snippet ID and CAN define category ID, wheter include javascripts or not, for example:
+You should access your styleguide going to `http://your-project-hostname/styleguide/index.html`
+
+
+Usage:
+---
+
+##### To modify styleguide settings: #####
+You can add project name, project logo or change setting modifying `config.txt` file located in your styleguide directory:
+```
+{
+  "projectName": "", //Project name
+  "projectUrl": "",  //Domain name of your project
+  "projectLogo": "", //path to your project logo
+  "jsResources": [], //Javascript resources that's going to be included into the snippets
+  "viewportWidths": [ //Predefinded viewport breakpoints
+    480,
+    768,
+    1200
+  ],
+  "serverPort": 8080, //Default server port for styleguide component
+  "snippetTemplate": "styleguide/template.html", //HTML template which will be used to wrap and show html snippets. Project CSS resources of the project should be placed in this template as well.
+  "sassVariables": [], //Paths to your scss variables files
+  "maxSassIterations": 2000,
+  "database": "styleguide/db",
+  "categories": "styleguide/db/categories.txt",
+  "uniques": "styleguide/db/uniques.txt",
+  "sassData": "styleguide/db/sassdata.txt",
+  "extension": ".txt"
+}
 
 ```
-<!-- snippet:start 18 include-js -->
-<div class="test-class3-real">
-    This is test snippetas
-</div>
-<!-- snippet:end -->
 
-<!-- snippet:start 14:1 include-js -->
-<div class="test-class-2">
-    This is test snippet 2
-    (yeah)
-</div>
-<!-- snippet:end -->
+##### To add CSS resources of the project to the styleguide: #####
+Styleguide snippets are loaded through iframe using `template.html` file. All css references should be defined their.
 
-<!-- snippet:start 16 -->
-<div class="test-class-2">
-    This is test snippet 2
-    (yeah)
-</div>
-<!-- snippet:end -->
-```
+##### To start styleguide server: #####
+Styleguide component have two modes - read-only and editor. In order to work with snippets, categories or scrape scss variables, you need to start styleguide server:
 
-Where the first number is snippet ID, the second one category ID and if include-js flag is defined, then javascript files will be included in that snippet.
+* Make sure you have gulp task created:
+    ```
+    var styleguide = require('devbridge-styleguide');
 
+    gulp.task('start-styleguide', function () {
+      styleguide.startServer();
+    });
+    ```
+    If your styleguide is placed in different directory than '/styleguide/' you need to specified it in the task:
+    `styleguide.startServer({styleguidePath: 'styleguide-folder-name'});`
+* Run `'gulp start-styleguide'`
+* Navigate to your styleguide web page, you should see additional controls like, 'new snippet', 'edit snippet' and etc.
 
-###Sass variables file structure for scraping
+##### To scrape scss variables: #####
+Scraping scss files you can automatically generate color palette or create a list of fonts used in the project.
+* First you need to add smart comment tags to your scss file to identify your variables:
 
-Like with snippets, here you must wrap fonts and colors with specific comments, this is how it should look like:
-```
-//-- typo:start --//
-//module TYPO
-$font-proxima: 'Neue Helvetica W01', helvetica, sans-serif; // 300, 700
-$font-proxima-alternative: 'Neue Helvetica W01', helvetica, sans-serif; // 400, 400 italic
-$font-newsgothic: 'Neue Helvetica W01', helvetica, sans-serif; // 700
-//-- typo:end --//
+    For color variables:
+    ```
+    //-- colors:start --//
+    $color-black: #000000;
+    $color-dark: #141823;
+    $red-lighter: #d26262;
+    //-- colors:end --//
+    ```
 
-//-- colors:start --//
-//module MAIN COLORS
-$color-black: #000000;
-$color-dark: #141823;
-$red-lighter-2: #d26262;
-$red-lighter-1: #bd2727;
-$red: #8b0000;
-$red-dark: #880000;
-$red-darker-1: #8b0000;
-$red-darker-2: #4c0d0d;
+    For font variables:
+    ```
+    //-- typo:start --//
+    $font-proxima: 'Neue Helvetica W01', helvetica, sans-serif; // 300, 700
+    $font-proxima-alternative: 'Neue Helvetica W01', helvetica, sans-serif; // 400, 400 italic
+    $font-newsgothic: 'Neue Helvetica W01', helvetica, sans-serif; // 700
+    //-- typo:end --//
+    ```
 
-//module BACKGROUND COLORS
-$background-clickable: $red;
-$background-positive: #fff;
-$background-positive-opacity: #fff;
-$background-header: $red-darker-1;
-$background-header-inner: $red;
-$background-store-nav-first: $red;
-$background-footer: $red;
-$background-header-red-section: $red;
-$background-notification-negative: $red-lighter-2;
-$background-header-account-button: $red-lighter-1;
+* Declare scss file path references in styleguide config file:
 
-//module TEXT COLORS
-$text-link: $red;
-$text-link-hover: $red-darker-2;
+    `"sassVariables": ['/path/to/your/project/scss/file.scss']`
 
-//module BORDERS
-$border-red-nav: $red-darker-2;
-$border-active: $red;
-
-//module BUTTONS
-$button-default-color: $red;
-$button-default-color-hover: $red-darker-2;
-$button-call-to-action-color: $red;
-//-- colors:end --//
-```
-
-
-[![Analytics](https://ga-beacon.appspot.com/UA-73039601-2/Styleguide/readme)](https://github.com/igrigorik/ga-beacon)
+* Open styleguide web page and select from the menu 'Scrape Variables'. Note, make sure you have styleguide server running.
