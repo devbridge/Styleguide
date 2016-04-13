@@ -43,7 +43,7 @@ Usage:
 ---
 
 ##### To modify styleguide settings: #####
-You can add project name, project logo or change setting modifying `config.txt` file located in your styleguide directory:
+You can add project name, project logo or change settings modifying `config.txt` file, located in your styleguide directory:
 ```
 {
   "projectName": "", //Project name
@@ -69,10 +69,10 @@ You can add project name, project logo or change setting modifying `config.txt` 
 ```
 
 ##### To add CSS resources of the project to the styleguide: #####
-Styleguide snippets are loaded through iframe using `template.html` file. All css references should be defined their.
+Styleguide snippets are loaded through iframe using `template.html` file. All css references should be defined there.
 
 ##### To start styleguide server: #####
-Styleguide component have two modes - read-only and editor. In order to work with snippets, categories or scrape scss variables, you need to start styleguide server:
+Styleguide component have two modes - read-only and editor. In order to work with snippets, categories or scrape scss variables, you need to be in editor mode by starting styleguide server:
 
 * Make sure you have gulp task created:
     ```
@@ -114,3 +114,5 @@ Scraping scss files you can automatically generate color palette or create a lis
     `"sassVariables": ['/path/to/your/project/scss/file.scss']`
 
 * Open styleguide web page and select from the menu 'Scrape Variables'. Note, make sure you have styleguide server running.
+
+[![Analytics](https://ga-beacon.appspot.com/UA-73039601-2/Styleguide/readme)](https://github.com/igrigorik/ga-beacon)
