@@ -12,7 +12,7 @@ Installation:
 `npm install devbridge-styleguide -g`
 
 ##### #3 Initialize styleguide: #####
-`styleguide initialize `
+`styleguide initialize ` Note, make sure you run command inside your project directory.
 
 Copy of the styleguide will be generated and placed in your project's root directory under `'/styleguide/'` folder. If you want to change folder name run `styleguide initialize [folder-name]`
 
