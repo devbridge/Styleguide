@@ -269,28 +269,29 @@ $btn-ghost-radius: $border-radius;
 }
 
 .tooltip {
-    border: 1px solid $color-blue;
+    border: 1px solid #989898;
     border-radius: 50%;
     box-sizing: border-box;
     cursor: pointer;
     display: inline-block;
-    height: 17px;
+    height: 18px;
     line-height: .8;
+    margin-left: 15px;
     position: relative;
     text-align: center;
     text-decoration: none;
-    width: 17px;
+    width: 18px;
 
     &:before {
         @extend %font-icon-style;
-        color: $color-blue;
+        color: #989898;
         content: '\f128';
         display: inline-block;
         font-size: 12px;
     }
 
     &:hover {
-        background-color: $color-blue;
+        background-color: #989898;
 
         &:before {
             color: $color-white;

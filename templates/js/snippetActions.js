@@ -187,8 +187,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             includeJs = snippet.includeJs,
             formFields = snippetEdit.find('.js-form-submit-field'),
             resolution = viewService.getDefaultResolution(),
-            iframeWindow,
-            clipboard;
+            iframeWindow;
 
         currentSnippetElement.attr('id', snippet.id);
 
@@ -254,27 +253,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             //executes on FF, very likely to crash on IE(with multiple iFrames on the page) so check is performed, does not get executed on Chrome
             snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, includeJs));
         }
-        // init copy button
-        clipboard = new Clipboard(currentSnippetElement.find('.js-copy-code').get(0));
 
-        clipboard.on("success", function (event) {
-            var tempWrapper = $("<span>Copied code of snippet <span class='sg-notification-item-highlight'>" + snippet.name + "</span> to clipboard:</span>"),
-                tempCode = $("<code class='sg-notification-item-highlight'></code>"),
-                linesOfCode = event.text.split(/\r\n|\r|\n/).length;
-
-            tempCode
-                .text(event.text)
-                .appendTo(tempWrapper);
-
-            if (linesOfCode > 3) {
-                tempCode
-                    .addClass("extra-lines");
-            }
-
-            viewService
-                .notifications
-                .pushMessage(tempWrapper.get(0).outerHTML);
-        });
     };
 
     var submitSnippet = function (data, form) {

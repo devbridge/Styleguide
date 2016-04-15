@@ -78,66 +78,62 @@
                         <div class="sg-page-wrapper drawer-tip">
                             <div class="sg-form-wrapper">
                                 <!-- Left -->
-                                <div class="medium-3 columns">
-                                    <div class="field-wrapper">
+                                <div class="medium-3 columns sg-snippet-menu">
+                                    <div class="sg-snippet-menu-item">
                                         <input type="text" id="new-name" class="field-text js-form-submit-field" data-js-field-name="name" required placeholder="Snippet name">
                                     </div>
-                                    <div class="field-wrapper">
-                                        <select id="new-category" required class="field-select js-form-submit-field js-form-select"
+                                    <div class="sg-snippet-menu-item">
+                                        <select id="new-category" class="field-select js-form-submit-field js-form-select"
                                                 data-js-field-name="category" required>
                                         </select>
                                     </div>
-                                    <div class="field-wrapper sg-no-margin">
-                                        <textarea id="new-description" class="field-textarea js-form-submit-field" data-js-field-name="description" placeholder="Description"></textarea>
+                                    <div class="sg-snippet-menu-item is-active">
+                                        <button type="button" class="sg-snippet-menu-action sg-snippet-menu-action-html js-snippet-tab-action" data-target="tab-code">Code</button>
+                                    </div>
+                                    <div class="sg-snippet-menu-item">
+                                        <button type="button" class="sg-snippet-menu-action sg-snippet-menu-action-css js-snippet-tab-action" data-target="tab-css">Inline CSS</button>
+                                        <span class="tooltip">
+                                            <span class="tooltip-text">Add extra CSS to handle or enhance your snippet (e.g. background color, position relative).</span>
+                                        </span>
+                                    </div>
+                                    <div class="sg-snippet-menu-item">
+                                        <button type="button" class="sg-snippet-menu-action sg-snippet-menu-action-desc js-snippet-tab-action" data-target="tab-desc">Description</button>
+                                    </div>
+                                    <div class="sg-snippet-menu-item">
+                                        <div class="checkbox-wrapper tooltip-wrapper" style="position: relative;">
+                                            <label>
+                                                <input type="checkbox" class="field-checkbox form-include-js">
+                                                <span class="fake-box"></span>
+                                                Include Javascript
+                                            </label>
+                                        <span class="tooltip">
+                                            <span class="tooltip-text">Check if you want to execute javascript referenced in styleguide settings.</span>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="sg-snippet-menu-controls">
+                                        <div class="sg-controls-buttons">
+                                            <button type="submit" class="btn-primary">Create</button>
+                                            <button type="button" class="btn-blank js-new-snippet-cancel">Cancel</button>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!-- Middle -->
-                                <div class="medium-5 columns">
-                                    <label class="field-label">Code:</label>
-                                    <div class="sg-editor-holder">
-                                        <div class="editor-view" id="jsNewCode"></div>
-                                        <button class="btn-full-screen js-toggle-code-editor-full-screen" title="Toggle full screen">
-                                            Toggle full Screen
-                                        </button>
+                                <div class="medium-9 columns sg-snippet-controls">
+                                    <div class="sg-snippet-menu-tab is-active js-snippet-tab-src" id="tab-code">
+                                        <div class="sg-editor-holder">
+                                            <div class="editor-view" id="jsNewCode"></div>
+                                        </div>
                                     </div>
-
-                                    <div class="checkbox-wrapper tooltip-wrapper">
-                                        <label>
-                                            <input type="checkbox" class="field-checkbox form-include-js">
-                                            <span class="fake-box"></span>
-                                            Include Javascript
-                                        </label>
-                                            <span class="tooltip">
-                                                <span class="tooltip-text">Check if you want to execute javascript referenced in styleguide settings.</span>
-                                            </span>
+                                    <div class="sg-snippet-menu-tab js-snippet-tab-src" id="tab-css">
+                                        <div class="sg-editor-holder">
+                                            <div id="jsNewCss" class="editor-view"></div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <!-- Right -->
-                                <div class="medium-4 columns">
-                                    <div class="tooltip-pos-right clearfix">
-                                        <label class="field-label">Inline CSS:</label>
-                                            <span class="tooltip pos-right">
-                                                <span class="tooltip-text">Add extra CSS to handle or enhance your snippet (e.g. background color, position relative).</span>
-                                            </span>
+                                    <div class="sg-snippet-menu-tab js-snippet-tab-src" id="tab-desc">
+                                        <textarea id="new-description" class="field-textarea js-form-submit-field" data-js-field-name="description" placeholder="Description"></textarea>
                                     </div>
-
-                                    <div class="sg-editor-holder">
-                                        <div id="jsNewCss" class="editor-view"></div>
-                                        <button class="btn-full-screen js-toggle-css-editor-full-screen"
-                                                title="Toggle full screen">Toggle full screen
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row sg-controls-row">
-                            <div class="sg-page-wrapper">
-                                <h3 class="sg-snippet-title">New Snippet</h3>
-                                <div class="sg-controls-buttons">
-                                    <button class="btn-blank js-new-snippet-cancel" type="button">Cancel</button>
-                                    <button class="btn-primary" type="submit">Create</button>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +141,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="sg-intro-container js-intro-container">
@@ -229,7 +224,6 @@
                 <div class="sg-page-wrapper drawer-tip">
 
                     <div class="sg-snippet-code">
-                        <button class="btn-blank js-copy-code">Copy</button>
                         <code class="sg-snippet-code-preview js-snippet-code-preview">code preview</code>
                     </div>
 
@@ -371,66 +365,81 @@
                 <div class="sg-page-wrapper drawer-tip">
 
                     <div class="sg-snippet-code">
-                        <button class="btn-blank js-copy-code">Copy</button>
                         <code class="sg-snippet-code-preview js-snippet-code-preview">code preview</code>
                     </div>
-
-                    <div class="sg-snippet-description">
-                        <div class="sg-title">Description:</div>
-                        <div class="js-snippet-description"></div>
-                    </div>
-
                 </div>
             </div>
         </div>
 
         <!-- Snippet Settings -->
         <div class="sg-holder js-snippet-settings">
+            <div class="snippet-settings">
+                <form class="sg-snippet-settings js-edit-snippet">
+                    <div class="sg-page-wrapper">
 
-            <form class="sg-snippet-settings js-edit-snippet">
-                <div class="sg-page-wrapper drawer-tip">
+                        <!-- Left -->
+                        <div class="medium-3 columns sg-snippet-menu">
+                            <div class="sg-snippet-menu-item">
+                                <input type="text" id="edit-name" class="field-text js-form-submit-field" data-js-field-name="name" required placeholder="Enter snippet name">
+                            </div>
+                            <div class="sg-snippet-menu-item">
+                                <select class="field-select js-form-submit-field js-form-select" id="edit-category" data-js-field-name="category" required>
+                                </select>
+                            </div>
+                            <div class="sg-snippet-menu-item is-active">
+                                <button type="button" class="sg-snippet-menu-action sg-snippet-menu-action-html js-snippet-edit-action" data-target="tab-code-edit">Code</button>
+                            </div>
+                            <div class="sg-snippet-menu-item">
+                                <button type="button" class="sg-snippet-menu-action sg-snippet-menu-action-css js-snippet-edit-action" data-target="tab-css-edit">Inline CSS</button>
+							<span class="tooltip">
+								<span class="tooltip-text">Add extra CSS to handle or enhance your snippet (e.g. background color, position relative).</span>
+							</span>
+                            </div>
+                            <div class="sg-snippet-menu-item">
+                                <button type="button" class="sg-snippet-menu-action sg-snippet-menu-action-desc js-snippet-edit-action" data-target="tab-desc-edit">Description</button>
+                            </div>
+                            <div class="sg-snippet-menu-item">
+                                <button type="button" class="sg-snippet-menu-action sg-snippet-menu-action-delete js-delete-snippet">Delete</button>
+                            </div>
+                            <div class="sg-snippet-menu-item">
+                                <div class="checkbox-wrapper tooltip-wrapper" style="position: relative;">
+                                    <label>
+                                        <input type="checkbox" class="field-checkbox form-include-js">
+                                        <span class="fake-box"></span>
+                                        Include Javascript
+                                    </label>
+								<span class="tooltip">
+									<span class="tooltip-text">Check if you want to execute javascript referenced in styleguide settings.</span>
+								</span>
+                                </div>
+                            </div>
+                            <div class="sg-snippet-menu-controls">
+                                <div class="sg-controls-buttons">
+                                    <button type="submit" class="btn-primary">Update</button>
+                                    <button type="button" class="btn-blank js-btn-cancel">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
 
-                    <!-- Left -->
-                    <div class="sg-sidebar">
-                        <div class="sg-snippet-item">
-                            <input type="text" name="" class="field-text" placeholder="Enter snippet name">
-                        </div>
-                        <div class="sg-snippet-item">
-                            <select class="field-select" name="">
-                                <option>xxx</option>
-                            </select>
-                        </div>
-                        <div class="sg-snippet-item">
-                            <button class="sg-btn"><i class="icon-code"></i>Code</button>
-                        </div>
-                        <div class="sg-snippet-item">
-                            <button class="sg-btn"><i class="icon-css"></i>Inline CSS</button>
-                        </div>
-                        <div class="sg-snippet-item">
-                            <button class="sg-btn"><i class="icon-desc"></i>Description</button>
-                        </div>
-                        <div class="sg-snippet-item">
-                            <label>
-                                <input type="checkbox" name="" class="field-checkbox">
-                                Include Javascript
-                            </label>
-                        </div>
-                        <div class="sg-snippet-buttons">
-                            <button class="sg-btn-submit">Update</button>
-                            <button class="sg-btn-close">Close</button>
+                        <!-- Right -->
+                        <div class="medium-9 columns sg-snippet-controls">
+                            <div class="sg-snippet-menu-tab is-active js-snippet-edit-src" id="tab-code-edit">
+                                <div class="sg-editor-holder">
+                                    <div class="editor-view js-edit-code"></div>
+                                </div>
+                            </div>
+                            <div class="sg-snippet-menu-tab js-snippet-edit-src" id="tab-css-edit">
+                                <div class="sg-editor-holder">
+                                    <div class="editor-view js-edit-css"></div>
+                                </div>
+                            </div>
+                            <div class="sg-snippet-menu-tab js-snippet-edit-src" id="tab-desc-edit">
+                                <textarea class="field-textarea js-form-submit-field" id="edit-description" data-js-field-name="description" placeholder="Description"></textarea>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Right -->
-                    <div class="sg-content">
-                        <div class="sg-code">Code</div>
-                        <div class="sg-descripton">Description</div>
-                        <div class="sg-css">Inline CSS</div>
-                    </div>
-
-                </div>
-            </form>
-
+                </form>
+            </div>
         </div>
 
 
@@ -606,7 +615,6 @@
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/interact-1.2.4.min.js" type="text/javascript"></script>
-<script src="js/clipboard.js" type="text/javascript"></script>
 <script src="js/jquery.modal.js" type="text/javascript"></script>
 <script src="js/categories.js" type="text/javascript"></script>
 <script src="js/snippets.js" type="text/javascript"></script>

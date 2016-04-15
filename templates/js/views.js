@@ -341,7 +341,9 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
     var newSnippetControls = function () {
         var $newSnippetForm = $(".js-new-snippet-form"),
             $newSnippetBtnOpen = $(".js-header-new-snippet"),
-            $newSnippetCancel = $(".js-new-snippet-cancel");
+            $newSnippetCancel = $(".js-new-snippet-cancel"),
+            $tabAction = $(".js-snippet-tab-action"),
+            $tabSource = $(".js-snippet-tab-src");
 
         //module 'new snippet' button
         $newSnippetBtnOpen.on("click", function () {
@@ -353,6 +355,19 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             ace
                 .edit('jsNewCode')
                 .resize();
+        });
+
+        $tabAction.on('click', function () {
+            var self = $(this),
+                id = self.attr('data-target');
+
+            if (id) {
+                $tabAction.parent().removeClass('is-active');
+                self.parent().addClass('is-active');
+
+                $tabSource.removeClass('is-active');
+                $('#' + id).addClass('is-active');
+            }
         });
 
         //module 'cancel' button for new snippet creation

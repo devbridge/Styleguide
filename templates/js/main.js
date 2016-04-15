@@ -60,12 +60,27 @@
                     $btnSettings.toggleClass("active");
                     $settings.toggleClass("active");
 
-                    /*iframesService.getTemplate(function (template) {
+                    iframesService.getTemplate(function (template) {
                         if ($btnSettings.hasClass("active")) {
                             editors = editorService.addToEditForm($code.parent());
                             originalValues.code = editors.code.getValue();
                             originalValues.css = editors.css.getValue();
                             snippetTemplate = template;
+                            var $tabAction = $(".js-snippet-edit-action"),
+                                $tabSource = $(".js-snippet-edit-src");
+
+                            $tabAction.on('click', function () {
+                                var self = $(this),
+                                    id = self.attr('data-target');
+                                
+                                if (id) {
+                                    $tabAction.parent().removeClass('is-active');
+                                    self.parent().addClass('is-active');
+
+                                    $tabSource.removeClass('is-active');
+                                    self.closest('.js-edit-snippet').find('#' + id).addClass('is-active');
+                                }
+                            });
 
                             editors
                                 .code
@@ -98,7 +113,7 @@
                             $previewSource.removeClass('updated');
                             editorService.removeFromEditForm($code.parent());
                         }
-                    });*/
+                    });
                 });
 
             //module 'show code' button for snippet editing

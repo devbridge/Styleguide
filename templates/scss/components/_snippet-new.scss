@@ -65,8 +65,103 @@
     .sg-btn {
         @include snippet-item-style();
     }
+}
 
-    label {
+.sg-snippet-menu {
+
+    &-item {
+        border-bottom: 1px solid #ccc;
+        position: relative;
+
+        &.is-active::before {
+            content: '';
+            margin-top: -12px;
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            @include triangle(24px, #3b3b3b, left);
+        }
+    }
+
+    &-action {
+        @include appearance(none);
+        background-color: transparent;
+        border: 1px solid transparent;
+        box-sizing: border-box;
+        color: #4d4d4d;
+        display: inline-block;
+        font-size: 16px;
+        height: 50px;
+        padding: 0;
+
+        &:focus {
+            outline: 0;
+        }
+
+        &-desc {
+            background: url($src-icon-desc) no-repeat 0 50%;
+            padding: 0 0 0 35px;
+        }
+
+        &-css {
+            background: url($src-icon-code-css) no-repeat 0 50%;
+            padding: 0 0 0 35px;
+        }
+
+        &-html {
+            background: url($src-icon-code-html) no-repeat 0 50%;
+            padding: 0 0 0 35px;
+        }
+
+        &-delete {
+            background: url($src-icon-delete) no-repeat 0 50%;
+            padding: 0 0 0 35px;
+        }
+    }
+
+    &-tab {
+        display: none;
+
+        &.is-active {
+            display: block;
+        }
+    }
+
+    &-controls {
+        padding-top: 20px;
+    }
+
+    .field-text {
         @include snippet-item-style();
+    }
+
+    .field-select {
+        @include snippet-item-style();
+        background: url($src-select-arrow) no-repeat 100% 50%;
+    }
+
+    .snippet-settings & {
+        .checkbox-wrapper  {
+            font-size: 16px;
+            left: 0;
+            margin: 14px 0 9px;
+            position: relative;
+        }
+    }
+}
+
+.sg-snippet-controls {
+    .field-textarea,
+    .editor-view {
+        height: 375px;
+    }
+
+    .field-textarea {
+        background-color: #3b3b3b;
+        color: #fff;
+    }
+
+    .ace_print-margin {
+        display: none;
     }
 }

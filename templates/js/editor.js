@@ -63,7 +63,7 @@ var editorService = (function ($) {
 
         //html
         codeEditor = ace.edit('jsNewCode');
-        codeEditor.setTheme('ace/theme/github');
+        codeEditor.setTheme('ace/theme/idle_fingers');
         codeEditor
             .getSession()
             .setMode('ace/mode/html');
@@ -74,7 +74,7 @@ var editorService = (function ($) {
         //css
         cssEditor = ace.edit('jsNewCss');
         cssEditor.setValue('#snippet { \n  \n}');
-        cssEditor.setTheme('ace/theme/github');
+        cssEditor.setTheme('ace/theme/idle_fingers');
         cssEditor
             .getSession()
             .setMode('ace/mode/css');
@@ -99,7 +99,7 @@ var editorService = (function ($) {
         function defineEditor (currentEditor, currentId, mode, type) {
             currentEditor.attr('id', currentId);
             currentEditor = ace.edit(currentId);
-            currentEditor.setTheme('ace/theme/github');
+            currentEditor.setTheme('ace/theme/idle_fingers');
             currentEditor
                 .getSession()
                 .setMode('ace/mode/' + mode);
