@@ -1,12 +1,19 @@
+var _ = require('lodash');
 var app = require('./app');
 var http = require('http');
 var fs = require('fs');
 var exports = module.exports = {};
 
 exports.startServer = function(options) {
-  var styleguidePath = options.styleguidePath || 'styleguide';
-  var config = JSON.parse(fs.readFileSync('./' + styleguidePath + '/config.txt', 'utf8'));
+  var defaultOptions = {
+    styleguidePath: 'styleguide'
+  };
+
+  options = _.assign(defaultOptions, options);
+
+  var config = JSON.parse(fs.readFileSync('./' + options.styleguidePath + '/config.txt', 'utf8'));
   var serverInstance;
+  
   app.set('styleguideConfig', config);
   app.set('port', config.serverPort);
   serverInstance = http.createServer(app);
