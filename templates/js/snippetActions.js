@@ -153,16 +153,16 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             snippetContents,
             currentSnippetElement = $($('#snippet').html()).clone(true),
 
-            //array iterators
+            // array iterators
             currentField,
             fieldIndex,
             fieldLen,
 
-            //text
+            // text
             snippetName = currentSnippetElement.find('.js-snippet-name'),
             snippetDescription =  currentSnippetElement.find('.js-snippet-description'), //inside code view
 
-            //form
+            // form
             snippetEdit = currentSnippetElement.find('.js-edit-snippet'), //panel
             snippetEditCode =  currentSnippetElement.find('.js-edit-code'),
             snippetEditCss =  currentSnippetElement.find('.js-edit-css'),
@@ -170,25 +170,24 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             snippetDelete = currentSnippetElement.find('.js-delete-snippet'),
             snippetCategorySelect = currentSnippetElement.find('.js-form-select'),
 
-            //copy
+            // copy
             snippetCopyCode = currentSnippetElement.find('.js-copy-code'),
             snippetCodePreview = currentSnippetElement.find('.js-snippet-code-preview'),
 
-            //view
+            // view
             snippetSource = currentSnippetElement.find('.js-snippet-source'),
             snippetPreview = currentSnippetElement.find('.js-snippet-preview'),
 
-            //snippet viewport text
+            // snippet viewport text
             snippetSize = currentSnippetElement.find('.js-snippet-size'),
 
-            //resizing functionality
+            // resizing functionality
             snippetResizeLength = currentSnippetElement.find(".js-resize-length"),
 
             includeJs = snippet.includeJs,
             formFields = snippetEdit.find('.js-form-submit-field'),
             resolution = viewService.getDefaultResolution(),
-            iframeWindow,
-            clipboard;
+            iframeWindow;
 
         currentSnippetElement.attr('id', snippet.id);
 
@@ -198,11 +197,14 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             includeJs = false;
         }
 
-        //text
+        // text
         snippetName.html(snippet.name);
-        snippetDescription.html(snippet.description);
 
-        //form
+        if (snippet.description.length > 0){
+            snippetDescription.html(snippet.description).addClass('have-content');
+        }
+
+        // form
         snippetEditCode.text(snippet.code);
         snippetEditCss.text(snippet.inlineCss);
         snippetIncludeJs.prop('checked', includeJs);
@@ -217,16 +219,16 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             snippetDelete.addClass('hidden');
         }
 
-        //copy
+        // copy
         snippetCopyCode.attr('data-clipboard-text', snippet.code);
         snippetCodePreview.text(snippet.code);
 
-        //view
+        // view
         snippetSource
             .html(frame)
             .append('<div></div>');
 
-        //viewport size
+        // viewport size
         snippetSize.text(resolution + "px");
         snippetResizeLength.css("width", parseInt(resolution / 2, 10));
 
@@ -245,33 +247,13 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
         currentSnippetElement.appendTo('.main');
         snippetContents = $('#' + snippetId);
 
-        //executes on Chrome, IE, FF(does something on FF but is not needed for it to work)
+        // executes on Chrome, IE, FF(does something on FF but is not needed for it to work)
         module.appendIframeContent(snippetContents, template, snippet.code, snippet.inlineCss, includeJs);
         if (!module.isIE) {
             //executes on FF, very likely to crash on IE(with multiple iFrames on the page) so check is performed, does not get executed on Chrome
             snippetContents.load($.proxy(module.appendIframeContent, null, snippetContents, template, snippet.code, snippet.inlineCss, includeJs));
         }
-        //init copy button
-        clipboard = new Clipboard(currentSnippetElement.find('.js-copy-code').get(0));
 
-        clipboard.on("success", function (event) {
-            var tempWrapper = $("<span>Copied code of snippet <span class='sg-notification-item-highlight'>" + snippet.name + "</span> to clipboard:</span>"),
-                tempCode = $("<code class='sg-notification-item-highlight'></code>"),
-                linesOfCode = event.text.split(/\r\n|\r|\n/).length;
-
-            tempCode
-                .text(event.text)
-                .appendTo(tempWrapper);
-
-            if (linesOfCode > 3) {
-                tempCode
-                    .addClass("extra-lines");
-            }
-
-            viewService
-                .notifications
-                .pushMessage(tempWrapper.get(0).outerHTML);
-        });
     };
 
     var submitSnippet = function (data, form) {
@@ -554,6 +536,61 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                     content += '<p>IDs of snippets that were changed: None.</p>';
                 }
             } else {
+                var diff = 0;
+
+                for (var i = 0; i < data.length; i++) {
+                    diff += data[i].hasOwnProperty('uniqueColVals') ? data[i].uniqueColVals : 0;
+                }
+
+                if (!data.length || diff === 0) {
+                    var errorTpl = '' +
+                        '<div class="sg-missing">' +
+                            '<h1 class="sg-missing-title">Looks like you don&acute;t have any styles set. <br /> ' +
+                            'Scrape your scss variables to show all the beauty of your project.</h1>' +
+                            '<ol class="sg-missing-list">' +
+                                '<li class="sg-missing-list-item">Wrap your variables with corresponding comments: ' +
+                                    '<span class="sg-missing-list-child">' +
+                                        '<code class="sg-sample-code">' +
+                                            '<span class="sg-sample-code-comment">//-- typo:start --//</span><br />' +
+                                            '<span>$font-proxima:  &#39;Proxima Nova&#39;, helvetica, sans-serif;</span> <span class="sg-sample-code-comment">// 300, 700</span><br />' +
+                                            '<span>$font-proxima-alternative: &#39;Neue Helvetica W01&#39;, helvetica, sans-serif;</span> <span class="sg-sample-code-comment">// 400, 400 italic</span><br />' +
+                                            '<span>$font-newsgothic: &#39;News Gothic Std&#39;, helvetica, sans-serif;</span> <span class="sg-sample-code-comment">// 700</span><br />' +
+                                            '<span class="sg-sample-code-comment">//-- typo:end --//</span>' +
+                                        '</code>' +
+                                        '<code class="sg-sample-code">' +
+                                            '<span class="sg-sample-code-comment">//-- colors:start --//</span><br />' +
+                                            '<span>$color-black: #000000;</span><br />' +
+                                            '<span>$color-dark: #141823;</span><br />' +
+                                            '<span>$color-lighter-2: #d26262;</span><br />' +
+                                            '<span class="sg-sample-code-comment">//-- colors:end --//</span>' +
+                                        '</code>' +
+                                    '</span>' +
+                                '</li>' +
+                                '<li class="sg-missing-list-item">Make sure you have scss file path defined in config: ' +
+                                    '<span class="sg-missing-list-child">' +
+                                        '<code class="sg-sample-code">' +
+                                            '<span>{</span><br />' +
+                                            '<span>&nbsp;&nbsp;sassVariables: [&#39;/scss/_variables.scss&#39;],</span><br />' +
+                                            '<span>&nbsp;&nbsp;maxSassIterations: 2000</span><br />' +
+                                            '<span>}</span>' +
+                                        '</code>' +
+                                    '</span>' +
+                                '</li>' +
+                                '<li class="sg-missing-list-item">Scrape your styles:' +
+                                    '<span class="sg-missing-list-child">' +
+                                        '<button type="button" class="btn-new js-scrape-sass">Start scss scrape</button>' +
+                                    '</span>' +
+                                '</li>' +
+                            '</ol>' +
+                        '</div>';
+
+                    $('.main')
+                        .empty()
+                        .append(errorTpl);
+                    
+                    return;
+                }
+
                 /*
                 //DETAILED REPORT
                 len = data.length;

@@ -48,14 +48,15 @@
             $btnSettings
                 .add($btnCancel) //elements merge
                 .on("click", function () {
-                    //hide code
+
+                    // hide code
                     $btnCode
                         .removeClass("active")
                         .text("Show code")
                         .attr("data-toggle-text", "Hide code");
                     $code.removeClass("active");
 
-                    //toggle settings
+                    // toggle settings
                     $btnSettings.toggleClass("active");
                     $settings.toggleClass("active");
 
@@ -65,6 +66,21 @@
                             originalValues.code = editors.code.getValue();
                             originalValues.css = editors.css.getValue();
                             snippetTemplate = template;
+                            var $tabAction = $(".js-snippet-edit-action"),
+                                $tabSource = $(".js-snippet-edit-src");
+
+                            $tabAction.on('click', function () {
+                                var self = $(this),
+                                    id = self.attr('data-target');
+                                
+                                if (id) {
+                                    $tabAction.parent().removeClass('is-active');
+                                    self.parent().addClass('is-active');
+
+                                    $tabSource.removeClass('is-active');
+                                    self.closest('.js-edit-snippet').find('#' + id).addClass('is-active');
+                                }
+                            });
 
                             editors
                                 .code

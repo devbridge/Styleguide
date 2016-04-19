@@ -45,6 +45,10 @@
         height: auto;
         overflow: visible;
     }
+
+    .sg-header & {
+        top: 60px;
+    }
 }
 
 .drawer-tip {
@@ -174,14 +178,16 @@
     }
 
     .sg-snippet-code {
-        float: left;
-        width: 57%;
         position: relative;
         box-sizing: border-box;
         padding-right: 10px;
 
         .sg-snippet-code-preview {
-            @extend %form-style;
+            background: #323232;
+            color: #fff;
+            border-radius: 4px;
+            border: transparent solid 2px;
+            padding: 10px;
             white-space: pre;
             word-wrap: normal;
             display: block;
@@ -192,6 +198,11 @@
                 family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
                 size: 11px;
                 weight: normal;
+            }
+
+            &::selection{
+                background: $color-black;
+                color: $color-white;
             }
         }
 
@@ -247,7 +258,7 @@
 
     .sg-form-wrapper {
         @extend .row;
-        padding: 60px 0;
+        padding: 40px 0;
         position: relative;
 
         .checkbox-wrapper {
@@ -313,10 +324,7 @@
 
     .ace_editor {
         @include transition(border .6s);
-        background-color: $color-white;
-        border: transparent solid 2px;
         border-radius: 4px;
-        color: $color-black-secondary;
 
         &.ace_focus {
             box-shadow: none;
