@@ -1,4 +1,4 @@
-@mixin snippet-item-style {
+@mixin snippet-item-style ($height: 50px) {
     background: none;
     border: none;
     font-size: 16px;
@@ -7,17 +7,31 @@
     text-align: left;
     color: #4d4d4d;
     box-sizing: border-box;
-    height: 50px;
+    height: $height;
     display: block;
     vertical-align: middle;
-
 }
 
 .sg-snippet-description {
     background: #f4f4f4;
+    font: {
+        family: $font-main;
+        weight: 400;
+        size: 16px;
+    };
 
     .have-content {
-        padding: 30px 0 35px;
+        padding: 30px 220px 35px 40px;
+        box-sizing: border-box;
+        position: relative;
+
+        &:before {
+            content: '';
+            @include position(absolute, 35px null null 0);
+            width: 20px;
+            height: 20px;
+            background: url($src-icon-desc) no-repeat 50% 50%;
+        }
     }
 }
 
@@ -27,13 +41,6 @@
         top: 50px;
         bottom: 50px;
     };
-    background: #dee0e0;
-    border-top: #2b2b2b solid 3px;
-    margin-top: -1px;
-
-    .drawer-tip:before {
-        right: 0;
-    }
 
     .sg-page-wrapper {
         @include clearfix();
@@ -73,18 +80,26 @@
         border-bottom: 1px solid #ccc;
         position: relative;
 
-        &.is-active::before {
-            content: '';
-            margin-top: -12px;
-            position: absolute;
-            right: -20px;
-            top: 50%;
-            @include triangle(24px, #3b3b3b, left);
+        &.is-active {
+
+            &::before {
+                content: '';
+                margin-top: -12px;
+                position: absolute;
+                right: -20px;
+                top: 50%;
+                @include triangle(24px, #3b3b3b, left);
+            }
+
+            .sg-snippet-menu-action {
+                padding-left: 45px;
+            }
         }
     }
 
     &-action {
         @include appearance(none);
+        @include transition(all 0.3s);
         background-color: transparent;
         border: 1px solid transparent;
         box-sizing: border-box;
@@ -93,6 +108,8 @@
         font-size: 16px;
         height: 50px;
         padding: 0;
+        width: 100%;
+        text-align: left;
 
         &:focus {
             outline: 0;
@@ -132,7 +149,15 @@
     }
 
     .field-text {
-        @include snippet-item-style();
+        @include snippet-item-style(40px);
+        margin-bottom: 10px;
+        @include transition(all 0.3s);
+
+        &:focus {
+            background: #F7F7F7;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
     }
 
     .field-select {
@@ -144,13 +169,24 @@
         .checkbox-wrapper  {
             font-size: 16px;
             left: 0;
-            margin: 14px 0 9px;
             position: relative;
+
+            label {
+                padding: 14px 0 9px;
+                width: 100%;
+                cursor: pointer;
+            }
         }
+    }
+
+    .tooltip {
+        @include position(absolute, 50% 0 auto auto);
+        margin-top: -9px;
     }
 }
 
 .sg-snippet-controls {
+
     .field-textarea,
     .editor-view {
         height: 375px;
@@ -159,9 +195,23 @@
     .field-textarea {
         background-color: #3b3b3b;
         color: #fff;
+
+        &:focus {
+            border: none;
+        }
     }
 
     .ace_print-margin {
         display: none;
+    }
+}
+
+.ace_scrollbar,
+.sg-snippet-code-preview {
+    &::-webkit-scrollbar {
+        background: #323232;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #5D5D5D;
     }
 }

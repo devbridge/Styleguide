@@ -55,6 +55,8 @@
                         .text("Show code")
                         .attr("data-toggle-text", "Hide code");
                     $code.removeClass("active");
+                    // $('.js-snippet-settings').removeClass('active');
+                    // $('.js-snippet-code-btn').removeClass('active');
 
                     // toggle settings
                     $btnSettings.toggleClass("active");
@@ -72,7 +74,7 @@
                             $tabAction.on('click', function () {
                                 var self = $(this),
                                     id = self.attr('data-target');
-                                
+
                                 if (id) {
                                     $tabAction.parent().removeClass('is-active');
                                     self.parent().addClass('is-active');

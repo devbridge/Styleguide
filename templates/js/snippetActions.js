@@ -167,7 +167,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             snippetEditCode =  currentSnippetElement.find('.js-edit-code'),
             snippetEditCss =  currentSnippetElement.find('.js-edit-css'),
             snippetIncludeJs = currentSnippetElement.find('.form-include-js'),
-            snippetDelete = currentSnippetElement.find('.js-delete-snippet'),
+            snippetDelete = currentSnippetElement.find('.js-snippet-delete'),
             snippetCategorySelect = currentSnippetElement.find('.js-form-select'),
 
             // copy
@@ -317,6 +317,12 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 snippetContainer
                     .find('.js-copy-code')
                     .attr('data-clipboard-text', snippet.code);
+
+                if (snippet.description.length > 0){
+                    snippetContainer.find('.js-snippet-description').addClass('have-content');
+                }else {
+                    snippetContainer.find('.js-snippet-description').removeClass('have-content');
+                }
 
                 snippetContents = snippetContainer.find('iframe');
 
@@ -587,7 +593,7 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                     $('.main')
                         .empty()
                         .append(errorTpl);
-                    
+
                     return;
                 }
 

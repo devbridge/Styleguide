@@ -347,6 +347,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
 
         //module 'new snippet' button
         $newSnippetBtnOpen.on("click", function () {
+
             $newSnippetForm.toggleClass("active");
 
             ace
@@ -355,6 +356,9 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             ace
                 .edit('jsNewCode')
                 .resize();
+            setTimeout(function () {
+                $('#new-name').focus();
+            }, 200);
         });
 
         $tabAction.on('click', function () {

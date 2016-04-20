@@ -64,6 +64,9 @@ var editorService = (function ($) {
         //html
         codeEditor = ace.edit('jsNewCode');
         codeEditor.setTheme('ace/theme/idle_fingers');
+        codeEditor.setOptions({
+            fontSize: "13px"
+        });
         codeEditor
             .getSession()
             .setMode('ace/mode/html');
@@ -100,6 +103,9 @@ var editorService = (function ($) {
             currentEditor.attr('id', currentId);
             currentEditor = ace.edit(currentId);
             currentEditor.setTheme('ace/theme/idle_fingers');
+            currentEditor.setOptions({
+                fontSize: "13px"
+            });;
             currentEditor
                 .getSession()
                 .setMode('ace/mode/' + mode);

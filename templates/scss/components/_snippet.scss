@@ -16,7 +16,7 @@
     background: $color-grey;
     border-top: 2px solid $color-blue;
     margin-top: -1px;
-    max-height: 500px;
+    height: 500px;
     opacity: 0;
     overflow: auto;
     position: relative;
@@ -25,7 +25,7 @@
     .active & {
         @include transform(translateY(0));
         //@include transition(max-height .1s ease-out .125s, opacity .15s ease-in .2s);
-        max-height: 500px;
+        height: 500px;
         opacity: 1;
         overflow: visible;
     }
@@ -151,6 +151,34 @@
                 }
             }
         }
+
+        .btn-delete {
+            @extend %snippet-btn-style;
+            @extend %remove-outline;
+            display: none;
+            margin-left: -1px;
+            font-size: 0;
+
+            .server-on & {
+                display: block;
+            }
+
+            &:before {
+                color: #999;
+                content: '\f014';
+                display: inline-block;
+                @extend %font-icon-style;
+                font-size: 18px;
+            }
+
+            &:hover,
+            &.active {
+
+                &:before {
+                    color: $color-red;
+                }
+            }
+        }
     }
 }
 
@@ -168,7 +196,7 @@
             right: 50px;
 
             .server-on & {
-                right: 100px;
+                right: 146px;
             }
         }
     }
@@ -243,13 +271,6 @@
 
     .sg-header & {
         @include position(absolute, 100% 0 null);
-
-        .drawer-tip {
-
-            &:before {
-                right: 111px;
-            }
-        }
     }
 
     .sg-page-wrapper {
@@ -271,7 +292,18 @@
     .drawer-tip {
 
         &:before {
-            right: 28px;
+            right: 73px;
+            margin-bottom: 51px;
+        }
+    }
+
+    &.new-snippet {
+        .drawer-tip {
+
+            &:before {
+                right: 108px;
+                margin-bottom: 2px;
+            }
         }
     }
 
@@ -415,6 +447,7 @@
             vertical-align: middle;
             width: 16px;
             border-radius: 4px;
+            position: relative;
         }
     }
 
@@ -430,7 +463,7 @@
 
                 &:before {
                     @extend %font-icon-style;
-                    @include position(absolute, 3px null null 0);
+                    @include position(absolute, -1px null null -1px);
                     color: $color-blue;
                     content: '\f00c';
                     font-size: 12px;

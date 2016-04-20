@@ -71,7 +71,7 @@
 
         <!-- New snippet panel -->
         <div class="sg-holder js-new-snippet-form">
-            <div class="snippet-settings">
+            <div class="snippet-settings new-snippet">
                 <div class="sg-snippet-form sg-edit-snippet-form">
 
                     <form class="js-create-snippet" action="/snippets">
@@ -202,147 +202,6 @@
 </div>
 
 <!-- Snippet Edit Form -->
-<script type="text/html" id="snippet-old">
-    <div class="sg-snippet js-snippet">
-
-        <!-- Snippet Header -->
-        <div class="sg-snippet-header">
-            <div class="sg-page-wrapper clearfix">
-                <div class="sg-snippet-title js-snippet-name">Snippet Name</div>
-                <div class="sg-snippet-size js-snippet-size">1200px</div>
-
-                <div class="sg-header-controls">
-                    <button class="btn-show-code js-snippet-code-btn" type="button" data-toggle-text="Hide code">Show code</button>
-                    <button class="btn-edit js-snippet-settings-btn" type="button" title="Edit snippet">Edit snippet</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Snippet Info -->
-        <div class="sg-holder js-snippet-code">
-            <div class="sg-snippet-info">
-                <div class="sg-page-wrapper drawer-tip">
-
-                    <div class="sg-snippet-code">
-                        <code class="sg-snippet-code-preview js-snippet-code-preview">code preview</code>
-                    </div>
-
-                    <div class="sg-snippet-description">
-                        <div class="sg-title">Description:</div>
-                        <div class="js-snippet-description"></div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Snippet Settings -->
-        <div class="sg-holder js-snippet-settings">
-            <div class="snippet-settings">
-                <div class="sg-snippet-form sg-edit-snippet-form">
-
-                    <form class="js-edit-snippet">
-                        <div class="sg-page-wrapper drawer-tip">
-                            <div class="sg-form-wrapper">
-                                <!-- Left -->
-                                <div class="medium-3 columns">
-                                    <div class="field-wrapper">
-                                        <input type="text" id="edit-name" class="field-text js-form-submit-field" data-js-field-name="name" required placeholder="Snippet name">
-                                    </div>
-                                    <div class="field-wrapper">
-                                        <select id="edit-category" class="field-select js-form-submit-field js-form-select" data-js-field-name="category" required>
-                                        </select>
-                                    </div>
-                                    <div class="field-wrapper sg-no-margin">
-                                        <textarea id="edit-description" class="field-textarea js-form-submit-field" data-js-field-name="description" placeholder="Description"></textarea>
-                                    </div>
-                                </div>
-
-                                <!-- Middle -->
-                                <div class="medium-5 columns">
-                                    <label class="field-label">Code:</label>
-                                    <div class="sg-editor-holder">
-                                        <div class="editor-view js-edit-code"></div>
-                                        <button class="btn-full-screen js-toggle-code-full-screen" type="button">Toggle
-                                            Full Screen
-                                        </button>
-                                    </div>
-
-                                    <div class="checkbox-wrapper tooltip-wrapper">
-                                        <label>
-                                            <input type="checkbox" class="field-checkbox form-include-js">
-                                            <span class="fake-box"></span>
-                                            Include JavaScript
-                                        </label>
-                                                <span class="tooltip">
-                                                    <span class="tooltip-text">Check if you want to execute javascript referenced in styleguide settings.</span>
-                                                </span>
-                                    </div>
-                                </div>
-
-                                <!-- Right -->
-                                <div class="medium-4 columns">
-                                    <div class="tooltip-pos-right clearfix">
-                                        <label class="field-label">Inline CSS:</label>
-                                                <span class="tooltip pos-right">
-                                                    <span class="tooltip-text">Add extra CSS to handle or enhance your snippet (e.g. background color, position relative).</span>
-                                                </span>
-                                    </div>
-
-                                    <div class="sg-editor-holder">
-                                        <div class="editor-view js-edit-css"></div>
-                                        <button class="btn-full-screen js-toggle-css-full-screen" type="button">Toggle
-                                            Full Screen
-                                        </button>
-
-                                        <div class="sg-link-delete">
-                                            <button class="btn-with-icon icon-delete js-delete-snippet" type="button">Delete
-                                                Snippet
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row sg-controls-row">
-                            <div class="sg-page-wrapper">
-                                <h3 class="sg-snippet-title">Edit Snippet</h3>
-                                <div class="sg-controls-buttons">
-                                    <button class="btn-blank js-btn-cancel" type="button">Close</button>
-                                    <button class="btn-primary" type="submit">Update</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Snippet Preview -->
-        <div class="sg-snippet-preview js-snippet-preview" style="width: 1200px;">
-            <div class="sg-snippet-source js-snippet-source">
-                <div class="made-up-snippet-example">
-                    <h2>Example snippet with long heading Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Asperiores unde eveniet, non.</h2>
-
-                    <div style="border: 1px solid #bada55;">
-                        Some sort of content here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eaque
-                        deleniti qui perspiciatis tempora.
-                    </div>
-                </div>
-            </div>
-
-            <div class="js-resize-length" style="width: 600px;">
-                <div class="sg-snippet-resize-handle pos-left js-snippet-resize-handle-left" draggable="true"></div>
-                <div class="sg-snippet-resize-handle pos-right js-snippet-resize-handle-right" draggable="true"></div>
-            </div>
-
-        </div>
-    </div>
-</script>
-
-<!-- Snippet Edit Form -->
 <script type="text/html" id="snippet">
     <div class="sg-snippet js-snippet">
 
@@ -355,6 +214,7 @@
                 <div class="sg-header-controls">
                     <button class="btn-show-code js-snippet-code-btn" type="button" data-toggle-text="Hide code">Show code</button>
                     <button class="btn-edit js-snippet-settings-btn" type="button" title="Edit snippet">Edit snippet</button>
+                    <button class="btn-delete js-snippet-delete" type="button" title="Delete snippet">Delete snippet</button>
                 </div>
             </div>
         </div>
@@ -375,7 +235,7 @@
         <div class="sg-holder js-snippet-settings">
             <div class="snippet-settings">
                 <form class="sg-snippet-settings js-edit-snippet">
-                    <div class="sg-page-wrapper">
+                    <div class="sg-page-wrapper drawer-tip">
 
                         <!-- Left -->
                         <div class="medium-3 columns sg-snippet-menu">
@@ -397,9 +257,6 @@
                             </div>
                             <div class="sg-snippet-menu-item">
                                 <button type="button" class="sg-snippet-menu-action sg-snippet-menu-action-desc js-snippet-edit-action" data-target="tab-desc-edit">Description</button>
-                            </div>
-                            <div class="sg-snippet-menu-item">
-                                <button type="button" class="sg-snippet-menu-action sg-snippet-menu-action-delete js-delete-snippet">Delete</button>
                             </div>
                             <div class="sg-snippet-menu-item">
                                 <div class="checkbox-wrapper tooltip-wrapper" style="position: relative;">
@@ -615,8 +472,8 @@
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/interact-1.2.4.min.js" type="text/javascript"></script>
-<script src="js/jquery.modal.js" type="text/javascript"></script>
 <script src="js/categories.js" type="text/javascript"></script>
+<script src="js/jquery.modal.js" type="text/javascript"></script>
 <script src="js/snippets.js" type="text/javascript"></script>
 <script src="js/iframes.js" type="text/javascript"></script>
 <script src="js/editor.js" type="text/javascript"></script>
