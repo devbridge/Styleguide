@@ -207,7 +207,7 @@ var compareForReport = function(theme, report, config) {
   }
 
   report.themeName = theme.name;
-  report.uniqueColVals = Object.keys(theme.colors).length;
+  report.uniqueColVals = theme.colors ? Object.keys(theme.colors).length : 0;
   report.diffOfColVals = report.uniqueColVals - Object.keys(oldData.colors).length;
 
   if (theme.typography && !theme.typography.equals(oldData.typography)) {
