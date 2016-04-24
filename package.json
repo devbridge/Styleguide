@@ -44,6 +44,7 @@
     "format-json": "1.0.3",
     "jsonfile": "2.0.0",
     "lodash": "4.0.0",
+    "mkdirp": "0.5.1",
     "q": "1.4.1",
     "request": "2.55.0"
   },

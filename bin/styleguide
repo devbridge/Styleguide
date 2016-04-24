@@ -2,6 +2,7 @@
 
 var program = require('commander');
 var fs = require('fs');
+var mkdir = require('mkdirp'); // required to be able to create dirs recursively for multi level
 var q = require('q');
 var formatter = require('format-json');
 var pkg = require('../package.json');
@@ -45,11 +46,11 @@ var copyContent = function(currentFolder, rootFolder, dbFolder) {
     fontsFolder;
 
   if (!fs.existsSync(rootFolder)) {
-    fs.mkdirSync(rootFolder);
-    fs.mkdirSync(dbFolder);
-    fs.mkdirSync(path.join(rootFolder, 'content'));
-    fs.mkdirSync(path.join(rootFolder, 'content', 'fonts'));
-    fs.mkdirSync(path.join(rootFolder, 'js'));
+    mkdir.sync(rootFolder);
+    mkdir.sync(dbFolder);
+    mkdir.sync(path.join(rootFolder, 'content'));
+    mkdir.sync(path.join(rootFolder, 'content', 'fonts'));
+    mkdir.sync(path.join(rootFolder, 'js'));
 
     currentContents = fs.readFileSync(path.join(moduleFolder, 'template.html'), 'utf-8');
 
