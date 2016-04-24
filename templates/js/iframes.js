@@ -57,7 +57,7 @@ var iframesService = (function ($, snippetService) {
             if (!config.snippetTemplate) {
                 callback(getDefaultTemplate());
             } else {
-                $.get('../' + config.snippetTemplate, function (data) {
+                $.get('//' + location.host + '/' + config.snippetTemplate, function (data) {
                     callback(data);
                 });
             }
