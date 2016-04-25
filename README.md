@@ -1,4 +1,4 @@
-Styleguide
+Styleguide [![Known Vulnerabilities](https://snyk.io/test/github/devbridge/Styleguide/badge.svg)](https://snyk.io/test/github/devbridge/Styleguide)
 ===
 Living Styleguide Made Easy
 
