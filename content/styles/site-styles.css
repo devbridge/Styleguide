@@ -724,6 +724,7 @@ img {
       height: 75.3px;
       background-position: 0px 0px;
       content: '';
+      height: 74px;
       margin: auto; }
   @media screen and (max-width: 600px) {
     .section-title h2 {

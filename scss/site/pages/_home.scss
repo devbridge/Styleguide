@@ -294,6 +294,7 @@
             @include position(absolute, 0);
             @include svg-sprite('icon-hexagon');
             content: '';
+            height: 74px;
             margin: auto;
         }
     }
