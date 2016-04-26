@@ -22,7 +22,7 @@ var getMainConfig = function(folder) {
     projectLogo: '',
 
     jsResources: [],
-    viewportWidths: [480, 768, 1200],
+    viewportWidths: [320, 480, 768, 1024, 1200],
 
     serverPort: 8080,
     snippetTemplate: path.join('./', folder, 'template.html'),
