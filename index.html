@@ -4,15 +4,41 @@
     <meta charset="utf-8">
     <title>Styleguide</title>
     <meta name="description" content="">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#333333">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#333333">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='//fonts.googleapis.com/css?family=Playfair+Display&subset=latin,latin-ext' rel='stylesheet'
-          type='text/css'>
-    <link type="text/css" rel="stylesheet"
-          href="//fast.fonts.net/cssapi/0c372d69-dd8e-4054-ba17-c60a7f5ced97.css"/>
-    <link href="content/styles/site-styles.css" rel="stylesheet" type="text/css"/>
-    <link href="content/styles/prism.css" rel="stylesheet" type="text/css"/>
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/ff50334d-7692-47b2-913a-6c24a82061e2.css">
+    <link type="text/css" rel="stylesheet" href="content/styles/site-styles.css">
+    <link type="text/css" rel="stylesheet" href="content/styles/prism.css">
 
     <script data-main="scripts/main" src="scripts/require.js"></script>
+    <script type="text/javascript">
+        window.smartlook||(function(d) {
+            var o=smartlook=function(){ o.api.push(arguments)},s=d.getElementsByTagName('script')[0];
+            var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+            c.charset='utf-8';c.src='//rec.getsmartlook.com/bundle.js';s.parentNode.insertBefore(c,s);
+        })(document);
+        smartlook('init', '63845c0117c8c13a6852d97d73d92508c73d949c');
+    </script>
 </head>
 <body>
 <noscript>
@@ -22,42 +48,56 @@
 </noscript>
 
 <div class="page">
+
     <div class="page-header-holder js-header">
-        <div class="page-frame">
-            <header class="page-header">
-                <figure class="logo-holder js-logo-reveal">
-                    <a href="/">
-                        <img src="content/images/styleguide-logo.svg" alt="Styleguide">
-                    </a>
-                </figure>
+        <header class="page-header">
+            <div class="page-frame">
 
                 <nav class="page-header-nav">
-                    <span class="js-scroll-nav">
-                        <a href="#features">Features</a>
-                        <a href="#installation">Installation</a>
-                    </span>
-                    <a class="demo-link" href="http://styleguide.devbproto.com/styleguide/" target="_blank">demo</a>
-                    <a class="github-link" href="https://github.com/devbridge/Styleguide" target="_blank">Github</a>
+                    <div class="nav-internal">
+                        <a href="https://www.devbridge.com/" target="_blank" class="db-logo">
+                            <img src="content/images/db-logo.svg" alt="Devbridge - Chicago Web, Custom Software, and Mobile App Development">
+                        </a>
+                        <span class="js-scroll-nav">
+                            <a href="#features">Features</a>
+                        </span>
+                        <a href="https://github.com/devbridge/Styleguide" target="_blank">Installation</a>
+                        <a href="http://styleguide.devbproto.com/styleguide/" target="_blank">Demo</a>
+                    </div>
+                    <div class="nav-external">
+                        <a href="https://github.com/devbridge/Styleguide" target="_blank">Github <i class="icon-github"></i></a>
+                    </div>
                 </nav>
-            </header>
-        </div>
+
+            </div>
+        </header>
     </div>
 
     <main>
-        <section class="intro-section">
+        <section class="promo-section">
             <div class="page-frame">
                 <h1 class="intro-logo-holder js-logo-header">
                     <img src="content/images/styleguide-logo-white.svg" alt="Styleguide">
                 </h1>
                 <h2 class="subtitle">Living Styleguide Made Easy</h2>
+                <figure class="img-holder">
+                    <img src="content/images/img-styleguide.jpg" alt="Styleguide"/>
+                </figure>
+            </div>
+        </section>
+
+        <section class="intro-section">
+            <div class="page-frame">
+                <p class="intro-description">Devbridge Styleguide helps you create, share, and automate a living visual style library of your brand. Share your digital brand standards, improve team collaboration, and implement an independent easily-extendable modular structure.</p>
                 <div data-tpr-letters="11" data-tpr-incorrect="styleguide"
                      class="js-intro-command typing-text">
                     <span>npm install devbridge-styleguide --save-dev</span>
                     <span class="blink-cursor">|</span>
                 </div>
-                <figure class="img-holder">
-                    <img src="content/images/img-styleguide.jpg" alt="Styleguide"/>
-                </figure>
+                <div class="intro-buttons">
+                    <a href="http://styleguide.devbproto.com/styleguide/" target="_blank" class="btn-cta">View Sample Styleguide</a>
+                    <a href="https://github.com/devbridge/Styleguide" target="_blank" class="btn-cta">Read Installation Instruction</a>
+                </div>
             </div>
         </section>
 
@@ -65,12 +105,12 @@
             <div class="page-frame">
                 <div class="section-title">
                     <span class="section-title-number">01.</span>
-                    <h2>Transform your variables into elegant styles</h2>
+                    <h2>Transform Scss variables <span class="no-wrap">into elegant styles</span></h2>
                 </div>
 
                 <div class="text-section-content">
                     <p>
-                        Color swatches or typography chart can be generated automatically directly from you variables files. Just group them with the comments and you are done.
+                        Color swatches and typography charts generated automatically <br>from your variables files. Just group them with comments <br>and run the scrape.
                     </p>
                 </div>
             </div>
@@ -90,15 +130,15 @@
                     <div class="example-section-box">
                         <div class="code-box">
 <pre class="line-numbers dimmed" data-start="49">
-<code class="language-scss">$color-yellow: #ffa960;
+<code class="language-scss">    $color-yellow: #ffa960;
     $color-yellow-110: #de883f;
     color-sky-d10: #538292;
     $color-sky: #70b1c7;</code></pre>
-<pre class="line-numbers" data-start="53"><code class="language-scss"> //-- typo:start --//
-    $font-avenir: 'Avenir W01', sans-serif;
-    $font-chaparral: 'Chaparral W01', serif;
+<pre class="line-numbers" data-start="53"><code class="language-scss">    //-- typo:start --//
+    $font-playfair: 'Playfair', serif;
+    $font-chaparral: 'Chaparral W01', sans-serif;
     //-- typo:end --//</code></pre>
-<pre class="line-numbers dimmed" data-start="57"><code class="language-scss"> $src-icon-down: 'images/icon-down.svg';
+<pre class="line-numbers dimmed" data-start="57"><code class="language-scss">    $src-icon-down: 'images/icon-down.svg';
     $weight-black: 900;
     $weight-heavy: 800;
     $weight-bold: 700;</code></pre>
@@ -124,16 +164,16 @@
                     </div>
                     <div class="example-section-box">
                         <div class="code-box">
-<pre class="line-numbers dimmed" data-start="52"><code class="language-scss">($gutter / 2);
+<pre class="line-numbers dimmed" data-start="52"><code class="language-scss">    ($gutter / 2);
     $footer-height: 200px;</code></pre>
-<pre class="line-numbers" data-start="54"><code class="language-scss">//-- color:start --//
+<pre class="line-numbers" data-start="54"><code class="language-scss">    //-- color:start --//
     $color-red: #f8533b;
     $color-yellow: #fda400;
     $color-blue: #205b67;
     $color-blue-120: #00a5bc;
     $color-green: #95bf15;
     //-- color:end --//</code></pre>
-<pre class="line-numbers dimmed" data-start="62"><code class="language-scss"> $body-font:font-chaparral;
+<pre class="line-numbers dimmed" data-start="62"><code class="language-scss">    $body-font:font-chaparral;
     $heading-font: $font-avenir;
     $src-icon-down: 'images/icon-down.svg';</code></pre>
                         </div>
@@ -146,156 +186,74 @@
             <div class="page-frame">
                 <div class="section-title">
                     <span class="section-title-number">02.</span>
-                    <h2>Live edits in the browser</h2>
+                    <h2>Live edit styles in the browser</h2>
                 </div>
 
                 <div class="text-section-content">
-                    <p>Edit snippets, organize categories, update styles, everything can be done directly in the browser.</p>
+                    <p>Manage snippets, organize categories, and preview <br>styles all directly in the browser:</p>
                 </div>
             </div>
         </section>
 
-        <section class="snippet-section">
-            <div class="page-frame">
-                <header class="snippet-header js-snippet-header">
-                    <div class="snippet-header-inner">
-                        <div class="snippet-size js-snippet-size">1920px</div>
-                        <div class="snippet-header-controls">
-                            <button type="button" class="btn-show-code js-trigger-code-preview">Show code</button>
-                            <button type="button" class="btn-edit js-edit-snippet">Edit snippet</button>
-                        </div>
-                    </div>
-                </header>
 
-                <div class="snippet-info js-snippet-content">
-                    <div class="snippet-info-inner">
-                        <div class="snippet-info-content">
-                            <pre class="snippet-code-preview js-code-preview"></pre>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="snippet-info js-snippet-content">
-                    <div class="snippet-info-inner">
-                        <div class="snippet-info-content">
-                            <div class="snippet-info-col">
-                                <div class="snippet-info-title">Code: <sup>*</sup></div>
-                                <div class="editor-container" id="js-html-editor"><pre>&lt;div class="button-wrapper"&gt;
-    &lt;button type="button" class="btn"&gt;Save&lt;/button&gt;
-    &lt;button type="button" class="btn-secondary"&gt;Save as draft&lt;/button&gt;
-    &lt;button type="button" class="btn-link"&gt;Cancel&lt;/button&gt;
-&lt;/div&gt;
-</pre>
-                                </div>
-                            </div>
-                            <div class="snippet-info-col">
-                                <div class="snippet-info-title">Custom CSS: <sup>*</sup></div>
-                                <div class="editor-container" id="js-css-editor"><pre>.wrapper {
-
-}</pre>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="snippet-info-content-footer">
-                            <button type="button" class="btn js-update-markup">Save</button>
-                            <button type="button" class="btn-link js-close-edit">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="js-snippet-preview-holder">
-                <div class="snippet-preview js-snippet-preview">
-                    <div class="js-snippet-source snippet-source">
-                        <iframe id="js-snippet-code"></iframe>
-                    </div>
-                    <div class="js-resize-length">
-                        <div class="snippet-resize-handle pos-left js-snippet-resize-handle-left"></div>
-                        <div class="snippet-resize-handle pos-right js-snippet-resize-handle-right"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="text-section">
-            <div class="page-frame">
-                <div class="section-title">
-                    <span class="section-title-number">03.</span>
-                    <h2>Organize snippets into the categories</h2>
-                </div>
-
-            </div>
-        </section>
-
-        <div class="categories-img-holder">
-            <img src="content/images/img-organize-categories.jpg" alt="Organize into the categories"/>
-        </div>
-
-        <section class="features-section" style="display: none">
+        <section class="features-section">
             <div class="page-frame">
                 <div class="features-content">
                     <div class="features-content-box">
-                        <span class="icon-folder icon"></span>
-                        <h3>Test on various screen sizes</h3>
-                        <p>Document and maintain your brand or design guidelines with an online tool. Forget about the
-                            time consuming manual.</p>
+                        <span class="icon-settings icon"></span>
+                        <h3>Manage snippets</h3>
+                        <p>Create, delete, edit or move snippets.</p>
                     </div>
 
                     <div class="features-content-box">
-                        <span class="icon-flag icon"></span>
-                        <h3>No backend dependencies for publication</h3>
-                        <p>Document and maintain your brand or design guidelines with an online tool. Forget about the
-                            time consuming manual.</p>
+                        <span class="icon-desc icon"></span>
+                        <h3>Document snippets</h3>
+                        <p>Write detailed information about your snippet.</p>
                     </div>
 
                     <div class="features-content-box">
-                        <span class="icon-chat icon"></span>
-                        <h3>Simple installation</h3>
-                        <p>Document and maintain your brand or design guidelines with an online tool. Forget about the
-                            time consuming manual.</p>
+                        <span class="icon-resize icon"></span>
+                        <h3>Resize Snippets</h3>
+                        <p>Preview how snippets interact on different screen sizes.</p>
+                    </div>
+
+                    <div class="features-content-box">
+                        <span class="icon-categories icon"></span>
+                        <h3>Organize categories</h3>
+                        <p>Manage and assign categories to snippets.</p>
                     </div>
                 </div>
+
+                <p class="link-more-info">
+                    <a href="https://github.com/devbridge/Styleguide">
+                        Find out more about the installation process and <br>how to use it on our github page.
+                    </a>
+                </p>
+
             </div>
         </section>
 
-        <section class="installation-section" id="installation">
-            <div class="page-frame">
-                <div class="installation-intro-text">
-                    <div class="installation-additional-text"><span>Required</span> node.js
-                        <span class="icon-nodejs">&nbsp;</span></div>
-                    <h2>Installation</h2>
-                    <p>We choose Node.js and developed the tool as npm package, because node packages can be easily
-                        integrated with existing front-end workflows. Also integration with Gulp is essential if we want
-                        to include styleguide automatization in front-end developers workflow.
-                    </p>
-                </div>
-
-                <ul class="installation-process">
-                    <li>
-                        Install local package to your project directory
-                        <div class="typing-text">
-                            <span>npm install devbridge-styleguide --save-dev</span>
-                            <span class="blink-cursor">|</span>
-                        </div>
-                    </li>
-                    <li>
-                        Create Gulp task
-<pre class="gulp-task-definition"><code>var styleguide = require('devbridge-styleguide');
-gulp.task('start-styleguide', function () {
-  styleguide.startServer();
-});</code></pre>
-                    </li>
-                    <li>
-                        Start styleguide server <br>
-                        <div class="typing-text">
-                            <span>gulp start-styleguide</span>
-                            <span class="blink-cursor">|</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </section>
     </main>
+
+    <div class="credits page-frame">
+        <a href="https://www.devbridge.com/" class="db-logo">
+            <img src="content/images/db-logo.svg" alt="Devbridge">
+        </a>
+        <p>
+            Brought to you by the creative team<br>
+            at Devbridge Group.
+        </p>
+    </div>
+    <footer class="page-footer">
+        <div class="page-frame">
+            <nav class="footer-nav">
+                <a href="https://www.devbridge.com/" target="_blank">About Devbridge</a>
+                <a href="https://www.devbridge.com/chicago-software-development/" target="_blank">Software Development</a>
+                <a href="https://www.devbridge.com/positions/" target="_blank">Careers</a>
+                <a href="https://www.devbridge.com/contact-us/" target="_blank">Contact Us</a>
+            </nav>
+        </div>
+    </footer>
 </div>
 <script src="scripts/plugins/prism.js" type="text/javascript"></script>
 <script>

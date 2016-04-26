@@ -15,15 +15,15 @@ body {
 body {
     color: $text-primary;
     font: {
-        family: $font-proxima-nova;
+        family: $font-avenir;
         size: $base-font-size;
         style: normal;
         weight: $weight-regular;
     }
+    -webkit-font-smoothing: antialiased;
     line-height: $base-line-height;
     min-width: 320px;
     overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
 
     //To prevent the iPhone and iPad from inflating fonts
     @include respond-to(1024, max) {

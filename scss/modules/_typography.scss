@@ -3,9 +3,13 @@
 //
 
 a {
+    @include transition(all 0.2s);
     color: $text-link;
-    font-weight: $weight-medium;
     text-decoration: none;
+
+    &:hover {
+
+    }
 }
 
 h1,
@@ -16,8 +20,9 @@ h1,
 h2,
 .heading2 {
     font: {
-        size: 40px;
-        weight: $weight-medium;
+        family: $heading-font;
+        size: 28px;
+        weight: 800;
     }
     line-height: (48/40);
     margin: 30px 0;
@@ -26,8 +31,8 @@ h2,
 h3,
 .heading3 {
     font: {
-        size: 20px;
-        weight: $weight-medium;
+        size: 16px;
+        weight: 800;
     }
     line-height: (32/20);
     margin: 0 0 25px;

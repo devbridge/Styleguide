@@ -1,104 +1,128 @@
 $icons: (
 	sprite: (
-		width: 137px,
-		height: 135px,
+		width: 165px,
+		height: 129px,
 		pngPath: 'images/sprite.png',
 		svgPath: 'images/sprite.svg'
 	),
 	icon-arrows: (
 		width: 19px,
 		height: 12px,
-		backgroundX: -34px,
-		backgroundY: -99px
+		backgroundX: -141px,
+		backgroundY: -98px
 	),
 	icon-arrows-active: (
 		width: 19px,
 		height: 12px,
-		backgroundX: -15px,
-		backgroundY: -99px
+		backgroundX: -141px,
+		backgroundY: -86px
+	),
+	icon-categories: (
+		width: 30px,
+		height: 30px,
+		backgroundX: 0px,
+		backgroundY: -98.3px
 	),
 	icon-chat: (
 		width: 28px,
 		height: 21px,
-		backgroundX: -108px,
-		backgroundY: -29px
+		backgroundX: -34px,
+		backgroundY: -75.3px
+	),
+	icon-desc: (
+		width: 30px,
+		height: 30px,
+		backgroundX: -111px,
+		backgroundY: -60px
 	),
 	icon-download: (
 		width: 24px,
 		height: 24px,
-		backgroundX: -38px,
-		backgroundY: -72px
+		backgroundX: -141px,
+		backgroundY: 0px
 	),
 	icon-element: (
 		width: 22px,
 		height: 22px,
-		backgroundX: -62px,
-		backgroundY: -72px
+		backgroundX: -141px,
+		backgroundY: -24px
 	),
 	icon-flag: (
 		width: 29px,
 		height: 29px,
-		backgroundX: -108px,
-		backgroundY: 0px
+		backgroundX: -30px,
+		backgroundY: -98.3px
 	),
 	icon-folder: (
 		width: 26px,
 		height: 23px,
-		backgroundX: -108px,
-		backgroundY: -76px
+		backgroundX: -86px,
+		backgroundY: -98.3px
 	),
 	icon-github: (
 		width: 27px,
 		height: 26px,
-		backgroundX: -108px,
-		backgroundY: -50px
+		backgroundX: -59px,
+		backgroundY: -98.3px
 	),
 	icon-gripper: (
 		width: 4px,
 		height: 20px,
-		backgroundX: -99px,
-		backgroundY: -48px
+		backgroundX: -156px,
+		backgroundY: -46px
 	),
 	icon-handle: (
 		width: 10px,
 		height: 16px,
-		backgroundX: 0px,
-		backgroundY: -119px
+		backgroundX: -141px,
+		backgroundY: -110px
 	),
 	icon-hexagon: (
-		width: 65px,
-		height: 72px,
+		width: 68px,
+		height: 75.3px,
 		backgroundX: 0px,
 		backgroundY: 0px
 	),
 	icon-nodejs: (
 		width: 43px,
 		height: 48px,
-		backgroundX: -65px,
+		backgroundX: -68px,
 		backgroundY: 0px
 	),
 	icon-pencil: (
 		width: 15px,
 		height: 20px,
-		backgroundX: 0px,
-		backgroundY: -99px
+		backgroundX: -141px,
+		backgroundY: -46px
 	),
 	icon-pencil-active: (
 		width: 15px,
 		height: 20px,
-		backgroundX: -84px,
-		backgroundY: -72px
+		backgroundX: -141px,
+		backgroundY: -66px
+	),
+	icon-resize: (
+		width: 30px,
+		height: 30px,
+		backgroundX: -111px,
+		backgroundY: 0px
+	),
+	icon-settings: (
+		width: 30px,
+		height: 30px,
+		backgroundX: -111px,
+		backgroundY: -30px
 	),
 	icon-terminal: (
 		width: 38px,
 		height: 27px,
-		backgroundX: 0px,
-		backgroundY: -72px
+		backgroundX: -68px,
+		backgroundY: -48px
 	),
 	icon-terminal-small: (
 		width: 34px,
 		height: 23px,
-		backgroundX: -65px,
-		backgroundY: -48px
+		backgroundX: 0px,
+		backgroundY: -75.3px
 	)
 );

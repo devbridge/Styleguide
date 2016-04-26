@@ -1,18 +1,19 @@
-// Global Variables
+// global Variables
 $disable-warnings: true;
 $border-box-sizing: false !default;
 
-//module TYPOGRAPHY
+// module TYPOGRAPHY
 $base-line-height: (30 / 18);
 $base-font-size: 18px;
 
-// Fonts
-$font-proxima-nova: 'Proxima Nova W01', sans-serif; // 300, 400, 500
-$font-trump-gothic: 'Trump Gothic W01 East', sans-serif; // 700
-$font-playfair-display: 'Playfair Display', serif; // 400
+// fonts
+$font-avenir: 'Avenir Next W01', sans-serif; // 500, 700, 800
+$font-droid: 'Droid Serif W01', sans-serif; // 400
+
+$heading-font: $font-avenir;
 
 $weight-light: 300;
-$weight-regular: 400;
+$weight-regular: 500;
 $weight-medium: 500;
 $weight-bold: 700;
 

@@ -6,13 +6,13 @@
 }
 
 // module Intro section
-.intro-section {
+.promo-section {
     background: url('../styles/images/bg-intro.jpg') 0 0;
     color: $color-white;
     margin-bottom: 45px;
-    padding-top: 46px;
-    text-align: center;
     overflow: hidden;
+    padding-top: 100px;
+    text-align: center;
 
     .subtitle {
         font: {
@@ -59,17 +59,17 @@
         @include animation-fill-mode(both);
 
         .subtitle {
-            padding: 35px 0 80px;
+            padding: 5px 0 60px;
         }
     }
 
     @include media($tablet-600-up) {
-        margin-bottom: 135px;
+        margin-bottom: 0;
 
         .typing-text {
             font-size: 22px;
             line-height: (27 / 22);
-            margin-bottom: 140px;
+            margin-bottom: 70px;
         }
 
         .img-holder {
@@ -78,10 +78,10 @@
     }
 
     @include media($tablet-768-up) {
-        padding-top: 140px;
+        padding-top: 110px;
 
         .subtitle {
-            font-size: 48px;
+            font-size: 20px;
         }
     }
 
@@ -97,6 +97,10 @@
         }
     }
 
+    @include media($mobile-480){
+        padding-top: 50px;
+    }
+
     @include media($mobile-320) {
         .typing-text {
             box-sizing: border-box;
@@ -107,6 +111,96 @@
                 bottom: 0;
                 margin: auto 0;
                 top: 0;
+            }
+        }
+    }
+}
+
+.intro-section {
+    .intro-description {
+        float: none;
+        font: {
+            family: $heading-font;
+            size: 18px;
+            weight: 500;
+        };
+        margin-bottom: 60px;
+        margin-top: 60px;
+        text-align: center;
+    }
+
+    .typing-text {
+        display: none;
+    }
+
+    .intro-buttons {
+        margin: 60px 0 30px;
+        text-align: center;
+    }
+
+    .btn-cta {
+        background: $color-blue;
+        border-radius: 5px;
+        color: $color-white;
+        display: inline-block;
+        font-size: 18px;
+        font-weight: 700;
+        height: 50px;
+        line-height: 50px;
+        margin-bottom: 20px;
+        vertical-align: middle;
+        width: 280px;
+
+        &:hover {
+            background: darken($color-blue, 20);
+        }
+
+        + .btn-cta {
+            background: #243b5b;
+
+
+            &:hover {
+                background: darken(#243b5b, 20);
+            }
+
+        }
+    }
+
+    @include media($tablet-600-up){
+
+        .intro-description {
+            @include span-columns(10);
+            @include shift(1);
+            float: none;
+            font-size: 20px;
+        }
+
+        .intro-buttons {
+            margin-bottom: 100px;
+        }
+
+        .typing-text {
+            font: {
+                family: "Courier New", monospace;
+                weight: 700;
+            };
+            display: block;
+            margin: 0 auto;
+            width: 490px;
+
+            .blink-cursor {
+                margin-top: -4px;
+            }
+
+        }
+    }
+
+    @include media(min-width 650px){
+        .btn-cta {
+            margin-bottom: 0;
+
+            + .btn-cta {
+                margin-left: 20px;
             }
         }
     }
@@ -125,8 +219,18 @@
 .intro-logo-holder {
     margin: 0 auto;
 
+    img {
+
+    }
+
     @include media($tablet-1024) {
-        display: none;
+        //display: none;
+    }
+
+    @include media($mobile-480) {
+        img {
+            max-width: 70%;
+        }
     }
 }
 
@@ -177,11 +281,11 @@
         color: $text-list-number;
         display: inline-block;
         font: {
-            family: $font-trump-gothic;
-            size: 24px;
-            weight: $weight-bold;
+            family: $font-avenir;
+            size: 20px;
+            weight: 800;
         }
-        line-height: (72 / 24);
+        line-height: 72px;
         margin-bottom: 20px;
         position: relative;
         text-align: center;
@@ -326,7 +430,7 @@
 }
 
 .font-example-content {
-    font-family: $font-playfair-display;
+    font-family: 'Playfair Display', serif;
     padding-bottom: 60px;
 
     p {
@@ -407,7 +511,7 @@
     pre[class*="language-"],
     code[class*="language-"] {
         font: {
-            family: $font-proxima-nova;
+            family: $font-avenir;
             size: 15px;
             weight: $weight-light;
         }
@@ -542,7 +646,7 @@
         padding-top: 90px;
 
         &-box {
-            @include span-columns(4);
+            @include span-columns(3);
             padding-bottom: 80px;
 
             p {
@@ -551,7 +655,7 @@
             }
 
             h3 {
-                margin-bottom: 25px;
+                margin-bottom: 10px;
             }
         }
     }
@@ -573,6 +677,65 @@
         }
     }
 }
+
+.link-more-info {
+    font: {
+        family: $font-avenir;
+        size: 18px;
+        weight: 700;
+    };
+    line-height: 1.4;
+    margin-bottom: 150px;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+
+    br {
+        display: none;
+    }
+
+    a {
+        color: $color-blue;
+        display: inline-block;
+        position: relative;
+
+        &:after {
+            background: $color-blue;
+            @include position(absolute, 100% null null 50%);
+            content: '';
+            height: 3px;
+            margin-left: -35px;
+            margin-top: 25px;
+            overflow: hidden;
+            width: 70px;
+        }
+
+
+    }
+
+    @include media($tablet-730-up){
+        @include span-columns(8);
+        @include shift(2);
+        float: none;
+
+        br {
+            display: block;
+        }
+    }
+
+    @include media($tablet-600) {
+        margin-bottom: 110px;
+    }
+}
+
+.credits {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 700;
+}
+
 
 // module Installation section
 .installation-section {
@@ -700,6 +863,7 @@
         opacity: 1;
     }
 
+
     @include media($tablet-600-up) {
         .typing-text {
             margin: 25px 0 0 50px;
@@ -724,7 +888,7 @@
         color: #fecd08;
         display: block;
         font: {
-            family: $font-proxima-nova;
+            family: $font-avenir;
             size: 14px;
             weight: $weight-light;
         }
@@ -778,7 +942,7 @@
     white-space: normal;
 
     &::before {
-        @include svg-sprite('icon-terminal-small');
+        @include svg-sprite('icon-terminal', 32px);
         @include position(absolute, -1px null null 0);
         content: '';
     }

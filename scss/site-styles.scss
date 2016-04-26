@@ -38,6 +38,7 @@ $mobile-320: new-breakpoint(max-width 320px);
 // Base & Layout
 @import 'site/layout';
 @import 'site/views/header';
+@import 'site/views/footer';
 
 // Modules
 @import 'modules/global';

@@ -12,10 +12,7 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
 
     module.initInstallationAnimation = function () {
         var triggerIntroCommand = $('.js-intro-command'),
-            installationList = $('li', '.installation-process'),
-            installationContainer = $('#installation'),
-            $window = $(window),
-            containerPosition = Math.round((installationContainer.offset().top * 1.15) - $window.height());
+            $window = $(window);
 
         // Animate text of 'npm install devbridge-styleguide --save-dev' command in intro section
         triggerIntroCommand.addClass('animate');
@@ -23,29 +20,6 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
             incorrectTypingSpeed: 70,
             deletingSpeed: 70,
             correctTypingSpeed: 70
-        });
-
-        function installationAnimation() {
-            installationList.each(function (i, element) {
-                if (i == 0) {
-                    $(element).addClass('animate');
-                } else {
-                    setTimeout(function () {
-                        $(element).addClass('animate');
-                    }, i * 300);
-                }
-            });
-        }
-
-        if ($window.scrollTop() > containerPosition) {
-            installationAnimation();
-        }
-
-        $window.on('scroll resize', function () {
-            containerPosition = Math.round((installationContainer.offset().top * 1.15) - $window.height());
-            if ($window.scrollTop() > containerPosition) {
-                installationAnimation();
-            }
         });
     };
 
@@ -322,14 +296,14 @@ define(['jquery', 'interact', 'typing'], function ($, interact) {
     };
 
     module.init = function () {
-        module.initStickyHeader();
-        module.insertSnippetStyles();
+        // module.initStickyHeader();
+        // module.insertSnippetStyles();
         module.initInstallationAnimation();
-        module.initEditor();
+        // module.initEditor();
         module.initScrollTo();
         module.showLogoOnScroll();
-        module.initSnippetResize();
-        module.toggleSnippetControls();
+        // module.initSnippetResize();
+        // module.toggleSnippetControls();
     };
 
     return module;

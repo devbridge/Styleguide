@@ -1,0 +1,40 @@
+.page-footer {
+    background: $color-black;
+    overflow: hidden;
+
+    .page-frame {
+        height: 36px;
+        position: relative;
+    }
+
+    .footer-nav {
+        line-height: 36px;
+        text-align: center;
+        font: {
+            family: $font-avenir;
+            size: 14px;
+            weight: 500;
+        };
+        vertical-align: middle;
+
+        a {
+            color: $color-white;
+            margin: 0 15px;
+        }
+    }
+
+    @include media($tablet-600){
+
+        .page-frame {
+            height: auto;
+        }
+
+        .footer-nav {
+            padding: 20px 0;
+        }
+
+        a {
+            display: block;
+        }
+    }
+}

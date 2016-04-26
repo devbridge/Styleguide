@@ -1,13 +1,9 @@
 @mixin clearfix($extend: true) {
-    @if $extend {
-        @extend %clearfix;
-    } @else {
-        &:after {
-            clear: both;
-            content: '';
-            display: table;
-            height: 0;
-        }
+    &:after {
+        clear: both;
+        content: '';
+        display: table;
+        height: 0;
     }
 }
 

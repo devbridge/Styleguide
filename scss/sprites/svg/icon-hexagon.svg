@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Avocode 2.4.5 - http://avocode.com -->
-<svg height="72" width="65" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 72">
-    <path stroke-linejoin="miter" stroke-linecap="butt" stroke-width="1" stroke="#dedede" fill="none" fill-rule="evenodd" d="M 1 49.2 L 1 22.49 C 1 19.58 2.55 16.9 5.07 15.44 L 28.2 2.09 C 30.71 0.64 33.81 0.64 36.33 2.09 L 59.46 15.44 C 61.98 16.9 63.53 19.58 63.53 22.49 L 63.53 49.2 C 63.53 52.1 61.98 54.79 59.46 56.24 L 36.33 69.6 C 33.81 71.05 30.71 71.05 28.2 69.6 L 5.07 56.24 C 2.55 54.79 1 52.1 1 49.2 L 1 49.2 Z M 1 49.2" />
+<!-- Generator: Adobe Illustrator 19.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 68 75.3" style="enable-background:new 0 0 68 75.3;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#DEDEDE;}
+</style>
+<path class="st0" d="M2.5,50.9V24.2c0-2.9,1.6-5.6,4.1-7.1L29.7,3.8c2.5-1.4,5.6-1.4,8.1,0L61,17.1c2.5,1.5,4.1,4.1,4.1,7.1v26.7
+	c0,2.9-1.5,5.6-4.1,7L37.8,71.3c-2.5,1.5-5.6,1.5-8.1,0L6.6,57.9C4.1,56.5,2.5,53.8,2.5,50.9L2.5,50.9z"/>
 </svg>

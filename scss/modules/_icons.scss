@@ -1,4 +1,4 @@
-$icon-list: ('icon-folder', 'icon-download', 'icon-flag', 'icon-chat', 'icon-element', 'icon-nodejs');
+$icon-list: ('icon-folder', 'icon-download', 'icon-flag', 'icon-chat', 'icon-element', 'icon-nodejs', 'icon-categories', 'icon-desc', 'icon-resize', 'icon-settings');
 
 @each $icon in $icon-list {
     .#{$icon} {
