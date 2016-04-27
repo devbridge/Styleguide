@@ -24,7 +24,7 @@ var getMainConfig = function(folder) {
     jsResources: [],
     viewportWidths: [320, 480, 768, 1024, 1200],
 
-    serverPort: 8080,
+    serverPort: 8889,
     snippetTemplate: path.join('./', folder, 'template.html'),
 
     sassVariables: [],
