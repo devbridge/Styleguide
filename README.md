@@ -6,10 +6,10 @@ Devbridge Styleguide helps you create, share, and automate a living visual style
 Installation:
 ---
 
-Before going deeper into the Styleguide, make sure you have following components installed on your machine:
+Make sure you have following components installed on your machine:
 - [node.js](https://nodejs.org/en/)
 - [npm](https://www.npmjs.com/)
-- [gulp](http://gulpjs.com/)
+- [gulp](http://gulpjs.com/) or [grunt](http://gruntjs.com/)
 
 ##### #1 Install package to your local project's directory: #####
 `npm install devbridge-styleguide --save-dev`
@@ -43,12 +43,28 @@ styleguide.startServer({
 });
 ```
 
-##### #5 Run styleguide: #####
-`gulp start-styleguide`
+Run styleguide server: `gulp start-styleguide`
+
+
+##### For Grunt users: #####
+
+Setup grunt task:
+
+```
+module.exports = function (grunt) {
+    var styleguide = require('devbridge-styleguide');
+    grunt.registerTask('start-styleguide', function () {
+        var done = this.async();
+        styleguide.startServer().on('close', done);
+    });
+}
+```
+
+Run styleguide server: `grunt start-styleguide`
 
 ***
 
-_**Note**, the purpose of the styleguide server is to expose API for styleguide data manipulation **ONLY**. In order to view the styleguide in the browser, you need to setup and run your own project’s server. We recommend using simple [http server - live-server](https://www.npmjs.com/package/live-server)_
+_**Note**, the purpose of the styleguide server is to expose API for styleguide data manipulation **ONLY**. In order to view the styleguide in the browser, you need to setup and run your own project’s server. We recommend using simple [http server - live-server](https://www.npmjs.com/package/live-server)._
 
 ***
 
@@ -62,16 +78,16 @@ The Styleguide component has two modes - **“view only”** and **“edit”**.
 
 **"View only”** mode does not have editing controls and is meant for presentation. It is a purely client-side application without any backend dependencies (e.g. html, css, and javascript only). It is delightly easy to share, publish, move, or export!
 
-In order to switch to **“Edit”** mode and see all additional controls for editing, you need to run the Styleguide server.
+In order to switch to **“Edit”** mode and see all additional controls for editing, you need to run the styleguide server.
 
-##### To manage categories: #####
-Categories can be managed inside your browser. Just navigate to your styleguide page and click menu in the right top corner. You will be able to create, delete or modify them.
+##### - To manage categories: #####
+Categories can be managed on your styleguide web page by clicking menu in the right top corner. You will be able to create, delete or modify categories.
 
-##### To work with Snippets #####
-All snippet management is done inside the browser, on your styleguide page. While styleguide server is running, you should be able to see additional controls for editing.
+##### - To work with Snippets: #####
+All snippet management is done in the browser, on your styleguide web page. While styleguide server is running, you should be able to see additional controls for editing.
 
-##### To scrape scss variables: #####
-By scraping scss files you can automatically generate color palette or create a list of fonts used in the project.
+##### - To scrape scss variables: #####
+Scraping scss files you can automatically generate color palette or create a list of fonts used in the project.
 * First you need to add smart comment tags to your scss file to identify your variables:
 
     For color variables:
@@ -92,13 +108,18 @@ By scraping scss files you can automatically generate color palette or create a 
     //-- typo:end --//
     ```
 
-* Declare scss file path references in styleguide config file:
+* Next, declare scss file path references in styleguide config file:
 
     `"sassVariables": ['/path/to/your/project/scss/file.scss']`
 
-* Open styleguide web page and select from the menu 'Scrape Variables'. Note, make sure you have styleguide server running.
+* Lastly, open styleguide web page and select from the menu 'Scrape Variables'. Note, make sure you have styleguide server running.
 
-##### To modify styleguide settings: #####
+
+##### - To add CSS resources of the project to the styleguide: #####
+Styleguide snippets are loaded through iframe using `template.html` file. All css references should be defined there.
+
+
+##### - To modify styleguide settings: #####
 You can add project name, project logo or change settings modifying `config.txt` file, located in your styleguide directory:
 ```
 {
@@ -123,9 +144,5 @@ You can add project name, project logo or change settings modifying `config.txt`
 }
 
 ```
-
-##### To add CSS resources of the project to the styleguide: #####
-Styleguide snippets are loaded through iframe using `template.html` file. All css references should be defined there.
-
 
 [![Analytics](https://ga-beacon.appspot.com/UA-73039601-2/Styleguide/readme)](https://github.com/igrigorik/ga-beacon)
