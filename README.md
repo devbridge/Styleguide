@@ -111,7 +111,7 @@ You can add project name, project logo or change settings modifying `config.txt`
     768,
     1200
   ],
-  "serverPort": 8080, //Default server port for styleguide component
+  "serverPort": 8889, //Default server port for styleguide component
   "snippetTemplate": "styleguide/template.html", //HTML template which will be used to wrap and show html snippets. Project CSS resources of the project should be placed in this template as well.
   "sassVariables": [], //Paths to your scss variables files
   "maxSassIterations": 2000,
