@@ -560,10 +560,6 @@
         background: rgba(#999999, 0.20);
     }
 
-    .ace_cursor {
-        display: none;
-    }
-
     .ace-github.ace_focus .ace_cursor {
         display: block;
         z-index: 4;
@@ -572,6 +568,12 @@
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         border-left: 2px solid;
+    }
+}
+
+.sg-editor-holder {
+    .ace-idle-fingers .ace_cursor {
+        color: #29ABE2;
     }
 }
 
