@@ -8,10 +8,9 @@ Installation:
 
 Make sure you have following components installed on your machine:
 - [node.js](https://nodejs.org/en/)
-- [npm](https://www.npmjs.com/)
 - [gulp](http://gulpjs.com/) or [grunt](http://gruntjs.com/)
 
-##### #1 Install package to your local project's directory: #####
+##### #1 Install Styleguide node package to your local project's directory: #####
 `npm install devbridge-styleguide --save-dev`
 
 _**Note**, do not download files directly from git repository, unless you know what you are doing._
@@ -76,7 +75,7 @@ Usage:
 
 The Styleguide component has two modes - **“view only”** and **“edit”**.
 
-**"View only”** mode does not have editing controls and is meant for presentation. It is a purely client-side application without any backend dependencies (e.g. html, css, and javascript only). It is delightly easy to share, publish, move, or export!
+**"View only”** mode does not have editing controls and is meant for presentation. It is a purely client-side application without any backend dependencies (html, css, and javascript only). It is delightly easy to share, publish, move, or export!
 
 In order to switch to **“Edit”** mode and see all additional controls for editing, you need to run the styleguide server.
 
