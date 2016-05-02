@@ -1,4 +1,4 @@
-Styleguide
+Styleguide [![Known Vulnerabilities](https://snyk.io/test/github/devbridge/Styleguide/badge.svg)](https://snyk.io/test/github/devbridge/Styleguide)
 ===
 
 Devbridge Styleguide helps you create, share, and automate a living visual style library of your brand. Share your digital brand standards, improve team collaboration, and implement an independent easily-extendable modular structure.

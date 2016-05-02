@@ -38,8 +38,12 @@
   },
   "dependencies": {
     "async": "1.2.1",
-    "body-parser": "1.12.4",
+<<<<<<< HEAD
+    "body-parser": "1.12.0",
     "colors": "1.1.2",
+=======
+    "body-parser": "1.12.4",
+>>>>>>> c5f810938c897b341777f758c53960d7382b2d55
     "commander": "2.8.1",
     "express": "4.12.4",
     "format-json": "1.0.3",
@@ -47,17 +51,26 @@
     "lodash": "4.0.0",
     "mkdirp": "0.5.1",
     "q": "1.4.1",
-    "request": "2.68.0"
+<<<<<<< HEAD
+    "request": "2.55.0",
     "tcp-port-used": "0.1.2"
+=======
+    "request": "2.68.0"
+>>>>>>> c5f810938c897b341777f758c53960d7382b2d55
   },
   "devDependencies": {
     "snyk": "^1.14.1",
     "morgan": "1.5.1"
   },
-  "scripts": {
-    "test": "snyk test"
+<<<<<<< HEAD
+  "bugs": {
+    "url": "https://github.com/devbridge/Styleguide/issues"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+  "scripts": {
+    "test": "snyk test"
+>>>>>>> c5f810938c897b341777f758c53960d7382b2d55
   }
 }
