@@ -54,10 +54,10 @@
     "snyk": "^1.14.1",
     "morgan": "1.5.1"
   },
-  "scripts": {
-    "test": "snyk test"
+  "bugs": {
+    "url": "https://github.com/devbridge/Styleguide/issues"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "snyk test"
   }
 }
