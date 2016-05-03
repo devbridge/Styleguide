@@ -179,28 +179,27 @@ var sassService = (function ($) {
     module.loadSass = function () {
         getSassData(function (data) {
             var sassContent = $($('#sass-page').html()),
-                errorMessage = '<div class="sg-general-page-message">Sass variables has not been scraped yet or markers were not found in file!</div>',
+                scrapeMessage = $($('#scrape-message').html()),
                 snippetsContents,
                 snippets = [];
 
-            $('.main').append(sassContent);
-
-            if (!data.length) {
-                $('.js-snippet-colors').html(errorMessage);
-                $('.js-fonts-container').parent().html(errorMessage);
+            if (!data.length || $.isEmptyObject(data[0].typography) && $.isEmptyObject(data[0].colors)) {
+                $('.main').append(scrapeMessage);
                 return;
             }
 
-            if (data[0].colors) {
+            $('.main').append(sassContent);
+
+            if (!$.isEmptyObject(data[0].colors)) {
                 parseColors(data[0].colors);
-            } else {
-                $('.js-snippet-colors').html(errorMessage);
+            }else {
+                $('.js-colors').hide();
             }
 
-            if (data[0].typography) {
+            if (!$.isEmptyObject(data[0].typography)) {
                 parseFonts(data[0].typography);
-            } else {
-                $('.js-fonts-container').parent().html(errorMessage);
+            }else {
+                $('.js-fonts').hide();
             }
 
             snippetsContents = $(".js-styles-preview");

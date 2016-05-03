@@ -549,80 +549,14 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
                 }
 
                 if (!data.length || diff === 0) {
-                    var errorTpl = '' +
-                        '<div class="sg-missing">' +
-                            '<h1 class="sg-missing-title">Looks like you don&acute;t have any styles set. <br /> ' +
-                            'Scrape your scss variables to show all the beauty of your project.</h1>' +
-                            '<ol class="sg-missing-list">' +
-                                '<li class="sg-missing-list-item">Wrap your variables with corresponding comments: ' +
-                                    '<span class="sg-missing-list-child">' +
-                                        '<code class="sg-sample-code">' +
-                                            '<span class="sg-sample-code-comment">//-- typo:start --//</span><br />' +
-                                            '<span>$font-proxima:  &#39;Proxima Nova&#39;, helvetica, sans-serif;</span> <span class="sg-sample-code-comment">// 300, 700</span><br />' +
-                                            '<span>$font-proxima-alternative: &#39;Neue Helvetica W01&#39;, helvetica, sans-serif;</span> <span class="sg-sample-code-comment">// 400, 400 italic</span><br />' +
-                                            '<span>$font-newsgothic: &#39;News Gothic Std&#39;, helvetica, sans-serif;</span> <span class="sg-sample-code-comment">// 700</span><br />' +
-                                            '<span class="sg-sample-code-comment">//-- typo:end --//</span>' +
-                                        '</code>' +
-                                        '<code class="sg-sample-code">' +
-                                            '<span class="sg-sample-code-comment">//-- colors:start --//</span><br />' +
-                                            '<span>$color-black: #000000;</span><br />' +
-                                            '<span>$color-dark: #141823;</span><br />' +
-                                            '<span>$color-lighter-2: #d26262;</span><br />' +
-                                            '<span class="sg-sample-code-comment">//-- colors:end --//</span>' +
-                                        '</code>' +
-                                    '</span>' +
-                                '</li>' +
-                                '<li class="sg-missing-list-item">Make sure you have scss file path defined in config: ' +
-                                    '<span class="sg-missing-list-child">' +
-                                        '<code class="sg-sample-code">' +
-                                            '<span>{</span><br />' +
-                                            '<span>&nbsp;&nbsp;sassVariables: [&#39;/scss/_variables.scss&#39;],</span><br />' +
-                                            '<span>&nbsp;&nbsp;maxSassIterations: 2000</span><br />' +
-                                            '<span>}</span>' +
-                                        '</code>' +
-                                    '</span>' +
-                                '</li>' +
-                                '<li class="sg-missing-list-item">Scrape your styles:' +
-                                    '<span class="sg-missing-list-child">' +
-                                        '<button type="button" class="btn-new js-scrape-sass">Start scss scrape</button>' +
-                                    '</span>' +
-                                '</li>' +
-                            '</ol>' +
-                        '</div>';
-
+                    var scrapeMessage = $($('#scrape-message').html());
                     $('.main')
                         .empty()
-                        .append(errorTpl);
+                        .append(scrapeMessage);
 
                     return;
                 }
 
-                /*
-                //DETAILED REPORT
-                len = data.length;
-
-                for (index = 0; len > index; index++) {
-                    content = '<p>Report for theme: ' + data[index].themeName + '</p>';
-                    content += '<p>Count of unique color values: ' + data[index].uniqueColVals + '</p>';
-
-                    if (data[index].diffOfColVals > 0) {
-                        content += '<p>' + data[index].diffOfColVals + ' color values were added.</p>';
-                    } else if (data[index].diffOfColVals < 0) {
-                        content += '<p>' + Math.abs(data[index].diffOfColVals) + ' color values were removed.</p>';
-                    } else if (data[index].diffOfColVals == 0) {
-                        content += '<p>Count of color values is the same as it was before.</p>';
-                    }
-
-                    if (data[index].hasOwnProperty('oldTypo')) {
-                        content += '<p>Typography has changed!</p>';
-                        content += '<div class="typo-summary-old"><h5>Old Typography:</h5><pre>' + JSON.stringify(data[index].oldTypo, null, 2) + '</pre></div>';
-                        content += '<div class="typo-summary-new"><h5>New Typography:</h5><pre>' + JSON.stringify(data[index].newTypo, null, 2) + '</pre></div>';
-                    } else {
-                        content += '<p>Typography hasn\'t changed!</p>';
-                    }
-                    content += '<br>';
-                }
-                */
                 content = '' +
                     '<div class="sg-success-message">' +
                         '<p><strong>Scss variables has been successfully updated.</strong></p>' +
