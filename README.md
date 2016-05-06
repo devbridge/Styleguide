@@ -127,6 +127,7 @@ You can add project name, project logo or change settings modifying `config.txt`
   "projectName": "", //Project name
   "projectUrl": "",  //Domain name of your project
   "projectLogo": "", //path to your project logo
+  "defaultJsResources": [], //Javascript resources that will load for all snippets automatically
   "jsResources": [], //Javascript resources that's going to be included into the snippets
   "viewportWidths": [ //Predefinded viewport breakpoints
     480,
