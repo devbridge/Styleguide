@@ -21,6 +21,7 @@ var getMainConfig = function(folder) {
     projectUrl: '',
     projectLogo: '',
 
+    defaultJsResources: [],
     jsResources: [],
     viewportWidths: [320, 480, 768, 1024, 1200],
 

@@ -91,6 +91,14 @@ var snippetActions = (function ($, snippetService, iframesService, editorService
             .find('script')
             .remove();
 
+        iframesService.getDefaultJavaScripts(function (defaultJsResources) {
+            length = defaultJsResources.length;
+
+            for (index = 0; index < length; index++) {
+                injectJavaScript(document.getElementById(frameId.attr('id')), defaultJsResources[index]);
+            }
+        });
+
         if (includeJs === true || includeJs === "true") {
             rawJsFrame = document.getElementById(frameId.attr('id'));
 
