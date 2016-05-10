@@ -78,9 +78,25 @@ var copyContent = function(currentFolder, rootFolder, dbFolder) {
 
     fs.writeFileSync(path.join(rootFolder, 'content', 'icon-code-active.svg'), currentContents);
 
+    currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-code-css.svg'), 'utf-8');
+
+    fs.writeFileSync(path.join(rootFolder, 'content', 'icon-code-css.svg'), currentContents);
+
+    currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-code-html.svg'), 'utf-8');
+
+    fs.writeFileSync(path.join(rootFolder, 'content', 'icon-code-html.svg'), currentContents);
+
     currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-code.svg'), 'utf-8');
 
     fs.writeFileSync(path.join(rootFolder, 'content', 'icon-code.svg'), currentContents);
+
+    currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-delete.svg'), 'utf-8');
+
+    fs.writeFileSync(path.join(rootFolder, 'content', 'icon-delete.svg'), currentContents);
+
+    currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-description.svg'), 'utf-8');
+
+    fs.writeFileSync(path.join(rootFolder, 'content', 'icon-description.svg'), currentContents);
 
     currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-down.svg'), 'utf-8');
 
@@ -97,7 +113,7 @@ var copyContent = function(currentFolder, rootFolder, dbFolder) {
     currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'logo-npm.svg'), 'utf-8');
 
     fs.writeFileSync(path.join(rootFolder, 'content', 'logo-npm.svg'), currentContents);
-
+    
     //-----------SVGs---------------
 
     currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'your-logo.png'), 'utf-8');
