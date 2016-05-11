@@ -26,7 +26,7 @@ _**Note**, make sure you run command inside your project directory._
 Copy of the styleguide will be generated and placed in your project's root directory under `'/styleguide/'` folder. If you want to change folder name run `styleguide initialize folder-name`
 
 ##### #4 Setup Gulp task: #####
-```
+```javascript
 var styleguide = require('devbridge-styleguide');
 
 gulp.task('start-styleguide', function () {
@@ -36,7 +36,7 @@ gulp.task('start-styleguide', function () {
 
 If your styleguide is placed in different directory than /styleguide/ you need to specified it in the task:
 
-```
+```javascript
 styleguide.startServer({
     styleguidePath: 'folder-name'
 });
@@ -49,7 +49,7 @@ Run styleguide server: `gulp start-styleguide`
 
 Setup grunt task:
 
-```
+```javascript
 module.exports = function (grunt) {
 	var styleguide = require('devbridge-styleguide');
 	grunt.registerTask('start-styleguide', function () {
@@ -77,7 +77,7 @@ Usage:
 
 The Styleguide component has two modes - **“view only”** and **“edit”**.
 
-**"View only”** mode does not have editing controls and is meant for presentation. It is a purely client-side application without any backend dependencies (html, css, and javascript only). It is delightly easy to share, publish, move, or export!
+**"View only"** mode does not have editing controls and is meant for presentation. It is a purely client-side application without any backend dependencies (html, css, and javascript only). It is delightly easy to share, publish, move, or export!
 
 In order to switch to **“Edit”** mode and see all additional controls for editing, you need to run the styleguide server.
 
@@ -92,7 +92,7 @@ Scraping scss files you can automatically generate color palette or create a lis
 * First you need to add smart comment tags to your scss file to identify your variables:
 
     For color variables:
-    ```
+    ```sass
     //-- colors:start --//
     $color-black: #000000;
     $color-dark: #141823;
@@ -101,7 +101,7 @@ Scraping scss files you can automatically generate color palette or create a lis
     ```
 
     For font variables:
-    ```
+    ```sass
     //-- typo:start --//
     $font-proxima: 'Neue Helvetica W01', helvetica, sans-serif; // 300, 700
     $font-proxima-alternative: 'Neue Helvetica W01', helvetica, sans-serif; // 400, 400 italic
@@ -122,7 +122,7 @@ Styleguide snippets are loaded through iframe using `template.html` file. All cs
 
 ##### - To modify styleguide settings: #####
 You can add project name, project logo or change settings modifying `config.txt` file, located in your styleguide directory:
-```
+```javascript
 {
   "projectName": "", //Project name
   "projectUrl": "",  //Domain name of your project
@@ -143,7 +143,6 @@ You can add project name, project logo or change settings modifying `config.txt`
   "sassData": "styleguide/db/sassdata.txt",
   "extension": ".txt"
 }
-
 ```
 
 [![Analytics](https://ga-beacon.appspot.com/UA-73039601-2/Styleguide/readme)](https://github.com/igrigorik/ga-beacon)
