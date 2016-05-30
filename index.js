@@ -16,7 +16,6 @@ exports.startServer = function (options) {
 	var config = JSON.parse(fs.readFileSync('./' + options.styleguidePath + '/config.txt', 'utf8'));
 	var serverInstance;
 
-
 	return tcpPortUsed.check(config.serverPort)
 		.then(function (inUse) {
 			if (!inUse) {

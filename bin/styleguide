@@ -113,7 +113,7 @@ var copyContent = function(currentFolder, rootFolder, dbFolder) {
     currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'logo-npm.svg'), 'utf-8');
 
     fs.writeFileSync(path.join(rootFolder, 'content', 'logo-npm.svg'), currentContents);
-    
+
     //-----------SVGs---------------
 
     currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'your-logo.png'), 'utf-8');
