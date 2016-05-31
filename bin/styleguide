@@ -9,6 +9,7 @@ var pkg = require('../package.json');
 var path = require('path');
 var stdin = process.stdin;
 var stdout = process.stdout;
+var startServer  = require('../index.js');
 
 var initialCategories = [{
     name: 'Undefined',
@@ -181,5 +182,10 @@ program
   .command('initialize [folder]')
   .description('initialize styleguide in working directory, if no folder specified - defaults to ./styleguide')
   .action(initialize);
+
+program
+    .command('start')
+    .description('Starts styleguide server API')
+    .action(startServer.startServer);
 
 program.parse(process.argv);
