@@ -64,6 +64,16 @@ var iframesService = (function ($, snippetService) {
         });
     };
 
+    module.getDefaultJavaScripts = function (callback) {
+        getConfig(function (config) {
+            if (config.defaultJsResources) {
+                callback(config.defaultJsResources);
+            } else {
+                console.log('No default JavaScript files are defined in configuration to load into iframe.');
+            }
+        });
+    };
+
     module.getJavaScripts = function (callback) {
         getConfig(function (config) {
             if (config.jsResources) {
