@@ -63,6 +63,13 @@ module.exports = function (grunt) {
 
 Run styleguide server: `grunt start-styleguide`
 
+##### For Plain CLI usage: #####
+
+Enter command:
+```
+styleguide start
+```
+
 ***
 
 _**Note**, the purpose of the styleguide server is to expose API for styleguide data manipulation **ONLY**. In order to view the styleguide in the browser, you need to setup and run your own project’s server. We recommend using simple [http server - live-server](https://www.npmjs.com/package/live-server)._
