@@ -118,7 +118,7 @@ Scraping scss files you can automatically generate color palette or create a lis
 
 * Next, declare scss file path references in styleguide config file:
 
-    `"sassVariables": ['/path/to/your/project/scss/file.scss']`
+    `"sassVariables": ["/path/to/your/project/scss/file.scss"]`
 
 * Lastly, open styleguide web page and select from the menu 'Scrape Variables'. Note, make sure you have styleguide server running.
 
