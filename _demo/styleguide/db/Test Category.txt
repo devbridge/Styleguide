@@ -1,0 +1,22 @@
+[
+  {
+    "id": 2,
+    "name": "blah",
+    "code": "blah",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": true
+  },
+  {
+    "id": 1,
+    "name": "Test Snippet",
+    "code": "<div class=\"test-snippet\">\n    Hello World!\n</div>",
+    "description": "test Hello World!",
+    "inlineCss": ".test-snippet {\n    background: #bada55;\n    padding: 20px;\n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  }
+]

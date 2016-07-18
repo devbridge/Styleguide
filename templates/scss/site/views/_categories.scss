@@ -130,21 +130,19 @@
     &.sg-edit,
     &.sg-delete {
         &:after {
-            @extend %font-icon-style;
-            @include transition(200ms);
-            color: #999;
+            transition: background .2s;
             display: inline-block;
-            font-size: 18px;
             margin-left: 10px;
+            vertical-align: middle;
+            width: 16px;
+            height: 26px;
+            content: '';
+            margin-top: -2px;
         }
 
         &:focus,
         &:hover {
             color: $color-black;
-
-            &:after {
-                color: $color-blue;
-            }
         }
     }
 
@@ -153,7 +151,12 @@
         text-align: left;
 
         &:after {
-            content: '\f040';
+            background: sassvg('pencil', #999) center/contain no-repeat;
+        }
+
+        &:focus:after,
+        &:hover:after {
+            background: sassvg('pencil', $color-blue) center/contain no-repeat;
         }
     }
 
@@ -162,7 +165,12 @@
         text-align: right;
 
         &:after {
-            content: '\f014';
+            background: sassvg('trash', #999) center/contain no-repeat;
+        }
+
+        &:focus:after,
+        &:hover:after {
+            background: sassvg('trash', $color-red) center/contain no-repeat;
         }
     }
 }
