@@ -50,7 +50,7 @@ var copyContent = function(currentFolder, rootFolder, dbFolder) {
         mkdir.sync(rootFolder);
         mkdir.sync(dbFolder);
         mkdir.sync(path.join(rootFolder, 'content'));
-        mkdir.sync(path.join(rootFolder, 'content', 'fonts'));
+        mkdir.sync(path.join(rootFolder, 'content', 'icons'));
         mkdir.sync(path.join(rootFolder, 'js'));
 
         currentContents = fs.readFileSync(path.join(moduleFolder, 'template.html'), 'utf-8');
@@ -75,38 +75,6 @@ var copyContent = function(currentFolder, rootFolder, dbFolder) {
 
         fs.writeFileSync(path.join(rootFolder, 'content', 'db-logo.svg'), currentContents);
 
-        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-code-active.svg'), 'utf-8');
-
-        fs.writeFileSync(path.join(rootFolder, 'content', 'icon-code-active.svg'), currentContents);
-
-        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-code-css.svg'), 'utf-8');
-
-        fs.writeFileSync(path.join(rootFolder, 'content', 'icon-code-css.svg'), currentContents);
-
-        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-code-html.svg'), 'utf-8');
-
-        fs.writeFileSync(path.join(rootFolder, 'content', 'icon-code-html.svg'), currentContents);
-
-        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-code.svg'), 'utf-8');
-
-        fs.writeFileSync(path.join(rootFolder, 'content', 'icon-code.svg'), currentContents);
-
-        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-delete.svg'), 'utf-8');
-
-        fs.writeFileSync(path.join(rootFolder, 'content', 'icon-delete.svg'), currentContents);
-
-        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-description.svg'), 'utf-8');
-
-        fs.writeFileSync(path.join(rootFolder, 'content', 'icon-description.svg'), currentContents);
-
-        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-down.svg'), 'utf-8');
-
-        fs.writeFileSync(path.join(rootFolder, 'content', 'icon-down.svg'), currentContents);
-
-        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icon-drag.svg'), 'utf-8');
-
-        fs.writeFileSync(path.join(rootFolder, 'content', 'icon-drag.svg'), currentContents);
-
         currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'logo-github.svg'), 'utf-8');
 
         fs.writeFileSync(path.join(rootFolder, 'content', 'logo-github.svg'), currentContents);
@@ -115,19 +83,51 @@ var copyContent = function(currentFolder, rootFolder, dbFolder) {
 
         fs.writeFileSync(path.join(rootFolder, 'content', 'logo-npm.svg'), currentContents);
 
+        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icons', 'angle-arrow-down.svg'), 'utf-8');
+
+        fs.writeFileSync(path.join(rootFolder, 'content', 'icons', 'angle-arrow-down.svg'), currentContents);
+
+        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icons', 'check.svg'), 'utf-8');
+
+        fs.writeFileSync(path.join(rootFolder, 'content', 'icons', 'check.svg'), currentContents);
+
+        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icons', 'code.svg'), 'utf-8');
+
+        fs.writeFileSync(path.join(rootFolder, 'content', 'icons', 'code.svg'), currentContents);
+
+        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icons', 'code-css.svg'), 'utf-8');
+
+        fs.writeFileSync(path.join(rootFolder, 'content', 'icons', 'code-css.svg'), currentContents);
+
+        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icons', 'code-html.svg'), 'utf-8');
+
+        fs.writeFileSync(path.join(rootFolder, 'content', 'icons', 'code-html.svg'), currentContents);
+
+        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icons', 'description.svg'), 'utf-8');
+
+        fs.writeFileSync(path.join(rootFolder, 'content', 'icons', 'description.svg'), currentContents);
+
+        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icons', 'drag.svg'), 'utf-8');
+
+        fs.writeFileSync(path.join(rootFolder, 'content', 'icons', 'drag.svg'), currentContents);
+
+        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icons', 'pencil.svg'), 'utf-8');
+
+        fs.writeFileSync(path.join(rootFolder, 'content', 'icons', 'pencil.svg'), currentContents);
+
+        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icons', 'question.svg'), 'utf-8');
+
+        fs.writeFileSync(path.join(rootFolder, 'content', 'icons', 'question.svg'), currentContents);
+
+        currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'icons', 'trash.svg'), 'utf-8');
+
+        fs.writeFileSync(path.join(rootFolder, 'content', 'icons', 'trash.svg'), currentContents);
+
         //-----------SVGs---------------
 
         currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'your-logo.png'), 'utf-8');
 
         fs.writeFileSync(path.join(rootFolder, 'content', 'your-logo.png'), currentContents);
-
-        //-----------fonts--------------
-        fontsFolder = fs.readdirSync(path.join(templateFolder, 'content', 'fonts'));
-
-        for (var index = 0, len = fontsFolder.length; index < len; index++) {
-            currentContents = fs.readFileSync(path.join(templateFolder, 'content', 'fonts', fontsFolder[index]), 'utf-8');
-            fs.writeFileSync(path.join(rootFolder, 'content', 'fonts', fontsFolder[index]), currentContents);
-        }
 
         //----------javascripts----------
         javascripts = fs.readdirSync(path.join(templateFolder, 'js'));
