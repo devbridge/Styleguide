@@ -1,0 +1,22 @@
+{
+  "projectName": "",
+  "projectUrl": "",
+  "projectLogo": "",
+  "jsResources": [],
+  "viewportWidths": [
+    320,
+    480,
+    768,
+    1024,
+    1200
+  ],
+  "serverPort": 8889,
+  "snippetTemplate": "styleguide\\template.html",
+  "sassVariables": ["styles.scss"],
+  "maxSassIterations": 2000,
+  "database": "styleguide\\db",
+  "categories": "styleguide\\db\\categories.txt",
+  "uniques": "styleguide\\db\\uniques.txt",
+  "sassData": "styleguide\\db\\sassdata.txt",
+  "extension": ".txt"
+}

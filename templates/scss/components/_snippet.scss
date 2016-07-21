@@ -105,7 +105,7 @@
             min-width: 125px;
 
             &:after {
-                background: url($src-icon-code) no-repeat;
+                background: sassvg('code', #999) center/contain no-repeat;
                 content: '';
                 display: inline-block;
                 height: 12px;
@@ -119,7 +119,7 @@
                 color: $color-black;
 
                 &:after {
-                    background-image: url($src-icon-code-active);
+                    background: sassvg('code', $color-blue) center/contain no-repeat;
                 }
             }
         }
@@ -136,18 +136,18 @@
             }
 
             &:before {
-                color: #999;
-                content: '\f040';
+                background: sassvg('pencil', #999) center/contain no-repeat;
+                content: '';
+                width: 15px;
+                height: 45px;
                 display: inline-block;
-                @extend %font-icon-style;
-                font-size: 18px;
             }
 
             &:hover,
             &.active {
 
                 &:before {
-                    color: $color-blue;
+                    background: sassvg('pencil', $color-blue) center/contain no-repeat;
                 }
             }
         }
@@ -164,18 +164,18 @@
             }
 
             &:before {
-                color: #999;
-                content: '\f014';
+                background: sassvg('trash', #999) center/contain no-repeat;
+                content: '';
                 display: inline-block;
-                @extend %font-icon-style;
-                font-size: 18px;
+                width: 16px;
+                height: 45px;
             }
 
             &:hover,
             &.active {
 
                 &:before {
-                    color: $color-red;
+                    background: sassvg('trash', $color-red) center/contain no-repeat;
                 }
             }
         }
@@ -342,16 +342,6 @@
     .sg-link-delete {
         @include position(absolute, 100% 0 null null);
         margin-top: 5px;
-
-        .btn-with-icon {
-            padding-left: 0;
-            padding-right: 0;
-            font-size: 14px;
-
-            &.hidden {
-                display: none;
-            }
-        }
     }
 
     .ace_editor {
@@ -423,7 +413,6 @@
     .field-select {
         @extend %form-item-style;
         -webkit-appearance: none;
-        background: url($src-select-arrow) no-repeat 100% 50%, -webkit-linear-gradient(bottom, $color-white 0%, $color-white 100%);
         height: 37px;
         line-height: 1;
     }
@@ -462,13 +451,12 @@
                 border-color: transparent;
 
                 &:before {
-                    @extend %font-icon-style;
                     @include position(absolute, -1px null null -1px);
-                    color: $color-blue;
-                    content: '\f00c';
-                    font-size: 12px;
-                    text-align: center;
-                    width: 19px;
+                    background: sassvg('check', $color-blue) center/12px no-repeat;
+                    content: '';
+                    width: 18px;
+                    display: block;
+                    height: 18px;
                 }
             }
         }
@@ -478,10 +466,6 @@
         color: $color-black-secondary;
         display: block;
         margin-bottom: 5px;
-
-        sub {
-            @extend %subscript-text-style;
-        }
 
         &[for] {
             cursor: pointer;
@@ -594,7 +578,7 @@
         opacity: 0;
 
         &:before {
-            background: url($src-icon-drag) no-repeat;
+            background: sassvg('drag', #999) center/contain no-repeat;
             @include position(absolute, 50% null null null);
             content: '';
             height: 17px;

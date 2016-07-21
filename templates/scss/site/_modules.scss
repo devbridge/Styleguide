@@ -131,12 +131,12 @@ $btn-ghost-radius: $border-radius;
     @include transition(all 0.3s);
 
     &:after {
-        @extend %font-icon-style;
-        content: '\f107';
+        background: sassvg('angle-arrow-down', $color-white) center/contain no-repeat;
+        content: '';
         display: inline-block;
-        font-size: 20px;
-        line-height: 32px;
         margin-left: 10px;
+        width: 12px;
+        height: 32px;
         vertical-align: middle;
         @include transition(all 0.15s);
         @include transform(scaleY(1));
@@ -180,69 +180,6 @@ $btn-ghost-radius: $border-radius;
     }
 }
 
-.btn-full-screen {
-    background-color: $color-white;
-    border-color: transparent;
-    color: $color-blue;
-    font-size: 0;
-    height: 24px;
-    padding: 0;
-    position: relative;
-    text-align: center;
-    width: 24px;
-
-    &:before {
-        @extend %font-icon-style;
-        content: '\f065';
-        display: inline-block;
-        font-size: 12px;
-        text-align: center;
-    }
-}
-
-.btn-with-icon {
-    @extend %btn-template;
-    background: transparent;
-    color: $color-black-secondary;
-    position: relative;
-
-    &:before {
-        display: inline-block;
-        margin-right: 10px;
-        vertical-align: middle;
-    }
-
-    &:after {
-        background-color: $color-red;
-        @include position(absolute, null 18px 4px 43px);
-        content: '';
-        height: 1px;
-        visibility: hidden;
-        @include transform(scaleX(0));
-        @include transition(.15s linear);
-    }
-
-    &.icon-delete {
-        &:before {
-            @extend %font-icon-style;
-            color: $color-red;
-            content: '\f014';
-            font-size: 18px;
-            margin-top: -2px;
-        }
-    }
-
-    &:hover {
-        &:after {
-            visibility: visible;
-            @include transform(scaleX(1));
-        }
-    }
-}
-
-//module Icons
-@include font-face('FontAwesome', './fonts/fontawesome-webfont');
-
 //module Tooltip
 .tooltip-wrapper {
     label {
@@ -251,10 +188,6 @@ $btn-ghost-radius: $border-radius;
 
     .tooltip {
         margin-left: 15px;
-
-        &:before {
-            margin-left: -1px;
-        }
     }
 }
 
@@ -278,23 +211,24 @@ $btn-ghost-radius: $border-radius;
     line-height: .8;
     margin-left: 15px;
     position: relative;
-    text-align: center;
     text-decoration: none;
     width: 18px;
 
     &:before {
-        @extend %font-icon-style;
-        color: #989898;
-        content: '\f128';
+        background: sassvg('question', #989898) center/contain no-repeat;
+        content: '';
         display: inline-block;
-        font-size: 12px;
+        width: 12px;
+        height: 12px;
+        margin-top: 2px;
+        margin-left: 2px;
     }
 
     &:hover {
         background-color: #989898;
 
         &:before {
-            color: $color-white;
+            background: sassvg('question', $color-white) center/contain no-repeat;
         }
 
         .tooltip-text {

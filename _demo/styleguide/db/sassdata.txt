@@ -1,0 +1,37 @@
+[
+  {
+    "name": "theme",
+    "colors": {
+      "#fdb913": [
+        "$color-yellow"
+      ],
+      "#006a44": [
+        "$color-green"
+      ]
+    },
+    "typography": [
+      {
+        "variable": "$font-heading",
+        "value": "Arial, sans-serif",
+        "weights": [
+          {
+            "weight": 400,
+            "italic": false
+          },
+          {
+            "weight": 400,
+            "italic": true
+          },
+          {
+            "weight": 700,
+            "italic": false
+          },
+          {
+            "weight": 700,
+            "italic": true
+          }
+        ]
+      }
+    ]
+  }
+]

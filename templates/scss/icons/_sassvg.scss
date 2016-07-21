@@ -1,0 +1,158 @@
+////
+/// use this to do some epic svg manipulation
+/// @author Matthias Müller
+/// @group sassvg
+////
+
+/// default color, if the sassvg() mixin gets no color parameter
+/// you may redefine this value multiple times in your project (before including the mixin)
+/// @type {color}
+/// @example 
+/// $sassvg--color
+$sassvg--color: #000;
+
+/// defines whether the sassvg-function returns only the data string or the url as well
+/// @type {Boolean}
+/// @example - all these examples return the same (valid) css/svg
+/// 	$sassvg--url: true;
+/// 	background-image: sassvg("iconname", blue);
+/// 	
+/// 	$sassvg--url: false;
+/// 	background-image: url(sassvg("iconname", blue));
+/// 	
+/// 	$sassvg--url: false;
+/// 	background-image: sassvg("iconname", blue, $url: true);
+/// 	
+/// 	$sassvg--url: true;
+/// 	background-image: url(sassvg("iconname", blue, $url:false));
+$sassvg--url: true;
+
+@import "sassvg-data";
+
+/// returns an uri-encoded color value
+/// if possible, the color is reduced to rgb, otherwise rgba
+/// @return {color} (uri-encoded)
+@function uri-encode-color($color){
+	@if(alpha($color) != 1){
+		@return "rgba%28" + round(red($color)) + "%2C" + round(green($color)) + "%2C" + round(blue($color)) + "%2C" + round(alpha($color)) + "%29";
+	}@else{
+		@return "rgb%28" + round(red($color)) + "%2C" + round(green($color)) + "%2C" + round(blue($color)) + "%29";
+	}
+}
+
+
+/// creates a dynamic svg, e.g. colored
+///
+/// @param {filename} $icon - name of the @include icon
+/// @param {color} $color - used for fill and stroke (if present) attributes
+/// @param {color} $fillcolor - explicitly used only for fill attributes
+/// @param {color} $strokecolor - explicitly used only for stroke attributes (if present)
+/// @param {decimalNumber} $opacity - opacity of the svg (NOT the opacity of the element)
+/// @param {uri escaped String} $extrastyles - expert option, may be used to insert style attributes, this currently needs to be an uri-escaped value, or it won't work in IE !!!!
+///
+/// @throws exception if units are wrong/missing
+/// @require {variable} $sassvg--color
+/// @require {variable} $sassvg--url
+/// @require {function} uri-encode-color
+///
+/// @example
+/// 	background-image: sassvg("iconname", blue);
+/// 	background-image: sassvg("facebook", #FFAFF ); 
+/// 	background-image: sassvg("arrow-left", rgba(224, 51, 224, 0.79)); 
+///
+/// @return {image} - (as data-string)
+@function sassvg(
+	$icon, 
+	$color: $sassvg--color, 
+	$fillcolor: $color,
+	$strokecolor: $color, 
+	$opacity: 1,
+	$extrastyles: "",
+	$url: $sassvg--url
+){
+	@if($opacity != 1){
+		$extrastyles: "opacity%3A" + $opacity + "%3B" + $extrastyles;
+	}
+
+	$fillcolor: uri-encode-color($fillcolor);
+	$strokecolor: uri-encode-color($strokecolor);
+	$functionname: "sassvg-" + $icon;
+
+	//some sanity checks
+	@if(type-of($icon) != "string" or type-of($color) != "color" or function-exists($functionname) == false){
+		@warn "wrong parameter(s) for function 'sassvg'. The first one needs to be a string with the fileName of the svg (without extension)";
+	}@else{
+		@return unquote("url(" + call($functionname, $fillcolor, $strokecolor, $extrastyles) + ")");
+	}
+
+}
+
+/// returns all sassvg-ed icons, optionally filtered by their folder
+/// @param {folder} $folder - optional, filter by the folder the icons are in
+/// @return {list} - a list of icon-names, which may be used by the sassvg() function
+/// @example scss - in case you have 2 icons (facebook.svg and twitter.svg) in your folder "social"
+/// 	$folder: "social";
+/// 	@each $icon in sassvg-list($folder){
+/// 			$data: sassvg($icon, #1a1ab4);
+/// 			.#{$folder}-#{$icon} {
+/// 					background-image: url(#{$data});
+/// 			}
+/// 	}
+///
+/// @example css - then it will generate css like this
+/// 	
+/// 	.social-facebook {
+/// 		background-image: url(data:image/svg+xml...);
+/// 	}
+/// 	.social-twitter {
+/// 		background-image: url(data:image/svg+xml...);
+/// 	} 	
+///
+@function sassvg-list($folder: null){
+	$iconlist: ();
+	@each $key in map-keys($sassvg-map){
+
+		@if(map-get(map-get($sassvg-map, $key), 'folder') == $folder){
+      $iconlist: append($iconlist, unquote(map-get(map-get($sassvg-map, $key), 'name')));
+		}
+	}
+	@return $iconlist;
+}
+
+// convenience mixin for creating a sassvg-icon with usefull default values
+/// @param {filename} $icon - name of the icon
+/// @param {color} $color - used for fill and stroke
+/// @param {background-position} $position - used for fill and stroke
+/// @param {background-size} $size - setting the background-size property
+/// @param {background-repeat} $repeat - setting the background-repeat property
+/// @param {color} $fillcolor - explicitly used only for fill attributes
+/// @param {strokecolor} $strokecolor - explicitly used only for stroke attributes (if present)
+/// @require {function} sassvg
+/// @example scss
+/// 	
+/// 	.selector {
+/// 		@include sassvg("filename", blue);
+/// 	}
+/// 
+/// 	...generates..
+/// 	.selector {
+/// 		background-image: url(data:image/svg+xml...);
+/// 		background-repeat: no-repeat;
+/// 		background-position: 0 50%;
+/// 		background-size: 2rem;
+/// 	}
+///
+@mixin sassvg(
+	$icon,
+	$color: $sassvg--color, 
+	$position: 0 50%, 
+	$size: 2rem, 
+	$repeat: no-repeat, 
+	$fillcolor: $color, 
+	$strokecolor: $color
+) { 
+	background-image: sassvg($icon, $color, $fillcolor, $strokecolor, $url: true);
+	background-repeat: unquote($repeat);
+	background-position: unquote($position);
+	background-size: unquote($size);
+}

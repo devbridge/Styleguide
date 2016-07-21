@@ -1,6 +1,6 @@
 {
   "name": "devbridge-styleguide",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "description": "Styleguide automatization tool.",
   "author": "Gediminas Stanaitis <gedas@devbridge.com>",
   "contributors": [
@@ -51,8 +51,13 @@
     "tcp-port-used": "0.1.2"
   },
   "devDependencies": {
-    "snyk": "^1.14.1",
-    "morgan": "1.5.1"
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sassvg": "^1.4.2",
+    "morgan": "1.5.1",
+    "node-bourbon": "^4.2.8",
+    "snyk": "^1.14.1"
   },
   "bugs": {
     "url": "https://github.com/devbridge/Styleguide/issues"

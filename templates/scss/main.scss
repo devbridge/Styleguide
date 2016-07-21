@@ -1,4 +1,5 @@
-@import "bourbon";
+@import 'bourbon';
+@import 'icons/sassvg.scss';
 
 @import 'core/normalize';
 @import 'core/variables';
@@ -10,7 +11,7 @@
 @import 'components/snippet-new';
 @import 'components/modal';
 
-@import 'site/_layout';
+@import 'site/_layout'; 
 @import 'site/_modules';
 @import 'site/views/header';
 @import 'site/views/footer';

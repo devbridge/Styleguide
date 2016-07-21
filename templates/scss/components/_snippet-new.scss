@@ -30,7 +30,7 @@
             @include position(absolute, 35px null null 0);
             width: 20px;
             height: 20px;
-            background: url($src-icon-desc) no-repeat 50% 50%;
+            background: sassvg('description', $color-blue) center/contain no-repeat;
         }
     }
 }
@@ -62,7 +62,6 @@
 
     .field-text {
         @include snippet-item-style();
-
     }
 
     .field-select {
@@ -116,22 +115,22 @@
         }
 
         &-desc {
-            background: url($src-icon-desc) no-repeat 0 50%;
+            background: sassvg('description', $color-blue) left center no-repeat;
             padding: 0 0 0 35px;
         }
 
         &-css {
-            background: url($src-icon-code-css) no-repeat 0 50%;
+            background: sassvg('code-css', $color-blue) left center no-repeat;
             padding: 0 0 0 35px;
         }
 
         &-html {
-            background: url($src-icon-code-html) no-repeat 0 50%;
+            background: sassvg('code-html', $color-blue) left center no-repeat;
             padding: 0 0 0 35px;
         }
 
         &-delete {
-            background: url($src-icon-delete) no-repeat 0 50%;
+            background: sassvg('trash', $color-red) left center / 16px no-repeat;
             padding: 0 0 0 35px;
         }
     }
@@ -162,7 +161,7 @@
 
     .field-select {
         @include snippet-item-style();
-        background: url($src-select-arrow) no-repeat 100% 50%;
+        background: sassvg('angle-arrow-down', #989898) right center / 12px no-repeat;
     }
 
     .snippet-settings & {
