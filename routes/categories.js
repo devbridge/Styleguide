@@ -32,6 +32,8 @@ router.post('/', function (req, res) {
 		name: req.body.name
 	};
 
+    _checkForDupes(categories, newCategory);
+
 	categories.push(newCategory);
 
 	jf.writeFileSync(config.categories, categories);
@@ -61,6 +63,8 @@ router.put('/:id', function(req, res) {
 		name: req.body.name
 	};
 
+    _checkForDupes(categories, modifiedCategory);
+
 	newCategoryPath = path.join(config.database, modifiedCategory.name + config.extension);
 
 	categories.splice(categoryIndex, 1, modifiedCategory);
@@ -84,10 +88,24 @@ router.delete('/:id', function(req, res) {
 		return;
 	}
 
+    var categoryToDeletePath = path.join(config.database, category.name + config.extension);
+
+    fs.unlinkSync(categoryToDeletePath);
+
 	categories.splice(categoryIndex, 1);
 
 	jf.writeFileSync(config.categories, categories);
 	res.json(category);
 });
+
+function _checkForDupes(categories, category) {
+    var nameLower = _.toLower(category.name);
+
+    var containsDupe = _.some(categories, function (cat) { return _.toLower(cat.name) === nameLower});
+
+    if (containsDupe) {
+        throw new Error('Category with same name already exists!');
+    }
+};
 
 module.exports = router;
