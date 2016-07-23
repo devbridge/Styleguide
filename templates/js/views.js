@@ -395,7 +395,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
             var categoryLine = $('<li class="sg-category-line" data-category-id="' + id +'"></li>'),
 
                 categoryInputWrapper = $('<div class="sg-field-wrapper"></div>'),
-                categoryName = $('<input class="sg-category-name" type="text" value="' + name + '" readonly>'),
+                categoryName = $('<input placeholder="Category Name" class="sg-category-name" type="text" value="' + name + '" readonly>'),
 
                 categoryControls = $('<div class="sg-category-controls sg-opened"></div>'),
                 categoryControlsInner = $('<div class="sg-category-controls-inner"></div>'),
@@ -548,7 +548,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 modalContent = $("<div></div>");
 
                 categoryAddButton.on('click', function () {
-                    categoriesList.append(categoryMarkup('new category', undefined, true));
+                    categoriesList.append(categoryMarkup('', undefined, true));
                 });
 
                 $.each(categories, function (index, value) {
