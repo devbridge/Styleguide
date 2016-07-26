@@ -221,7 +221,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         $.getJSON('./config.txt', function (data) {
             $.each(data.viewportWidths, function (index, value) {
                 if (firstValue === false) {
-                    firstValue = value;
+                    firstValue = data.viewportWidths[data.viewportWidths.length - 1];
                 }
                 tempLi = $('<li></li>');
                 tempButton = $('<button type="button" data-size="' + value + '">' + value + ' px</button>');
@@ -238,7 +238,7 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
                 firstValue = parseFloat(mediaCookie);
             }
             if(firstValue < 320 || firstValue === "" || isNaN(firstValue)) {
-                firstValue = 320;
+                firstValue = 1200;
             }
             if (firstValue + 100 + 20 > windowWidth) {
                 firstValue = windowWidth - 100 - 20;
