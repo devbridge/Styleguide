@@ -21,7 +21,7 @@ router.get('/snippets', function(req, res) {
       });
     };
   };
-  
+
   snippetScraper.requestPages(config.scrapeUrls, function(responses) {
     var filteredHTml = [],
       filters,
@@ -117,7 +117,7 @@ router.get('/sass', function(req, res) {
       typography: []
     },
     index,
-    sassPaths = config.sassVariables,
+    sassPaths = config.cssVariables,
     maxSassIterations = config.maxSassIterations,
     length = sassPaths.length,
     report = [],
@@ -133,11 +133,11 @@ router.get('/sass', function(req, res) {
     if (currentResult.colors) {
       result.colors = _.assign(result.colors, currentResult.colors);
     }
-    
+
     if (currentResult.typography) {
       result.typography = result.typography.concat(currentResult.typography);
     }
-    
+
   }
 
   jf.writeFileSync(config.sassData, [result]);
