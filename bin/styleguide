@@ -28,7 +28,7 @@ var getMainConfig = function(folder) {
         serverPort: 8889,
         snippetTemplate: path.join('./', folder, 'template.html'),
 
-        sassVariables: [],
+        cssVariables: [],
         maxSassIterations: 2000,
 
         database: path.join('./', folder, 'db'),

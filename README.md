@@ -116,9 +116,9 @@ Scraping scss files you can automatically generate color palette or create a lis
     //-- typo:end --//
     ```
 
-* Next, declare scss file path references in styleguide config file:
+* Next, declare scss, less or styl file path references in styleguide config file:
 
-    `"sassVariables": ["/path/to/your/project/scss/file.scss"]`
+    `"cssVariables": ["/path/to/your/project/scss/file.scss"]`
 
 * Lastly, open styleguide web page and select from the menu 'Scrape Variables'. Note, make sure you have styleguide server running.
 
@@ -142,7 +142,7 @@ You can add project name, project logo or change settings modifying `config.txt`
   ],
   "serverPort": 8889, //Default server port for styleguide component
   "snippetTemplate": "styleguide/template.html", //HTML template which will be used to wrap and show html snippets. Project CSS resources of the project should be placed in this template as well.
-  "sassVariables": [], //Paths to your scss variables files
+  "cssVariables": [], //Paths to your scss variables files
   "maxSassIterations": 2000,
   "database": "styleguide/db",
   "categories": "styleguide/db/categories.txt",
