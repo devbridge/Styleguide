@@ -1,13 +1,13 @@
 var helpers = require('./helpers.js'),
   fs = require('fs'),
   jf = require('jsonfile'),
-
+  path = require('path'),
   exports = module.exports = {};
 
 var pruneArrayAndObject = function () {
   delete Array.prototype.equals;
   delete Object.prototype.equals;
-}
+};
 
 var extendArrayAndObject = function() {
   Array.prototype.equals = function(array) {
@@ -65,7 +65,7 @@ var extendArrayAndObject = function() {
   };
 };
 
-var parseTypoghraphy = function(theme, sass) {
+var parseTypoghraphy = function(theme, variables, cssType) {
   var weights,
     typography,
     type,
@@ -75,8 +75,10 @@ var parseTypoghraphy = function(theme, sass) {
     index,
     length;
 
+  //replace less variable declaration symbol @ to scss symbol $
+  variables = variables.replace(/\n@/gi, '\n$');
   //matches everything between //-- typo:start --// and //-- typo:end --/ including these markers
-  typography = sass.match(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi);
+  typography = variables.match(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi);
   rawTypoArray = typography[0].split('\n');
 
   //removing markers
@@ -88,11 +90,29 @@ var parseTypoghraphy = function(theme, sass) {
   //Constructing types array
   typography = [];
 
+  //prepare array structure https://regex101.com/
   for (index = 0, length = rawTypoArray.length; index < length; index++) {
-    //matches from $ to :, including $. To take variable name.
-    variableName = rawTypoArray[index].match(/\$[\d\D]*?(?=:)/gi)[0];
-    //matches from : to ;, including :. To take variable value.
-    fontValue = rawTypoArray[index].match(/(?=:)[\d\D]*?(?=;)/)[0];
+    if (cssType === 'scss' || cssType === 'less') {
+      //matches from $ to :, including $. To take variable name.
+      variableName = rawTypoArray[index].match(/\$[\d\D]*?(?=:)/gi)[0];
+      //matches from : to ;, including :. To take variable value.
+      fontValue = rawTypoArray[index].match(/(?=:)[\d\D]*?(?=;)/)[0];
+    }
+
+    if (cssType === 'styl') {
+      //matches from $ to =, including $. To take variable name.
+      variableName = rawTypoArray[index].match(/\$[\d\D]*?(?==)/gi)[0];
+      //matches from = to /, including =. To take variable value.
+      fontValue = rawTypoArray[index].match(/(?==)[\d\D]*?(?=\/)/)[0];
+    }
+
+    if (cssType === 'sass') {
+      //matches from $ to :, including $. To take variable name.
+      variableName = rawTypoArray[index].match(/\$[\d\D]*?(?=:)/gi)[0];
+      //matches from : to end of line, including :. To take variable value.
+      fontValue = rawTypoArray[index].match(/(?=:)[\d\D]*?(?=\/)/)[0];
+    }
+
     //matches everything in between (), including (. To take font weights.
     weights = rawTypoArray[index].match(/(?=\/)[\d\D]+/gi);
 
@@ -118,9 +138,8 @@ var parseTypoghraphy = function(theme, sass) {
   theme.typography = typography;
 };
 
-var parseColors = function(theme, sass, maxSassIterations) {
-  //matches everything between //-- colors:start --// and //-- colors:end --/ including these markers
-  var rawColArray = sass.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi),
+var parseColors = function(theme, variables, cssType, maxSassIterations) {
+  var rawColArray,
     unassignedColors = [],
     assignedColors = {},
     iterations = 0,
@@ -129,6 +148,11 @@ var parseColors = function(theme, sass, maxSassIterations) {
     variableName,
     hexOrVarValue,
     color;
+
+  //replace less variable declaration symbol @ to scss symbol $
+  variables = variables.replace(/\n@/gi, '\n$');
+  //matches everything between //-- colors:start --// and //-- colors:end --/ including these markers
+  rawColArray = variables.match(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi);
 
   for (index = 0, length = rawColArray.length; index < length; index++) {
     rawColArray[index] = rawColArray[index].split('\n');
@@ -142,12 +166,28 @@ var parseColors = function(theme, sass, maxSassIterations) {
 
   unassignedColors = unassignedColors.filter(helpers.filterOutNotVars);
 
-  //prepare array structure
+  //prepare array structure https://regex101.com/
   for (index = 0, length = unassignedColors.length; index < length; index++) {
-    //matches from $ to :, including $. To take variable name.
-    variableName = unassignedColors[index].match(/\$[\d\D]*?(?=:)/gi)[0];
-    //matches from : to ;, including :. To take variable value.
-    hexOrVarValue = unassignedColors[index].match(/\:[\d\D]*?(?=;)/gi)[0];
+    if(cssType === 'less' || cssType === 'scss') {
+      //matches from $ to :, including $. To take variable name.
+      variableName = unassignedColors[index].match(/\$[\d\D]*?(?=:)/gi)[0];
+      //matches from : to ;, including :. To take variable value.
+      hexOrVarValue = unassignedColors[index].match(/:[\d\D]*?(?=;)/gi)[0];
+    }
+
+    if (cssType === 'styl') {
+      //matches from $ to =, including $. To take variable name.
+      variableName = unassignedColors[index].match(/\$[\d\D]*?(?==)/gi)[0];
+      //matches from = to end of line, including :. To take variable value.
+      hexOrVarValue = unassignedColors[index].match(/=[\d\D]+/gi)[0];
+    }
+
+    if (cssType === 'sass') {
+      //matches from $ to :, including $. To take variable name.
+      variableName = unassignedColors[index].match(/\$[\d\D]*?(?=:)/gi)[0];
+      //matches from : to end of line, including :. To take variable value.
+      hexOrVarValue = unassignedColors[index].match(/:[\d\D]+/gi)[0];
+    }
 
     hexOrVarValue = hexOrVarValue.substring(1, hexOrVarValue.length).trim();
 
@@ -217,25 +257,27 @@ var compareForReport = function(theme, report, config) {
 };
 
 exports.scrapeTheme = function(themeIndex, result, sassPaths, maxSassIterations, config) {
-  var sass,
+  var variables,
     theme = {},
-    report = {};
+    report = {},
+    fileType = path.extname(sassPaths[0]),
+    cssType = fileType.substr(1, fileType.length - 1);
 
-  sass = fs.readFileSync(sassPaths[themeIndex], {
+    variables = fs.readFileSync(sassPaths[themeIndex], {
     encoding: 'utf-8'
   });
   theme.name = sassPaths[themeIndex];
 
   //matches everything between //-- typo:start --// and //-- typo:end --/ including these markers
-  if (sass.search(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi) !== -1) {
-    parseTypoghraphy(theme, sass);
+  if (variables.search(/\/\/-- typo:start[\d\D]*?typo:end --\/\//gi) !== -1) {
+    parseTypoghraphy(theme, variables, cssType);
   } else {
     console.log('Typography markers not found in ' + theme.name + '.');
   }
 
   //matches everything between //-- colors:start --// and //-- colors:end --/ including these markers
-  if (sass.search(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi) !== -1) {
-    parseColors(theme, sass, maxSassIterations);
+  if (variables.search(/\/\/-- colors:start[\d\D]*?colors:end --\/\//gi) !== -1) {
+    parseColors(theme, variables, cssType, maxSassIterations);
   } else {
     console.log('Color markers not found in ' + theme.name + '.');
   }
