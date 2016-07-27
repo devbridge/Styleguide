@@ -579,10 +579,13 @@ var viewService = (function ($, editorService, sassService, categoryService, sni
         snippetService.init(function (data) {
             if (typeof data === 'string') {
                 isServerOn = false;
-                console.log(data); //server is down
+                console.log(data); // server is down
             } else {
                 isServerOn = true;
+                console.log('EDIT MODE - Server is running'); // server is running
+
                 $('html').addClass('server-on');
+
                 //commented these, these will be improved and enabled after initial release
                 //$('.js-scrape-snipp').on('click', $.proxy(snippetActions.scrapeHandler, null, 'snippets'));
                 $(document).on('click', '.js-scrape-sass', $.proxy(snippetActions.scrapeHandler, null, 'sass'));

@@ -40,7 +40,7 @@ var snippetService = (function ($, categoryService) {
             });
 
             request.fail(function () {
-                callback('Server is down!');
+                callback('VIEW ONLY MODE - Server is not running');
             });
 
         });
