@@ -12,7 +12,7 @@
   ],
   "serverPort": 8889,
   "snippetTemplate": "styleguide\\template.html",
-  "sassVariables": ["styles.scss"],
+  "cssVariables": ["styles.scss"],
   "maxSassIterations": 2000,
   "database": "styleguide\\db",
   "categories": "styleguide\\db\\categories.txt",
