@@ -1,0 +1,42 @@
+[
+  {
+    "id": 27,
+    "name": "Intro separator",
+    "code": "<hr class=\"intro-separator\">",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 9,
+    "name": "Title with arrows",
+    "code": "<section class=\"content-section\">\n    <h2>\n        <span class=\"title-arrows\">«</span>\n        Select Clients<span class=\"title-arrows\">»</span>\n    </h2>\n</section>",
+    "description": "Heading must be placed  inside '.content-section' element.",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 2,
+    "name": "Sub Heading",
+    "code": "<div class=\"intro-sub-headline\">\n    <h2 class=\"header-4\">We accelerate product-to-market for enterprise clients through dedicated product teams, user experience and software engineering expertise.</h2>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 1,
+    "name": "Blog post heading",
+    "code": "<div class=\"insights-info-inner\">\n    <span class=\"insights-details\"><strong>By:</strong>Aurimas Adomavicius</span>\n    <span class=\"insights-details\"><strong>Posted On:</strong><time datetime=\"2016-02-22\">02/22/2016</time></span>\n    <span class=\"insights-details\"><strong>Topic:</strong>Process</span>\n</div>\n<article class=\"insights-content\">\n    <h1>Documented Failure: Why Detailed Requirements Cost Twice as Much and Deliver Half the Value</h1>\n    <p>We often go through contracting phases for custom product builds that are estimated at over two million dollars. As expected, we are asked to draft a fixed bid SOW that documents, at a high level of fidelity, deliverables for each sprint of the project. I couldn’t come up with a <a href=\"http://giphy.com/gifs/KekzimlYjn4vS\" target=\"_blank\">worse idea if I tried</a> and have thus dubbed this as a well documented contract for catastrophic failure.</p>\n</article>",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": false,
+    "isDeleted": false
+  }
+]

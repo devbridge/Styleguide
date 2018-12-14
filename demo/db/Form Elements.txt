@@ -1,0 +1,72 @@
+[
+  {
+    "id": 18,
+    "name": "Field input",
+    "code": "<div class=\"field-holder\">\n    <input class=\"form-control field-text ng-pristine ng-invalid ng-invalid-required db-pristine ng-valid-maxlength ng-valid-pattern\" id=\"FormData_Email\" name=\"FormData_Email\" placeholder=\"Email Address\" type=\"text\">\n\t<div class=\"field-validation-error ng-hide\"><span>Field is required</span></div>\n</div>\n\n<div class=\"field-holder\">\n    <input class=\"form-control field-text ng-pristine ng-invalid ng-invalid-required ng-valid-maxlength ng-valid-pattern\" id=\"FormData_Email\" name=\"FormData_Email\" placeholder=\"Email Address\" type=\"text\">\n\t<div class=\"field-validation-error\"><span>Field is required</span></div>\n</div>\n",
+    "description": "",
+    "inlineCss": "#snippet { \n  margin: 0 auto;\n  max-width: 600px;\n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 19,
+    "name": "Select box",
+    "code": "<div class=\"field-holder\">\n    <select class=\"form-control field-select ng-pristine ng-valid\" id=\"FormData_HeardFrom\" name=\"FormData_HeardFrom\" type=\"select\">\n    \t<option value=\"0\" selected=\"selected\">None</option>\n    \t<option value=\"1\">Referral from an existing client</option>\n    \t<option value=\"2\">Devbridge blog</option>\n    \t<option value=\"3\">Devbridge newsletter</option>\n    \t<option value=\"4\">Devbridge LinkedIn content</option>\n    \t<option value=\"5\">Search engine (Google/Bing)</option>\n    \t<option value=\"6\">Press Release</option>\n    \t<option value=\"7\">Other (please specify)</option>\n    </select>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  margin: 0 auto;\n  max-width: 600px;\n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 20,
+    "name": "Textarea",
+    "code": "<div class=\"field-holder\">\n    <textarea class=\"form-control field-textarea db-pristine ng-invalid ng-invalid-required ng-valid-maxlength\" data-ng-maxlength=\"1000\" data-required=\"\" id=\"FormData_Message\" name=\"FormData_Message\" placeholder=\"Type your message here...\" type=\"text\"></textarea>\n\t<div class=\"field-validation-error ng-hide\"><span>Field is required</span></div>\n</div>\n\n<div class=\"field-holder\">\n    <textarea class=\"form-control field-textarea ng-invalid ng-invalid-required ng-valid-maxlength\" data-ng-maxlength=\"1000\" data-required=\"\" id=\"FormData_Message\" name=\"FormData_Message\" placeholder=\"Type your message here...\" type=\"text\"></textarea>\n\t<div class=\"field-validation-error\"><span>Field is required</span></div>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  margin: 0 auto;\n  max-width: 600px;\n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 28,
+    "name": "Buttons",
+    "code": "<!-- .gs-btn-wrapper class is just for preview -->\n<div class=\"gs-btn-wrapper\">\n    <button type=\"button\" class=\"btn-primary\">.btn-primary</button>\n    <button type=\"button\" class=\"btn-primary active\">.btn-primary .active</button>\n</div>\n\n<!-- .gs-btn-wrapper class is just for preview -->\n<div class=\"gs-btn-wrapper\">\n\t<button type=\"button\" class=\"btn-secondary\">.btn-secondary</button>\n\t<button type=\"button\" class=\"btn-secondary active\">.btn-secondary .active</button>\n</div>\n\n<!-- .gs-btn-wrapper class is just for preview -->\n<div class=\"gs-btn-wrapper\">\n\t<button type=\"button\" class=\"btn-tertiary\">.btn-tertiary</button>\n\t<button type=\"button\" class=\"btn-tertiary active\">.btn-tertiary .active</button>\n</div>\n\n<!-- .gs-btn-wrapper class is just for preview -->\n<div class=\"gs-btn-wrapper\">\n\t<button type=\"button\" class=\"btn-link\">.btn-link</button>\n\t<button type=\"button\" class=\"btn-link active\">.btn-link .active</button>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  max-width: 590px;\n  margin: 0 auto;\n}\n.gs-btn-wrapper {\n    margin: 20px 0;\n    text-align: center;\n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 29,
+    "name": "Play button",
+    "code": "<!-- .gs-btn-wrapper class is just for preview -->\n<div class=\"gs-btn-wrapper\">\n\t<button type=\"button\" class=\"btn-secondary btn-play\">.btn-secondary .btn-play</button>\n</div>\n\n<!-- .gs-btn-wrapper class is just for preview -->\n<div class=\"gs-btn-wrapper\">\n\t<button type=\"button\" class=\"btn-secondary btn-play active\">.btn-secondary .btn-play .active</button>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  max-width: 590px;\n  margin: 0 auto;\n}\n\n.gs-btn-wrapper {\n    margin: 20px 0;\n    text-align: center;\n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 21,
+    "name": "Upload box",
+    "code": "<div class=\"upload-box\">\n    <div class=\"upload-area\" id=\"files-dropzone\" drag-over-class=\"dragover\">\n        <p>\n            Drag &amp; drop files here to upload attachements or&nbsp;\n            <span class=\"upload-browse ng-isolate-scope\" data-db-file-upload=\"\" data-file-type=\".pdf,.jpg,.docx,.doc,.png,.jpg,.txt\" data-file-upload-url=\"'/widgets/contactus/uploadfile'\" data-label-title=\"browse files\" data-input-id=\"contact_us_file_input_id\" data-on-uploaded=\"OnUploaded(data, messages, file)\" data-on-error=\"OnUploadError(messages, file)\" data-on-file-added=\"OnFileAdded(file)\" data-drop-container-id=\"files-dropzone\" data-hide-input=\"true\" data-enabled=\"UploadEnabled\">   <label class=\"upload-file-label ng-binding\" id=\"contact_us_file_input_id_label\">browse files       <input ng-hide=\"hideInput\" type=\"file\" id=\"contact_us_file_input_id\" accept=\".pdf,.jpg,.docx,.doc,.png,.jpg,.txt\" class=\"ng-hide\">   </label></span>\n        </p>\n    </div>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  margin: 0 auto;\n  max-width: 600px;\n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 23,
+    "name": "Newsletter subscribe",
+    "code": "<div class=\"subscription-form\">\n\n    <p>Want more industry news?</p>\n\n<form db-show-loading=\"showLoading\" db-submit=\"submit()\" name=\"NewsletterSubscribe\" ng-controller=\"NewsletterSubscribe\" novalidate=\"\" role=\"form\" class=\"ng-scope ng-isolate-scope ng-pristine ng-invalid ng-invalid-required\">        <div class=\"field-holder\">\n            <input class=\"form-control field-text ng-pristine ng-invalid ng-invalid-required db-pristine ng-valid-maxlength ng-valid-pattern\" data-ng-maxlength=\"200\" data-ng-pattern=\"/^[\\w_\\+-]+(\\.[\\w_\\+-]+)*@[\\w-]+(\\.[\\w-]+)*\\.([a-zA-Z]{2,4})$/\" data-pattern=\"/^[\\w_\\+-]+(\\.[\\w_\\+-]+)*@[\\w-]+(\\.[\\w-]+)*\\.([a-zA-Z]{2,4})$/\" data-required=\"\" id=\"Email\" name=\"Email\" ng-class=\"{'db-pristine' : !NewsletterSubscribe.$attempted &amp;&amp; NewsletterSubscribe.Email.$pristine}\" ng-model=\"Email\" placeholder=\"Email Address\" type=\"text\">\n<div class=\"field-validation-error ng-hide\" ng-show=\"(NewsletterSubscribe.Email.$dirty || NewsletterSubscribe.$attempted) &amp;&amp; NewsletterSubscribe.Email.$invalid &amp;&amp; NewsletterSubscribe.Email.$error.required\"><span>The email field is required.</span></div>\n<div class=\"field-validation-error ng-hide\" ng-show=\"(NewsletterSubscribe.Email.$dirty || NewsletterSubscribe.$attempted) &amp;&amp; NewsletterSubscribe.Email.$invalid &amp;&amp; NewsletterSubscribe.Email.$error.maxlength\"><span>Value is too long</span></div>\n<div class=\"field-validation-error ng-hide\" ng-show=\"(NewsletterSubscribe.Email.$dirty || NewsletterSubscribe.$attempted) &amp;&amp; NewsletterSubscribe.Email.$invalid &amp;&amp; NewsletterSubscribe.Email.$error.minlength\"><span>Value is too long</span></div>\n<div class=\"field-validation-error ng-hide\" ng-show=\"(NewsletterSubscribe.Email.$dirty || NewsletterSubscribe.$attempted) &amp;&amp; NewsletterSubscribe.Email.$invalid &amp;&amp; NewsletterSubscribe.Email.$error.pattern\"><span>Email is invalid.</span></div>\n\n        </div>\n<input name=\"__RequestVerificationToken\" type=\"hidden\" value=\"H2daAaYhSGj7LbzfFc_Cd4BA_5FFAplwYPKrryCsC7izEAmcLnZiPsu2nsuwP8M0IeKD7Xmvx0K6vbxN3NGg9tmVR_3TddHtgjArmimdmgTN9Rrd3dODTXsZBzb7UvsDTD4eKnrWvpvg1qWHxwO8vusRcaH1A9p3hTH3FWlWg9c1\">        <button type=\"submit\" class=\"btn-secondary\">Subscribe</button>\n</form>\n</div>",
+    "description": "<p>For this section there is <strong>Newsletter Subscription Form</strong> BetterCMS widget.</p>\n<p>Widget options:</p>\n<ul>\n<li><strong>FromTitle</strong> - Title for the form (required).</li>\n<li><strong>SubscribedFrom</strong> - Hidden input to add subscription place keyword (optional).</li>\n</ul>",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 5,
+    "name": "Let's talk",
+    "code": "<a href=\"/contact-us/\" class=\"lets-talk-area\"><span>Let's Talk</span></a>",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": true
+  },
+  {
+    "id": 6,
+    "name": "Full size content block",
+    "code": "<div class=\"page-frame\">\n    <div class=\"full-size-content-block\">\n        <h1>Our Agile software development approach is simple: Delivering results on time and on budget.</h1>\n        <a href=\"https://fast.wistia.net/embed/iframe/iwdnlm033x?popover=true\" class=\"btn-secondary btn-play wistia-popover[height=506,width=900]\">Watch How It Works</a>\n    </div>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  background: #1c2e36;\n  height: 768px;\n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 7,
+    "name": "Two column section ",
+    "code": "<section class=\"products-section\">\n    <figure class=\"products-image\">\n        <img alt=\"PowerUp—custom project management tool\" src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/9324a9278cab4d8e98049152b2267cba/power-up_1.png\">\n    </figure>\n    <div class=\"products-description\">\n        <span class=\"link-tag\">Transparency</span>\n        <h3>Metrics-driven, results-oriented.</h3>\n        <p>We track and measure every aspect of our work to ensure projects launch on time, on budget and generate meaningful value for our clients. From high-level reports on progress and all the way down to detailed user stories, clients know where a projects stands at all times. Every client is equipped with <a href=\"/powerup-app-for-ios/\">PowerUp</a>—our custom project management tool—to let them track every step of the Agile process, productivity and budget in real-time.</p>\n    </div>\n</section>",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 12,
+    "name": "Process Blog",
+    "code": "<div class=\"page-frame\">\n\t<div class=\"approach-process-content\">\n\t    <section id=\"our-story\" class=\"content-section  content-logos\">\n\t\t    <h2><span class=\"title-arrows\">«</span>Process<span class=\"title-arrows\">»</span></h2>\n\t\t    <div class=\"content-helper \">\n\t\t        <p>We blend user experience expertise with Agile software development to form a single, cohesive team to design, implement and test results with actual customers.</p>\n\t\t    </div>\n\t\t</section>\n\t\t<div class=\"clearfix\">\n\t\t    <div class=\"approach-column\">\n\t\t        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/file/25754e926048404e8127c23f5b2335d1/lean-icon.svg\" alt=\"Lean Requirements\">\n\t\t        <h4>Lean</h4>\n\t\t\t\t<p>As an organization, and the process we use. Lean requirements is an innovative, iterative approach for engaging stakeholders and collecting requirements. At a fraction of the time.</p>\n\t\t    </div>    \n\t\t    <div class=\"approach-column\">\n\t\t        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/file/6eb762d6ad7d44e49895993cd3ad7b20/agile-icon.svg\" alt=\"Agile Development\">\n\t\t        <h4>Agile</h4>\n\t\t\t\t<p>The only way to successfully design and build complex applications. An iterative approach that enables stakeholders and customers to interact with what is being built. Every two weeks.</p>\n\t\t    </div>    \n\t\t    <div class=\"approach-column\">\n\t\t        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/file/5fd9737eb22745e3bd5d5e77c31aa398/dual_track-icon.svg\" alt=\"Dual Track Scrum\">\n\t\t        <h4>Dual-Track</h4>\n\t\t        <p>Two parallel tracks throughout the project. First track - discovery and design. Second track - implementation. Concurrently helping the team deliver exactly what the customer needs. </p>\n\t\t    </div>\n\t\t</div>\n\t</div>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet .page-frame{ \n  height: auto;\n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 13,
+    "name": "Work single column",
+    "code": "<div class=\"works-block works-block-small js-animate-block animated\">\n    <a href=\"/case-studies/byline-bank/\">\n        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/ce17693661ba4ebca4f23a7c6d162b98/WorkThumb_Byline@2x.jpg\" alt=\"Byline Bank\">\n    </a>\n    <article class=\"works-description\">\n        <h4>\n            <a href=\"/case-studies/byline-bank/\">Byline Bank</a>\n            <span class=\"link-tag\">Case Study</span>\n        </h4>\n        <p>Two platforms, four months to go to market. Delivered on time and on budget for a local Chicago bank.</p>\n        <h6>Financial Services</h6>\n    </article>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": true
+  },
+  {
+    "id": 15,
+    "name": "Three column ",
+    "code": "<div class=\"clearfix\">\n    <div class=\"approach-column\">\n        <h3>Workflow automation</h3>\n\t\t<p>We integrate out product teams with your business stakeholders to effectivelly capture lean requirements around business processes. Collectivelly we build innovative products that help banks, asset management companies, and trading firms automate workflow, save costs, and make more profit.</p>\n    </div>\n    \n    <div class=\"approach-column\">\n\t\t<h3>Lending automation</h3>\n\t\t<p>Digital solutions for lending automation - fully functioning financial services software that is fast, and improves customer service. Lending automation removes paper from the process, reduces the cost of loan processing, reduces processing time, improves accuracy by eliminating human error, and improves management visibility.</p>\n    </div>\n    \n    <div class=\"approach-column\">\n\t\t<h3>Education and learning</h3>\n\t\t<p>Introduction of agile in the enterprise is a challenging process that is often met with resistance. We offer our help in providing training content, workshops, and executive education to facilitate process change. Our objective - ship better products that customers love, faster.</p>\n    </div>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 16,
+    "name": "Team Members List",
+    "code": "<figure class=\"people-list-person\">\n    <a href=\"/about-us/aurimas-adomavicius\" class=\"people-list-image\">\n        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/employees/small/aurimas-adomavicius.jpg\" alt=\"Aurimas Adomavicius\">\n    </a>\n    <figcaption class=\"people-list-description\">\n        <a href=\"/about-us/aurimas-adomavicius\" class=\"people-list-centered\">\n            <h4>Aurimas<br>Adomavicius</h4>\n            <span>President</span>\n        </a>\n    </figcaption>\n</figure>\n\n<figure class=\"people-list-person\">\n    <a href=\"/about-us/martin-stasaitis\" class=\"people-list-image\">\n        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/0cac64d9546242c7aae8fd7eb607c979/martin-stasaitis-small.jpg?151012112643\" alt=\"Martin Stasaitis\">\n    </a>\n\n    <figcaption class=\"people-list-description\">\n        <a href=\"/about-us/martin-stasaitis\" class=\"people-list-centered\">\n            <h4>Martin<br>Stasaitis</h4>\n            <span>CEO</span>\n        </a>\n    </figcaption>\n</figure>\n\n<figure class=\"people-list-person\">\n    <a href=\"/about-us/bill-cronin\" class=\"people-list-image\">\n        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/934c1faff7f54628b3f62c85646f4bdc/bill-cronin-small.jpg\" alt=\"Bill Cronin\">\n    </a>\n\n    <figcaption class=\"people-list-description\">\n        <a href=\"/about-us/bill-cronin\" class=\"people-list-centered\">\n            <h4>Bill<br>Cronin</h4>\n            <span>Director of PMO</span>\n        </a>\n    </figcaption>\n</figure>\n\n<figure class=\"people-list-person\">\n    <a href=\"/about-us/ethan-smith\" class=\"people-list-image\">\n        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/5f1bf6918a9643079e31405b7611813e/ethan-smith-small_1.jpg\" alt=\"Ethan Smith\">\n    </a>\n\n    <figcaption class=\"people-list-description\">\n        <a href=\"/about-us/ethan-smith\" class=\"people-list-centered\">\n            <h4>Ethan<br>Smith</h4>\n            <span>Director of UX &amp; Design</span>\n        </a>\n    </figcaption>\n</figure>\n\n<figure class=\"people-list-person\">\n\t<figcaption class=\"people-list-counter\">\n\t    <a href=\"/people/\">\n\t        <span>+151</span>\n\t    </a>\n\t</figcaption>\n</figure>",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 17,
+    "name": "Address widget",
+    "code": "<div class=\"clearfix\">\n    <div class=\"offices-information\">\n\t    <h4>Kaunas</h4>\n\t\t<dl>\n\t\t    <dd>A. Juozapaviciaus pr. 31B</dd>\n\t\t    <dd>LT-45257</dd>\n\t\t    <dd>Kaunas, Lithuania</dd>\n\t\t</dl>\n\t</div>\n    <div class=\"offices-information\">\n        <h4>Vilnius</h4>\n\t\t<dl>\n\t\t    <dd>A. Gostauto g. 40A</dd>\n\t\t    <dd>LT-03163</dd>\n\t\t    <dd>Vilnius, Lithuania</dd>\n\t\t</dl>\n    </div>\n    <div class=\"offices-information\">\n        <h4>Toronto</h4>\n\t\t<dl>\n\t\t    <dd>55 Yonge Street</dd>\n\t\t    <dd>Toronto, ON</dd>\n\t\t    <dd>Canada</dd>\n\t\t</dl>\n    </div>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 24,
+    "name": "Blog author",
+    "code": "<div class=\"insights-post-details\">\n    <a href=\"/about-us/brad-wechter\" class=\"blog-link\">\n        <figure class=\"insights-post-avatar\">\n            <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/204cd985b6cc45669ae2302547a37fe3/brad-wechter-small_1.jpg\" alt=\"Brad Wechter\">\n        </figure>\n        <div class=\"insights-post-author\">\n            <h4>Brad Wechter</h4>\n            <p>Tech Correspondent &amp; Copywriter</p>\n        </div>\n    </a>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": false,
+    "isDeleted": false
+  },
+  {
+    "id": 4,
+    "name": "Latest Insights",
+    "code": "<div class=\"content-helper\">\n    <div class=\"latest-item-holder\">\n        <article class=\"latest-item-grid\">\n            <a href=\"/articles/2015-in-review-the-absolute-best-articles-and-insight-from-devbridge-group/\" class=\"latest-item\">\n                <span class=\"btn-primary\">Culture</span>\n                <time datetime=\"2016-02-03\" class=\"header-6\">02.03.2016</time>\n                <span class=\"body-style-2\">Brad Wechter</span>\n                <h4>2015 in review: the absolute best articles from Devbridge Group</h4>\n                <p>We have hand-picked the most in-depth articles from our blog that were published in 2015. Read our thinking around Agile adoption, process change, patterns in UX, engineering deep dives, and more.</p>\n                <span class=\"link-secondary\">Read More</span>\n            </a>\n        </article>\n\n        <article class=\"latest-item-grid\">\n            <a href=\"/articles/the-ita-spotlight-on-adam-rusciolelli/\" class=\"latest-item\">\n                <span class=\"btn-primary\">Culture</span>\n                <time datetime=\"2016-01-26\" class=\"header-6\">01.26.2016</time>\n                <span class=\"body-style-2\">Brad Wechter</span>\n                <h4>The ITA Spotlight on Adam Rusciolelli</h4>\n                <p>The ITA Spotlight has found Devbridge once again. This time, Adam Rusciolelli is featured, having recently been named Vice President of Business Development at Devbridge.</p>\n                <span class=\"link-secondary\">Read More</span>\n            </a>\n        </article>\n    </div>\n</div>",
+    "description": "<p>For this section there is <strong>Latest Insights Widget</strong> BetterCMS widget.</p>\n<p>Widget has no options.</p>",
+    "inlineCss": "#snippet { \n  max-height: 515px;\n}\n\n@media screen and (max-width: 600px) {\n #snippet { \n  max-height: none;\n}   \n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 3,
+    "name": "Four columns sample",
+    "code": "<div class=\"clearfix\">        \n    <figure class=\"advantages-block\">\n        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/file/9ca5b73e7f3e4a32a1188c52c2b7668a/Speed_to_Market.svg\" alt=\"Speed to market\">\n        <figcaption>\n            <h3>Speed to market</h3>\n            <p>Lean requirements, rapid prototyping, and a get-things-done attitude.</p>\n        </figcaption>\n    </figure>\n    <figure class=\"advantages-block\">\n        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/file/0618e7a191e5449193ab1c6ea4c7a1ca/Expertise.svg\" alt=\"Expertise\">\n        <figcaption>\n            <h3>Expertise</h3>\n            <p>Core competencies of product management, user experience, software engineering, and quality assurance.</p>\n        </figcaption>\n    </figure>\n    <figure class=\"advantages-block\">\n        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/file/2fd3304f4fbd4107accfbe47f874788e/Transpanency.svg\" alt=\"Transparency\">\n        <figcaption>\n            <h3>Transparency</h3>\n            <p>Metrics driven project management using Dual-track Scrum and our PowerUp app.</p>\n        </figcaption>\n    </figure>\n    <figure class=\"advantages-block\">\n        <img src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/file/de465462664147e49de4c6685c851087/Value.svg\" alt=\"Value\">\n        <figcaption>\n            <h3>Value</h3>\n            <p>Lean, global, and focused on delivering measurable results on time and on budget.</p>\n        </figcaption>\n    </figure>\n    </div>",
+    "description": "<p>For advantage section there is <strong>Advantages Widget</strong> BetterCMS widget.</p>\n<p>Widget options:</p>\n<ul>\n<li><strong>AdvantagesDescription</strong> - Description (required).</li>\n<li><strong>AdvantagesTitle</strong> - Title (required).</li>\n<li><strong>BlockIcon</strong> - Icon url (required).</li>\n</ul>",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  },
+  {
+    "id": 8,
+    "name": "Client logos",
+    "code": "<div class=\"client-logos\">\n    <!-- .animated is class added by JavaScript and is used there for preview purposes. Please remove it before using. -->\n    <figure class=\"js-animate-block animated\">\n        <img alt=\"OCME Group\" src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/22c4743069aa4311963fae3ee0bd0d84/cme.png\">\n    </figure>\n    <!-- .animated is class added by JavaScript and is used there for preview purposes. Please remove it before using. -->\n    <figure class=\"js-animate-block animated\">\n        <img alt=\"Fitch Ratings\" src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/b1ba2ace8b514222a9f8a45eea8b37d8/fitch.png\">\n    </figure>\n    <!-- .animated is class added by JavaScript and is used there for preview purposes. Please remove it before using. -->\n    <figure class=\"js-animate-block animated\">\n        <img alt=\"AON\" src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/a77a00f64a5e416cb8b9c22ccd155b36/aon-logo_4.png\">\n    </figure>\n    <!-- .animated is class added by JavaScript and is used there for preview purposes. Please remove it before using. -->\n    <figure class=\"js-animate-block animated\">\n        <img alt=\"Art Institute of Chicago\" src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/1c6b7e50a61a4180a97537b138dc453f/aic.png\">\n    </figure>\n    <!-- .animated is class added by JavaScript and is used there for preview purposes. Please remove it before using. -->\n    <figure class=\"js-animate-block animated\">\n        <img alt=\"kCura\" src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/4246919388094a46a183367bc4e64efb/kcura.png\">\n    </figure>\n    <!-- .animated is class added by JavaScript and is used there for preview purposes. Please remove it before using. -->\n    <figure class=\"js-animate-block animated\">\n        <img alt=\"McDonald%27s\" src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/e131f708265e42aca2b7ead078ee79e3/mcd.png\">\n    </figure>\n    <!-- .animated is class added by JavaScript and is used there for preview purposes. Please remove it before using. -->\n    <figure class=\"js-animate-block animated\">\n        <img alt=\"Mazak\" src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/0f0ac3ffa75c4273bb903ec91085901b/mazak.png\">\n    </figure>\n    <!-- .animated is class added by JavaScript and is used there for preview purposes. Please remove it before using. -->\n    <figure class=\"js-animate-block animated\">\n        <img alt=\"John Deere\" src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/84b874e16a6f499e9c6e5d8a7eeafe6d/John_Deere_logo.svg.png\">\n    </figure>\n    <!-- .animated is class added by JavaScript and is used there for preview purposes. Please remove it before using. -->\n    <figure class=\"js-animate-block animated\">\n        <img alt=\"Grainger\" src=\"https://dbcms.s3.amazonaws.com/devbridgecom/bcms/image/de783abaf4244758996a6d66031379d3/grainger.png\">\n    </figure>\n</div>",
+    "description": "",
+    "inlineCss": "#snippet { \n  \n}",
+    "includeJs": "false",
+    "isEdited": true,
+    "isDeleted": false
+  }
+]

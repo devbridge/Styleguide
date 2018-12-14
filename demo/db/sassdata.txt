@@ -1,0 +1,85 @@
+[
+  {
+    "name": "theme",
+    "colors": {
+      "#fff": [
+        "$white"
+      ],
+      "#1c2e36": [
+        "$dark"
+      ],
+      "#30c8d6": [
+        "$light-teal"
+      ],
+      "#0e687a": [
+        "$dark-teal"
+      ],
+      "#e6edef": [
+        "$light"
+      ],
+      "#f2f6f7": [
+        "$field-focus"
+      ],
+      "#000": [
+        "$black"
+      ],
+      "#1a9dae": [
+        "$darker-teal"
+      ],
+      "#a4b3b7": [
+        "$gray"
+      ],
+      "#25bcca": [
+        "$teal"
+      ],
+      "#a4b3b8": [
+        "$gray-text"
+      ],
+      "#d6e1e4": [
+        "$smoke"
+      ]
+    },
+    "typography": [
+      {
+        "variable": "$font-avenir",
+        "value": "'Avenir Next W01', sans-serif",
+        "weights": [
+          {
+            "weight": 500,
+            "italic": false
+          },
+          {
+            "weight": 500,
+            "italic": true
+          },
+          {
+            "weight": 700,
+            "italic": false
+          },
+          {
+            "weight": 800,
+            "italic": false
+          }
+        ]
+      },
+      {
+        "variable": "$font-droid-serif",
+        "value": "'Droid Serif W01', serif",
+        "weights": [
+          {
+            "weight": 400,
+            "italic": false
+          },
+          {
+            "weight": 400,
+            "italic": true
+          },
+          {
+            "weight": 700,
+            "italic": false
+          }
+        ]
+      }
+    ]
+  }
+]

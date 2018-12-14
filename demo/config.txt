@@ -1,0 +1,25 @@
+{
+  "projectName": "Devbridge",
+  "projectUrl": "http://devbridge.com",
+  "projectLogo": "http://2014.agileturas.lt/assets/img/general_sponsors/Devbridge_bigger.png",
+  "jsResources": [],
+  "viewportWidths": [
+    320,
+    480,
+    768,
+    1024,
+    1200
+  ],
+  "serverPort": 8889,
+  "snippetTemplate": "demo/template.html",
+  "cssVariables": [
+	"../devbridge-devbridgecomvii/DevBridgeComVII.Web/Scss/core/_colors.scss",
+	"../devbridge-devbridgecomvii/DevBridgeComVII.Web/Scss/core/_variables.scss"
+  ],
+  "maxSassIterations": 2000,
+  "database": "demo/db",
+  "categories": "demo/db/categories.txt",
+  "uniques": "demo/db/uniques.txt",
+  "sassData": "demo/db/sassdata.txt",
+  "extension": ".txt"
+}
