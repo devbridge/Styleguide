@@ -38,16 +38,16 @@
   },
   "dependencies": {
     "async": "1.2.1",
-    "body-parser": "1.12.4",
+    "body-parser": "1.19.0",
     "colors": "1.1.2",
     "commander": "2.8.1",
-    "express": "4.12.4",
+    "express": "4.16.0",
     "format-json": "1.0.3",
     "jsonfile": "2.0.0",
-    "lodash": "4.0.0",
+    "lodash": "4.17.15",
     "mkdirp": "0.5.1",
     "q": "1.4.1",
-    "request": "2.68.0",
+    "request": "2.82.0",
     "tcp-port-used": "0.1.2"
   },
   "devDependencies": {
