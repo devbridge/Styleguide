@@ -53,9 +53,9 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
-    "gulp-sass": "^2.3.2",
+    "gulp-sass": "3.0.0",
     "gulp-sassvg": "^1.4.2",
-    "morgan": "1.5.1",
+    "morgan": "1.9.1",
     "node-bourbon": "^4.2.8",
     "snyk": "^1.14.1"
   },
