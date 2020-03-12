@@ -45,7 +45,7 @@
     "format-json": "1.0.3",
     "jsonfile": "2.0.0",
     "lodash": "4.17.15",
-    "mkdirp": "0.5.1",
+    "mkdirp": "1.0.0",
     "q": "1.4.1",
     "request": "2.82.0",
     "tcp-port-used": "0.1.2"
