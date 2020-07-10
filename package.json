@@ -44,7 +44,7 @@
     "express": "4.16.0",
     "format-json": "1.0.3",
     "jsonfile": "2.0.0",
-    "lodash": "4.17.15",
+    "lodash": "4.17.16",
     "mkdirp": "0.5.1",
     "q": "1.4.1",
     "request": "2.82.0",
