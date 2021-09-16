@@ -47,7 +47,7 @@
     "lodash": "4.17.21",
     "mkdirp": "0.5.1",
     "q": "1.4.1",
-    "request": "2.82.0",
+    "request": "2.88.0",
     "tcp-port-used": "0.1.2"
   },
   "devDependencies": {
