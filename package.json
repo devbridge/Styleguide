@@ -48,7 +48,8 @@
     "mkdirp": "0.5.1",
     "q": "1.4.1",
     "request": "2.82.0",
-    "tcp-port-used": "0.1.2"
+    "tcp-port-used": "0.1.2",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -56,13 +57,15 @@
     "gulp-sass": "3.0.0",
     "gulp-sassvg": "^1.4.2",
     "morgan": "1.9.1",
-    "node-bourbon": "^4.2.8",
-    "snyk": "^1.14.1"
+    "node-bourbon": "^4.2.8"
   },
   "bugs": {
     "url": "https://github.com/devbridge/Styleguide/issues"
   },
   "scripts": {
-    "test": "snyk test"
-  }
+    "test": "snyk test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
